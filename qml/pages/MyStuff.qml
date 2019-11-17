@@ -18,7 +18,27 @@ Page {
 
     header: PageHeader {
         id: header
-        title: i18n.tr('MyStuff')
+        title: {
+            switch(_itemClass) {
+            case 0: return i18n.tr("My Saved Albums")
+            case 1: return i18n.tr("My Playlists")
+            case 2: return i18n.tr("My Recently Played")
+            case 3: return i18n.tr("My Saved Tracks")
+            case 4: return i18n.tr("My Followed Artists")
+            }
+        }
+        trailingActionBar.actions: [
+            Action {
+                iconName: "go-next"
+                text: i18n.tr("next")
+                onTriggered: nextItemClass()
+            },
+            Action {
+                iconName: "go-previous"
+                text: i18n.tr("previous")
+                onTriggered: prevItemClass()
+            }
+        ]
     }
 
     property int currentIndex: -1
@@ -36,8 +56,8 @@ Page {
         //interactive: contentHeight > height
         delegate: ListItem {
             id: listItem
-            width: parent.width - 2*Theme.paddingMedium
-            x: Theme.paddingMedium
+            width: parent.width - 2 * app.paddingMedium
+            x: app.paddingMedium
             //contentHeight: Theme.itemSizeLarge
 
             SearchResultListItem {
@@ -93,7 +113,18 @@ Page {
         if(i > 4)
             i = 0
         _itemClass = i
-        app.current_item_classes.myStuff = i
+        app.settings.currentItemClassMyStuff = i
+        refreshDirection = 0
+        refresh()
+    }
+
+    function prevItemClass() {
+        var i = _itemClass
+        i--
+        if(i < 0)
+            i = 4
+        _itemClass = i
+        app.settings.currentItemClassMyStuff = i
         refreshDirection = 0
         refresh()
     }

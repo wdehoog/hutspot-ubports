@@ -20,13 +20,10 @@ Row {
     property bool saved
     property int contextType: -1
 
-    property double paddingSmall: units.gu(0.5)
-    property double paddingMedium: units.gu(1)
-
     signal toggleFavorite()    
 
     width: parent.width
-    spacing: paddingMedium
+    spacing: app.paddingMedium
 
     opacity: (dataModel.type !== Util.SpotifyItemType.Track
               || Util.isTrackPlayable(dataModel.item)) ? 1.0 : 0.4
@@ -45,7 +42,7 @@ Row {
 
     Column {
         id: column
-        width: parent.width - image.width - 2 * paddingMedium
+        width: parent.width - image.width - 2 * app.paddingMedium
 
         Text {
             id: nameLabel
@@ -62,7 +59,7 @@ Row {
 
             Column {
                 id: col2
-                spacing: paddingSmall
+                spacing: app.paddingSmall
                 width: parent.width - favorite.width
                 Text {
                     id: meta1Label

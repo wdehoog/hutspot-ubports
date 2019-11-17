@@ -12,6 +12,9 @@ MainView {
     
     property alias settings: settings
 
+    property double paddingSmall: units.gu(0.5)
+    property double paddingMedium: units.gu(1)
+
     objectName: 'mainView'
     applicationName: 'hutspot.wdehoog'
     automaticOrientation: true
@@ -153,5 +156,7 @@ MainView {
 
         property int searchLimit: 50
         property int sorted_list_limit: 1000
+
+        property int currentItemClassMyStuff: 0
     }
 }
