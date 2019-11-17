@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-17 19:54+0000\n"
+"POT-Creation-Date: 2019-11-17 22:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,31 +21,43 @@ msgstr ""
 msgid "Spotify Login"
 msgstr ""
 
-#: ../qml/pages/MyStuff.qml:23
+#: ../qml/pages/Devices.qml:28
+msgid "Devices"
+msgstr ""
+
+#: ../qml/pages/Devices.qml:31
+msgid "Reload Devices"
+msgstr ""
+
+#: ../qml/pages/Devices.qml:36
+msgid "Refresh Token"
+msgstr ""
+
+#: ../qml/pages/MyStuff.qml:21
 msgid "My Saved Albums"
 msgstr ""
 
-#: ../qml/pages/MyStuff.qml:24
+#: ../qml/pages/MyStuff.qml:22
 msgid "My Playlists"
 msgstr ""
 
-#: ../qml/pages/MyStuff.qml:25
+#: ../qml/pages/MyStuff.qml:23
 msgid "My Recently Played"
 msgstr ""
 
-#: ../qml/pages/MyStuff.qml:26
+#: ../qml/pages/MyStuff.qml:24
 msgid "My Saved Tracks"
 msgstr ""
 
-#: ../qml/pages/MyStuff.qml:27
+#: ../qml/pages/MyStuff.qml:25
 msgid "My Followed Artists"
 msgstr ""
 
-#: ../qml/pages/MyStuff.qml:33
+#: ../qml/pages/MyStuff.qml:38
 msgid "next"
 msgstr ""
 
-#: ../qml/pages/MyStuff.qml:38
+#: ../qml/pages/MyStuff.qml:43
 msgid "previous"
 msgstr ""
 

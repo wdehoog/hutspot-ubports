@@ -2,15 +2,13 @@ import QtQuick 2.7
 import Ubuntu.Components 1.3
 //import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
-import Qt.labs.settings 1.0
-import QtWebEngine 1.7
 
 import "../components"
 import "../Spotify.js" as Spotify
 import "../Util.js" as Util
 
 Page {
-    id: webAuthPage
+    id: myStuffPage
 
     property string authURL: ""
 
@@ -27,6 +25,13 @@ Page {
             case 4: return i18n.tr("My Followed Artists")
             }
         }
+        leadingActionBar.actions: [
+            Action {
+                iconName: "back"
+                text: "Back"
+                onTriggered: pageStack.pop()
+            }
+        ]
         trailingActionBar.actions: [
             Action {
                 iconName: "go-next"
@@ -39,6 +44,7 @@ Page {
                 onTriggered: prevItemClass()
             }
         ]
+        flickable: listView
     }
 
     property int currentIndex: -1
@@ -66,10 +72,11 @@ Page {
             }
         }
     }
+
     // when the page is on the stack but not on top a refresh can wait
     property bool _needsRefresh: false
 
-    Connections {
+    /*Connections {
         target: app
 
         onPlaylistEvent: {
@@ -97,7 +104,7 @@ Page {
                  break
             }
         }
-    }
+    }*/
 
     property var savedAlbums
     property var userPlaylists
@@ -105,7 +112,7 @@ Page {
     property var savedTracks
     property var followedArtists
     // 0: Saved Albums, 1: User Playlists, 2: Recently Played Tracks, 3: Saved Tracks, 4: Followed Artists
-    property int _itemClass: app.current_item_classes.myStuff
+    property int _itemClass: app.settings.currentItemClassMyStuff
 
     function nextItemClass() {
         var i = _itemClass

@@ -13,7 +13,10 @@
 int main(int argc, char *argv[])
 {
     QGuiApplication *app = new QGuiApplication(argc, (char**)argv);
-    app->setApplicationName("hutspot.wdehoog");
+    
+    QCoreApplication::setApplicationName("hutspot");
+    QCoreApplication::setOrganizationName("wdehoog");
+    QCoreApplication::setOrganizationDomain("wdehoog");
 
     qDebug() << "Starting app from main.cpp";
 

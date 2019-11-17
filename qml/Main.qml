@@ -6,6 +6,10 @@ import Qt.labs.settings 1.0
 import QtWebEngine 1.7
 
 import "Spotify.js" as Spotify
+import "Util.js" as Util
+
+import "components"
+import "pages"
 
 MainView {
     id: app
@@ -14,6 +18,9 @@ MainView {
 
     property double paddingSmall: units.gu(0.5)
     property double paddingMedium: units.gu(1)
+    property double paddingLarge: units.gu(2)
+
+    property double iconSizeMedium: units.gu(4)
 
     objectName: 'mainView'
     applicationName: 'hutspot.wdehoog'
@@ -60,13 +67,104 @@ MainView {
             pageUrl = Qt.resolvedUrl("pages/Recommended.qml")
             break;
         }*/
-        pageUrl = Qt.resolvedUrl("pages/MyStuff.qml")
+        pageUrl = Qt.resolvedUrl("pages/Menu.qml")
         if(pageUrl !== undefined ) {
             pageStack.clear()
             pageStack.push(Qt.resolvedUrl(pageUrl))
         }
     }
 
+    // when using menu dialog
+    function doSelectedMenuItem(selectedIndex) {
+        switch(selectedIndex) {
+        case Util.HutspotMenuItem.ShowPlayingPage:
+            app.showPage('PlayingPage')
+            break
+        case Util.HutspotMenuItem.ShowNewReleasePage:
+            app.showPage('NewReleasePage')
+            break
+        case Util.HutspotMenuItem.ShowMyStuffPage:
+            app.showPage('MyStuffPage')
+            break
+        case Util.HutspotMenuItem.ShowTopStuffPage:
+            app.showPage('TopStuffPage')
+            break
+        case Util.HutspotMenuItem.ShowGenreMoodPage:
+            app.showPage('GenreMoodPage')
+            break
+        case Util.HutspotMenuItem.ShowHistoryPage:
+            app.showPage('HistoryPage')
+            break
+        case Util.HutspotMenuItem.ShowRecommendedPage:
+            app.showPage('RecommendedPage')
+            break
+        case Util.HutspotMenuItem.ShowSearchPage:
+            app.showPage('SearchPage')
+            break
+        case Util.HutspotMenuItem.ShowDevicesPage:
+            pageStack.push(Qt.resolvedUrl("pages/Devices.qml"))
+            break
+        case Util.HutspotMenuItem.ShowSettingsPage:
+            pageStack.push(Qt.resolvedUrl("pages/Settings.qml"))
+            break
+        case Util.HutspotMenuItem.ShowAboutPage:
+            pageStack.push(Qt.resolvedUrl("pages/About.qml"))
+            break;
+        case Util.HutspotMenuItem.ShowHelp:
+            Qt.openUrlExternally("http://sailfish-spotify.github.io/hutspot/")
+            break;
+        }
+    }
+
+    function showPage(pageName) {
+        var page
+        switch(pageName) {
+        case 'PlayingPage':
+            // when not having the Playing page as attached page
+            // pop all pages above playing page or add it
+            var pPage = pageStack.find(function(page) {
+                return page.objectName === "PlayingPage"
+            })
+            if(pPage !== null)
+                pageStack.pop(pPage)
+            else
+                pageStack.push(playingPage)
+            break;
+        case 'NewReleasePage':
+            //pageStack.clear()
+            page = pageStack.push(Qt.resolvedUrl("pages/NewAndFeatured.qml"))
+            break;
+        case 'MyStuffPage':
+            //pageStack.clear()
+            page = pageStack.push(Qt.resolvedUrl("pages/MyStuff.qml"))
+            break;
+        case 'TopStuffPage':
+            //pageStack.clear()
+            page = pageStack.push(Qt.resolvedUrl("pages/TopStuff.qml"))
+            break;
+        case 'SearchPage':
+            //pageStack.clear()
+            page = pageStack.push(Qt.resolvedUrl("pages/Search.qml"))
+            break;
+        case 'GenreMoodPage':
+            //pageStack.clear()
+            page = pageStack.push(Qt.resolvedUrl("pages/GenreMood.qml"))
+            break;
+        case 'HistoryPage':
+            //pageStack.clear()
+            page = pageStack.push(Qt.resolvedUrl("pages/History.qml"))
+            break;
+        case 'RecommendedPage':
+            //pageStack.clear()
+            page = pageStack.push(Qt.resolvedUrl("pages/Recommended.qml"))
+            break;
+        default:
+            return
+        }
+        //if(playing_as_attached_page.value)
+        //    pageStack.pushAttached(playingPage)
+        //firstPage.value = pageName
+    }
 
     Component.onCompleted: {
         startSpotify()
@@ -149,6 +247,16 @@ MainView {
         onCloseBrowser: {
             //loadFirstPage()
         }
+    }
+
+    property alias controller: spotifyController
+    SpotifyController {
+        id: spotifyController
+    }
+
+    property alias spotifyDataCache: spotifyDataCache
+    SpotifyDataCache {
+        id: spotifyDataCache
     }
 
     Settings {
