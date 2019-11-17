@@ -1,0 +1,15 @@
+{
+    "name": "hutspot.wdehoog",
+    "description": "A simple Spotify Controller",
+    "architecture": "@CLICK_ARCH@",
+    "title": "Hutspot",
+    "hooks": {
+        "hutspot": {
+            "apparmor": "hutspot.apparmor",
+            "desktop":  "hutspot.desktop"
+        }
+    },
+    "version": "1.0.0",
+    "maintainer": "Willem-Jan de Hoog <<.@.>>",
+    "framework" : "ubuntu-sdk-16.04"
+}
