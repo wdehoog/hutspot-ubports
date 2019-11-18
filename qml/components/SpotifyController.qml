@@ -39,7 +39,7 @@ Item {
         id: handleRendererInfo
         interval: 1000
         onRunningChanged: if (running) refreshCount = 0
-        running: playbackState.is_playing || Qt.application.active || cover.status === Cover.Active
+        running: playbackState.is_playing || Qt.application.active 
         property int refreshCount: 0
         repeat: true
         onTriggered: {

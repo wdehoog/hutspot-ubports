@@ -9,13 +9,20 @@ import QtWebEngine 1.7
 Page {
     id: webAuthPage
 
-    property string authURL: ""
+    property var authURL
 
     anchors.fill: parent
 
     header: PageHeader {
         id: header
         title: i18n.tr('Spotify Login')
+        leadingActionBar.actions: [
+            Action {
+                iconName: "back"
+                text: "Back"
+                onTriggered: pageStack.pop()
+            }
+        ]
     }
 
     WebEngineView {

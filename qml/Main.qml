@@ -240,8 +240,13 @@ MainView {
         }
 
         onOpenBrowser: {
-            console.log("onOpenBrowser" + url)
-            pageStack.push(Qt.resolvedUrl("pages/WebAuth.qml"), {authURL: url })
+           console.log("onOpenBrowser: " + url)
+           //if(settings.authUsingBrowser) {
+           //    Qt.openUrlExternally(url)
+           //} else {
+               pageStack.push(Qt.resolvedUrl("pages/Menu.qml"))
+               pageStack.push(Qt.resolvedUrl("pages/WebAuth.qml"), {authURL: url })
+           //}
         }
 
         onCloseBrowser: {
@@ -259,6 +264,28 @@ MainView {
         id: spotifyDataCache
     }
 
+    property var foundDevices: []     // the device info queried by getInfo
+    property var connectDevices: ({}) // the device info discovered by mdns
+
+    signal devicesChanged()
+
+    onDevicesChanged: {        
+        // for logging Librespot discovery
+        var ls = isLibrespotInDiscoveredList()
+        if(ls !== null) {
+            if(logging_flags.discovery)console.log("onDevicesChanged: " + (ls!==null)?"Librespot is discovered":"not yet")
+            if(!isLibrespotInDevicesList()) {
+                if(logging_flags.discovery)console.log("Librespot is not in the devices list")
+                // maybe the list needs to be updated
+                if(hasValidToken)
+                    spotifyController.checkForNewDevices()
+            } else {
+                if(logging_flags.discovery)console.log("Librespot is already in the devices list")
+            }
+        }
+        //handleCurrentDevice()
+    }
+
     Settings {
         id: settings
 
@@ -266,5 +293,7 @@ MainView {
         property int sorted_list_limit: 1000
 
         property int currentItemClassMyStuff: 0
+
+        property bool authUsingBrowser: true
     }
 }

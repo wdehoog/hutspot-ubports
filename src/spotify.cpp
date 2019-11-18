@@ -10,7 +10,7 @@
 #include "o2/o0settingsstore.h"
 
 //#error Setup your Spotify application "https://beta.developer.spotify.com/dashboard/applications"
-const char O2_CONSUMER_KEY[] = "388f2d2f105b45ef95e159ac87ef5733";
+const char O2_CONSUMER_KEY[] = "e8c4417050da441ba75bb34314bb75cc";
 const char O2_CONSUMER_SECRET[] = "c926747234ef4fc8aefb2759f2c3d571";
 const int localPort = 8888;
 
