@@ -11,7 +11,7 @@
 
 //#error Setup your Spotify application "https://beta.developer.spotify.com/dashboard/applications"
 const char O2_CONSUMER_KEY[] = "e8c4417050da441ba75bb34314bb75cc";
-const char O2_CONSUMER_SECRET[] = "c926747234ef4fc8aefb2759f2c3d571";
+const char O2_CONSUMER_SECRET[] = "1c85c26db85342ce9e7d8d9a1a605ea1";
 const int localPort = 8888;
 
 const char O2_REPLY_CONTENT[] =
@@ -25,9 +25,9 @@ const char O2_REPLY_CONTENT[] =
 "<body>"
 "<h1>Hutspot</h1>"
 "<br>"
-"<h1>Spotify authorization redirected</h1>"
+"<h3>Spotify authorization redirected</h3>"
 "<br>"
-"<h1>You can close this page and return to the App.</h1>"
+"<h3>You can close this page (and return to the App).</h3>"
 "</body>"
 "</html>";
 

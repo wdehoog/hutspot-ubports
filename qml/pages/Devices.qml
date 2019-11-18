@@ -7,10 +7,8 @@
 
 import QtQuick 2.7
 import Ubuntu.Components 1.3
+import Ubuntu.Components.Popups 1.3
 //import QtQuick.Controls 2.2
-import QtQuick.Layouts 1.3
-import Qt.labs.settings 1.0
-import QtWebEngine 1.7
 
 import "../components"
 import "../Spotify.js" as Spotify
@@ -20,6 +18,7 @@ Page {
     id: devicesPage
 
     property bool isBusy: waitForInSpotifyList.running
+    property alias actionSelectionPopover: actionSelectionPopover
 
     anchors.fill: parent
 
@@ -45,6 +44,44 @@ Page {
             }
         ]
         flickable: listView
+    }
+
+    ActionSelectionPopover {
+        id: actionSelectionPopover
+
+        property var model
+
+        actions: ActionList {
+            Action {
+                text: i18n.tr("Set as Current")
+                onTriggered: {
+                    if(app.spotify)
+                        app.setDevice(model.deviceId, model.name, function(error, data){
+                            if(!error)
+                                refreshDevices()
+                        })
+                }
+            }
+            /*menu: contextMenu
+
+                    MenuItem {
+                        enabled: sp === 0 && app.librespot.hasLibreSpotCredentials()
+                        text: qsTr("Connect using Authorization Blob")
+                        onClicked: {                            
+                            var name = app.foundDevices[deviceIndex].remoteName
+                            _toBeAddedName = name
+                            app.librespot.addUser(app.foundDevices[deviceIndex], function(error, data) {
+                                if(data) {
+                                    waitForInSpotifyList.count = 5
+                                } else {
+                                    app.showErrorMessage(error, qsTr("Failed to connect to " + name))
+                                }
+                            })
+                        }
+                    }
+                }
+            }*/
+        }
     }
 
     ListView {
@@ -77,48 +114,25 @@ Page {
                     width: parent.width
                     //color: is_active ? Theme.secondaryHighlightColor : Theme.secondaryColor
                     //color: Theme.secondaryColor
-                    font.pixelSize: Theme.fontSizeSmall
+                    //font.pixelSize: Theme.fontSizeSmall
                     //truncationMode: TruncationMode.Fade
                     text: getMetaLabelText(sp, deviceIndex)
                 }
             }
 
-            /*menu: contextMenu
-
-            Component {
-                id: contextMenu
-                ContextMenu {
-                    MenuItem {
-                        enabled: sp == 1
-                        text: qsTr("Set as Current")
-                        onClicked: {
-                            if(spotify)
-                                app.setDevice(model.deviceId, model.name, function(error, data){
-                                    if(!error)
-                                        refreshDevices()
-                                })
-                        }
-                    }
-                    MenuItem {
-                        enabled: sp === 0 && app.librespot.hasLibreSpotCredentials()
-                        text: qsTr("Connect using Authorization Blob")
-                        onClicked: {                            
-                            var name = app.foundDevices[deviceIndex].remoteName
-                            _toBeAddedName = name
-                            app.librespot.addUser(app.foundDevices[deviceIndex], function(error, data) {
-                                if(data) {
-                                    waitForInSpotifyList.count = 5
-                                } else {
-                                    app.showErrorMessage(error, qsTr("Failed to connect to " + name))
-                                }
-                            })
-                        }
-                    }
-                }
-            }*/
-
+            onPressAndHold: {
+                actionSelectionPopover.model = model
+                actionSelectionPopover.caller = delegate
+                actionSelectionPopover.show()
+            }
         }
 
+    }
+
+    Scrollbar {
+        id: scrollBar
+        flickableItem: listView
+        anchors.right: parent.right
     }
 
     function isDeviceInList(deviceName) {

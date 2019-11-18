@@ -39,9 +39,9 @@ Item {
             coverArtUrl = item.album.images[0].url;
         else coverArtUrl = "";
 
-        var metadata = {}
-        metadata[Mpris.metadataToString(Mpris.Title)] = item.name
-        metadata[Mpris.metadataToString(Mpris.Artist)] = artistsString
+        //var metadata = {}
+        //metadata[Mpris.metadataToString(Mpris.Title)] = item.name
+        //metadata[Mpris.metadataToString(Mpris.Artist)] = artistsString
         //mprisPlayer.metadata = metadata
     }
     property string artistsString: ""

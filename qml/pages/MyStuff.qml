@@ -1,5 +1,6 @@
 import QtQuick 2.7
 import Ubuntu.Components 1.3
+import Ubuntu.Components.Popups 1.3
 //import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
 
@@ -54,12 +55,18 @@ Page {
         sortKey: _itemClass != 2 ? "name" : ""
     }
 
+    SearchResultPopover {
+        id: contextMenu
+        property var model
+    }
+
     ListView {
         id: listView
         anchors.fill: parent
         spacing: units.dp(8)
         model: searchModel
         //interactive: contentHeight > height
+
         delegate: ListItem {
             id: listItem
             width: parent.width - 2 * app.paddingMedium
@@ -70,7 +77,35 @@ Page {
                 id: searchResultListItem
                 dataModel: model
             }
+
+            onPressAndHold: {
+                contextMenu.model = model
+                PopupUtils.open(contextMenu, listItem)
+            }
+
+            onClicked: {
+                switch(type) {
+                case 0:
+                    app.pushPage(Util.HutspotPage.Album, {album: item})
+                    break;
+                case 1:
+                    app.pushPage(Util.HutspotPage.Artist, {currentArtist: item})
+                    break;
+                case 2:
+                    app.pushPage(Util.HutspotPage.Playlist, {playlist: item})
+                    break;
+                case 3:
+                    app.pushPage(Util.HutspotPage.Album, {album: item.album})
+                    break;
+                }
+            }
         }
+    }
+
+    Scrollbar {
+        id: scrollBar
+        flickableItem: listView
+        anchors.right: parent.right
     }
 
     // when the page is on the stack but not on top a refresh can wait

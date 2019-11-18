@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-18 07:19+0000\n"
+"POT-Creation-Date: 2019-11-18 22:13+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,47 +17,71 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../qml/pages/WebAuth.qml:18
+#: ../qml/components/SearchResultPopover.qml:18
+msgid "Play"
+msgstr ""
+
+#: ../qml/components/SearchResultPopover.qml:24
+msgid "View"
+msgstr ""
+
+#: ../qml/components/SearchResultPopover.qml:30
+msgid "View Album"
+msgstr ""
+
+#: ../qml/components/SearchResultPopover.qml:36
+msgid "Add to Playlist"
+msgstr ""
+
+#: ../qml/components/SearchResultPopover.qml:43
+msgid "Use as Seeds for Recommendations"
+msgstr ""
+
+#: ../qml/pages/WebAuth.qml:19
 msgid "Spotify Login"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:28
+#: ../qml/pages/Devices.qml:27
 msgid "Devices"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:38
+#: ../qml/pages/Devices.qml:37
 msgid "Reload Devices"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:43
+#: ../qml/pages/Devices.qml:42
 msgid "Refresh Token"
 msgstr ""
 
-#: ../qml/pages/MyStuff.qml:21
-msgid "My Saved Albums"
+#: ../qml/pages/Devices.qml:56
+msgid "Set as Current"
 msgstr ""
 
 #: ../qml/pages/MyStuff.qml:22
-msgid "My Playlists"
+msgid "My Saved Albums"
 msgstr ""
 
 #: ../qml/pages/MyStuff.qml:23
-msgid "My Recently Played"
+msgid "My Playlists"
 msgstr ""
 
 #: ../qml/pages/MyStuff.qml:24
-msgid "My Saved Tracks"
+msgid "My Recently Played"
 msgstr ""
 
 #: ../qml/pages/MyStuff.qml:25
+msgid "My Saved Tracks"
+msgstr ""
+
+#: ../qml/pages/MyStuff.qml:26
 msgid "My Followed Artists"
 msgstr ""
 
-#: ../qml/pages/MyStuff.qml:38
+#: ../qml/pages/MyStuff.qml:39
 msgid "next"
 msgstr ""
 
-#: ../qml/pages/MyStuff.qml:43
+#: ../qml/pages/MyStuff.qml:44
 msgid "previous"
 msgstr ""
 

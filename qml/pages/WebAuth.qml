@@ -1,5 +1,6 @@
 import QtQuick 2.7
 import Ubuntu.Components 1.3
+import Morph.Web 0.1
 //import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
 import Qt.labs.settings 1.0
@@ -23,9 +24,10 @@ Page {
                 onTriggered: pageStack.pop()
             }
         ]
+        flickable: webView
     }
 
-    WebEngineView {
+    WebView {
         id: webView
         anchors.fill: parent
         url: authURL

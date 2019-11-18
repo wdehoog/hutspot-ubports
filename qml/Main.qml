@@ -16,11 +16,16 @@ MainView {
     
     property alias settings: settings
 
+    //
+    // UI element sizes
+    //
     property double paddingSmall: units.gu(0.5)
     property double paddingMedium: units.gu(1)
     property double paddingLarge: units.gu(2)
 
     property double iconSizeMedium: units.gu(4)
+
+    //
 
     objectName: 'mainView'
     applicationName: 'hutspot.wdehoog'
@@ -166,6 +171,39 @@ MainView {
         //firstPage.value = pageName
     }
 
+    //
+    // 0: Album, 1: Artist, 2: Playlist
+    function pushPage(type, options, fromPlaying) {
+        var pageUrl = undefined
+        switch(type) {
+        case Util.HutspotPage.Album:
+            pageUrl = "pages/Album.qml"
+            break
+        case Util.HutspotPage.Artist:
+            pageUrl = "pages/Artist.qml"
+            break
+        case Util.HutspotPage.Playlist:
+            pageUrl = "pages/Playlist.qml"
+            break
+        case Util.HutspotPage.GenreMoodPlaylist:
+            pageUrl = "pages/GenreMoodPlaylist.qml"
+            break
+        }
+
+        // if the pushPage is called from the Playing page and the Playing page
+        // is an attached page we need to go to the parent first
+        //if(fromPlaying) {
+        //    if(playing_as_attached_page.value)
+        //        pageStack.navigateBack(PageStackAction.Immediate)
+        //}
+
+        if(pageUrl !== undefined ) {
+            pageStack.push(Qt.resolvedUrl(pageUrl), options)
+            //if(playing_as_attached_page.value)
+            //    pageStack.pushAttached(playingPage)
+        }
+    }
+
     Component.onCompleted: {
         startSpotify()
     }
@@ -219,6 +257,7 @@ MainView {
             //app.connectionText = qsTr("Connected")
             //loadUser()
             loadFirstPage()
+            // ToDo: maybe call spotify.refreshToken() so after 1st login pages show data
         }
 
         onLinkedChanged: {
@@ -241,12 +280,12 @@ MainView {
 
         onOpenBrowser: {
            console.log("onOpenBrowser: " + url)
-           //if(settings.authUsingBrowser) {
-           //    Qt.openUrlExternally(url)
-           //} else {
+           if(settings.authUsingBrowser) {
+               Qt.openUrlExternally(url)
+           } else {
                pageStack.push(Qt.resolvedUrl("pages/Menu.qml"))
                pageStack.push(Qt.resolvedUrl("pages/WebAuth.qml"), {authURL: url })
-           //}
+           }
         }
 
         onCloseBrowser: {
@@ -294,6 +333,6 @@ MainView {
 
         property int currentItemClassMyStuff: 0
 
-        property bool authUsingBrowser: true
+        property bool authUsingBrowser: false
     }
 }
