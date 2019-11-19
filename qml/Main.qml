@@ -23,6 +23,7 @@ MainView {
     property double paddingMedium: units.gu(1)
     property double paddingLarge: units.gu(2)
 
+    property double iconSizeSmall: units.gu(2)
     property double iconSizeMedium: units.gu(4)
 
     //
@@ -293,6 +294,200 @@ MainView {
         }
     }
 
+    function getPlaylist(playlistId, callback) {
+        Spotify.getPlaylist(playlistId, {}, function(error, data) {
+            if(callback)
+                callback(error, data)
+        })
+    }
+
+    signal playlistEvent(var event)
+
+    function editPlaylistDetails(playlist, callback) {
+        var ms = pageStack.push(Qt.resolvedUrl("components/CreatePlaylist.qml"),
+                                {titleText: qsTr("Edit Playlist Details"),
+                                 name: playlist.name, description: playlist.description,
+                                 publicPL: playlist['public'], collaborative: playlist.collaborative} );
+        ms.accepted.connect(function() {
+            if(ms.name && ms.name.length > 0) {
+                var options = {name: ms.name,
+                               'public': ms.publicPL,
+                               collaborative: ms.collaborativePL}
+                if(ms.description && ms.description.length > 0)
+                    options.description = ms.description
+                Spotify.changePlaylistDetails(playlist.id, options, function(error, data) {
+                    if(callback)
+                        callback(error, data)
+                    if(!error) {
+                        var ev = new Util.PlayListEvent(Util.PlaylistEventType.ChangedDetails,
+                                                        playlist.id, playlist.snapshot_id)
+                        ev.newDetails = options
+                        playlistEvent(ev)
+                    }
+                })
+            }
+        })
+    }
+
+    function addToPlaylist(track) {
+
+        var ms = pageStack.push(Qt.resolvedUrl("components/PlaylistPicker.qml"),
+                                { label: qsTr("Select a Playlist") } );
+        ms.accepted.connect(function() {
+            if(ms.selectedItem && ms.selectedItem.item) {
+                Spotify.addTracksToPlaylist(ms.selectedItem.item.id,
+                                            [track.uri], {}, function(error, data) {
+                    if(data) {
+                        var ev = new Util.PlayListEvent(Util.PlaylistEventType.AddedTrack,
+                                                        ms.selectedItem.item.id, data.snapshot_id)
+                        ev.trackId = track.id
+                        ev.trackUri = track.uri
+                        playlistEvent(ev)
+                        console.log("addToPlaylist: added \"")
+                    } else
+                        console.log("addToPlaylist: failed to add \"")
+                    console.log(track.name + "\" to \"" + ms.selectedItem.item.name + "\"")
+                })
+            }
+        })
+    }
+
+    function removeFromPlaylist(playlist, track, position, callback) {
+        app.showConfirmDialog(qsTr("Please confirm to remove:<br><br><b>" + track.name + "</b>"),
+                              function() {
+            // does not work due to Qt. cannot have DELETE request with a body
+            /*Spotify.removeTracksFromPlaylist(playlist.id, [track.uri], function(error, data) {
+                callback(error, data)
+                var ev = new Util.PlayListEvent(Util.PlaylistEventType.RemovedTrack,
+                                                playlist.id, data.snapshot_id)
+                ev.trackId = track.id
+                playlistEvent(ev)
+            })*/
+
+            // if the track is 'linked' we must remove the linked_from one
+            var uri = track.uri
+            if(track.hasOwnProperty('linked_from'))
+                uri = track.linked_from.uri
+            removeTracksFromPlaylistUsingCurl(playlist.id, playlist.snapshot_id, [uri], [position], function(error, data) {
+                if(callback)
+                    callback(error, data)
+                var ev = new Util.PlayListEvent(Util.PlaylistEventType.RemovedTrack,
+                                                playlist.id, data.snapshot_id)
+                ev.trackId = track.id
+                playlistEvent(ev)
+            })
+        })
+    }
+
+    function createPlaylist(callback) {
+        var ms = pageStack.push(Qt.resolvedUrl("components/CreatePlaylist.qml"),
+                                {} );
+        ms.accepted.connect(function() {
+            if(ms.name && ms.name.length > 0) {
+                var options = {name: ms.name,
+                               'public': ms.publicPL,
+                               collaborative: ms.collaborativePL}
+                if(ms.description && ms.description.length > 0)
+                    options.description = ms.description
+                Spotify.createPlaylist(id, options, function(error, data) {
+                    callback(error, data)
+                    if(data) {
+                        var ev = new Util.PlayListEvent(Util.PlaylistEventType.CreatedPlaylist,
+                                                        data.id, data.snapshot_id)
+                        ev.playlist = data
+                        playlistEvent(ev)
+                    }
+                })
+            }
+        })
+    }
+
+    function getPlaylistTracks(playlistId, options, callback) {
+        if(query_for_market.value) {
+            if(!options)
+                options = {}
+            options.market = "from_token"
+        }
+        Spotify.getPlaylistTracks(playlistId, options, callback)
+    }
+
+    function replaceTracksInPlaylist(playlistId, tracks, callback) {
+        Spotify.replaceTracksInPlaylist(playlistId, tracks, function(error, data) {
+            if(callback)
+                callback(error, data)
+            if(data && data.snapshot_id) {
+                var ev = new Util.PlayListEvent(Util.PlaylistEventType.ReplacedAllTracks,
+                                                playlistId, data.snapshot_id)
+                playlistEvent(ev)
+                console.log("replaceTracksInPlaylist: snapshot: " + data.snapshot_id)
+            } else
+                console.log("No Data while replacing tracks in Playlist " + playlistId)
+        })
+    }
+
+    function loadTracksInModel(data, count, model, getTrack, getExtraProperties) {
+        var trackIds = []
+        for(var i=0;i<count;i++) {
+            var track = getTrack(data, i)
+            //console.log(track.id)
+            var item = {type: Spotify.ItemType.Track,
+                          name: track.name,
+                          item: track,
+                          following: false,
+                          saved: false}
+            if(getExtraProperties) {
+                var extra = getExtraProperties(data, i)
+                for(var attrname in extra)
+                    item[attrname] = extra[attrname]
+            }
+            model.append(item)
+            trackIds.push(track.id)
+        }
+        Spotify.containsMySavedTracks(trackIds, function(error, data) {
+            if(data) {
+                Util.setSavedInfo(Spotify.ItemType.Track, trackIds, data, model)
+            }
+        })
+    }
+
+    /**
+     * List of last visited albums/artists/playlists
+     */
+    readonly property int historySize: 50
+    property var history: []
+    signal historyModified(int added, int removed)
+    function notifyHistoryUri(uri) {
+        var removedIndex = -1
+        if(history.length === 0) {
+            history.unshift(uri)
+        } else if(history[0] === uri) {
+            // already at the top
+            return
+        } else {
+            // add to the top
+            history.unshift(uri)
+            // remove if already present
+            for(var i=1;i<history.length;i++)
+                if(history[i] === uri) {
+                    history.splice(i, 1)
+                    removedIndex = i - 1 // -1 since the model does not have the new one yet
+                    break
+                }
+        }
+        historyModified(0, removedIndex)
+        if(history.length > historySize) { // make configurable
+            history.pop()
+            historyModified(-1, historySize-1)
+        }
+        settings.history = history
+    }
+
+    function clearHistory() {
+        history = []
+        settings.history = history
+        historyModified(-1, -1)
+    }
+
     property alias controller: spotifyController
     SpotifyController {
         id: spotifyController
@@ -334,5 +529,8 @@ MainView {
         property int currentItemClassMyStuff: 0
 
         property bool authUsingBrowser: false
+        property bool queryForMarket: true
+
+        property var history
     }
 }
