@@ -318,6 +318,31 @@ MainView {
         }
     }
 
+    property string id: "" // spotify user id
+    property string uri: ""
+    property string display_name: ""
+    property string product: ""
+    property string followers: ""
+
+    function loadUser() {
+        Spotify.getMe({}, function(error, data) {
+            if(data) {
+                try {
+                    id = data.id
+                    uri = data.uri
+                    display_name = data.display_name
+                    product = data.product
+                    followers = data.followers.total
+                } catch (err) {
+                    console.log(err)
+                }
+            } else {
+                console.log("No Data for getMe")
+            }
+        })
+        controller.refreshPlaybackState();
+    }
+
     function getPlaylist(playlistId, callback) {
         Spotify.getPlaylist(playlistId, {}, function(error, data) {
             if(callback)
@@ -427,7 +452,7 @@ MainView {
     }
 
     function getPlaylistTracks(playlistId, options, callback) {
-        if(query_for_market.value) {
+        if(settings.queryForMarket) {
             if(!options)
                 options = {}
             options.market = "from_token"
@@ -474,6 +499,189 @@ MainView {
         })
     }
 
+    signal favoriteEvent(var event)
+
+    function isFollowingPlaylist(pid, callback) {
+        Spotify.areFollowingPlaylist(pid, [id], function(error, data) {
+            callback(error, data)
+        })
+    }
+
+    function followPlaylist(playlist, callback) {
+        Spotify.followPlaylist(playlist.id, function(error, data) {
+            callback(error, data)
+            var event = new Util.FavoriteEvent(Util.SpotifyItemType.Playlist, playlist.id, playlist.uri, true)
+            favoriteEvent(event)
+        })
+    }
+
+    function _unfollowPlaylist(playlist, callback) {
+        Spotify.unfollowPlaylist(playlist.id, function(error, data) {
+            callback(error, data)
+            var event = new Util.FavoriteEvent(Util.SpotifyItemType.Playlist, playlist.id, playlist.uri, false)
+            favoriteEvent(event)
+        })
+    }
+
+    function unfollowPlaylist(playlist, callback) {
+        if(confirm_un_follow_save.value)
+            app.showConfirmDialog(qsTr("Please confirm to unfollow playlist:<br><br><b>" + playlist.name + "</b>"),
+                                  function() {
+                _unfollowPlaylist(playlist, callback)
+            })
+        else
+            _unfollowPlaylist(playlist, callback)
+    }
+
+    function followArtist(artist, callback) {
+        Spotify.followArtists([artist.id], function(error, data) {
+            callback(error, data)
+            var event = new Util.FavoriteEvent(Util.SpotifyItemType.Artist, artist.id, artist.uri, true)
+            favoriteEvent(event)
+        })
+    }
+
+    function _unfollowArtist(artist, callback) {
+        Spotify.unfollowArtists([artist.id], function(error, data) {
+            callback(error, data)
+            var event = new Util.FavoriteEvent(Util.SpotifyItemType.Artist, artist.id, artist.uri, false)
+            favoriteEvent(event)
+        })
+    }
+
+    function unfollowArtist(artist, callback) {
+        if(confirm_un_follow_save.value)
+            app.showConfirmDialog(qsTr("Please confirm to unfollow artist:<br><br><b>" + artist.name + "</b>"),
+                                  function() {
+                _unfollowArtist(artist, callback)
+            })
+        else
+            _unfollowArtist(artist, callback)
+    }
+
+    function saveAlbum(album, callback) {
+        var id
+        if(album.hasOwnProperty("id"))
+            id = album.id
+        else
+            id = Util.parseSpotifyUri(album.uri).id
+        Spotify.addToMySavedAlbums([id], function(error, data) {
+            callback(error, data)
+            var event = new Util.FavoriteEvent(Util.SpotifyItemType.Album, album.id, album.uri, true)
+            favoriteEvent(event)
+        })
+    }
+
+    function _unSaveAlbum(album, callback) {
+        Spotify.removeFromMySavedAlbums([album.id], function(error, data) {
+            callback(error, data)
+            var event = new Util.FavoriteEvent(Util.SpotifyItemType.Album, album.id, album.uri, false)
+            favoriteEvent(event)
+        })
+    }
+
+    function unSaveAlbum(album, callback) {
+        if(confirm_un_follow_save.value)
+            app.showConfirmDialog(qsTr("Please confirm to un-save album:<br><br><b>" + album.name + "</b>"),
+                                  function() {
+                _unSaveAlbum(album, callback)
+            })
+        else
+            _unSaveAlbum(album, callback)
+    }
+
+    function saveTrack(track, callback) {
+        Spotify.addToMySavedTracks([track.id], function(error, data) {
+            callback(error, data)
+            var event = new Util.FavoriteEvent(Util.SpotifyItemType.Track, track.id, track.uri, true)
+            favoriteEvent(event)
+        })
+    }
+
+    function _unSaveTrack(track, callback) {
+        Spotify.removeFromMySavedTracks([track.id], function(error, data) {
+            callback(error, data)
+            var event = new Util.FavoriteEvent(Util.SpotifyItemType.Track, track.id, track.uri, false)
+            favoriteEvent(event)
+        })
+    }
+
+    function unSaveTrack(track, callback) {
+        if(confirm_un_follow_save.value)
+            app.showConfirmDialog(qsTr("Please confirm to un-save track:<br><br><b>" + track.name + "</b>"),
+                                  function() {
+                _unSaveTrack(track, callback)
+            })
+        else
+            _unSaveTrack(track, callback)
+    }
+
+    function toggleSavedTrack(model) {
+        if(model.saved)
+            unSaveTrack(model.item, function(error,data) {
+                if(!error)
+                    model.saved = false
+            })
+        else
+            saveTrack(model.item, function(error,data) {
+                if(!error)
+                    model.saved = true
+            })
+    }
+
+    function toggleSavedAlbum(album, isAlbumSaved, callback) {
+        if(isAlbumSaved)
+            unSaveAlbum(album, function(error,data) {
+                if(!error)
+                    callback(false)
+            })
+        else
+            saveAlbum(album, function(error,data) {
+                if(!error)
+                    callback(true)
+            })
+    }
+
+    function toggleFollowArtist(artist, isFollowed, callback) {
+        if(isFollowed)
+            unfollowArtist(artist, function(error,data) {
+                if(!error)
+                    callback(false)
+            })
+        else
+            followArtist(artist, function(error,data) {
+                if(!error)
+                    callback(true)
+            })
+    }
+
+    function toggleFollowPlaylist(playlist, isFollowed, callback) {
+        if(isFollowed)
+             unfollowPlaylist(playlist, function(error, data) {
+                 if(!error)
+                     callback(false)
+             })
+         else
+             followPlaylist(playlist, function(error, data) {
+                 if(!error)
+                     callback(true)
+             })
+    }
+
+    function loadArtist(artists, fromPlaying) {
+        if(artists.length > 1) {
+            // choose
+            var ms = pageStack.push(Qt.resolvedUrl("components/ArtistPicker.qml"),
+                                    { label: qsTr("View an Artist"), artists: artists } );
+            ms.done.connect(function() {
+                if(ms.selectedItem) {
+                    app.pushPage(Util.HutspotPage.Artist, {currentArtist: ms.selectedItem.item}, fromPlaying)
+                }
+            })
+        } else if(artists.length === 1) {
+            app.pushPage(Util.HutspotPage.Artist, {currentArtist:artists[0]}, fromPlaying)
+        }
+    }
     /**
      * List of last visited albums/artists/playlists
      */

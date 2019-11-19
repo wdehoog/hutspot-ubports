@@ -147,6 +147,11 @@ Page {
 
     }
 
+    Scrollbar {
+        id: scrollBar
+        flickableItem: listView
+        anchors.right: parent.right
+    }
 
     onAlbumChanged: refresh()
 

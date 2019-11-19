@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-19 21:41+0000\n"
+"POT-Creation-Date: 2019-11-19 23:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../qml/components/AlbumTrackContextMenu.qml:22
-#: ../qml/components/SearchResultPopover.qml:18
+#: ../qml/components/SearchResultContextMenu.qml:18
 msgid "Play"
 msgstr ""
 
 #: ../qml/components/AlbumTrackContextMenu.qml:29
-#: ../qml/components/SearchResultPopover.qml:30
+#: ../qml/components/SearchResultContextMenu.qml:30
 msgid "View Album"
 msgstr ""
 
@@ -32,7 +32,7 @@ msgid "View Artist"
 msgstr ""
 
 #: ../qml/components/AlbumTrackContextMenu.qml:55
-#: ../qml/components/SearchResultPopover.qml:36
+#: ../qml/components/SearchResultContextMenu.qml:36
 msgid "Add to Playlist"
 msgstr ""
 
@@ -40,12 +40,16 @@ msgstr ""
 msgid "No Name"
 msgstr ""
 
-#: ../qml/components/SearchResultPopover.qml:24
+#: ../qml/components/SearchResultContextMenu.qml:24
 msgid "View"
 msgstr ""
 
-#: ../qml/components/SearchResultPopover.qml:43
+#: ../qml/components/SearchResultContextMenu.qml:43
 msgid "Use as Seeds for Recommendations"
+msgstr ""
+
+#: ../qml/pages/Playlist.qml:39
+msgid "Playlist"
 msgstr ""
 
 #: ../qml/pages/Album.qml:39

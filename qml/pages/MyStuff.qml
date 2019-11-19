@@ -55,7 +55,7 @@ Page {
         sortKey: _itemClass != 2 ? "name" : ""
     }
 
-    SearchResultPopover {
+    SearchResultContextMenu {
         id: contextMenu
         property var model
     }
