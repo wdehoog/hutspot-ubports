@@ -110,7 +110,7 @@ Item {
         })
     }
 
-    Connections {
+    /*Connections {
         target: app
 
         onIdChanged: {
@@ -143,6 +143,6 @@ Item {
                 break
             }
         }
-    }
+    }*/
 
 }

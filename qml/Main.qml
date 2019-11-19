@@ -17,7 +17,7 @@ MainView {
     property alias settings: settings
 
     //
-    // UI element sizes
+    // UI stuff
     //
     property double paddingSmall: units.gu(0.5)
     property double paddingMedium: units.gu(1)
@@ -26,6 +26,10 @@ MainView {
     property double iconSizeSmall: units.gu(2)
     property double iconSizeMedium: units.gu(4)
 
+    property double itemSizeMedium: units.gu(4)
+    property double itemSizeLarge: units.gu(10)
+
+    
     //
 
     objectName: 'mainView'
@@ -37,7 +41,27 @@ MainView {
     
     PageStack {
         id: pageStack
-        anchors.fill: parent
+        //anchors.fill: parent
+        anchors {
+            fill: undefined
+            left: parent.left
+            right: parent.right
+            top: parent.top
+            bottom: playerArea.top
+        }
+        clip: true
+    }
+
+    PlayerArea {
+        id: playerArea
+        //visible: pageStack.currentPage.objectName !== "AboutPage"
+        //         && pageStack.currentPage.objectName !== "HelpPage"
+        anchors {
+            bottom: parent.bottom
+            bottomMargin: paddingSmall
+        }
+        width: parent.width - 2*paddingSmall
+        x: paddingSmall
     }
 
     function loadFirstPage() {
