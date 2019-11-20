@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-19 23:00+0000\n"
+"POT-Creation-Date: 2019-11-20 19:41+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -60,7 +60,7 @@ msgstr ""
 msgid "Spotify Login"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:27
+#: ../qml/pages/Devices.qml:27 ../qml/pages/Menu.qml:69
 msgid "Devices"
 msgstr ""
 
@@ -74,6 +74,34 @@ msgstr ""
 
 #: ../qml/pages/Devices.qml:56
 msgid "Set as Current"
+msgstr ""
+
+#: ../qml/pages/Search.qml:42 ../qml/pages/Menu.qml:65
+msgid "Search"
+msgstr ""
+
+#: ../qml/pages/Search.qml:74
+msgid "Search for"
+msgstr ""
+
+#: ../qml/pages/Search.qml:90
+msgid "Search in"
+msgstr ""
+
+#: ../qml/pages/Search.qml:94
+msgid "Albums"
+msgstr ""
+
+#: ../qml/pages/Search.qml:95
+msgid "Artists"
+msgstr ""
+
+#: ../qml/pages/Search.qml:96
+msgid "Playlists"
+msgstr ""
+
+#: ../qml/pages/Search.qml:97
+msgid "Tracks"
 msgstr ""
 
 #: ../qml/pages/MyStuff.qml:22
@@ -96,12 +124,20 @@ msgstr ""
 msgid "My Followed Artists"
 msgstr ""
 
-#: ../qml/pages/MyStuff.qml:39
+#: ../qml/pages/MyStuff.qml:39 ../qml/pages/Artist.qml:62
 msgid "next"
 msgstr ""
 
-#: ../qml/pages/MyStuff.qml:44
+#: ../qml/pages/MyStuff.qml:44 ../qml/pages/Artist.qml:67
 msgid "previous"
+msgstr ""
+
+#: ../qml/pages/Artist.qml:42
+msgid "Artist's Albums"
+msgstr ""
+
+#: ../qml/pages/Artist.qml:43
+msgid "Artist's Related Artists"
 msgstr ""
 
 #: hutspot.desktop.in.h:1

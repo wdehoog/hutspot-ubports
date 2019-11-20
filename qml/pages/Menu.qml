@@ -34,51 +34,51 @@ Page {
     Component.onCompleted: {
         /*if(!app.playing_as_attached_page.value)
             menuModel.append({hutspotMenuItem: Util.HutspotMenuItem.ShowPlayingPage,
-                              name: qsTr("Playing"),
+                              name: i18n.tr("Playing"),
                               icon: "image://theme/icon-m-music"
                              })*/
         /*menuModel.append({hutspotMenuItem: Util.HutspotMenuItem.ShowNewReleasePage,
-                          name: qsTr("New & Featured"),
+                          name: i18n.tr("New & Featured"),
                           icon: "image://theme/icon-m-health"
                          })*/
         menuModel.append({hutspotMenuItem: Util.HutspotMenuItem.ShowMyStuffPage,
-                          name: qsTr("My Stuff"),
+                          name: ("My Stuff"),
                           icon: "image://theme/contact" // -events
                          })
         /*menuModel.append({hutspotMenuItem: Util.HutspotMenuItem.ShowTopStuffPage,
-                          name: qsTr("Top Stuff"),
+                          name: i18n.tr("Top Stuff"),
                           icon: "image://theme/icon-m-like"
                          })
         menuModel.append({hutspotMenuItem: Util.HutspotMenuItem.ShowGenreMoodPage,
-                          name: qsTr("Genre & Mood"),
+                          name: i18n.tr("Genre & Mood"),
                           icon: "image://theme/icon-m-ambience"
                          })
         menuModel.append({hutspotMenuItem: Util.HutspotMenuItem.ShowHistoryPage,
-                          name: qsTr("History"),
+                          name: i18n.tr("History"),
                           icon: "image://theme/icon-m-backup"
                          })
         menuModel.append({hutspotMenuItem: Util.HutspotMenuItem.ShowRecommendedPage,
-                          name: qsTr("Recommended"),
+                          name: i18n.tr("Recommended"),
                           icon: "image://theme/icon-m-acknowledge"
-                         })
-        menuModel.append({hutspotMenuItem: Util.HutspotMenuItem.ShowSearchPage,
-                          name: qsTr("Search"),
-                          icon: "image://theme/icon-m-search"
                          })*/
+        menuModel.append({hutspotMenuItem: Util.HutspotMenuItem.ShowSearchPage,
+                          name: i18n.tr("Search"),
+                          icon: "image://theme/toolkit_input-search"
+                         })
         menuModel.append({hutspotMenuItem: Util.HutspotMenuItem.ShowDevicesPage,
-                          name: qsTr("Devices"),
+                          name: i18n.tr("Devices"),
                           icon: "image://theme/audio-speakers-symbolic"
                          })
         /*menuModel.append({hutspotMenuItem: Util.HutspotMenuItem.ShowSettingsPage,
-                          name: qsTr("Settings"),
+                          name: i18n.tr("Settings"),
                           icon: "image://theme/icon-m-developer-mode"
                          })
         menuModel.append({hutspotMenuItem: Util.HutspotMenuItem.ShowHelp,
-                          name: qsTr("Help"),
+                          name: i18n.tr("Help"),
                           icon: "image://theme/icon-m-question"
                          })
         menuModel.append({hutspotMenuItem: Util.HutspotMenuItem.ShowAboutPage,
-                          name: qsTr("About"),
+                          name: i18n.tr("About"),
                           icon: "image://theme/icon-m-about"
                          })*/
     }

@@ -759,6 +759,8 @@ MainView {
         property int sorted_list_limit: 1000
 
         property int currentItemClassMyStuff: 0
+        property int currentItemClassArtist: 0
+        property int currentItemClassSearch: 0
 
         property bool authUsingBrowser: false
         property bool queryForMarket: true
