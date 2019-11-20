@@ -18,7 +18,8 @@ Page {
     id: devicesPage
 
     property bool isBusy: waitForInSpotifyList.running
-    property alias actionSelectionPopover: actionSelectionPopover
+
+    property var _model
 
     anchors.fill: parent
 
@@ -46,41 +47,48 @@ Page {
         flickable: listView
     }
 
-    ActionSelectionPopover {
-        id: actionSelectionPopover
+    Component {
+        id: contextMenu
+        ActionSelectionPopover {
+            id: actionSelectionPopover
 
-        property var model
+            property var model
 
-        actions: ActionList {
-            Action {
-                text: i18n.tr("Set as Current")
-                onTriggered: {
-                    if(app.spotify)
-                        app.setDevice(model.deviceId, model.name, function(error, data){
-                            if(!error)
-                                refreshDevices()
-                        })
-                }
-            }
-            /*menu: contextMenu
-
-                    MenuItem {
-                        enabled: sp === 0 && app.librespot.hasLibreSpotCredentials()
-                        text: qsTr("Connect using Authorization Blob")
-                        onClicked: {                            
-                            var name = app.foundDevices[deviceIndex].remoteName
-                            _toBeAddedName = name
-                            app.librespot.addUser(app.foundDevices[deviceIndex], function(error, data) {
-                                if(data) {
-                                    waitForInSpotifyList.count = 5
-                                } else {
-                                    app.showErrorMessage(error, qsTr("Failed to connect to " + name))
-                                }
+            actions: ActionList {
+                Action {
+                    text: i18n.tr("Set as Current")
+                    onTriggered: {
+                        console.log("set as current")
+                        if(spotify) {
+                        console.log("   IN")
+                            app.setDevice(_model.deviceId, _model.name, function(error, data){
+                                if(!error)
+                                    refreshDevices()
                             })
-                        }
+                        } else
+                          console.log("   NO")
                     }
                 }
-            }*/
+                /*menu: contextMenu
+
+                        MenuItem {
+                            enabled: sp === 0 && app.librespot.hasLibreSpotCredentials()
+                            text: qsTr("Connect using Authorization Blob")
+                            onClicked: {                            
+                                var name = app.foundDevices[deviceIndex].remoteName
+                                _toBeAddedName = name
+                                app.librespot.addUser(app.foundDevices[deviceIndex], function(error, data) {
+                                    if(data) {
+                                        waitForInSpotifyList.count = 5
+                                    } else {
+                                        app.showErrorMessage(error, qsTr("Failed to connect to " + name))
+                                    }
+                                })
+                            }
+                        }
+                    }
+                }*/
+            }
         }
     }
 
@@ -121,9 +129,8 @@ Page {
             }
 
             onPressAndHold: {
-                actionSelectionPopover.model = model
-                actionSelectionPopover.caller = delegate
-                actionSelectionPopover.show()
+                _model = model
+                PopupUtils.open(contextMenu, delegate)
             }
         }
 

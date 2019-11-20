@@ -1,5 +1,6 @@
 import QtQuick 2.7
 import Ubuntu.Components 1.3
+import Ubuntu.Components.Popups 1.3
 //import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
 import Qt.labs.settings 1.0
@@ -15,6 +16,9 @@ MainView {
     id: app
     
     property alias settings: settings
+
+    property alias deviceId: settings.deviceId
+    property alias deviceName: settings.deviceName
 
     //
     // UI stuff
@@ -305,12 +309,13 @@ MainView {
 
         onOpenBrowser: {
            console.log("onOpenBrowser: " + url)
-           if(settings.authUsingBrowser) {
+           // Morph.Web crashes but Morph the browser works
+           //if(settings.authUsingBrowser) { 
                Qt.openUrlExternally(url)
-           } else {
-               pageStack.push(Qt.resolvedUrl("pages/Menu.qml"))
-               pageStack.push(Qt.resolvedUrl("pages/WebAuth.qml"), {authURL: url })
-           }
+           //} else {
+           //    pageStack.push(Qt.resolvedUrl("pages/Menu.qml"))
+           //    pageStack.push(Qt.resolvedUrl("pages/WebAuth.qml"), {authURL: url })
+           //}
         }
 
         onCloseBrowser: {
@@ -682,6 +687,53 @@ MainView {
             app.pushPage(Util.HutspotPage.Artist, {currentArtist:artists[0]}, fromPlaying)
         }
     }
+
+    //
+    // Dialogs
+    //
+    property string _dialogTitle
+    property string _dialogText
+    Component {
+        id: dialog
+        Dialog {
+            id: dialogue
+            title: _dialogTitle
+            text: _dialogText
+            Button { 
+                text: i18n.tr("Ok")
+                onClicked: PopupUtils.close(dialogue) 
+            }
+        }
+    }
+
+    function showErrorMessage(error, text) {
+        var msg
+        if(error) {
+            if(error.hasOwnProperty('status') && error.hasOwnProperty('message'))
+                msg = text + ":" + error.status + ":" + error.message
+            else
+                msg = text + ": " + error
+        } else
+            msg = text
+        _dialogTitle = i18n.tr("Error")      
+        _dialogText = msg      
+        PopupUtils.open(dialog)
+    }
+
+    function setDevice(id, name, callback) {
+        var newId = id
+        var newName = name
+        Spotify.transferMyPlayback([id],{}, function(error, data) {
+            if(!error) {
+                controller.refreshPlaybackState()
+                deviceId.value = newId
+                deviceName.value = newName
+                callback(null, data)
+            } else
+                showErrorMessage(error, qsTr("Failed to transfer to") + " " + deviceName.value)
+        })
+    }
+
     /**
      * List of last visited albums/artists/playlists
      */
@@ -766,5 +818,9 @@ MainView {
         property bool queryForMarket: true
 
         property var history
+
+        property string deviceId: ""
+        property string deviceName: ""
+
     }
 }

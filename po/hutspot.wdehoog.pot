@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-20 19:41+0000\n"
+"POT-Creation-Date: 2019-11-20 21:56+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,6 +48,14 @@ msgstr ""
 msgid "Use as Seeds for Recommendations"
 msgstr ""
 
+#: ../qml/Main.qml:703
+msgid "Ok"
+msgstr ""
+
+#: ../qml/Main.qml:718
+msgid "Error"
+msgstr ""
+
 #: ../qml/pages/Playlist.qml:39
 msgid "Playlist"
 msgstr ""
@@ -60,19 +68,19 @@ msgstr ""
 msgid "Spotify Login"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:27 ../qml/pages/Menu.qml:69
+#: ../qml/pages/Devices.qml:28 ../qml/pages/Menu.qml:69
 msgid "Devices"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:37
+#: ../qml/pages/Devices.qml:38
 msgid "Reload Devices"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:42
+#: ../qml/pages/Devices.qml:43
 msgid "Refresh Token"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:56
+#: ../qml/pages/Devices.qml:59
 msgid "Set as Current"
 msgstr ""
 
