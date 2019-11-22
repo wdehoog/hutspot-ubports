@@ -70,7 +70,7 @@ Page {
 
             width: parent.width - 2*app.paddingMedium
             x: app.paddingMedium
-            anchors.bottomMargin: Theme.paddingLarge
+            anchors.bottomMargin: app.paddingLarge
             spacing: app.paddingMedium
 
 
@@ -294,20 +294,4 @@ Page {
         })
     }
 
-    // The shared DockedPanel needs mouse events
-    // and some ListView events
-    /*propagateComposedEvents: true
-    onStatusChanged: {
-        if(status === PageStatus.Activating) {
-            if(_needsRefresh) {
-                _needsRefresh = false
-                refresh()
-            }
-        }
-
-        if(status === PageStatus.Activating)
-            app.dockedPanel.registerListView(listView)
-        else if(status === PageStatus.Deactivating)
-            app.dockedPanel.unregisterListView(listView)
-    }*/
 }

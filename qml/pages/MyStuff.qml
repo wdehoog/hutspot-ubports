@@ -109,7 +109,7 @@ Page {
     }
 
     // when the page is on the stack but not on top a refresh can wait
-    property bool _needsRefresh: false
+    //property bool _needsRefresh: false
 
     /*Connections {
         target: app
@@ -366,10 +366,14 @@ Page {
 
     Connections {
         target: app
-        onHasValidTokenChanged: refresh()
+        onHasValidTokenChanged: {
+          console.log("MyStuff.onHasValidTokenChanged")
+          refresh()
+        }
     }
 
     Component.onCompleted: {
+        console.log("MyStuff.onCompleted hasValidToken=" + app.hasValidToken)
         if(app.hasValidToken)
             refresh()
     }

@@ -66,6 +66,12 @@ Page {
                 iconName: "go-previous"
                 text: i18n.tr("previous")
                 onTriggered: prevItemClass()
+            },
+            Action {
+                iconName: "external-link"
+                text: qsTr("Load Artist About Page in Browser")
+                visible: currentArtist && currentArtist.external_urls["spotify"]
+                onTriggered: Qt.openUrlExternally(currentArtist.external_urls["spotify"] + "/about")
             }
         ]
         flickable: listView
@@ -84,14 +90,6 @@ Page {
         anchors.top: parent.top
         height: parent.height // - app.dockedPanel.visibleSize
         //clip: app.dockedPanel.expanded
-
-        /*PullDownMenu {
-            MenuItem {
-                text: qsTr("Load Artist About Page in Browser")
-                visible: currentArtist && currentArtist.external_urls["spotify"]
-                onClicked: Qt.openUrlExternally(currentArtist.external_urls["spotify"] + "/about")
-            }
-        }*/
 
         header: Component { Column {
             id: lvColumn

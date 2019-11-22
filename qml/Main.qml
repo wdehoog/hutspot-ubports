@@ -261,6 +261,14 @@ MainView {
     property int tokenExpireTime: 0 // seconds from epoch
     property bool hasValidToken: false
 
+    function updateValidToken(expireTime) {
+        tokenExpireTime = expireTime
+        var expDate = new Date(tokenExpireTime*1000)
+        console.log("expires on: " + expDate.toDateString() + " " + expDate.toTimeString())
+        var now = new Date()
+        hasValidToken = expDate > now
+    }
+
     Connections {
         target: spotify
 
@@ -281,9 +289,7 @@ MainView {
             //console.log("token   : " + spotify.getToken())
             Spotify._accessToken = spotify.getToken()
             Spotify._username = spotify.getUserName()
-            tokenExpireTime = spotify.getExpires()
-            var date = new Date(tokenExpireTime*1000)
-            console.log("expires on: " + date.toDateString() + " " + date.toTimeString())
+            updateValidToken(spotify.getExpires())
             //app.connectionText = qsTr("Connected")
             //loadUser()
             loadFirstPage()
@@ -299,12 +305,7 @@ MainView {
             if(errorCode !== 0) {
                 showErrorMessage(errorString, qsTr("Failed to Refresh Authorization Token"))
             } else {
-                console.log("expires: " + tokenExpireTime)
-                tokenExpireTime = spotify.getExpires()
-                var expDate = new Date(tokenExpireTime*1000)
-                console.log("expires on: " + expDate.toDateString() + " " + expDate.toTimeString())
-                var now = new Date()
-                hasValidToken = expDate > now
+                updateValidToken(spotify.getExpires())
             }
         }
 
