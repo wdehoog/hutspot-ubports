@@ -55,7 +55,7 @@ Item {
 
             Item {
                 height: parent.height
-                width: row.itemWidth * 4
+                width: row.itemWidth * 3
                 anchors {
                     left: imageItem.right
                     verticalCenter: parent.verticalCenter
@@ -80,7 +80,7 @@ Item {
                     }
                     Button {
                         anchors.verticalCenter: parent.verticalCenter
-                        width: row.itemWidth * 1.0
+                        width: row.itemWidth * 0.9
                         height: width
                         color: "white"
                         action: Action {
@@ -104,22 +104,20 @@ Item {
             }
 
             // menu
-            /*Button {
-                width: row.itemWidth
+            Button {
+                id: playingButton
+                width: row.itemWidth * 0.8
                 height: width
+                color: "white"
                 anchors.verticalCenter: parent.verticalCenter
-                //anchors.right: parent.right
+                anchors.right: parent.right
                 action: Action {
-                    iconName: "navigation-menu"
+                    iconName: "go-next"
                     onTriggered: {
-                        var dialog = pageStack.push(Qt.resolvedUrl("NavigationMenuDialog.qml")) //, {}, PageStackAction.Immediate)
-                        dialog.done.connect(function() {
-                            if(dialog.selectedMenuItem > -1)
-                                app.doSelectedMenuItem(dialog.selectedMenuItem)
-                        })
+                        pageStack.push(Qt.resolvedUrl("../pages/Playing.qml"))
                     }
                 }
-            }*/
+            }
 
         }
     }

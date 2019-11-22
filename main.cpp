@@ -23,6 +23,12 @@ int main(int argc, char *argv[])
 
     QQuickView *view = new QQuickView();
 
+    QString buildDateTime;
+    buildDateTime.append(__DATE__);
+    buildDateTime.append(" ");
+    buildDateTime.append(__TIME__);
+    view->rootContext()->setContextProperty("BUILD_DATE_TIME", buildDateTime);
+
     Spotify spotify;
     view->rootContext()->setContextProperty("spotify", &spotify);
 

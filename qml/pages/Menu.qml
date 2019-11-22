@@ -23,8 +23,16 @@ Page {
     anchors.fill: parent
 
     header: PageHeader {
-        title: "Hutspot" //i18n.tr("Menu")
+        title: i18n.tr("Hutspot") 
         flickable: listView
+
+        trailingActionBar.actions: [
+            Action {
+                iconName: "info"
+                text: i18n.tr("About")
+                onTriggered: pageStack.push(Qt.resolvedUrl("About.qml") )
+            }
+        ]
     }
 
     ListModel {

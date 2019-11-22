@@ -56,10 +56,11 @@ MainView {
         clip: true
     }
 
+
     PlayerArea {
         id: playerArea
-        //visible: pageStack.currentPage.objectName !== "AboutPage"
-        //         && pageStack.currentPage.objectName !== "HelpPage"
+        visible: pageStack.currentPage.objectName !== "PlayingPage"
+        height: visible ? itemSizeLarge : 0
         anchors {
             bottom: parent.bottom
             bottomMargin: paddingSmall

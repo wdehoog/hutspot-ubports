@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-20 21:56+0000\n"
+"POT-Creation-Date: 2019-11-22 18:56+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,12 +48,48 @@ msgstr ""
 msgid "Use as Seeds for Recommendations"
 msgstr ""
 
-#: ../qml/Main.qml:703
+#: ../qml/Main.qml:704
 msgid "Ok"
 msgstr ""
 
-#: ../qml/Main.qml:718
+#: ../qml/Main.qml:719
 msgid "Error"
+msgstr ""
+
+#: ../qml/pages/Playing.qml:26 ../qml/pages/Playing.qml:50
+msgid "Playing"
+msgstr ""
+
+#: ../qml/pages/Playing.qml:490 ../qml/pages/Playing.qml:509
+msgid "no artist known"
+msgstr ""
+
+#: ../qml/pages/Playing.qml:493
+msgid "no genre known"
+msgstr ""
+
+#: ../qml/pages/Playing.qml:517 ../qml/pages/Playing.qml:530
+msgid "tracks"
+msgstr ""
+
+#: ../qml/pages/Playing.qml:519
+msgid "track"
+msgstr ""
+
+#: ../qml/pages/Playing.qml:527 ../qml/pages/Playing.qml:533
+msgid "followers"
+msgstr ""
+
+#: ../qml/pages/Playing.qml:531
+msgid "by"
+msgstr ""
+
+#: ../qml/pages/Playing.qml:535
+msgid "public"
+msgstr ""
+
+#: ../qml/pages/Playing.qml:537
+msgid "collaborative"
 msgstr ""
 
 #: ../qml/pages/Playlist.qml:39
@@ -64,11 +100,35 @@ msgstr ""
 msgid "Album"
 msgstr ""
 
+#: ../qml/pages/About.qml:20 ../qml/pages/Menu.qml:32
+msgid "About"
+msgstr ""
+
+#: ../qml/pages/About.qml:80
+msgid "Spotify controller for UBports"
+msgstr ""
+
+#: ../qml/pages/About.qml:90
+msgid "Copyright (C) 2019"
+msgstr ""
+
+#: ../qml/pages/About.qml:97
+msgid "License: MIT"
+msgstr ""
+
+#: ../qml/pages/About.qml:113
+msgid "Contributors"
+msgstr ""
+
+#: ../qml/pages/About.qml:147
+msgid "Thanks to"
+msgstr ""
+
 #: ../qml/pages/WebAuth.qml:19
 msgid "Spotify Login"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:28 ../qml/pages/Menu.qml:69
+#: ../qml/pages/Devices.qml:28 ../qml/pages/Menu.qml:77
 msgid "Devices"
 msgstr ""
 
@@ -84,7 +144,7 @@ msgstr ""
 msgid "Set as Current"
 msgstr ""
 
-#: ../qml/pages/Search.qml:42 ../qml/pages/Menu.qml:65
+#: ../qml/pages/Search.qml:42 ../qml/pages/Menu.qml:73
 msgid "Search"
 msgstr ""
 
@@ -148,6 +208,6 @@ msgstr ""
 msgid "Artist's Related Artists"
 msgstr ""
 
-#: hutspot.desktop.in.h:1
+#: ../qml/pages/Menu.qml:26 hutspot.desktop.in.h:1
 msgid "Hutspot"
 msgstr ""
