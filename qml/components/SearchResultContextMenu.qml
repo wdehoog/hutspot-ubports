@@ -34,7 +34,7 @@ Component {
             }
             Action {
                 text: i18n.tr("Add to Playlist")
-                enabled: model && (model.type === Util.SpotifyItemType.Track && Util.isTrackPlayable(item))
+                enabled: model && (model.type === Util.SpotifyItemType.Track && Util.isTrackPlayable(model.item))
                          && model.contextType !== Util.SpotifyItemType.Playlist
                 visible: enabled
                 onTriggered: app.addToPlaylist(model.item)
@@ -55,7 +55,7 @@ Component {
                 app.controller.playContext(model.item)
                 break;
             case Util.SpotifyItemType.Track:
-                switch(contextType) {
+                switch(model.contextType) {
                 case Util.SpotifyItemType.Album:
                     app.controller.playTrackInContext(model.item, model.album, model.index)
                     break

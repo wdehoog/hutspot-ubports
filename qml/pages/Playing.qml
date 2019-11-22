@@ -41,6 +41,7 @@ Page {
     property int mutedVolume: -1
     property bool muted: false
 
+    property bool _debug: true
 
     ListModel {
         id: searchModel
@@ -49,23 +50,18 @@ Page {
     header: PageHeader {
         title: i18n.tr("Playing") 
         flickable: listView
-
-        /*trailingActionBar.actions: [
-            Action {
-                iconName: "back"
-                text: "Back"
-                onTriggered: pageStack.pop()
-            }
-        ]*/
     }
 
 
         ListView {
             id: listView
             model: searchModel
-            anchors.fill: parent
+            //anchors.fill: parent
+            width: parent.width
+            height: parent.height - controlPanel.height
+            clip: true
 
-            header: Column {
+            header: Component { Column {
                 id: lvColumn
 
                 width: parent.width - 2*app.paddingMedium
@@ -101,12 +97,12 @@ Page {
                     }*/
                 }
 
-                /*Item {
+                Item {
                     id: infoContainer
 
                     // put MetaInfoPanel in Item to be able to make room for context menu
                     width: parent.width
-                    height: info.height + (cmenu ? cmenu.height : 0)
+                    height: info.height //+ (cmenu ? cmenu.height : 0)
 
                     MetaInfoPanel {
                         id: info
@@ -126,7 +122,7 @@ Page {
                             cmenu.open(infoContainer)
                         }
                     }
-                }*/
+                }
 
                 /*ContextMenu {
                     id: cmenu
@@ -220,7 +216,7 @@ Page {
                     height: app.paddingMedium
                     opacity: 0
                 }
-            }
+            }}
 
             delegate: ListItem {
                 id: listItem
@@ -254,6 +250,7 @@ Page {
                       value: contextType
                       when: loader.status == Loader.Ready
                     }
+                    //onStatusChanged: console.log("Loader: " + loader.status)
                 }
 
                 /*menu: AlbumTrackContextMenu {
@@ -271,11 +268,6 @@ Page {
                 onClicked: app.controller.playTrackInContext(item, app.controller.playbackState.context, index)
             }
 
-            /*ViewPlaceholder {
-                enabled: listView.count === 0
-                text: i18n.tr("Nothing to play")
-            }*/
-
         }
 
     Scrollbar {
@@ -290,7 +282,6 @@ Page {
         anchors.bottom: parent.bottom
         width: parent.width
         height: col.height
-        opacity: app.dockedPanel.open ? 0.0 : 1.0
 
         Column {
             id: col
@@ -301,13 +292,12 @@ Page {
                 width: parent.width
                 Text {
                     id: progressLabel
-                    font.pixelSize: Theme.fontSizeSmall
+                    //font.pixelSize: Theme.fontSizeSmall
                     anchors.verticalCenter: parent.verticalCenter
                     text: Util.getDurationString(app.controller.playbackState.progress_ms)
                 }
                 Slider {
                     id: progressSlider
-                    property bool isPressed: false
                     //height: progressLabel.height * 1.5
                     anchors.verticalCenter: parent.verticalCenter
                     width: parent.width - durationLabel.width - progressLabel.width
@@ -315,27 +305,23 @@ Page {
                     maximumValue: app.controller.playbackState.item
                                   ? app.controller.playbackState.item.duration_ms
                                   : ""
-                    value: app.controller.playbackState.progress_ms
-                    /*onPressed: isPressed = true
-                    onReleased: {
+                    onTouched: {
+                        if(_debug)console.log("onTouched: v=" + value)
                         Spotify.seek(Math.round(value), function(error, data) {
-                            app.controller.playbackState.progress_ms = Math.round(value)
-                         })
-                        isPressed = false
+                            if(_debug)console.log("onTouched.callback: e=", + error + ", d=" + data)
+                            /*if(!error) {
+                                app.controller.playbackState.progress_ms = Math.round(value)
+                            }*/
+                        })
                     }
                     Connections {
                         target: app.controller.playbackState
-                        // cannot use 'value: playbackProgress' since press/drag
-                        // breaks the link between them
-                        onProgress_msChanged: {
-                            if(!progressSlider.isPressed)
-                                progressSlider.value = app.controller.playbackState.progress_ms
-                        }
-                    }*/
+                        onProgress_msChanged: progressSlider.value = app.controller.playbackState.progress_ms
+                    }
                 }
                 Text {
                     id: durationLabel
-                    font.pixelSize: Theme.fontSizeSmall
+                    //font.pixelSize: Theme.fontSizeSmall
                     anchors.verticalCenter: parent.verticalCenter
                     text: app.controller.playbackState.item
                           ? Util.getDurationString(app.controller.playbackState.item.duration_ms)
@@ -356,10 +342,9 @@ Page {
 
                 Button {
                     width: buttonRow.itemWidth
-                    color: "white"
+                    color: app.controller.playbackState.shuffle_state ? "#E5E4E2" : "white" 
                     action: Action {
                         iconName: "media-playlist-shuffle"
-                        // app.controller.playbackState.shuffle_state
                         onTriggered: app.controller.setShuffle(!app.controller.playbackState.shuffle_state)
                     }
                 }
@@ -379,7 +364,7 @@ Page {
                     action: Action {
                         iconName: app.controller.playbackState.is_playing
                                  ? "media-playback-pause"
-                                 : "media-playback-play"
+                                 : "media-playback-start"
                         onTriggered: app.controller.playPause()
                     }
                 }
@@ -415,10 +400,13 @@ Page {
                     }*/
 
                     width: buttonRow.itemWidth
-                    color: "white"
+                    color: app.controller.playbackState.repeat_state == "off" 
+                           ? "white" 
+                           : (app.controller.playbackState.repeat_state == "track" 
+                              ? "#E5E4E2"  
+                              : "#BCC6CC") // white/platinum/metallic silver
                     action: Action {
                         iconName: "media-playlist-repeat"
-                        // app.controller.playbackState.repeat_state !== "off"
                         onTriggered: app.controller.setRepeat(app.controller.playbackState.nextRepeatState())
                     }
                 }
@@ -446,7 +434,9 @@ Page {
                     spacing: app.paddingMedium
                     Image {
                         anchors.verticalCenter: spotifyConnectLabel.verticalCenter
-                        source: "toolkit-arrow-right"
+                        width: units.gu(2)
+                        height: width
+                        source: "image://theme/toolkit_arrow-right"
                     }
 
                     Text {
@@ -587,6 +577,7 @@ Page {
 
     function updateForCurrentTrack() {
         if (app.controller.playbackState.context) {
+            if(_debug)console.log("updateForCurrentTrack: context=" + app.controller.playbackState.context.type)
             switch(app.controller.playbackState.context.type) {
             case 'album':
                 updateForCurrentAlbumTrack()
@@ -655,7 +646,7 @@ Page {
     }
 
     onCurrentIdChanged: {
-        //console.log("Playing.onCurrentIdChanged: " + currentId)
+        if(_debug)console.log("Playing.onCurrentIdChanged: " + currentId)
         if (app.controller.playbackState.context) {
             switch (app.controller.playbackState.context.type) {
                 case 'album':
@@ -686,15 +677,20 @@ Page {
         target: app.controller.playbackState
 
         onContextDetailsChanged: {
-            //console.log("Playing.onContextDetailsChanged: " + currentId)
+            if(_debug)console.log("Playing.onContextDetailsChanged: " + currentId)
             if(app.controller.playbackState.contextDetails)
                 currentId = app.controller.playbackState.contextDetails.id
             else
-                currentId = -1
+                currentId = ""
         }
 
         onItemChanged: {
-            //console.log("Playing.onItemChanged  currentId: " +currentId + ", currentTrackId: " + currentTrackId + ", currentIndex: " + currentIndex)
+            if(_debug)console.log("Playing.onItemChanged  currentId: " +currentId + ", currentTrackId: " + currentTrackId + ", currentIndex: " + currentIndex)
+
+            // do we have an id?
+            if(currentId == "" && app.controller.playbackState.contextDetails)
+                currentId = app.controller.playbackState.contextDetails.id
+                
             if(currentTrackId === app.controller.playbackState.item.id) {
                 if(currentIndex === -1) // we can still miss it
                     updateForCurrentTrack()
@@ -730,7 +726,7 @@ Page {
         }
 
         onIs_playingChanged: {
-            //console.log("Playing.onIs_playingChanged ")
+            if(_debug)console.log("Playing.onIs_playingChanged ")
             if(!_isPlaying && app.controller.playbackState.is_playing) {
                 if(currentIndex === -1)
                     updateForCurrentTrack()
@@ -754,6 +750,7 @@ Page {
     property bool _loading: false
 
     function appendPlaylistTracks(id, pid, onInit) {
+      if(_debug)console.log("appendPlaylistTracks ")
         // if already at the end -> bail out
         if(searchModel.count > 0 && searchModel.count >= cursorHelper.total)
             return
@@ -790,7 +787,7 @@ Page {
 
     property bool _loadingTrack: false
     function loadCurrentTrack(id) {
-        //console.log("loadCurrentTrack: [" + id +"] _loadingTrack: " + _loadingTrack)
+        if(_debug)console.log("loadCurrentTrack: [" + id +"] _loadingTrack: " + _loadingTrack)
         if(!id)
             return
         if(_loadingTrack)
@@ -798,7 +795,7 @@ Page {
         _loadingTrack = true
         searchModel.clear()
         var options = {}
-        if(app.query_for_market.value)
+        if(app.queryForMarket)
             options.market = "from_token"
         Spotify.getTrack(id, options, function(error, data) {
             if(data) {
@@ -832,7 +829,7 @@ Page {
     function _loadAlbumTracks(id) {
         // 'market' enables 'track linking'
         var options = {offset: cursorHelper.offset, limit: cursorHelper.limit}
-        if(app.query_for_market.value)
+        if(app.queryForMarket)
             options.market = "from_token"
         Spotify.getAlbumTracks(id, options, function(error, data) {
             if(data) {
@@ -976,4 +973,11 @@ Page {
         }
     }
 
+    Component.onCompleted: {
+        // do we have an id?
+        if(currentId == "" 
+           && app.controller.playbackState 
+           && app.controller.playbackState.contextDetails)
+            currentId = app.controller.playbackState.contextDetails.id
+    }
 }

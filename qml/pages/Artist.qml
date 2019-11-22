@@ -117,7 +117,7 @@ Page {
                 }
             }
 
-            /*MetaInfoPanel {
+            MetaInfoPanel {
                 firstLabelText: currentArtist ? currentArtist.name : qsTr("No Name")
                 secondLabelText: {
                     if(!_fullArtist)
@@ -139,7 +139,7 @@ Page {
                 onToggleFavorite: app.toggleFollowArtist(currentArtist, isFollowed, function(followed) {
                     isFollowed = followed
                 })
-            }*/
+            }
 
             /*Rectangle {
                 width: parent.width

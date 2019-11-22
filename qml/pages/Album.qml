@@ -71,7 +71,7 @@ Page {
             }
         }
 
-        /*MetaInfoPanel {
+        MetaInfoPanel {
             id: metaLabels
             width: parent.width
             firstLabelText: album.name
@@ -100,7 +100,7 @@ Page {
             onToggleFavorite: app.toggleSavedAlbum(album, isAlbumSaved, function(saved) {
                 isAlbumSaved = saved
             })
-        }*/
+        }
     }
     }
 

@@ -68,7 +68,7 @@ Page {
         header: Component { Column {
             id: lvColumn
 
-            width: parent.width - 2*Theme.paddingMedium
+            width: parent.width - 2*app.paddingMedium
             x: app.paddingMedium
             anchors.bottomMargin: Theme.paddingLarge
             spacing: app.paddingMedium
@@ -89,8 +89,9 @@ Page {
                 }
             }
 
-            /*MetaInfoPanel {
+            MetaInfoPanel {
                 id: metaInfoPanel
+                width: parent.width
 
                 isFavorite: isFollowed
 
@@ -107,11 +108,11 @@ Page {
                 onToggleFavorite: app.toggleFollowPlaylist(playlist, isFollowed, function(followed) {
                     isFollowed = followed
                 })
-            }*/
+            }
 
             Rectangle {
                 width: parent.width
-                height:Theme.paddingMedium
+                height: app.paddingMedium
                 opacity: 0
             }
         }}
