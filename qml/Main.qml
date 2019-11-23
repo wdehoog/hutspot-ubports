@@ -8,6 +8,7 @@ import Qt.labs.settings 1.0
 import QtWebEngine 1.7
 
 import org.hildon.components 1.0
+import SystemUtil 1.0
 
 import "Spotify.js" as Spotify
 import "Util.js" as Util
@@ -1006,10 +1007,12 @@ MainView {
     // Use powerd-cli to prevent the phone from suspending
     //
 
-    /*Connections {
+    Connections {
         target: controller.playbackState
         onIs_playingChanged: {
+          console.log("onIs_playingChanged");
             if(controller.playbackState.is_playing) {
+          console.log("  playing state: " + powerdcliProcess.state);
               // cancel pending quit
               if(delayTimer.running) 
                  delayTimer.running = false
@@ -1017,6 +1020,7 @@ MainView {
                   requestSysStateActive()
               }
             } else {
+          console.log("  not playing state: " + powerdcliProcess.state);
               if(powerdcliProcess.state !== Processes.NotRunning) {
                 delayedExec(function() {
                     clearSysStateActive()
@@ -1027,17 +1031,21 @@ MainView {
     }
 
     function requestSysStateActive(callback) {
+        console.log("  requestSysStateActive");
         var command = "/usr/sbin/powerd-cli"
         var args = ["active"]
+        //var command = "/usr/bin/lscpu"
+        //var args = ["-x"]
         powerdcliProcess.callback = callback
         powerdcliProcess.start(command, args)
     }
 
     function clearSysStateActive() {
-      //powerdcliProcess.terminate() // SIGTERM
-      //powerdcliProcess.kill() // SIGKILL
+      console.log("  clearSysStateActive");
+      //terminate() // SIGTERM
+      //kill() // SIGKILL
       if(powerdcliProcess.state === Processes.Running)
-          sysUtil.pkill(powerdcliProcess.pid, SystemUtils.SIGINT)
+          sysUtil.pkill(powerdcliProcess.pid, SystemUtil.SIGINT)
     }
 
     function delayedExec(callback, delay) {
@@ -1063,36 +1071,36 @@ MainView {
         workingDirectory: sysUtil.env("HOME")
 
         onExitCodeChanged: {
-            console.log("Process.onExitCodeChanged["+name+"]: " + process.exitCode)
+            console.log("Process.onExitCodeChanged["+name+"]: " + powerdcliProcess.exitCode)
         }
 
         onStateChanged: {
-            console.log("Process.onStateChanged["+name+"]: " + process.state)
+            console.log("Process.onStateChanged["+name+"]: " + powerdcliProcess.state)
         }
 
         onProcessFinished: {
-            console.log("Process.onProcessFinished["+name+"]: " + process.error)
+            console.log("Process.onProcessFinished["+name+"]: " + powerdcliProcess.error)
         }
 
         onError: {
             if(callback !== undefined)
-                callback(process.error, process.exitCode, undefined)
-            console.log("Process.onError["+name+"]: " + process.error)
+                callback(powerdcliProcess.error, powerdcliProcess.exitCode, undefined)
+            console.log("Process.onError["+name+"]: " + powerdcliProcess.error)
             callback = undefined
         }
 
         onFinished: {
-            var stdout = process.readAllStandardOutput()
-            var stderr = process.readAllStandardError()
-            console.log("Process.onFinished["+name+"]: " + process.exitStatus + ", code: " + process.exitCode)
+            var stdout = powerdcliProcess.readAllStandardOutput()
+            var stderr = powerdcliProcess.readAllStandardError()
+            console.log("Process.onFinished["+name+"]: " + powerdcliProcess.exitStatus + ", code: " + powerdcliProcess.exitCode)
             console.log("[stdout]:" + stdout)
             console.log("[stderr]:" + stderr)
 
             if(callback !== undefined)
-                callback(null, process.exitCode, stderr)
+                callback(null, powerdcliProcess.exitCode, stderr)
             callback = undefined
         }
-    }*/
+    }
 
     Settings {
         id: settings
