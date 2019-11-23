@@ -87,9 +87,19 @@ Page {
                 }
                 Row {
                     width: parent.width
-                    Text { text: i18n.tr("Search in") }
+                    spacing: app.paddingMedium
+                    Text { 
+                        id: label
+                        text: i18n.tr("In") 
+                    }
                     QtQc.ComboBox {
-                        width: parent.width
+                        width: parent.width - label.width - parent.spacing
+                        background: Rectangle {
+                            color: app.normalBackgroundColor
+                            border.width: 1
+                            border.color: "grey"
+                            radius: 7
+                        }
                         model: [ 
                             i18n.tr("Albums"), 
                             i18n.tr("Artists"), 
@@ -100,6 +110,7 @@ Page {
                           setItemClass(index)
                           refresh()
                         }
+                        Component.onCompleted: currentIndex = app.settings.currentItemClassSearch
                     }
                 }
                 /*Row {
