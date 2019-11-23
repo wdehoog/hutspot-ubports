@@ -7,6 +7,8 @@ import QtQuick.Layouts 1.3
 import Qt.labs.settings 1.0
 import QtWebEngine 1.7
 
+import org.hildon.components 1.0
+
 import "Spotify.js" as Spotify
 import "Util.js" as Util
 
@@ -36,6 +38,10 @@ MainView {
 
     property color normalBackgroundColor: "white" // theme.palette.normal.base
     property color highlightBackgroundColor: "#CDCDCD" // theme.palette.highlited.base
+
+    property var fontPrimaryWeight: Font.Light
+    property var fontHighlightWeight: Font.Bold
+
     //
 
     objectName: 'mainView'
@@ -61,7 +67,8 @@ MainView {
 
     PlayerArea {
         id: playerArea
-        visible: pageStack.currentPage.objectName !== "PlayingPage"
+        visible: pageStack.currentPage 
+                 ? pageStack.currentPage.objectName !== "PlayingPage" : true
         height: visible ? itemSizeLarge : 0
         anchors {
             bottom: parent.bottom
@@ -293,7 +300,7 @@ MainView {
             Spotify._username = spotify.getUserName()
             updateValidToken(spotify.getExpires())
             //app.connectionText = qsTr("Connected")
-            //loadUser()
+            loadUser()
             loadFirstPage()
             // ToDo: maybe call spotify.refreshToken() so after 1st login pages show data
         }
@@ -805,9 +812,104 @@ MainView {
                 if(logging_flags.discovery)console.log("Librespot is already in the devices list")
             }
         }
-        //handleCurrentDevice()
+        handleCurrentDevice()
     }
 
+    function handleCurrentDevice() {
+        // check if our current device is in the list and if it is active
+        var i
+        for(i=0;i<spotifyController.devices.count;i++) {
+            var device = spotifyController.devices.get(i)
+            if(device.name === deviceName.value) {
+                if(logging_flags.discovery)console.log("onDevicesChanged found current: " + JSON.stringify(device))
+                // Now we want to make sure it is our 'current' Spotify device.
+                // How do we know what Spotify thinks our current device is?
+                // According to the documentation it should be device.is_active
+                // For now we check if the device name of the playback state matches
+                // and if it is 'active'.
+                // If it does not it means we have to transfer.
+                // (first I used 'id' instead of 'name' but that can change due to Spotify)
+                if(device.name !== spotifyController.playbackState.device.name
+                   && !spotifyController.playbackState.device.is_active) {
+                    console.log("Will try to set device to [" + device.name + "] is_active=" + device.is_active + ", pbs.device.name=" + spotifyController.playbackState.device.name)
+                    // device still needs to be selected
+                    setDevice(device.id, device.name, function(error, data){
+                        // no refresh since it might keep on recursing
+                        if(error)
+                            console.log("Failed to set device [" + deviceName.value + "] as current: " + error)
+                        else
+                            console.log("Set device [" + deviceName.value + "] as current")
+                    })
+                } else {
+                    if(logging_flags.discovery) {
+                        console.log("Device [" + deviceName.value + "] already in playbackState.")
+                        console.log("  id: " + deviceId.value + ", pbs id: " + spotifyController.playbackState.device.id)
+                    }
+                }
+                break
+            }
+        }
+    }
+
+    // QML seems unable to send a http DELETE request with a body.
+    // Therefore this is done using curl
+    //
+    // curl -X DELETE -i -H "Authorization: Bearer {your access token}"
+    //      -H "Content-Type: application/json" "https://api.spotify.com/v1/playlists/71m0QB5fUFrnqfnxVerUup/tracks"
+    //      --data "{\"tracks\":[{\"uri\": \"spotify:track:4iV5W9uYEdYUVa79Axb7Rh\", \"positions\": [2] },{\"uri\":\"spotify:track:1301WleyT98MSxVHPZCA6M\", \"positions\": [7] }] }"
+
+    // assumes the uris and positions arrays are equal length and 1 uri has 1 position
+    function removeTracksFromPlaylistUsingCurl(playlistId, snapshotId, uris, positions, callback) {
+        var command = "/usr/bin/curl"
+        var args = []
+        args.push("-X")
+        args.push("DELETE")
+        //args.push("-i") // include headers in the output
+        args.push("-H")
+        args.push("Authorization: Bearer " + Spotify.getAccessToken())
+        args.push("-H")
+        args.push("Content-Type: application/json")
+        args.push(Spotify._baseUri + "/playlists/" + playlistId + "/tracks")
+        args.push("--data")
+
+        var data = "{\"tracks\":["
+        for(var i=0;i<uris.length;i++) {
+            if(i>0)
+                data += ","
+            data += "{\"uri\":\"" + uris[i] + "\",\"positions\":[" +positions[i]+ "]}"
+        }
+        //data += "],\"snapshot_id\":\"" + snapshotId + "\"}"
+        data += "]}"
+        args.push(data)
+
+        process.callback = callback
+        process.start(command, args)
+    }
+
+    Process {
+        id: process
+
+        property var callback: undefined
+
+        workingDirectory: sysUtil.env("HOME")
+
+        onError: {
+            if(callback !== undefined)
+                callback(process.error, undefined)
+            console.log("Process.Error: " + process.error)
+            callback = undefined
+        }
+
+        onFinished: {
+            var output = process.readAllStandardOutput()
+            console.log("Process.Finished: " + process.exitStatus + ", code: " + process.exitCode)
+            console.log(output)
+            if(callback !== undefined)
+                callback(null, JSON.parse(output))
+            callback = undefined
+        }
+    }
+   
     Settings {
         id: settings
 

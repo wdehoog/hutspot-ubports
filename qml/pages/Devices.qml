@@ -38,11 +38,11 @@ Page {
                 text: i18n.tr("Reload Devices")
                 iconName: "reload"
                 onTriggered: app.controller.reloadDevices()
-            },
-            Action {
+            } //,
+            /*Action {
                 text: i18n.tr("Refresh Token")
                 onTriggered: spotify.refreshToken()
-            }
+            }*/
         ]
         flickable: listView
     }
@@ -63,7 +63,7 @@ Page {
                         console.log("   IN")
                             app.setDevice(_model.deviceId, _model.name, function(error, data){
                                 if(!error)
-                                    refreshDevices()
+                                    devicesPage.refreshDevices()
                             })
                         } else
                           console.log("   NO")
@@ -73,7 +73,7 @@ Page {
 
                         MenuItem {
                             enabled: sp === 0 && app.librespot.hasLibreSpotCredentials()
-                            text: qsTr("Connect using Authorization Blob")
+                            text: i18n.tr("Connect using Authorization Blob")
                             onClicked: {                            
                                 var name = app.foundDevices[deviceIndex].remoteName
                                 _toBeAddedName = name
@@ -81,7 +81,7 @@ Page {
                                     if(data) {
                                         waitForInSpotifyList.count = 5
                                     } else {
-                                        app.showErrorMessage(error, qsTr("Failed to connect to " + name))
+                                        app.showErrorMessage(error, i18n.tr("Failed to connect to " + name))
                                     }
                                 })
                             }
@@ -111,19 +111,15 @@ Page {
                 Text {
                     id: nameLabel
                     //color: is_active ? Theme.highlightColor : Theme.primaryColor
-                    //color: Theme.primaryColor
+                    font.weight: is_active ? app.fontHighlightWeight : app.fontPrimaryWeight
                     textFormat: Text.StyledText
-                    //truncationMode: TruncationMode.Fade
-                    //width: parent.width - countLabel.width
                     text: getNameLabelText(sp, deviceIndex, name)
                 }
                 Text {
                     id: meta1Label
                     width: parent.width
                     //color: is_active ? Theme.secondaryHighlightColor : Theme.secondaryColor
-                    //color: Theme.secondaryColor
-                    //font.pixelSize: Theme.fontSizeSmall
-                    //truncationMode: TruncationMode.Fade
+                    font.weight: is_active ? app.fontHighlightWeight : app.fontPrimaryWeight
                     text: getMetaLabelText(sp, deviceIndex)
                 }
             }
@@ -169,7 +165,7 @@ Page {
     }
 
     function getNameLabelText(sp, deviceIndex, name) {
-        var str = name ? name : qsTr("Unknown Name")
+        var str = name ? name : i18n.tr("Unknown Name")
         if(sp) {
             str += ", " + app.controller.devices.get(deviceIndex).type
             //str += " [Spotify]"
@@ -187,14 +183,14 @@ Page {
             str = device.volume_percent + "%"
             str += ", "
             str += device.is_active
-                    ? qsTr("active") : qsTr("inactive")
+                    ? i18n.tr("active") : i18n.tr("inactive")
             str += ", "
             str += device.is_restricted
-                    ? qsTr("restricted") : qsTr("unrestricted")
+                    ? i18n.tr("restricted") : i18n.tr("unrestricted")
             return str
         } else {
             str = app.foundDevices[deviceIndex].activeUser.length > 0
-                    ? qsTr("inactive") : qsTr("inactive")
+                    ? i18n.tr("inactive") : i18n.tr("inactive")
         }
         return str
     }
@@ -268,7 +264,7 @@ Page {
 
     }
 
-    /*PanelBackground {
+    Rectangle {
         id: controlPanel
         x: 0
         y: parent.height - height // - app.dockedPanel.visibleSize
@@ -277,14 +273,14 @@ Page {
 
         Image {
             id: speakerIcon
-            x: Theme.horizontalPageMargin
-            source: volumeSlider.value <= 0 ? "image://theme/icon-m-speaker-mute" : "image://theme/icon-m-speaker"
+            x: app.paddingMedium
+            source: volumeSlider.value <= 0 ? "image://theme/audio-speakers-muted-symbolic" : "image://theme/audio-speakers-symbolic"
             anchors.verticalCenter: parent.verticalCenter
             sourceSize {
-                width: Theme.iconSizeSmall
-                height: Theme.iconSizeSmall
+                width: app.iconSizeMedium
+                height: app.iconSizeMedium
             }
-            height: Theme.iconSizeSmall
+            height: app.iconSizeMedium
         }
 
         Slider {
@@ -295,26 +291,25 @@ Page {
             }
             minimumValue: 0
             maximumValue: 100
-            handleVisible: false
-            value: app.controller.playbackState.device.volume_percent
-            onReleased: {
+            enabled: app.controller.playbackState.device.id != -1
+            //value: app.controller.playbackState.device.volume_percent
+            onTouched: {
                 Spotify.setVolume(Math.round(value), function(error, data) {
                     if(!error)
                         app.controller.refreshPlaybackState();
                 })
             }
+            Connections {
+                target: app.controller.playbackState
+                onDeviceChanged: volumeSlider.value = app.controller.playbackState.device.volume_percent
+            }
         }
-    }*/
+    }
 
     Component.onCompleted: {
         if(app.hasValidToken)
             refreshDevices()
     }
-
-    function qStr(s) {
-      return i18n.tr(s)
-    }
-
 
 }
 

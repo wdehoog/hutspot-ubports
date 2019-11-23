@@ -8,7 +8,9 @@
 //#include <QTranslator>
 //#include <QDebug>
 
+#include "qdeclarativeprocess.h"
 #include "spotify.h"
+#include "systemutil.h"
 
 int main(int argc, char *argv[])
 {
@@ -31,6 +33,13 @@ int main(int argc, char *argv[])
 
     Spotify spotify;
     view->rootContext()->setContextProperty("spotify", &spotify);
+
+    qmlRegisterUncreatableType<QDeclarativeProcessEnums>("org.hildon.components", 1, 0, "Processes", "");
+    qmlRegisterType<QDeclarativeProcess>("org.hildon.components", 1, 0, "Process");
+
+    SystemUtil systemUtil;
+    qmlRegisterUncreatableType<SystemUtilEnums>("SystemUtil", 1, 0, "SystemUtil", "");
+    view->rootContext()->setContextProperty("sysUtil", &systemUtil);
 
     view->setSource(QUrl(QStringLiteral("qml/Main.qml")));
     view->setResizeMode(QQuickView::SizeRootObjectToView);

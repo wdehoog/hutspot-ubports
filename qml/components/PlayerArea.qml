@@ -6,7 +6,7 @@ import QtQuick.Layouts 1.3
 
 Item {
     id: playerArea
-    property string defaultImageSource : "image://theme/stock-music"
+    property string defaultImageSource : "image://theme/stock_music"
 
     width: parent.width
     height: app.itemSizeLarge

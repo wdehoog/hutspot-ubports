@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-23 08:40+0000\n"
+"POT-Creation-Date: 2019-11-23 13:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -40,15 +40,15 @@ msgstr ""
 msgid "No Name"
 msgstr ""
 
-#: ../qml/components/PlaylistPicker.qml:32
+#: ../qml/components/PlaylistPicker.qml:31
 msgid "Select Playlist"
 msgstr ""
 
-#: ../qml/components/PlaylistPicker.qml:37
+#: ../qml/components/PlaylistPicker.qml:36
 msgid "Cancel"
 msgstr ""
 
-#: ../qml/components/PlaylistPicker.qml:44
+#: ../qml/components/PlaylistPicker.qml:43
 msgid "Select"
 msgstr ""
 
@@ -68,11 +68,11 @@ msgstr ""
 msgid "Use as Seeds for Recommendations"
 msgstr ""
 
-#: ../qml/Main.qml:707
+#: ../qml/Main.qml:714
 msgid "Ok"
 msgstr ""
 
-#: ../qml/Main.qml:722
+#: ../qml/Main.qml:729
 msgid "Error"
 msgstr ""
 
@@ -162,12 +162,28 @@ msgstr ""
 msgid "Reload Devices"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:43
-msgid "Refresh Token"
-msgstr ""
-
 #: ../qml/pages/Devices.qml:59
 msgid "Set as Current"
+msgstr ""
+
+#: ../qml/pages/Devices.qml:168
+msgid "Unknown Name"
+msgstr ""
+
+#: ../qml/pages/Devices.qml:186
+msgid "active"
+msgstr ""
+
+#: ../qml/pages/Devices.qml:186 ../qml/pages/Devices.qml:193
+msgid "inactive"
+msgstr ""
+
+#: ../qml/pages/Devices.qml:189
+msgid "restricted"
+msgstr ""
+
+#: ../qml/pages/Devices.qml:189
+msgid "unrestricted"
 msgstr ""
 
 #: ../qml/pages/Search.qml:42 ../qml/pages/Menu.qml:73
