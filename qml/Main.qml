@@ -289,7 +289,7 @@ MainView {
 
         onLinkingFailed: {
             console.log("Connections.onLinkingFailed")
-            //app.connectionText = qsTr("Disconnected")
+            //app.connectionText = i18n.tr("Disconnected")
         }
 
         onLinkingSucceeded: {
@@ -299,7 +299,7 @@ MainView {
             Spotify._accessToken = spotify.getToken()
             Spotify._username = spotify.getUserName()
             updateValidToken(spotify.getExpires())
-            //app.connectionText = qsTr("Connected")
+            //app.connectionText = i18n.tr("Connected")
             loadUser()
             loadFirstPage()
             // ToDo: maybe call spotify.refreshToken() so after 1st login pages show data
@@ -312,7 +312,7 @@ MainView {
         onRefreshFinished: {
             console.log("Connections.onRefreshFinished error code: " + errorCode +", msg: " + errorString)
             if(errorCode !== 0) {
-                showErrorMessage(errorString, qsTr("Failed to Refresh Authorization Token"))
+                showErrorMessage(errorString, i18n.tr("Failed to Refresh Authorization Token"))
             } else {
                 updateValidToken(spotify.getExpires())
             }
@@ -370,7 +370,7 @@ MainView {
 
     function editPlaylistDetails(playlist, callback) {
         var ms = pageStack.push(Qt.resolvedUrl("components/CreatePlaylist.qml"),
-                                {titleText: qsTr("Edit Playlist Details"),
+                                {titleText: i18n.tr("Edit Playlist Details"),
                                  name: playlist.name, description: playlist.description,
                                  publicPL: playlist['public'], collaborative: playlist.collaborative} );
         ms.accepted.connect(function() {
@@ -397,42 +397,50 @@ MainView {
     function addToPlaylist(track) {
 
         var ms = pageStack.push(Qt.resolvedUrl("components/PlaylistPicker.qml"),
-                                { label: qsTr("Select a Playlist") } );
+                                { label: i18n.tr("Select a Playlist") } );
         ms.accepted.connect(function() {
             if(ms.selectedItem && ms.selectedItem.item) {
-                Spotify.addTracksToPlaylist(ms.selectedItem.item.id,
+                var item = ms.selectedItem.item
+                Spotify.addTracksToPlaylist(item.id,
                                             [track.uri], {}, function(error, data) {
                     if(data) {
                         var ev = new Util.PlayListEvent(Util.PlaylistEventType.AddedTrack,
-                                                        ms.selectedItem.item.id, data.snapshot_id)
+                                                        item.id, data.snapshot_id)
                         ev.trackId = track.id
                         ev.trackUri = track.uri
                         playlistEvent(ev)
                         console.log("addToPlaylist: added \"")
                     } else
                         console.log("addToPlaylist: failed to add \"")
-                    console.log(track.name + "\" to \"" + ms.selectedItem.item.name + "\"")
+                    console.log(track.name + "\" to \"" + item.name + "\"")
                 })
             }
         })
     }
 
     function removeFromPlaylist(playlist, track, position, callback) {
-        app.showConfirmDialog(qsTr("Please confirm to remove:<br><br><b>" + track.name + "</b>"),
+        app.showConfirmDialog(i18n.tr("Please confirm removing<br><br><b>" + track.name + "</b><br><br>from this playlist"),
                               function() {
-            // does not work due to Qt. cannot have DELETE request with a body
-            /*Spotify.removeTracksFromPlaylist(playlist.id, [track.uri], function(error, data) {
-                callback(error, data)
-                var ev = new Util.PlayListEvent(Util.PlaylistEventType.RemovedTrack,
-                                                playlist.id, data.snapshot_id)
-                ev.trackId = track.id
-                playlistEvent(ev)
-            })*/
-
             // if the track is 'linked' we must remove the linked_from one
             var uri = track.uri
             if(track.hasOwnProperty('linked_from'))
                 uri = track.linked_from.uri
+
+            // does not work older Qt. cannot have DELETE request with a body
+            /*Spotify.removeTracksFromPlaylist(playlist.id, [uri], [position], function(error, data) {
+                if(error)
+                    console.log("removeTracksFromPlaylist error:" + JSON.stringify(error))
+                if(callback)
+                    callback(error, data)
+                if(data) {    
+                    var ev = new Util.PlayListEvent(Util.PlaylistEventType.RemovedTrack,
+                                                    playlist.id, data.snapshot_id)
+                    ev.trackId = track.id
+                    playlistEvent(ev)
+                }
+            })*/
+
+            // alternative using curl/wget
             removeTracksFromPlaylistUsingCurl(playlist.id, playlist.snapshot_id, [uri], [position], function(error, data) {
                 if(callback)
                     callback(error, data)
@@ -541,7 +549,7 @@ MainView {
 
     function unfollowPlaylist(playlist, callback) {
         if(confirm_un_follow_save.value)
-            app.showConfirmDialog(qsTr("Please confirm to unfollow playlist:<br><br><b>" + playlist.name + "</b>"),
+            app.showConfirmDialog(i18n.tr("Please confirm to unfollow playlist:<br><br><b>" + playlist.name + "</b>"),
                                   function() {
                 _unfollowPlaylist(playlist, callback)
             })
@@ -567,7 +575,7 @@ MainView {
 
     function unfollowArtist(artist, callback) {
         if(confirm_un_follow_save.value)
-            app.showConfirmDialog(qsTr("Please confirm to unfollow artist:<br><br><b>" + artist.name + "</b>"),
+            app.showConfirmDialog(i18n.tr("Please confirm to unfollow artist:<br><br><b>" + artist.name + "</b>"),
                                   function() {
                 _unfollowArtist(artist, callback)
             })
@@ -598,7 +606,7 @@ MainView {
 
     function unSaveAlbum(album, callback) {
         if(confirm_un_follow_save.value)
-            app.showConfirmDialog(qsTr("Please confirm to un-save album:<br><br><b>" + album.name + "</b>"),
+            app.showConfirmDialog(i18n.tr("Please confirm to un-save album:<br><br><b>" + album.name + "</b>"),
                                   function() {
                 _unSaveAlbum(album, callback)
             })
@@ -624,7 +632,7 @@ MainView {
 
     function unSaveTrack(track, callback) {
         if(confirm_un_follow_save.value)
-            app.showConfirmDialog(qsTr("Please confirm to un-save track:<br><br><b>" + track.name + "</b>"),
+            app.showConfirmDialog(i18n.tr("Please confirm to un-save track:<br><br><b>" + track.name + "</b>"),
                                   function() {
                 _unSaveTrack(track, callback)
             })
@@ -688,7 +696,7 @@ MainView {
         if(artists.length > 1) {
             // choose
             var ms = pageStack.push(Qt.resolvedUrl("components/ArtistPicker.qml"),
-                                    { label: qsTr("View an Artist"), artists: artists } );
+                                    { label: i18n.tr("View an Artist"), artists: artists } );
             ms.done.connect(function() {
                 if(ms.selectedItem) {
                     app.pushPage(Util.HutspotPage.Artist, {currentArtist: ms.selectedItem.item}, fromPlaying)
@@ -705,13 +713,14 @@ MainView {
     property string _dialogTitle
     property string _dialogText
     Component {
-        id: dialog
+        id: msgDialog
         Dialog {
             id: dialogue
             title: _dialogTitle
             text: _dialogText
             Button { 
                 text: i18n.tr("Ok")
+                color: theme.palette.normal.positive
                 onClicked: PopupUtils.close(dialogue) 
             }
         }
@@ -728,7 +737,61 @@ MainView {
             msg = text
         _dialogTitle = i18n.tr("Error")      
         _dialogText = msg      
-        PopupUtils.open(dialog)
+        PopupUtils.open(msgDialog)
+    }
+
+    signal confirmAccepted()
+    signal confirmRejected()
+    property var _confirmAcceptedCallback: null
+    onConfirmAccepted: {
+        if(_confirmAcceptedCallback != null) {
+            _confirmAcceptedCallback()
+            _confirmAcceptedCallback = null
+        }
+    }
+    property var _confirmRejectedCallback: null
+    onConfirmRejected: {
+        if(_confirmRejectedCallback != null) {
+            _confirmRejectedCallback()
+            _confirmRejectedCallback = null
+        }
+    }
+    Component {
+        id: confirmDialog
+        Dialog {
+            id: dialogue
+            title: _dialogTitle
+            text: _dialogText
+            Button {
+                text: i18n.tr("Cancel")
+                color: theme.palette.normal.negative
+                onClicked: {
+                  PopupUtils.close(dialogue)
+                  confirmRejected()  
+                }
+            }
+            Button { 
+                text: i18n.tr("Ok")
+                color: theme.palette.normal.positive
+                onClicked: {
+                  PopupUtils.close(dialogue)
+                  confirmAccepted()  
+                }
+            }
+        }
+    }
+
+    /**
+     * can have a 3rd param: rejectCallback
+     */
+    function showConfirmDialog(text, acceptCallback) {
+        if(acceptCallback !== null)
+            _confirmAcceptedCallback = acceptCallback
+        if(arguments.length >= 3 && arguments[2] !== null)
+            _confirmRejectedCallback = arguments[2]
+        _dialogTitle = i18n.tr("Confirm")      
+        _dialogText = text      
+        PopupUtils.open(confirmDialog)
     }
 
     function setDevice(id, name, callback) {
@@ -741,7 +804,7 @@ MainView {
                 deviceName.value = newName
                 callback(null, data)
             } else
-                showErrorMessage(error, qsTr("Failed to transfer to") + " " + deviceName.value)
+                showErrorMessage(error, i18n.tr("Failed to transfer to") + " " + deviceName.value)
         })
     }
 
@@ -858,6 +921,7 @@ MainView {
     //      -H "Content-Type: application/json" "https://api.spotify.com/v1/playlists/71m0QB5fUFrnqfnxVerUup/tracks"
     //      --data "{\"tracks\":[{\"uri\": \"spotify:track:4iV5W9uYEdYUVa79Axb7Rh\", \"positions\": [2] },{\"uri\":\"spotify:track:1301WleyT98MSxVHPZCA6M\", \"positions\": [7] }] }"
 
+
     // assumes the uris and positions arrays are equal length and 1 uri has 1 position
     function removeTracksFromPlaylistUsingCurl(playlistId, snapshotId, uris, positions, callback) {
         var command = "/usr/bin/curl"
@@ -886,6 +950,34 @@ MainView {
         process.start(command, args)
     }
 
+    function removeTracksFromPlaylistUsingWget(playlistId, snapshotId, uris, positions, callback) {
+        var command = "/usr/bin/wget"
+        var args = []
+        args.push("--method")
+        args.push("DELETE")
+        //args.push("-i") // include headers in the output
+        args.push("--header")
+        args.push("Authorization: Bearer " + Spotify.getAccessToken())
+        args.push("--header")
+        args.push("Content-Type: application/json")
+        args.push(Spotify._baseUri + "/playlists/" + playlistId + "/tracks")
+        args.push("--post-data")
+
+        var data = "{\"tracks\":["
+        for(var i=0;i<uris.length;i++) {
+            if(i>0)
+                data += ","
+            data += "{\"uri\":\"" + uris[i] + "\",\"positions\":[" +positions[i]+ "]}"
+        }
+        data += "],\"snapshot_id\":\"" + snapshotId + "\"}"
+        //data += "]}"
+          console.log(data)
+        args.push(data)
+
+        process.callback = callback
+        process.start(command, args)
+    }
+
     Process {
         id: process
 
@@ -903,7 +995,7 @@ MainView {
         onFinished: {
             var output = process.readAllStandardOutput()
             console.log("Process.Finished: " + process.exitStatus + ", code: " + process.exitCode)
-            console.log(output)
+            console.log("[" + output + "]")
             if(callback !== undefined)
                 callback(null, JSON.parse(output))
             callback = undefined

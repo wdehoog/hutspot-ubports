@@ -810,9 +810,9 @@ function reorderTracksInPlaylist(playlistId, rangeStart, insertBefore, options, 
  * one is the error object (null if no error), and the second is the value if the request succeeded.
  * @return {Object} Null if a callback is provided, a `Promise` object otherwise
  */
-function removeTracksFromPlaylist(playlistId, uris, callback) {
+function removeTracksFromPlaylist(playlistId, uris, positions, callback) {
 
-  var dataToBeSent = uris.map(function(uri) {
+  var urisToBeSent = uris.map(function(uri) {
     if (typeof uri === 'string') {
       return { uri: uri };
     } else {
@@ -820,10 +820,18 @@ function removeTracksFromPlaylist(playlistId, uris, callback) {
     }
   });
 
+  var positionsToBeSent = uris.map(function(positions) {
+    if (typeof uri === 'string') {
+      return { positions: positions };
+    } else {
+      return positions;
+    }
+  });
+
   var requestData = {
     url: _baseUri + '/playlists/' + playlistId + '/tracks',
     type: 'DELETE',
-    postData: { tracks: dataToBeSent }
+    postData: { tracks: urisToBeSent, positions: positionsToBeSent }
   };
   return _checkParamsAndPerformRequest(requestData, {}, callback);
 };

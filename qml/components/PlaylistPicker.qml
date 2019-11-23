@@ -35,6 +35,15 @@ Page {
                 iconName: "cancel"
                 text: i18n.tr("Cancel")
                 onTriggered: pageStack.pop()
+            },
+            Action {
+                iconName: "list-add"
+                text: qsTr("Create New Playlist")
+                onTriggered: app.createPlaylist(function(error, data) {
+                    if(data) {
+                        refresh()
+                    }
+                })
             }
         ]
         trailingActionBar.actions: [

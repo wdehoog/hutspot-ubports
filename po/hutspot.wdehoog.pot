@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-23 13:40+0000\n"
+"POT-Creation-Date: 2019-11-23 16:53+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -40,40 +40,102 @@ msgstr ""
 msgid "No Name"
 msgstr ""
 
-#: ../qml/components/PlaylistPicker.qml:31
-msgid "Select Playlist"
+#: ../qml/components/CreatePlaylist.qml:28
+msgid "Create Playlist"
 msgstr ""
 
-#: ../qml/components/PlaylistPicker.qml:36
+#: ../qml/components/CreatePlaylist.qml:33
+#: ../qml/components/PlaylistPicker.qml:36 ../qml/Main.qml:765
 msgid "Cancel"
 msgstr ""
 
-#: ../qml/components/PlaylistPicker.qml:43
+#: ../qml/components/CreatePlaylist.qml:40
+#: ../qml/components/PlaylistPicker.qml:52
 msgid "Select"
+msgstr ""
+
+#: ../qml/components/CreatePlaylist.qml:69
+msgid "Name for the new playlist"
+msgstr ""
+
+#: ../qml/components/CreatePlaylist.qml:82
+msgid "Public"
+msgstr ""
+
+#: ../qml/components/CreatePlaylist.qml:93
+msgid "Collaborative"
+msgstr ""
+
+#: ../qml/components/CreatePlaylist.qml:99
+msgid "Description (optional)"
+msgstr ""
+
+#: ../qml/components/PlaylistPicker.qml:31
+msgid "Select Playlist"
 msgstr ""
 
 #: ../qml/components/SearchResultContextMenu.qml:24
 msgid "View"
 msgstr ""
 
-#: ../qml/components/SearchResultContextMenu.qml:43
-msgid "Remove from Playlist"
-msgstr ""
-
-#: ../qml/components/SearchResultContextMenu.qml:57
+#: ../qml/components/SearchResultContextMenu.qml:58
 msgid "Add to another Playlist"
 msgstr ""
 
-#: ../qml/components/SearchResultContextMenu.qml:64
+#: ../qml/components/SearchResultContextMenu.qml:65
 msgid "Use as Seeds for Recommendations"
 msgstr ""
 
-#: ../qml/Main.qml:714
+#: ../qml/Main.qml:315
+msgid "Failed to Refresh Authorization Token"
+msgstr ""
+
+#: ../qml/Main.qml:373
+msgid "Edit Playlist Details"
+msgstr ""
+
+#: ../qml/Main.qml:400
+msgid "Select a Playlist"
+msgstr ""
+
+#: ../qml/Main.qml:421
+msgid "Please confirm removing<br><br><b>"
+msgstr ""
+
+#: ../qml/Main.qml:551
+msgid "Please confirm to unfollow playlist:<br><br><b>"
+msgstr ""
+
+#: ../qml/Main.qml:577
+msgid "Please confirm to unfollow artist:<br><br><b>"
+msgstr ""
+
+#: ../qml/Main.qml:608
+msgid "Please confirm to un-save album:<br><br><b>"
+msgstr ""
+
+#: ../qml/Main.qml:634
+msgid "Please confirm to un-save track:<br><br><b>"
+msgstr ""
+
+#: ../qml/Main.qml:698
+msgid "View an Artist"
+msgstr ""
+
+#: ../qml/Main.qml:721 ../qml/Main.qml:773
 msgid "Ok"
 msgstr ""
 
-#: ../qml/Main.qml:729
+#: ../qml/Main.qml:737
 msgid "Error"
+msgstr ""
+
+#: ../qml/Main.qml:791
+msgid "Confirm"
+msgstr ""
+
+#: ../qml/Main.qml:806
+msgid "Failed to transfer to"
 msgstr ""
 
 #: ../qml/pages/Playing.qml:26 ../qml/pages/Playing.qml:51

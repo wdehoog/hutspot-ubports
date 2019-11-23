@@ -39,6 +39,7 @@ Component {
                 visible: enabled
                 onTriggered: app.addToPlaylist(model.item)
             }
+            /*Disabled since the Spotify API does not seem to work
             Action {
                 text: i18n.tr("Remove from Playlist")
                 enabled: model && (model.type === Util.SpotifyItemType.Track && Util.isTrackPlayable(model.item))
@@ -46,13 +47,13 @@ Component {
                 visible: enabled
                 onTriggered: {
                     var idx = index
-                    var model = searchModel
+                    var smodel = model
                     app.removeFromPlaylist(playlist, model.item, index+cursorHelper.offset, function(error, data) {
                         if(!error)
-                            model.remove(idx, 1)
+                            smodel.remove(idx, 1)
                     })
                 }
-            }
+            }*/
             Action {
                 text: i18n.tr("Add to another Playlist")
                 enabled: model && (model.type === Util.SpotifyItemType.Track && Util.isTrackPlayable(model.item))
