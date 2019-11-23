@@ -8,6 +8,7 @@
 var _baseUri = 'https://api.spotify.com/v1';
 var _accessToken = null;
 var _username = null;
+var _debug = false;
 
 var scopes_array = [
   "user-library-modify",
@@ -79,6 +80,10 @@ function _performRequest(requestData, callback) {
 
     req.onreadystatechange = function() {
       if (req.readyState === 4) {
+        if(_debug) {
+            console.log("onreadystatechange status:" + req.status + ", " + req.responseText) 
+            _debug = false  
+        }
         var data = null;
         try {
           data = req.responseText ? JSON.parse(req.responseText) : '';
@@ -1612,6 +1617,8 @@ function setVolume(volume_percent, options, callback) {
     url: _baseUri + '/me/player/volume',
     params: params
   };
+  //console.log("Spotify.setVolume: " + JSON.stringify(requestData.params))
+  //_debug = true
   return _checkParamsAndPerformRequest(requestData, options, callback);
 };
 

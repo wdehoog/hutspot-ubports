@@ -58,15 +58,13 @@ Page {
                 Action {
                     text: i18n.tr("Set as Current")
                     onTriggered: {
-                        console.log("set as current")
                         if(spotify) {
-                        console.log("   IN")
+                            var page = devicesPage
                             app.setDevice(_model.deviceId, _model.name, function(error, data){
                                 if(!error)
-                                    devicesPage.refreshDevices()
+                                    page.refreshDevices()
                             })
-                        } else
-                          console.log("   NO")
+                        }
                     }
                 }
                 /*menu: contextMenu
@@ -292,10 +290,11 @@ Page {
             minimumValue: 0
             maximumValue: 100
             enabled: app.controller.playbackState.device.id != -1
-            //value: app.controller.playbackState.device.volume_percent
             onTouched: {
-                Spotify.setVolume(Math.round(value), function(error, data) {
-                    if(!error)
+                Spotify.setVolume(Math.round(value), {device_id: app.controller.getDeviceId()}, function(error, data) {
+                    if(error)
+                        console.log("Error while setVolume: " + error)
+                    else
                         app.controller.refreshPlaybackState();
                 })
             }

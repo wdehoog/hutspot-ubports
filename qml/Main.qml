@@ -980,14 +980,14 @@ MainView {
 
     Process {
         id: process
-
+ 
         property var callback: undefined
-
+ 
         workingDirectory: sysUtil.env("HOME")
 
         onError: {
             if(callback !== undefined)
-                callback(process.error, undefined)
+               callback(process.error, undefined)
             console.log("Process.Error: " + process.error)
             callback = undefined
         }
@@ -1001,7 +1001,99 @@ MainView {
             callback = undefined
         }
     }
-   
+
+    //
+    // Use powerd-cli to prevent the phone from suspending
+    //
+
+    /*Connections {
+        target: controller.playbackState
+        onIs_playingChanged: {
+            if(controller.playbackState.is_playing) {
+              // cancel pending quit
+              if(delayTimer.running) 
+                 delayTimer.running = false
+              if(powerdcliProcess.state === Processes.NotRunning) {
+                  requestSysStateActive()
+              }
+            } else {
+              if(powerdcliProcess.state !== Processes.NotRunning) {
+                delayedExec(function() {
+                    clearSysStateActive()
+                }, 15000)
+              }
+            }
+        }
+    }
+
+    function requestSysStateActive(callback) {
+        var command = "/usr/sbin/powerd-cli"
+        var args = ["active"]
+        powerdcliProcess.callback = callback
+        powerdcliProcess.start(command, args)
+    }
+
+    function clearSysStateActive() {
+      //powerdcliProcess.terminate() // SIGTERM
+      //powerdcliProcess.kill() // SIGKILL
+      if(powerdcliProcess.state === Processes.Running)
+          sysUtil.pkill(powerdcliProcess.pid, SystemUtils.SIGINT)
+    }
+
+    function delayedExec(callback, delay) {
+        delayTimer.callback = callback
+        delayTimer.interval = delay
+        delayTimer.running = true
+    }
+
+    Timer {
+        id: delayTimer
+        running: false
+        repeat: false
+        property var callback
+        onTriggered: callback()
+    }
+
+    Process {
+        id: powerdcliProcess
+
+        property string name: "powerd-cli"
+        property var callback: undefined
+
+        workingDirectory: sysUtil.env("HOME")
+
+        onExitCodeChanged: {
+            console.log("Process.onExitCodeChanged["+name+"]: " + process.exitCode)
+        }
+
+        onStateChanged: {
+            console.log("Process.onStateChanged["+name+"]: " + process.state)
+        }
+
+        onProcessFinished: {
+            console.log("Process.onProcessFinished["+name+"]: " + process.error)
+        }
+
+        onError: {
+            if(callback !== undefined)
+                callback(process.error, process.exitCode, undefined)
+            console.log("Process.onError["+name+"]: " + process.error)
+            callback = undefined
+        }
+
+        onFinished: {
+            var stdout = process.readAllStandardOutput()
+            var stderr = process.readAllStandardError()
+            console.log("Process.onFinished["+name+"]: " + process.exitStatus + ", code: " + process.exitCode)
+            console.log("[stdout]:" + stdout)
+            console.log("[stderr]:" + stderr)
+
+            if(callback !== undefined)
+                callback(null, process.exitCode, stderr)
+            callback = undefined
+        }
+    }*/
+
     Settings {
         id: settings
 

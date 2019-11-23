@@ -13,10 +13,11 @@ import "../Util.js" as Util
 Rectangle {
     width: parent.width
     height: row.height
-    color: currentIndex === dataModel.index 
-           ? app.highlightBackgroundColor : app.normalBackgroundColor
+    //color: currentIndex === dataModel.index 
+    //       ? app.highlightBackgroundColor : app.normalBackgroundColor
 
     property var dataModel
+    property bool isCurrentItem: currentIndex === dataModel.index
 
     // not used, same as in AlbumTrackListItem so Loader can be used
     property var isFavorite
@@ -55,6 +56,7 @@ Rectangle {
                 id: nameLabel
                 //color: currentIndex === dataModel.index ? Theme.highlightColor : Theme.primaryColor
                 textFormat: Text.StyledText
+                font.weight: isCurrentItem ? app.fontHighlightWeight : app.fontPrimaryWeight
                 //truncationMode: TruncationMode.Fade
                 width: parent.width
                 text: dataModel.name ? dataModel.name : qsTr("No Name")
@@ -71,6 +73,7 @@ Rectangle {
                     Text {
                         id: meta1Label
                         width: parent.width
+                        font.weight: isCurrentItem ? app.fontHighlightWeight : app.fontPrimaryWeight
                         //color: currentIndex === dataModel.index ? Theme.highlightColor : Theme.primaryColor
                         //font.pixelSize: fontSizeExtraSmall
                         //truncationMode: TruncationMode.Fade
@@ -82,6 +85,7 @@ Rectangle {
                     Text {
                         id: meta2Label
                         width: parent.width
+                        font.weight: isCurrentItem ? app.fontHighlightWeight : app.fontPrimaryWeight
                         //color: currentIndex === dataModel.index ? Theme.secondaryHighlightColor : Theme.secondaryColor
                         //font.pixelSize: fontSizeExtraSmall
                         textFormat: Text.StyledText

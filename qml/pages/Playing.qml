@@ -8,6 +8,7 @@
 
 import QtQuick 2.7
 import Ubuntu.Components 1.3
+import Ubuntu.Components.Popups 1.3
 //import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
 
@@ -21,7 +22,7 @@ Page {
     id: playingPage
     objectName: "PlayingPage"
 
-    property string defaultImageSource : "image://theme/icon-l-music"
+    property string defaultImageSource : "image://theme/stock_music"
     property bool showBusy: false
     property string pageHeaderText: i18n.tr("Playing")
     property string pageHeaderDescription: ""
@@ -41,7 +42,7 @@ Page {
     property int mutedVolume: -1
     property bool muted: false
 
-    property bool _debug: true
+    property bool _debug: false
 
     ListModel {
         id: searchModel
@@ -101,6 +102,7 @@ Page {
                 }
             }
         }
+    }
 
 
         ListView {
