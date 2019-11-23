@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-22 22:17+0000\n"
+"POT-Creation-Date: 2019-11-23 08:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,11 +23,11 @@ msgid "Play"
 msgstr ""
 
 #: ../qml/components/AlbumTrackContextMenu.qml:29
-#: ../qml/components/SearchResultContextMenu.qml:30
+#: ../qml/components/SearchResultContextMenu.qml:30 ../qml/pages/Playing.qml:63
 msgid "View Album"
 msgstr ""
 
-#: ../qml/components/AlbumTrackContextMenu.qml:36
+#: ../qml/components/AlbumTrackContextMenu.qml:36 ../qml/pages/Playing.qml:78
 msgid "View Artist"
 msgstr ""
 
@@ -40,19 +40,39 @@ msgstr ""
 msgid "No Name"
 msgstr ""
 
+#: ../qml/components/PlaylistPicker.qml:32
+msgid "Select Playlist"
+msgstr ""
+
+#: ../qml/components/PlaylistPicker.qml:37
+msgid "Cancel"
+msgstr ""
+
+#: ../qml/components/PlaylistPicker.qml:44
+msgid "Select"
+msgstr ""
+
 #: ../qml/components/SearchResultContextMenu.qml:24
 msgid "View"
 msgstr ""
 
 #: ../qml/components/SearchResultContextMenu.qml:43
+msgid "Remove from Playlist"
+msgstr ""
+
+#: ../qml/components/SearchResultContextMenu.qml:57
+msgid "Add to another Playlist"
+msgstr ""
+
+#: ../qml/components/SearchResultContextMenu.qml:64
 msgid "Use as Seeds for Recommendations"
 msgstr ""
 
-#: ../qml/Main.qml:705
+#: ../qml/Main.qml:707
 msgid "Ok"
 msgstr ""
 
-#: ../qml/Main.qml:720
+#: ../qml/Main.qml:722
 msgid "Error"
 msgstr ""
 
@@ -60,37 +80,41 @@ msgstr ""
 msgid "Playing"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:480 ../qml/pages/Playing.qml:499
+#: ../qml/pages/Playing.qml:96
+msgid "View Playlist"
+msgstr ""
+
+#: ../qml/pages/Playing.qml:491 ../qml/pages/Playing.qml:510
 #: ../qml/pages/Album.qml:78
 msgid "no artist known"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:483
+#: ../qml/pages/Playing.qml:494
 msgid "no genre known"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:507 ../qml/pages/Playing.qml:520
+#: ../qml/pages/Playing.qml:518 ../qml/pages/Playing.qml:531
 #: ../qml/pages/Album.qml:87
 msgid "tracks"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:509 ../qml/pages/Album.qml:89
+#: ../qml/pages/Playing.qml:520 ../qml/pages/Album.qml:89
 msgid "track"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:517 ../qml/pages/Playing.qml:523
+#: ../qml/pages/Playing.qml:528 ../qml/pages/Playing.qml:534
 msgid "followers"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:521
+#: ../qml/pages/Playing.qml:532
 msgid "by"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:525
+#: ../qml/pages/Playing.qml:536
 msgid "public"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:527
+#: ../qml/pages/Playing.qml:538
 msgid "collaborative"
 msgstr ""
 
@@ -194,11 +218,11 @@ msgstr ""
 msgid "My Followed Artists"
 msgstr ""
 
-#: ../qml/pages/MyStuff.qml:39 ../qml/pages/Artist.qml:62
+#: ../qml/pages/MyStuff.qml:39 ../qml/pages/Artist.qml:56
 msgid "next"
 msgstr ""
 
-#: ../qml/pages/MyStuff.qml:44 ../qml/pages/Artist.qml:67
+#: ../qml/pages/MyStuff.qml:44 ../qml/pages/Artist.qml:61
 msgid "previous"
 msgstr ""
 

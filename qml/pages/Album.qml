@@ -214,7 +214,7 @@ Page {
 
     Connections {
         target: app
-        /*onFavoriteEvent: {
+        onFavoriteEvent: {
             switch(event.type) {
             case Util.SpotifyItemType.Album:
                 if(album.id === event.id) {
@@ -227,7 +227,7 @@ Page {
                 Util.setSavedInfo(Spotify.ItemType.Track, [event.id], [event.isFavorite], searchModel)
                 break
             }
-        }*/
+        }
     }
 
 }

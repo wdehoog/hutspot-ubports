@@ -10,8 +10,11 @@ import QtQuick 2.0
 
 import "../Util.js" as Util
 
-Row {
-    id: row
+Rectangle {
+    width: parent.width
+    height: row.height
+    color: currentIndex === dataModel.index 
+           ? app.highlightBackgroundColor : app.normalBackgroundColor
 
     property var dataModel
 
@@ -22,90 +25,98 @@ Row {
 
     signal toggleFavorite()    
 
-    width: parent.width
-    spacing: app.paddingMedium
+    Row {
+        id: row
 
-    opacity: (dataModel.type !== Util.SpotifyItemType.Track
-              || Util.isTrackPlayable(dataModel.item)) ? 1.0 : 0.4
 
-    Image {
-        id: image
-        width: height
-        height: column.height
-        anchors {
-            verticalCenter: parent.verticalCenter
-        }
-        asynchronous: true
-        fillMode: Image.PreserveAspectFit
-        source: getImageURL(dataModel)
-    }
+        width: parent.width
+        spacing: app.paddingMedium
 
-    Column {
-        id: column
-        width: parent.width - image.width - 2 * app.paddingMedium
+        opacity: (dataModel.type !== Util.SpotifyItemType.Track
+                  || Util.isTrackPlayable(dataModel.item)) ? 1.0 : 0.4
 
-        Text {
-            id: nameLabel
-            //color: currentIndex === dataModel.index ? Theme.highlightColor : Theme.primaryColor
-            textFormat: Text.StyledText
-            //truncationMode: TruncationMode.Fade
-            width: parent.width
-            text: dataModel.name ? dataModel.name : qsTr("No Name")
+        Image {
+            id: image
+            width: height
+            height: column.height
+            anchors {
+                verticalCenter: parent.verticalCenter
+            }
+            asynchronous: true
+            fillMode: Image.PreserveAspectFit
+            source: getImageURL(dataModel)
         }
 
-        Row {
-            width: parent.width
-            height: col2.height
+        Column {
+            id: column
+            width: parent.width - image.width - 2 * app.paddingMedium
 
-            Column {
-                id: col2
-                spacing: app.paddingSmall
-                width: parent.width - favorite.width
-                Text {
-                    id: meta1Label
-                    width: parent.width
-                    //color: currentIndex === dataModel.index ? Theme.highlightColor : Theme.primaryColor
-                    //font.pixelSize: fontSizeExtraSmall
-                    //truncationMode: TruncationMode.Fade
-                    text: getMeta1String()
-                    enabled: text.length > 0
-                    visible: enabled
+            Text {
+                id: nameLabel
+                //color: currentIndex === dataModel.index ? Theme.highlightColor : Theme.primaryColor
+                textFormat: Text.StyledText
+                //truncationMode: TruncationMode.Fade
+                width: parent.width
+                text: dataModel.name ? dataModel.name : qsTr("No Name")
+            }
+
+            Row {
+                width: parent.width
+                height: col2.height
+
+                Column {
+                    id: col2
+                    spacing: app.paddingSmall
+                    width: parent.width - favorite.width
+                    Text {
+                        id: meta1Label
+                        width: parent.width
+                        //color: currentIndex === dataModel.index ? Theme.highlightColor : Theme.primaryColor
+                        //font.pixelSize: fontSizeExtraSmall
+                        //truncationMode: TruncationMode.Fade
+                        text: getMeta1String()
+                        enabled: text.length > 0
+                        visible: enabled
+                    }
+
+                    Text {
+                        id: meta2Label
+                        width: parent.width
+                        //color: currentIndex === dataModel.index ? Theme.secondaryHighlightColor : Theme.secondaryColor
+                        //font.pixelSize: fontSizeExtraSmall
+                        textFormat: Text.StyledText
+                        //truncationMode: TruncationMode.Fade
+                        text: getMeta2String()
+                        enabled: text.length > 0
+                        visible: enabled
+                    }
                 }
-
-                Text {
-                    id: meta2Label
-                    width: parent.width
-                    //color: currentIndex === dataModel.index ? Theme.secondaryHighlightColor : Theme.secondaryColor
-                    //font.pixelSize: fontSizeExtraSmall
-                    textFormat: Text.StyledText
-                    //truncationMode: TruncationMode.Fade
-                    text: getMeta2String()
-                    enabled: text.length > 0
-                    visible: enabled
+                Image {
+                    id: favorite
+                    anchors.verticalCenter: parent.verticalCenter
+                    width: height
+                    height: app.iconSizeSmall
+                    asynchronous: true
+                    fillMode: Image.PreserveAspectFit
+                    source: (dataModel.following || dataModel.saved) 
+                            ? "image://theme/starred" : "image://theme/non-starred"
+                    /*source: if(dataModel.following || dataModel.saved)
+                                return currentIndex === dataModel.index
+                                        ? "image://theme/icon-m-favorite-selected?" + Theme.highlightColor
+                                        : "image://theme/icon-m-favorite-selected"
+                            else
+                                return currentIndex === dataModel.index
+                                          ? "image://theme/icon-m-favorite?" + Theme.highlightColor
+                                          : "image://theme/icon-m-favorite"
+                    MouseArea {
+                         anchors.fill: parent
+                         onClicked: toggleFavorite()
+                    }*/
                 }
             }
-            Image {
-                id: favorite
-                anchors.verticalCenter: parent.verticalCenter
-                width: height
-                height: 0 //sourceSize.width > 0 ? Theme.iconSizeSmall : 0
-                asynchronous: true
-                fillMode: Image.PreserveAspectFit
-                /*source: if(dataModel.following || dataModel.saved)
-                            return currentIndex === dataModel.index
-                                    ? "image://theme/icon-m-favorite-selected?" + Theme.highlightColor
-                                    : "image://theme/icon-m-favorite-selected"
-                        else
-                            return currentIndex === dataModel.index
-                                      ? "image://theme/icon-m-favorite?" + Theme.highlightColor
-                                      : "image://theme/icon-m-favorite"
-                MouseArea {
-                     anchors.fill: parent
-                     onClicked: toggleFavorite()
-                }*/
-            }
         }
     }
+
     function getImageURL(dataModel) {
         var images
         switch(dataModel.type) {

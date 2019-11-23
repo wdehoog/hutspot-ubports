@@ -35,7 +35,28 @@ Component {
             Action {
                 text: i18n.tr("Add to Playlist")
                 enabled: model && (model.type === Util.SpotifyItemType.Track && Util.isTrackPlayable(model.item))
-                         && model.contextType !== Util.SpotifyItemType.Playlist
+                         && contextType !== Util.SpotifyItemType.Playlist
+                visible: enabled
+                onTriggered: app.addToPlaylist(model.item)
+            }
+            Action {
+                text: i18n.tr("Remove from Playlist")
+                enabled: model && (model.type === Util.SpotifyItemType.Track && Util.isTrackPlayable(model.item))
+                         && contextType === Util.SpotifyItemType.Playlist
+                visible: enabled
+                onTriggered: {
+                    var idx = index
+                    var model = searchModel
+                    app.removeFromPlaylist(playlist, model.item, index+cursorHelper.offset, function(error, data) {
+                        if(!error)
+                            model.remove(idx, 1)
+                    })
+                }
+            }
+            Action {
+                text: i18n.tr("Add to another Playlist")
+                enabled: model && (model.type === Util.SpotifyItemType.Track && Util.isTrackPlayable(model.item))
+                         && contextType === Util.SpotifyItemType.Playlist
                 visible: enabled
                 onTriggered: app.addToPlaylist(model.item)
             }
@@ -55,12 +76,12 @@ Component {
                 app.controller.playContext(model.item)
                 break;
             case Util.SpotifyItemType.Track:
-                switch(model.contextType) {
+                switch(contextType) {
                 case Util.SpotifyItemType.Album:
-                    app.controller.playTrackInContext(model.item, model.album, model.index)
+                    app.controller.playTrackInContext(model.item, model.album, index)
                     break
                 case Util.SpotifyItemType.Playlist:
-                    app.controller.playTrackInContext(model.item, model.playlist, model.index)
+                    app.controller.playTrackInContext(model.item, model.playlist, index)
                     break
                 default:
                     app.controller.playTrack(model.item)

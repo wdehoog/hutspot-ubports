@@ -1,6 +1,7 @@
 import QtQuick 2.7
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
+import Ubuntu.Components.Themes 1.3
 //import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
 import Qt.labs.settings 1.0
@@ -33,7 +34,8 @@ MainView {
     property double itemSizeMedium: units.gu(4)
     property double itemSizeLarge: units.gu(10)
 
-    
+    property color normalBackgroundColor: "white" // theme.palette.normal.base
+    property color highlightBackgroundColor: "#CDCDCD" // theme.palette.highlited.base
     //
 
     objectName: 'mainView'

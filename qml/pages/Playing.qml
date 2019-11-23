@@ -52,6 +52,56 @@ Page {
         flickable: listView
     }
 
+    Component {
+        id: contextMenu
+
+        ActionSelectionPopover {
+
+            actions: ActionList {
+                Action {
+                    id: viewAlbum
+                    text: i18n.tr("View Album")
+                    visible: enabled
+                    onTriggered: {
+                        switch(getContextType()) {
+                        case Spotify.ItemType.Album:
+                            app.pushPage(Util.HutspotPage.Album, {album: app.controller.playbackState.context}, true)
+                            break
+                        case Spotify.ItemType.Track:
+                            app.pushPage(Util.HutspotPage.Album, {album: app.controller.playbackState.item.album}, true)
+                            break
+                        }
+                    }
+                }
+                Action {
+                    id: viewArtist
+                    text: i18n.tr("View Artist")
+                    visible: enabled
+                    onTriggered: {
+                        switch(getContextType()) {
+                        case Spotify.ItemType.Album:
+                            app.loadArtist(app.controller.playbackState.contextDetails.artists, true)
+                            break
+                        case Spotify.ItemType.Artist:
+                            app.pushPage(Util.HutspotPage.Artist, {currentArtist: app.controller.playbackState.contextDetails}, true)
+                            break
+                        case Spotify.ItemType.Track:
+                            app.loadArtist(app.controller.playbackState.item.artists, true)
+                            break
+                        }
+                    }
+                }
+                Action {
+                    id: viewPlaylist
+                    text: i18n.tr("View Playlist")
+                    visible: enabled
+                    onTriggered: {
+                        app.pushPage(Util.HutspotPage.Playlist, {playlist: app.controller.playbackState.context}, true)
+                    }
+                }
+            }
+        }
+
 
         ListView {
             id: listView
@@ -149,45 +199,6 @@ Page {
                         }
                     }
 
-                    MenuItem {
-                        id: viewAlbum
-                        text: i18n.tr("View Album")
-                        visible: enabled
-                        onClicked: {
-                            switch(getContextType()) {
-                            case Spotify.ItemType.Album:
-                                app.pushPage(Util.HutspotPage.Album, {album: app.controller.playbackState.context}, true)
-                                break
-                            case Spotify.ItemType.Track:
-                                app.pushPage(Util.HutspotPage.Album, {album: app.controller.playbackState.item.album}, true)
-                                break
-                            }
-                        }
-                    }
-                    MenuItem {
-                        id: viewArtist
-                        visible: enabled
-                        text: i18n.tr("View Artist")
-                        onClicked: {
-                            switch(getContextType()) {
-                            case Spotify.ItemType.Album:
-                                app.loadArtist(app.controller.playbackState.contextDetails.artists, true)
-                                break
-                            case Spotify.ItemType.Artist:
-                                app.pushPage(Util.HutspotPage.Artist, {currentArtist: app.controller.playbackState.contextDetails}, true)
-                                break
-                            case Spotify.ItemType.Track:
-                                app.loadArtist(app.controller.playbackState.item.artists, true)
-                                break
-                            }
-                        }
-                    }
-                    MenuItem {
-                        id: viewPlaylist
-                        visible: enabled
-                        text: i18n.tr("View Playlist")
-                        onClicked: app.pushPage(Util.HutspotPage.Playlist, {playlist: app.controller.playbackState.context}, true)
-                    }
                 }*/
 
                 /*Text {
@@ -259,10 +270,10 @@ Page {
                     fromPlaying: true
                 }*/
 
-                /*Connections {
+                Connections {
                     target: loader.item
                     onToggleFavorite: app.toggleSavedTrack(model)
-                }*/
+                }
 
                 // play track
                 onClicked: app.controller.playTrackInContext(item, app.controller.playbackState.context, index)

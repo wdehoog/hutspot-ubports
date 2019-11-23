@@ -43,12 +43,6 @@ Page {
             case 1: return i18n.tr("Artist's Related Artists")
             }
         }
-        /*title: {
-            switch(_itemClass) {
-            case 0: return Util.createPageHeaderLabel(qsTr("Artist "), qsTr("Albums"), Theme)
-            case 1: return Util.createPageHeaderLabel(qsTr("Artist "), qsTr("Related Artists"), Theme)
-            }
-        }*/
         leadingActionBar.actions: [
             Action {
                 iconName: "back"
