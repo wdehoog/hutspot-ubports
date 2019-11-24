@@ -9,6 +9,7 @@
 //#include <QDebug>
 
 #include "qdeclarativeprocess.h"
+#include "powerd.h"
 #include "spotify.h"
 #include "systemutil.h"
 
@@ -30,6 +31,9 @@ int main(int argc, char *argv[])
     buildDateTime.append(" ");
     buildDateTime.append(__TIME__);
     view->rootContext()->setContextProperty("BUILD_DATE_TIME", buildDateTime);
+
+    Powerd powerd;
+    view->rootContext()->setContextProperty("powerd", &powerd);
 
     Spotify spotify;
     view->rootContext()->setContextProperty("spotify", &spotify);

@@ -4,6 +4,7 @@ project(hutspot C CXX)
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 find_package(Qt5Core)
+find_package(Qt5DBus)
 find_package(Qt5Qml)
 find_package(Qt5Quick)
 find_package(Qt5QuickControls2)
@@ -51,6 +52,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC "src" "src/o2")
 target_link_libraries(${PROJECT_NAME}
 
   Qt5::Core
+  Qt5::DBus
   Qt5::Gui
   Qt5::Qml
   Qt5::Quick

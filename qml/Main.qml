@@ -1008,6 +1008,32 @@ MainView {
     //
 
     Connections {
+        target: powerd
+        onSysStateActiveChanged: console.log("onSysStateActiveChanged now: " + hasSysStateActive)
+    }
+
+    Connections {
+        target: controller.playbackState
+        onIs_playingChanged: {
+            console.log("onIs_playingChanged: " + controller.playbackState.is_playing)
+            if(controller.playbackState.is_playing) {
+              // cancel pending quit
+              if(delayTimer.running) 
+                 delayTimer.running = false
+              if(!powerd.hasSysStateActive()) {
+                  powerd.requestSysStateActive()
+              }
+            } else {
+              if(powerd.hasSysStateActive()) {
+                delayedExec(function() {
+                    powerd.clearSysStateActive()
+                }, 15000)
+              }
+            }
+        }
+    }
+
+    /*Connections {
         target: controller.playbackState
         onIs_playingChanged: {
           console.log("onIs_playingChanged");
@@ -1048,20 +1074,6 @@ MainView {
           sysUtil.pkill(powerdcliProcess.pid, SystemUtil.SIGINT)
     }
 
-    function delayedExec(callback, delay) {
-        delayTimer.callback = callback
-        delayTimer.interval = delay
-        delayTimer.running = true
-    }
-
-    Timer {
-        id: delayTimer
-        running: false
-        repeat: false
-        property var callback
-        onTriggered: callback()
-    }
-
     Process {
         id: powerdcliProcess
 
@@ -1100,8 +1112,36 @@ MainView {
                 callback(null, powerdcliProcess.exitCode, stderr)
             callback = undefined
         }
+    }*/
+
+    function delayedExec(callback, delay) {
+        delayTimer.callback = callback
+        delayTimer.interval = delay
+        delayTimer.running = true
     }
 
+    Timer {
+        id: delayTimer
+        running: false
+        repeat: false
+        property var callback
+        onTriggered: callback()
+    }
+
+    //
+    // handle exit/close. ToDo: onDestruction is never called
+    //
+    StateSaver.properties: "title"
+    StateSaver.enabled: false
+    Component.onDestruction: {
+        console.log("MainView.onDestruction")
+        if(powerdcliProcess.state === Processes.Running)
+            sysUtil.pkill(powerdcliProcess.pid, SystemUtil.SIGINT)
+    }
+
+    //
+    //
+    //
     Settings {
         id: settings
 
