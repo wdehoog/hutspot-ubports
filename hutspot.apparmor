@@ -1,5 +1,11 @@
 {
     "template": "unconfined",
     "policy_version": 16.04,
-    "policy_groups": []
+    "policy_groups": [
+        "audio",
+        "content_exchange_source",
+        "content_exchange",
+        "networking",
+        "webview"
+    ]
 }
