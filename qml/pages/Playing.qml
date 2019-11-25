@@ -318,14 +318,10 @@ Page {
                     maximumValue: app.controller.playbackState.item
                                   ? app.controller.playbackState.item.duration_ms
                                   : ""
-                    onTouched: {
-                        if(_debug)console.log("onTouched: v=" + value)
-                        Spotify.seek(Math.round(value), function(error, data) {
-                            if(_debug)console.log("onTouched.callback: e=", + error + ", d=" + data)
-                            /*if(!error) {
-                                app.controller.playbackState.progress_ms = Math.round(value)
-                            }*/
-                        })
+                    onPressedChanged: {
+                        if(pressed) // only act on release
+                            return
+                        app.controller.seek(value)
                     }
                     Connections {
                         target: app.controller.playbackState

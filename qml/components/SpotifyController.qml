@@ -87,12 +87,31 @@ Item {
         }
     }
 
-    function setVolume(volume) {
+    function seek(position, callback) {
+        var value = Math.round(position);
+        Spotify.seek(Math.round(value), function(error, data) {
+            console.log("seek.callback: v=" + value + ", e=" + error + ", d=" + data)
+            if (!error) {
+                playbackState.progress_ms = value;
+                if(_waitForPlaybackState)
+                    _ignorePlaybackState = true
+            }
+            if(callback)
+                callback(error, data)
+        })
+    }
+
+    function setVolume(volume, callback) {
         var value = Math.round(volume);
-        Spotify.setVolume(value, function(error, data) {
+        Spotify.setVolume(value, {device_id: getDeviceId()}, function(error, data) {
+            console.log("setVolume.callback: v=" + value + ", e=" + error + ", d=" + data)
             if (!error) {
                 playbackState.device.volume_percent = value;
+                if(_waitForPlaybackState)
+                    _ignorePlaybackState = true
             }
+            if(callback)
+                callback(error, data)
         })
     }
 
@@ -195,10 +214,10 @@ Item {
     function delayedRefreshPlaybackState() {
         // for some reason we need to wait
         // thx spotify
-        handleRendererInfo.refreshCount = 0
-        timer.setTimeout(function () {
+        //handleRendererInfo.refreshCount = 0
+        //timer.setTimeout(function () {
             refreshPlaybackState();
-        }, 300)
+        //}, 300)
     }
 
     function next(callback) {

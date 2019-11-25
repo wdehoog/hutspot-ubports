@@ -216,50 +216,61 @@ Page {
         onTriggered: app.controller.checkForNewDevices()
     }
 
+    property var _refreshBusy: false
+
     function refreshDevices() {
         var i
         var j
 
-        itemsModel.clear()
+        if(_refreshBusy)
+            return
+        _refreshBusy = true
 
-        var devArr = []
-        for(i=0;i<app.controller.devices.count;i++)
-            devArr[i] = {device: app.controller.devices.get(i), deviceIndex: i}
-        devArr.sort(function(a,b) {return a.device.name.localeCompare(b.device.name)})
-        for(i=0;i<devArr.length;i++) {
-            var item = devArr[i]
-            itemsModel.append({deviceId: item.device.id,
-                               name: item.device.name,
-                               deviceIndex: item.deviceIndex,
-                               is_active: item.device.is_active,
-                               sp: 1,
-                               discovery: 0})
-        }
+        try {
 
-        devArr.length = 0
-        for(i=0;i<app.foundDevices.length;i++)
-            devArr[i] = {device: app.foundDevices[i], deviceIndex: i}
-        devArr.sort(function(a,b) {return a.device.remoteName.localeCompare(b.device.remoteName)})
-        for(i=0;i<devArr.length;i++) {
-            var found = 0
-            for(j=0;j<itemsModel.count;j++) {
-                if(itemsModel.get(j).name === devArr[i].device.remoteName) {
-                    itemsModel.get(j).discovery = 1
-                    found = 1
-                    break
+            itemsModel.clear()
+
+            var devArr = []
+            for(i=0;i<app.controller.devices.count;i++)
+                devArr[i] = {device: app.controller.devices.get(i), deviceIndex: i}
+            devArr.sort(function(a,b) {return a.device.name.localeCompare(b.device.name)})
+            for(i=0;i<devArr.length;i++) {
+                var item = devArr[i]
+                itemsModel.append({deviceId: item.device.id,
+                                   name: item.device.name,
+                                   deviceIndex: item.deviceIndex,
+                                   is_active: item.device.is_active,
+                                   sp: 1,
+                                   discovery: 0})
+            }
+
+            devArr.length = 0
+            for(i=0;i<app.foundDevices.length;i++)
+                devArr[i] = {device: app.foundDevices[i], deviceIndex: i}
+            devArr.sort(function(a,b) {return a.device.remoteName.localeCompare(b.device.remoteName)})
+            for(i=0;i<devArr.length;i++) {
+                var found = 0
+                for(j=0;j<itemsModel.count;j++) {
+                    if(itemsModel.get(j).name === devArr[i].device.remoteName) {
+                        itemsModel.get(j).discovery = 1
+                        found = 1
+                        break
+                    }
+                }
+                if(!found) {
+                    itemsModel.append({deviceId: devArr[i].device.deviceID,
+                                       name: devArr[i].device.remoteName,
+                                       deviceIndex: devArr[i].deviceIndex,
+                                       is_active: devArr[i].device.activeUser.length > 0,
+                                       sp: 0,
+                                       discovery: 1})
                 }
             }
-            if(!found) {
-                itemsModel.append({deviceId: devArr[i].device.deviceID,
-                                   name: devArr[i].device.remoteName,
-                                   deviceIndex: devArr[i].deviceIndex,
-                                   is_active: devArr[i].device.activeUser.length > 0,
-                                   sp: 0,
-                                   discovery: 1})
-            }
+        } catch (exc) {
+            console.log("Devices.refresh exception: " + exc)
         }
 
-
+        _refreshBusy = false
     }
 
     Rectangle {
@@ -290,13 +301,10 @@ Page {
             minimumValue: 0
             maximumValue: 100
             enabled: app.controller.playbackState.device.id != -1
-            onTouched: {
-                Spotify.setVolume(Math.round(value), {device_id: app.controller.getDeviceId()}, function(error, data) {
-                    if(error)
-                        console.log("Error while setVolume: " + error)
-                    else
-                        app.controller.refreshPlaybackState();
-                })
+            onPressedChanged: {
+                if(pressed) // only act on release
+                    return
+                app.controller.setVolume(value)
             }
             Connections {
                 target: app.controller.playbackState

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-24 21:06+0000\n"
+"POT-Creation-Date: 2019-11-25 20:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -146,37 +146,37 @@ msgstr ""
 msgid "View Playlist"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:493 ../qml/pages/Playing.qml:512
+#: ../qml/pages/Playing.qml:489 ../qml/pages/Playing.qml:508
 #: ../qml/pages/Album.qml:78
 msgid "no artist known"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:496
+#: ../qml/pages/Playing.qml:492
 msgid "no genre known"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:520 ../qml/pages/Playing.qml:533
+#: ../qml/pages/Playing.qml:516 ../qml/pages/Playing.qml:529
 #: ../qml/pages/Album.qml:87
 msgid "tracks"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:522 ../qml/pages/Album.qml:89
+#: ../qml/pages/Playing.qml:518 ../qml/pages/Album.qml:89
 msgid "track"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:530 ../qml/pages/Playing.qml:536
+#: ../qml/pages/Playing.qml:526 ../qml/pages/Playing.qml:532
 msgid "followers"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:534
+#: ../qml/pages/Playing.qml:530
 msgid "by"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:538
+#: ../qml/pages/Playing.qml:534
 msgid "public"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:540
+#: ../qml/pages/Playing.qml:536
 msgid "collaborative"
 msgstr ""
 
