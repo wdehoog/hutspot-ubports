@@ -30,6 +30,7 @@ var scopes_array = [
 ];
 var _scope = scopes_array.join(" ");
 
+var tokenLostCallback = null;
 
 //
 // Request Stuff
@@ -95,8 +96,14 @@ function _performRequest(requestData, callback) {
           callback(null, data);
         } else {
           callback(data.error);
-          if(data.error)
-              console.error("_performRequest: " + data.error.status + ": " + data.error.message);
+          if(data.error) {
+            console.error("_performRequest: " + data.error.status + ": " + data.error.message);
+            // not sure what text they will use but for now it works
+            if(data.error.status == 401
+               && data.error.message == "The access token expired"
+               && tokenLostCallback != null)
+              tokenLostCallback()
+          }
         }
       }
     }

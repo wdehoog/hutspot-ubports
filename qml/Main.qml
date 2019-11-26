@@ -245,7 +245,12 @@ MainView {
     }
 
     Component.onCompleted: {
+        pageStack.push(Qt.resolvedUrl("pages/Menu.qml"))
         startSpotify()
+    }
+
+    function onTokenLost() {
+        spotify.refreshToken();
     }
 
     function startSpotify() {
@@ -266,6 +271,7 @@ MainView {
             // it's already expired
             spotify.refreshToken();
         }
+        Spotify.tokenLostCallback = onTokenLost
     }
 
     property int tokenExpireTime: 0 // seconds from epoch
@@ -322,12 +328,11 @@ MainView {
         onOpenBrowser: {
            console.log("onOpenBrowser: " + url)
            // Morph.Web crashes but Morph the browser works
-           //if(settings.authUsingBrowser) { 
+           if(settings.authUsingBrowser) { 
                Qt.openUrlExternally(url)
-           //} else {
-           //    pageStack.push(Qt.resolvedUrl("pages/Menu.qml"))
-           //    pageStack.push(Qt.resolvedUrl("pages/WebAuth.qml"), {authURL: url })
-           //}
+           } else {
+               pageStack.push(Qt.resolvedUrl("pages/WebAuth.qml"), {authURL: url })
+           }
         }
 
         onCloseBrowser: {
