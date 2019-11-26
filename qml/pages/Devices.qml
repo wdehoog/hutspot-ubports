@@ -38,7 +38,13 @@ Page {
                 text: i18n.tr("Reload Devices")
                 iconName: "reload"
                 onTriggered: app.controller.reloadDevices()
-            } //,
+            },
+            Action {
+                text: i18n.tr("Login")
+                iconName: "stock_key"
+                onTriggered: spotify.doO2Auth(Spotify._scope, app.settings.authUsingBrowser)
+            }
+                   //,
             /*Action {
                 text: i18n.tr("Refresh Token")
                 onTriggered: spotify.refreshToken()
