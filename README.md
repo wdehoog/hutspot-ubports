@@ -27,6 +27,9 @@ export PULSE_PROP='media.role=multimedia'
 
 The easiest way to set it up is creating a config file as described in the [README from spotifyd](https://github.com/Spotifyd/spotifyd).
 
+## Developing
+You can build it with [clickable](http://clickable.bhdouglass.com/en/latest/).
+
 ## License
 
 Copyright (C) 2019  Willem-Jan de Hoog
