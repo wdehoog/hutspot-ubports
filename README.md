@@ -27,8 +27,14 @@ export PULSE_PROP='media.role=multimedia'
 
 The easiest way to set it up is creating a config file as described in the [README from spotifyd](https://github.com/Spotifyd/spotifyd).
 
+
+Another huge problem is the audio getting choppy due to the phone being suspended when the display goes dark. Currently this is solved/hacked using a DBus call to `powerd` (requestSysState) by Hutspot when playing is active. If Hutspot crashes or quits it might not have notified `powerd` and then your battery live might be in danger. 
+
+
 ## Developing
 You can build it with [clickable](http://clickable.bhdouglass.com/en/latest/).
+
+I tried to crossbuild spotifyd with the pulseaudio backend but it fails. If you know how to fix that please let me know.
 
 ## License
 
