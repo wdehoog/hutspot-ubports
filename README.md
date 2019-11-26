@@ -28,7 +28,7 @@ export PULSE_PROP='media.role=multimedia'
 The easiest way to set it up is creating a config file as described in the [README from spotifyd](https://github.com/Spotifyd/spotifyd).
 
 
-Another huge problem is the audio getting choppy due to the phone being suspended when the display goes dark. Currently this is solved/hacked using a DBus call to `powerd` (requestSysState) by Hutspot when playing is active. If Hutspot crashes or quits it might not have notified `powerd` and then your battery live might be in danger. 
+Another problem is the audio getting choppy due to the phone being suspended when the display goes dark. Currently this is solved using a DBus call to `powerd` (requestSysState) by Hutspot when it is playing a track. If Hutspot crashes or quits it might not have notified `powerd` but powerd takes care of that (says [wiki](https://wiki.ubuntu.com/powerd).
 
 
 ## Developing

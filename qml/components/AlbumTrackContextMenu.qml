@@ -22,7 +22,7 @@ Component {
                 text: i18n.tr("Play")
                 visible: enabled
                 enabled: Util.isTrackPlayable(model.item)
-                onTriggered: app.controller.playTrackInContext(model.item, context, imodel.ndex)
+                onTriggered: app.controller.playTrackInContext(model.item, context, model.index)
             }
 
             Action {

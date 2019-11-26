@@ -22,12 +22,12 @@ bool Powerd::hasSysStateActive() {
     return m_hasWakeLock;
 }
 
-void Powerd::requestSysStateActive() {
+void Powerd::requestSysStateActive(QString name) {
     // one is enough?
     //if(m_hasWakeLock)
     //    return;
 
-    QDBusPendingCall pcall = m_powerd->asyncCall(QStringLiteral("requestSysState"), "active", POWERD_SYS_STATE_ACTIVE);
+    QDBusPendingCall pcall = m_powerd->asyncCall(QStringLiteral("requestSysState"), name, POWERD_SYS_STATE_ACTIVE);
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(pcall, this);
     QObject::connect(watcher, &QDBusPendingCallWatcher::finished,
                      this, &Powerd::onWakeLockAcquired);

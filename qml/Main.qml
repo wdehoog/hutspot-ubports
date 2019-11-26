@@ -1021,7 +1021,7 @@ MainView {
               if(delayTimer.running) 
                  delayTimer.running = false
               if(!powerd.hasSysStateActive()) {
-                  powerd.requestSysStateActive()
+                  powerd.requestSysStateActive("hutspot")
               }
             } else {
               if(powerd.hasSysStateActive()) {
@@ -1032,87 +1032,6 @@ MainView {
             }
         }
     }
-
-    /*Connections {
-        target: controller.playbackState
-        onIs_playingChanged: {
-          console.log("onIs_playingChanged");
-            if(controller.playbackState.is_playing) {
-          console.log("  playing state: " + powerdcliProcess.state);
-              // cancel pending quit
-              if(delayTimer.running) 
-                 delayTimer.running = false
-              if(powerdcliProcess.state === Processes.NotRunning) {
-                  requestSysStateActive()
-              }
-            } else {
-          console.log("  not playing state: " + powerdcliProcess.state);
-              if(powerdcliProcess.state !== Processes.NotRunning) {
-                delayedExec(function() {
-                    clearSysStateActive()
-                }, 15000)
-              }
-            }
-        }
-    }
-
-    function requestSysStateActive(callback) {
-        console.log("  requestSysStateActive");
-        var command = "/usr/sbin/powerd-cli"
-        var args = ["active"]
-        //var command = "/usr/bin/lscpu"
-        //var args = ["-x"]
-        powerdcliProcess.callback = callback
-        powerdcliProcess.start(command, args)
-    }
-
-    function clearSysStateActive() {
-      console.log("  clearSysStateActive");
-      //terminate() // SIGTERM
-      //kill() // SIGKILL
-      if(powerdcliProcess.state === Processes.Running)
-          sysUtil.pkill(powerdcliProcess.pid, SystemUtil.SIGINT)
-    }
-
-    Process {
-        id: powerdcliProcess
-
-        property string name: "powerd-cli"
-        property var callback: undefined
-
-        workingDirectory: sysUtil.env("HOME")
-
-        onExitCodeChanged: {
-            console.log("Process.onExitCodeChanged["+name+"]: " + powerdcliProcess.exitCode)
-        }
-
-        onStateChanged: {
-            console.log("Process.onStateChanged["+name+"]: " + powerdcliProcess.state)
-        }
-
-        onProcessFinished: {
-            console.log("Process.onProcessFinished["+name+"]: " + powerdcliProcess.error)
-        }
-
-        onError: {
-            if(callback !== undefined)
-                callback(powerdcliProcess.error, powerdcliProcess.exitCode, undefined)
-            console.log("Process.onError["+name+"]: " + powerdcliProcess.error)
-            callback = undefined
-        }
-
-        onFinished: {
-            var stdout = powerdcliProcess.readAllStandardOutput()
-            var stderr = powerdcliProcess.readAllStandardError()
-            console.log("Process.onFinished["+name+"]: " + powerdcliProcess.exitStatus + ", code: " + powerdcliProcess.exitCode)
-            console.log("[stdout]:" + stdout)
-            console.log("[stderr]:" + stderr)
-
-            if(callback !== undefined)
-                callback(null, powerdcliProcess.exitCode, stderr)
-            callback = undefined
-        }
-    }*/
 
     function delayedExec(callback, delay) {
         delayTimer.callback = callback
@@ -1135,8 +1054,8 @@ MainView {
     StateSaver.enabled: false
     Component.onDestruction: {
         console.log("MainView.onDestruction")
-        if(powerdcliProcess.state === Processes.Running)
-            sysUtil.pkill(powerdcliProcess.pid, SystemUtil.SIGINT)
+        if(powerd.hasSysStateActive())
+            powerd.clearSysStateActive()
     }
 
     //

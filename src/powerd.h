@@ -15,7 +15,7 @@ public:
     Q_SIGNAL void sysStateActiveChanged(bool hasSysStateActive);
 
 public slots:
-    Q_INVOKABLE void requestSysStateActive();
+    Q_INVOKABLE void requestSysStateActive(QString name);
     Q_INVOKABLE void clearSysStateActive();
     Q_INVOKABLE bool hasSysStateActive();
 
