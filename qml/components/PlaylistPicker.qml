@@ -88,7 +88,11 @@ Page {
                 dataModel: model
             }
         }
-
+ 
+        onAtYEndChanged: {
+            if(listView.atYEnd && searchModel.count > 0)
+                append()
+        }
         /*section.property: "type"
         section.delegate : Component {
             id: sectionHeading

@@ -76,7 +76,7 @@ Rectangle {
                         font.weight: isCurrentItem ? app.fontHighlightWeight : app.fontPrimaryWeight
                         //color: currentIndex === dataModel.index ? Theme.highlightColor : Theme.primaryColor
                         //font.pixelSize: fontSizeExtraSmall
-                        //truncationMode: TruncationMode.Fade
+                        elide: Text.ElideRight
                         text: getMeta1String()
                         enabled: text.length > 0
                         visible: enabled
@@ -89,7 +89,7 @@ Rectangle {
                         //color: currentIndex === dataModel.index ? Theme.secondaryHighlightColor : Theme.secondaryColor
                         //font.pixelSize: fontSizeExtraSmall
                         textFormat: Text.StyledText
-                        //truncationMode: TruncationMode.Fade
+                        elide: Text.ElideRight
                         text: getMeta2String()
                         enabled: text.length > 0
                         visible: enabled

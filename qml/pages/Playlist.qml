@@ -159,6 +159,10 @@ Page {
             onClicked: app.pushPage(Util.HutspotPage.Album, {album: item.album})
         }
 
+        onAtYEndChanged: {
+            if(listView.atYEnd && searchModel.count > 0)
+                append()
+        }
     }
 
     Scrollbar {

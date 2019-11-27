@@ -145,6 +145,11 @@ Page {
             onClicked: app.controller.playTrackInContext(item, album, index)
         }
 
+        onAtYEndChanged: {
+            if(listView.atYEnd && searchModel.count > 0)
+                append()
+        }
+
     }
 
     Scrollbar {

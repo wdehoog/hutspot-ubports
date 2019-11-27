@@ -100,6 +100,11 @@ Page {
                 }
             }
         }
+
+        onAtYEndChanged: {
+            if(listView.atYEnd && searchModel.count > 0)
+                append()
+        }
     }
 
     Scrollbar {

@@ -44,8 +44,6 @@ Item {
                           ? "image://theme/icon-m-favorite?" + Theme.highlightColor
                           : "image://theme/icon-m-favorite"
         }*/
-        // these are used in the Spotify application
-        //source: isFavorite ? "image://theme/icon-m-certificates" : "image://theme/icon-m-add"
         MouseArea {
              anchors.fill: parent
              onClicked: toggleFavorite()
@@ -58,7 +56,7 @@ Item {
         anchors.right: parent.right
         anchors.verticalCenter: parent.verticalCenter
         anchors.leftMargin: app.paddingMedium
-        //height: childrenRect.height
+        //height: childrenRect.height causes Binding Loop
 
         Text {
             id: label
@@ -80,7 +78,6 @@ Item {
             anchors.right: parent.right
             anchors.verticalCenter: parent.verticalCenter
             //color: currentIndex === dataModel.index ? Theme.highlightColor : Theme.primaryColor
-            //font.pixelSize: app.fontSizeSmall
             font.weight: currentIndex === dataModel.index ? app.fontHighlightWeight : app.fontPrimaryWeight
             text: Util.getDurationString(dataModel.item.duration_ms)
             enabled: text.length > 0

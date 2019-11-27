@@ -239,12 +239,21 @@ Page {
             }
         }
 
+        onAtYEndChanged: {
+            if(listView.atYEnd && searchModel.count > 0) {
+                if(searchString === "")
+                    return
+                if(_itemClass === -1)
+                    nextItemClass()
+                append()
+            }
+        }
     }
 
     Scrollbar {
-        id: scrollBar
-        flickableItem: listView
-        anchors.right: parent.right
+      id: scrollBar
+      flickableItem: listView
+      anchors.right: parent.right
     }
 
     property alias cursorHelper: cursorHelper

@@ -105,185 +105,193 @@ Page {
     }
 
 
-        ListView {
-            id: listView
-            model: searchModel
-            //anchors.fill: parent
-            width: parent.width
-            height: parent.height - controlPanel.height
-            clip: true
+    ListView {
+        id: listView
+        model: searchModel
+        //anchors.fill: parent
+        width: parent.width
+        height: parent.height - controlPanel.height
+        clip: true
 
-            header: Component { Column {
-                id: lvColumn
+        header: Component { Column {
+            id: lvColumn
 
-                width: parent.width - 2*app.paddingMedium
-                x: app.paddingMedium
-                anchors.bottomMargin: app.paddingLarge
+            width: parent.width - 2*app.paddingMedium
+            x: app.paddingMedium
+            anchors.bottomMargin: app.paddingLarge
 
-                Item {
-                    width: parent.width
-                    height: imageItem.height
+            Item {
+                width: parent.width
+                height: imageItem.height
 
-                    Image {
-                        id: imageItem
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        width: parent.width * 0.75
-                        height: sourceSize.height*(width/sourceSize.width)
-                        source:  app.controller.getCoverArt(defaultImageSource, showTrackInfo)
-                        fillMode: Image.PreserveAspectFit
-                        onPaintedHeightChanged: parent.height = Math.min(parent.parent.width, paintedHeight)
-                        MouseArea {
-                            anchors.fill: parent
-                            onClicked: {
-                                showTrackInfo = !showTrackInfo
-                                //app.glassyBackground.showTrackInfo = showTrackInfo
-                            }
-                        }
-                    }
-                    /*DropShadow {
-                        anchors.fill: imageItem
-                        radius: 3.0
-                        samples: 10
-                        color: "#000"
-                        source: imageItem
-                    }*/
-                }
-
-                Item {
-                    id: infoContainer
-
-                    // put MetaInfoPanel in Item to be able to make room for context menu
-                    width: parent.width
-                    height: info.height //+ (cmenu ? cmenu.height : 0)
-
-                    MetaInfoPanel {
-                        id: info
-                        anchors.top: parent.top
-                        firstLabelText: getFirstLabelText()
-                        secondLabelText: getSecondLabelText()
-                        thirdLabelText: getThirdLabelText()
-
-                        isFavorite: isContextFavorite
-                        onToggleFavorite: toggleSavedFollowed()
-                        onFirstLabelClicked: openMenu()
-                        onSecondLabelClicked: openMenu()
-                        onThirdLabelClicked: openMenu()
-
-                        function openMenu() {
-                            cmenu.update()
-                            cmenu.open(infoContainer)
+                Image {
+                    id: imageItem
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    width: parent.width * 0.75
+                    height: sourceSize.height*(width/sourceSize.width)
+                    source:  app.controller.getCoverArt(defaultImageSource, showTrackInfo)
+                    fillMode: Image.PreserveAspectFit
+                    onPaintedHeightChanged: parent.height = Math.min(parent.parent.width, paintedHeight)
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            showTrackInfo = !showTrackInfo
+                            //app.glassyBackground.showTrackInfo = showTrackInfo
                         }
                     }
                 }
-
-                /*ContextMenu {
-                    id: cmenu
-
-                    function update() {
-                        viewAlbum.enabled = false
-                        viewArtist.enabled = false
-                        viewPlaylist.enabled = false
-                        switch(getContextType()) {
-                        case Spotify.ItemType.Album:
-                            viewAlbum.enabled = true
-                            viewArtist.enabled = true
-                            break
-                        case Spotify.ItemType.Artist:
-                            viewArtist.enabled = true
-                            break
-                        case Spotify.ItemType.Playlist:
-                            viewPlaylist.enabled = true
-                            break
-                        case Spotify.ItemType.Track:
-                            viewAlbum.enabled = true
-                            viewArtist.enabled = false
-                            break
-                        }
-                    }
-
+                /*DropShadow {
+                    anchors.fill: imageItem
+                    radius: 3.0
+                    samples: 10
+                    color: "#000"
+                    source: imageItem
                 }*/
-
-                /*Text {
-                    truncationMode: TruncationMode.Fade
-                    width: parent.width
-                    font.pixelSize: Theme.fontSizeSmall
-                    wrapMode: Text.Wrap
-                    text:  (app.controller.playbackState && app.controller.playbackState.device)
-                            ? i18n.tr("on: ") + app.controller.playbackState.device.name + " (" + app.controller.playbackState.device.type + ")"
-                            : i18n.tr("none")
-                }*/
-
-                Rectangle {
-                    width: parent.width
-                    height: app.paddingMedium
-                    opacity: 0
-                }
-
-                /*Separator {
-                    width: parent.width
-                    color: Theme.primaryColor
-                }*/
-
-                Rectangle {
-                    width: parent.width
-                    height: app.paddingMedium
-                    opacity: 0
-                }
-            }}
-
-            delegate: ListItem {
-                id: listItem
-                width: parent.width - 2*app.paddingMedium
-                x: app.paddingMedium
-
-                Loader {
-                    id: loader
-
-                    width: parent.width
-                    height: childrenRect.height
-                    anchors.verticalCenter: parent.verticalCenter
-
-                    source: contextType > 0
-                            ? "../components/SearchResultListItem.qml"
-                            : "../components/AlbumTrackListItem.qml"
-
-                    Binding {
-                      target: loader.item
-                      property: "dataModel"
-                      value: model
-                      when: loader.status == Loader.Ready
-                    }
-                    Binding {
-                        target: loader.item
-                        property: "isFavorite"
-                        value: saved
-                        when: contextType === 0
-                    }
-                    Binding {
-                      target: loader.item
-                      property: "contextType"
-                      value: contextType
-                      when: loader.status == Loader.Ready
-                    }
-                    //onStatusChanged: console.log("Loader: " + loader.status)
-                }
-
-                /*menu: AlbumTrackContextMenu {
-                    context: app.controller.playbackState.context
-                    enableQueueItems: false
-                    fromPlaying: true
-                }*/
-
-                Connections {
-                    target: loader.item
-                    onToggleFavorite: app.toggleSavedTrack(model)
-                }
-
-                // play track
-                onClicked: app.controller.playTrackInContext(item, app.controller.playbackState.context, index)
             }
 
+            Item {
+                id: infoContainer
+
+                // put MetaInfoPanel in Item to be able to make room for context menu
+                width: parent.width
+                height: info.height //+ (cmenu ? cmenu.height : 0)
+
+                MetaInfoPanel {
+                    id: info
+                    anchors.top: parent.top
+                    firstLabelText: getFirstLabelText()
+                    secondLabelText: getSecondLabelText()
+                    thirdLabelText: getThirdLabelText()
+
+                    isFavorite: isContextFavorite
+                    onToggleFavorite: toggleSavedFollowed()
+                    onFirstLabelClicked: openMenu()
+                    onSecondLabelClicked: openMenu()
+                    onThirdLabelClicked: openMenu()
+
+                    function openMenu() {
+                        cmenu.update()
+                        cmenu.open(infoContainer)
+                    }
+                }
+            }
+
+            /*ContextMenu {
+                id: cmenu
+
+                function update() {
+                    viewAlbum.enabled = false
+                    viewArtist.enabled = false
+                    viewPlaylist.enabled = false
+                    switch(getContextType()) {
+                    case Spotify.ItemType.Album:
+                        viewAlbum.enabled = true
+                        viewArtist.enabled = true
+                        break
+                    case Spotify.ItemType.Artist:
+                        viewArtist.enabled = true
+                        break
+                    case Spotify.ItemType.Playlist:
+                        viewPlaylist.enabled = true
+                        break
+                    case Spotify.ItemType.Track:
+                        viewAlbum.enabled = true
+                        viewArtist.enabled = false
+                        break
+                    }
+                }
+
+            }*/
+
+            /*Text {
+                truncationMode: TruncationMode.Fade
+                width: parent.width
+                font.pixelSize: Theme.fontSizeSmall
+                wrapMode: Text.Wrap
+                text:  (app.controller.playbackState && app.controller.playbackState.device)
+                        ? i18n.tr("on: ") + app.controller.playbackState.device.name + " (" + app.controller.playbackState.device.type + ")"
+                        : i18n.tr("none")
+            }*/
+
+            Rectangle {
+                width: parent.width
+                height: app.paddingMedium
+                opacity: 0
+            }
+
+            /*Separator {
+                width: parent.width
+                color: Theme.primaryColor
+            }*/
+
+            Rectangle {
+                width: parent.width
+                height: app.paddingMedium
+                opacity: 0
+            }
+        }}
+
+        delegate: ListItem {
+            id: listItem
+            width: parent.width - 2*app.paddingMedium
+            x: app.paddingMedium
+
+            Loader {
+                id: loader
+
+                width: parent.width
+                height: childrenRect.height
+                anchors.verticalCenter: parent.verticalCenter
+
+                source: contextType > 0
+                        ? "../components/SearchResultListItem.qml"
+                        : "../components/AlbumTrackListItem.qml"
+
+                Binding {
+                  target: loader.item
+                  property: "dataModel"
+                  value: model
+                  when: loader.status == Loader.Ready
+                }
+                Binding {
+                    target: loader.item
+                    property: "isFavorite"
+                    value: saved
+                    when: contextType === 0
+                }
+                Binding {
+                  target: loader.item
+                  property: "contextType"
+                  value: contextType
+                  when: loader.status == Loader.Ready
+                }
+                //onStatusChanged: console.log("Loader: " + loader.status)
+            }
+
+            /*menu: AlbumTrackContextMenu {
+                context: app.controller.playbackState.context
+                enableQueueItems: false
+                fromPlaying: true
+            }*/
+
+            Connections {
+                target: loader.item
+                onToggleFavorite: app.toggleSavedTrack(model)
+            }
+
+            // play track
+            onClicked: app.controller.playTrackInContext(item, app.controller.playbackState.context, index)
         }
+
+        onAtYEndChanged: {
+            if(listView.atYEnd && searchModel.count > 0) {
+                // album is already completely loaded
+                if(app.controller.playbackState.context
+                   && app.controller.playbackState.context.type === 'playlist')
+                    appendPlaylistTracks(app.id, currentId, false)
+            }
+        }
+    }
 
     Scrollbar {
         id: scrollBar
