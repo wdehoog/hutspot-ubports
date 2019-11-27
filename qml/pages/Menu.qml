@@ -31,6 +31,11 @@ Page {
                 iconName: "info"
                 text: i18n.tr("About")
                 onTriggered: pageStack.push(Qt.resolvedUrl("About.qml") )
+            },
+            Action {
+                iconName: "settings"
+                text: i18n.tr("Settings")
+                onTriggered: pageStack.push(Qt.resolvedUrl("Settings.qml") )
             }
         ]
     }
@@ -140,23 +145,4 @@ Page {
         //    pageStack.popAttached(undefined, PageStackAction.Immediate)
         app.doSelectedMenuItem(selectedMenuItem)
     }
-
-    // The shared DockedPanel needs mouse events
-    // and some ListView events
-    /*propagateComposedEvents: true
-    onStatusChanged: {
-
-        // if no action restore attached page
-        if(status === PageStatus.Inactive
-           && selectedMenuItem === -1
-           && _started
-           && popOnExit)
-            app.setPlayingAsAttachedPage()
-            _started = true
-
-        if(status === PageStatus.Activating)
-            app.dockedPanel.registerListView(listView)
-        else if(status === PageStatus.Deactivating)
-            app.dockedPanel.unregisterListView(listView)
-    }*/
 }

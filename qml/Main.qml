@@ -4,7 +4,7 @@ import Ubuntu.Components.Popups 1.3
 import Ubuntu.Components.Themes 1.3
 //import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
-import Qt.labs.settings 1.0
+import Qt.labs.settings 1.0 as QLS
 import QtWebEngine 1.7
 
 import org.hildon.components 1.0
@@ -1066,7 +1066,7 @@ MainView {
     //
     //
     //
-    Settings {
+    QLS.Settings {
         id: settings
 
         property int searchLimit: 50

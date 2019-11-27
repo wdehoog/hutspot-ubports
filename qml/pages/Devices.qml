@@ -26,13 +26,6 @@ Page {
     header: PageHeader {
         id: header
         title: i18n.tr("Devices")
-        leadingActionBar.actions: [
-            Action {
-                iconName: "back"
-                text: "Back"
-                onTriggered: pageStack.pop()
-            }
-        ]
         trailingActionBar.actions: [
             Action {
                 text: i18n.tr("Reload Devices")

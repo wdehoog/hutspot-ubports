@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-26 21:36+0000\n"
+"POT-Creation-Date: 2019-11-27 19:53+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -184,6 +184,30 @@ msgstr ""
 msgid "Playlist"
 msgstr ""
 
+#: ../qml/pages/Settings.qml:12 ../qml/pages/Menu.qml:37
+msgid "Settings"
+msgstr ""
+
+#: ../qml/pages/Settings.qml:32
+msgid "Query for Market"
+msgstr ""
+
+#: ../qml/pages/Settings.qml:65
+msgid "Authorize using"
+msgstr ""
+
+#: ../qml/pages/Settings.qml:80
+msgid "Internal Webview"
+msgstr ""
+
+#: ../qml/pages/Settings.qml:81
+msgid "External Browser"
+msgstr ""
+
+#: ../qml/pages/Settings.qml:93
+msgid "Number of results per request (limit)"
+msgstr ""
+
 #: ../qml/pages/Album.qml:39
 msgid "Album"
 msgstr ""
@@ -216,43 +240,43 @@ msgstr ""
 msgid "Spotify Login"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:28 ../qml/pages/Menu.qml:77
+#: ../qml/pages/Devices.qml:28 ../qml/pages/Menu.qml:82
 msgid "Devices"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:38
+#: ../qml/pages/Devices.qml:31
 msgid "Reload Devices"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:43
+#: ../qml/pages/Devices.qml:36
 msgid "Login"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:65
+#: ../qml/pages/Devices.qml:58
 msgid "Set as Current"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:172
+#: ../qml/pages/Devices.qml:165
 msgid "Unknown Name"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:190
+#: ../qml/pages/Devices.qml:183
 msgid "active"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:190 ../qml/pages/Devices.qml:197
+#: ../qml/pages/Devices.qml:183 ../qml/pages/Devices.qml:190
 msgid "inactive"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:193
+#: ../qml/pages/Devices.qml:186
 msgid "restricted"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:193
+#: ../qml/pages/Devices.qml:186
 msgid "unrestricted"
 msgstr ""
 
-#: ../qml/pages/Search.qml:42 ../qml/pages/Menu.qml:73
+#: ../qml/pages/Search.qml:42 ../qml/pages/Menu.qml:78
 msgid "Search"
 msgstr ""
 
