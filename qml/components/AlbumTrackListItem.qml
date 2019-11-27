@@ -58,7 +58,7 @@ Item {
         anchors.right: parent.right
         anchors.verticalCenter: parent.verticalCenter
         anchors.leftMargin: app.paddingMedium
-        height: childrenRect.height
+        //height: childrenRect.height
 
         Text {
             id: label

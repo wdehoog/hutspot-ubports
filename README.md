@@ -12,6 +12,7 @@ Don't expect too much. Currently you can
   * search
   * control a player
  
+The [screenshots](screenshots) directory shows some images made while running with `clickable desktop`. 
 
 ## Spotify on your UBports phone
 One option is to copy [spotifyd](https://github.com/Spotifyd/spotifyd/releases) on your phone. For example I use 0.2.19 from  spotifyd-2019-10-06-armv6-slim.zip on by opo. 
