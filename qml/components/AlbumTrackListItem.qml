@@ -58,6 +58,7 @@ Item {
         anchors.right: parent.right
         anchors.verticalCenter: parent.verticalCenter
         anchors.leftMargin: app.paddingMedium
+        height: childrenRect.height
 
         Text {
             id: label
@@ -66,6 +67,10 @@ Item {
             anchors.rightMargin: app.paddingLarge
             anchors.verticalCenter: parent.verticalCenter
             //color: currentIndex === dataModel.index ? Theme.highlightColor : Theme.primaryColor
+            font.weight: currentIndex === dataModel.index ? app.fontHighlightWeight : app.fontPrimaryWeight
+            elide: Text.ElideRight
+            wrapMode: Text.Wrap
+            maximumLineCount: 2
             textFormat: Text.StyledText
             text: dataModel.name ? dataModel.name : i18n.tr("No Name")
         }
@@ -76,6 +81,7 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
             //color: currentIndex === dataModel.index ? Theme.highlightColor : Theme.primaryColor
             //font.pixelSize: app.fontSizeSmall
+            font.weight: currentIndex === dataModel.index ? app.fontHighlightWeight : app.fontPrimaryWeight
             text: Util.getDurationString(dataModel.item.duration_ms)
             enabled: text.length > 0
             visible: enabled

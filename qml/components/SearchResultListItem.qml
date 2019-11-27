@@ -111,11 +111,11 @@ Rectangle {
                             else
                                 return currentIndex === dataModel.index
                                           ? "image://theme/icon-m-favorite?" + Theme.highlightColor
-                                          : "image://theme/icon-m-favorite"
+                                          : "image://theme/icon-m-favorite"*/
                     MouseArea {
                          anchors.fill: parent
                          onClicked: toggleFavorite()
-                    }*/
+                    }
                 }
             }
         }

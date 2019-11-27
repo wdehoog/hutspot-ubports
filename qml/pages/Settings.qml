@@ -29,6 +29,19 @@ Page {
                 height: childrenRect.height
                 Label {
                     anchors.left: parent.left
+                    text: i18n.tr("Confirm Un-Follow/Save")
+                }
+                CheckBox {
+                    anchors.right: parent.right
+                    checked: app.settings.confirmUnFollowSave
+                    onCheckedChanged: app.settings.confirmUnFollowSave = checked
+                }
+            }
+            Item {
+                width: parent.width
+                height: childrenRect.height
+                Label {
+                    anchors.left: parent.left
                     text: i18n.tr("Query for Market")
                     //description: qsTr("Show only content playable in the country associated with the user account")
                 }
@@ -115,16 +128,6 @@ Page {
                 onTextChanged: {
                     if(text.length > 0)
                         app.locale_config.country = text
-                }
-            }
-            TextSwitch {
-                id: confirm_un_follow_save
-                text: qsTr("Confirm Un-Save/Follow")
-                description: qsTr("Ask for confirmation for un-save and un-follow")
-                checked: app.confirm_un_follow_save.value
-                onCheckedChanged: {
-                    app.confirm_un_follow_save.value = checked
-                    app.confirm_un_follow_save.sync()
                 }
             }*/
         }

@@ -554,12 +554,12 @@ MainView {
     }
 
     function unfollowPlaylist(playlist, callback) {
-        if(confirm_un_follow_save.value)
+        if(settings.confirmUnFollowSave) {
             app.showConfirmDialog(i18n.tr("Please confirm to unfollow playlist:<br><br><b>" + playlist.name + "</b>"),
                                   function() {
                 _unfollowPlaylist(playlist, callback)
             })
-        else
+        } else
             _unfollowPlaylist(playlist, callback)
     }
 
@@ -580,12 +580,12 @@ MainView {
     }
 
     function unfollowArtist(artist, callback) {
-        if(confirm_un_follow_save.value)
+        if(settings.confirmUnFollowSave) {
             app.showConfirmDialog(i18n.tr("Please confirm to unfollow artist:<br><br><b>" + artist.name + "</b>"),
                                   function() {
                 _unfollowArtist(artist, callback)
             })
-        else
+        } else
             _unfollowArtist(artist, callback)
     }
 
@@ -611,12 +611,12 @@ MainView {
     }
 
     function unSaveAlbum(album, callback) {
-        if(confirm_un_follow_save.value)
+        if(settings.confirmUnFollowSave) {
             app.showConfirmDialog(i18n.tr("Please confirm to un-save album:<br><br><b>" + album.name + "</b>"),
                                   function() {
                 _unSaveAlbum(album, callback)
             })
-        else
+        } else
             _unSaveAlbum(album, callback)
     }
 
@@ -637,12 +637,12 @@ MainView {
     }
 
     function unSaveTrack(track, callback) {
-        if(confirm_un_follow_save.value)
+        if(settings.confirmUnFollowSave) {
             app.showConfirmDialog(i18n.tr("Please confirm to un-save track:<br><br><b>" + track.name + "</b>"),
                                   function() {
                 _unSaveTrack(track, callback)
             })
-        else
+        } else
             _unSaveTrack(track, callback)
     }
 
@@ -1078,6 +1078,7 @@ MainView {
 
         property bool authUsingBrowser: false
         property bool queryForMarket: true
+        property bool confirmUnFollowSave: true
 
         property var history
 

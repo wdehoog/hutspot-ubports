@@ -240,6 +240,8 @@ Page {
                     id: loader
 
                     width: parent.width
+                    height: childrenRect.height
+                    anchors.verticalCenter: parent.verticalCenter
 
                     source: contextType > 0
                             ? "../components/SearchResultListItem.qml"
