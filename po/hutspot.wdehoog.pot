@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-28 09:58+0000\n"
+"POT-Creation-Date: 2019-11-28 10:58+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -188,7 +188,7 @@ msgstr ""
 msgid "Playlist"
 msgstr ""
 
-#: ../qml/pages/Settings.qml:12 ../qml/pages/Menu.qml:37
+#: ../qml/pages/Settings.qml:12 ../qml/pages/Menu.qml:42
 msgid "Settings"
 msgstr ""
 
@@ -220,7 +220,7 @@ msgstr ""
 msgid "Album"
 msgstr ""
 
-#: ../qml/pages/About.qml:20 ../qml/pages/Menu.qml:32
+#: ../qml/pages/About.qml:20 ../qml/pages/Menu.qml:37
 msgid "About"
 msgstr ""
 
@@ -248,7 +248,7 @@ msgstr ""
 msgid "Spotify Login"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:28 ../qml/pages/Menu.qml:82
+#: ../qml/pages/Devices.qml:28 ../qml/pages/Menu.qml:87
 msgid "Devices"
 msgstr ""
 
@@ -284,7 +284,7 @@ msgstr ""
 msgid "unrestricted"
 msgstr ""
 
-#: ../qml/pages/Search.qml:42 ../qml/pages/Menu.qml:78
+#: ../qml/pages/Search.qml:42 ../qml/pages/Menu.qml:83
 msgid "Search"
 msgstr ""
 
@@ -356,6 +356,10 @@ msgstr ""
 msgid "Hutspot"
 msgstr ""
 
-#: ../qml/pages/Menu.qml:74
+#: ../qml/pages/Menu.qml:32
+msgid "Help"
+msgstr ""
+
+#: ../qml/pages/Menu.qml:79
 msgid "Genre & Mood"
 msgstr ""

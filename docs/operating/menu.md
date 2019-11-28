@@ -15,6 +15,7 @@ The menu list:
 ## Menu page
 The page header has two buttons on the right:
 
-  * Gear: Settings
-  * Info: About
+  * Question mark: open the help/information site in a browser
+  * Gear: open the Settings page
+  * Info: open the About page
 

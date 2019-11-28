@@ -28,6 +28,11 @@ Page {
 
         trailingActionBar.actions: [
             Action {
+                iconName: "help"
+                text: i18n.tr("Help")
+                onTriggered: Qt.openUrlExternally("https://wdehoog.github.io/hutspot-ubports")
+            },
+            Action {
                 iconName: "info"
                 text: i18n.tr("About")
                 onTriggered: pageStack.push(Qt.resolvedUrl("About.qml") )
