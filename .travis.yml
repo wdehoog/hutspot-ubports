@@ -1,9 +1,21 @@
 dist: xenial
 
 before_install:
-  - sudo add-apt-repository -y ppa:bhdouglass/clickable
-  - sudo apt-get -q update
-  - sudo apt-get -y install clickable
+- sudo add-apt-repository -y ppa:bhdouglass/clickable
+- sudo apt-get -q update
+- sudo apt-get -y install clickable
 
 script:
 - clickable clean build
+
+deploy:
+  provider: releases
+  prerelease: true
+  api_key:
+    secure: HfxmUdTA/y3fjPFINrD8lcahOpCouwelAGGTtrhwJHOGXtlY7gdUBHivgirrOo6yn0ocDZ/oYfANiXfYaJotCdgMjYGC6du+lAbIc/vhe/ug+ILPUP23CzX/fzTMLvQ8xeJTf7npSBgyMIuuwadQXa7FBiGrP2h8+1mfkeFpA5+YtG1FnjRoFZS1bg1jXmHe6vAAopFapZo09A1i2df0Huf4U+Ni19D2vXG9DfX3vCZ9p7J+WE3+r7pLXpRhL81uNRM7il3WKNdomSXnwB+oZkALjk/Pl3/sBvBlQaRtMXdzTuJXgvZOqMg0yy4PiPMdv+eIsVa144amMnZAofUdzI/Zo/Jg3d22aHyaAlLn3xEFiXfcr4UJdzT9l9GgfqIfuQjNCzcj3lvo9gZ2acSV13oByprg2RXe3Zs5gry2l1E6bApZKZl8hFxN+10fFHQQgx1ygNGMqv+5Me2VGTS8Phz/bmS+3frW7K7NeUZtt+dEIUI5oJoKczqJ/edpikoJXaZ+Z401FRujX88+WX5USUt4rvAdtRSguzpePb+YWJHxPrN0AKgEnSGn/9YB2f7ItxqofU5tjb157acXiBcYgDDngFe2xGKNNiPvJKynM67yEXqC2jEucmt5u8N7+ewXbGerjK2dUzBX2cPjCCXpTdsv492PI7uypjL4xMyiljs=
+  file_glob: true
+  file: "**/*.click"
+  skip_cleanup: true
+  on:
+    tags: true
+    repo: wdehoog/hutspot-ubports
