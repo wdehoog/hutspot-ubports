@@ -286,6 +286,7 @@ MainView {
         hasValidToken = expDate > now
     }
 
+    property var _spotifyRequestCallback: null
     Connections {
         target: spotify
 
@@ -296,12 +297,12 @@ MainView {
         }
 
         onLinkingFailed: {
-            console.log("Connections.onLinkingFailed")
+            console.log("spotify.onLinkingFailed")
             //app.connectionText = i18n.tr("Disconnected")
         }
 
         onLinkingSucceeded: {
-            console.log("Connections.onLinkingSucceeded")
+            console.log("spotify.onLinkingSucceeded")
             //console.log("username: " + spotify.getUserName())
             //console.log("token   : " + spotify.getToken())
             Spotify._accessToken = spotify.getToken()
@@ -314,11 +315,11 @@ MainView {
         }
 
         onLinkedChanged: {
-            console.log("Connections.onLinkingChanged")
+            console.log("spotify.onLinkingChanged")
         }
 
         onRefreshFinished: {
-            console.log("Connections.onRefreshFinished error code: " + errorCode +", msg: " + errorString)
+            console.log("spotify.onRefreshFinished error code: " + errorCode +", msg: " + errorString)
             if(errorCode !== 0) {
                 showErrorMessage(errorString, i18n.tr("Failed to Refresh Authorization Token"))
             } else {
@@ -327,7 +328,7 @@ MainView {
         }
 
         onOpenBrowser: {
-           console.log("onOpenBrowser: " + url)
+           console.log("spotify.onOpenBrowser: " + url)
            // Morph.Web crashes but Morph the browser works
            if(settings.authUsingBrowser) { 
                Qt.openUrlExternally(url)
@@ -338,6 +339,22 @@ MainView {
 
         onCloseBrowser: {
             //loadFirstPage()
+        }
+
+        onRequestFinished: {
+           console.log("spotify.onRefreshFinished: " + status + ", " + response)
+           if(_spotifyRequestCallback != null) {
+               _spotifyRequestCallback(null, response);
+               _spotifyRequestCallback = null
+           }
+        }
+
+        onRequestError: {
+           console.log("spotify.onRequestError: " + status + ", " + error)
+           if(_spotifyRequestCallback != null) {
+               _spotifyRequestCallback(error, null);
+               _spotifyRequestCallback = null
+           }
         }
     }
 
@@ -433,7 +450,7 @@ MainView {
             if(track.hasOwnProperty('linked_from'))
                 uri = track.linked_from.uri
 
-            // does not work older Qt. cannot have DELETE request with a body
+            // does not work on older Qt. cannot have DELETE request with a body
             /*Spotify.removeTracksFromPlaylist(playlist.id, [uri], [position], function(error, data) {
                 if(error)
                     console.log("removeTracksFromPlaylist error:" + JSON.stringify(error))
@@ -447,8 +464,8 @@ MainView {
                 }
             })*/
 
-            // alternative using curl/wget
-            removeTracksFromPlaylistUsingCurl(playlist.id, playlist.snapshot_id, [uri], [position], function(error, data) {
+            // alternative using QNetworkRequest
+            removeTracksFromPlaylist(playlist.id, playlist.snapshot_id, [uri], [position], function(error, data) {
                 if(callback)
                     callback(error, data)
                 var ev = new Util.PlayListEvent(Util.PlaylistEventType.RemovedTrack,
@@ -457,6 +474,24 @@ MainView {
                 playlistEvent(ev)
             })
         })
+    }
+
+    // use QNetworkRequest instead of XMLHttpRequest
+    function removeTracksFromPlaylist(playlistId, snapshotId, uris, positions, callback) {
+
+        var url = Spotify._baseUri + "/playlists/" + playlistId + "/tracks"
+
+        var data = "{\"tracks\":["
+        for(var i=0;i<uris.length;i++) {
+            if(i>0)
+                data += ","
+            data += "{\"uri\":\"" + uris[i] + "\",\"positions\":[" +positions[i]+ "]}"
+        }
+        //data += "],\"snapshot_id\":\"" + snapshotId + "\"}"
+        data += "]}"
+
+        _spotifyRequestCallback = callback
+        spotify.performRequest(url, "DELETE", data, Spotify.getAccessToken())
     }
 
     function createPlaylist(callback) {
@@ -918,94 +953,6 @@ MainView {
                 }
                 break
             }
-        }
-    }
-
-    // QML seems unable to send a http DELETE request with a body.
-    // Therefore this is done using curl
-    //
-    // curl -X DELETE -i -H "Authorization: Bearer {your access token}"
-    //      -H "Content-Type: application/json" "https://api.spotify.com/v1/playlists/71m0QB5fUFrnqfnxVerUup/tracks"
-    //      --data "{\"tracks\":[{\"uri\": \"spotify:track:4iV5W9uYEdYUVa79Axb7Rh\", \"positions\": [2] },{\"uri\":\"spotify:track:1301WleyT98MSxVHPZCA6M\", \"positions\": [7] }] }"
-
-
-    // assumes the uris and positions arrays are equal length and 1 uri has 1 position
-    function removeTracksFromPlaylistUsingCurl(playlistId, snapshotId, uris, positions, callback) {
-        var command = "/usr/bin/curl"
-        var args = []
-        args.push("-X")
-        args.push("DELETE")
-        //args.push("-i") // include headers in the output
-        args.push("-H")
-        args.push("Authorization: Bearer " + Spotify.getAccessToken())
-        args.push("-H")
-        args.push("Content-Type: application/json")
-        args.push(Spotify._baseUri + "/playlists/" + playlistId + "/tracks")
-        args.push("--data")
-
-        var data = "{\"tracks\":["
-        for(var i=0;i<uris.length;i++) {
-            if(i>0)
-                data += ","
-            data += "{\"uri\":\"" + uris[i] + "\",\"positions\":[" +positions[i]+ "]}"
-        }
-        //data += "],\"snapshot_id\":\"" + snapshotId + "\"}"
-        data += "]}"
-        args.push(data)
-
-        process.callback = callback
-        process.start(command, args)
-    }
-
-    function removeTracksFromPlaylistUsingWget(playlistId, snapshotId, uris, positions, callback) {
-        var command = "/usr/bin/wget"
-        var args = []
-        args.push("--method")
-        args.push("DELETE")
-        //args.push("-i") // include headers in the output
-        args.push("--header")
-        args.push("Authorization: Bearer " + Spotify.getAccessToken())
-        args.push("--header")
-        args.push("Content-Type: application/json")
-        args.push(Spotify._baseUri + "/playlists/" + playlistId + "/tracks")
-        args.push("--post-data")
-
-        var data = "{\"tracks\":["
-        for(var i=0;i<uris.length;i++) {
-            if(i>0)
-                data += ","
-            data += "{\"uri\":\"" + uris[i] + "\",\"positions\":[" +positions[i]+ "]}"
-        }
-        data += "],\"snapshot_id\":\"" + snapshotId + "\"}"
-        //data += "]}"
-          console.log(data)
-        args.push(data)
-
-        process.callback = callback
-        process.start(command, args)
-    }
-
-    Process {
-        id: process
- 
-        property var callback: undefined
- 
-        workingDirectory: sysUtil.env("HOME")
-
-        onError: {
-            if(callback !== undefined)
-               callback(process.error, undefined)
-            console.log("Process.Error: " + process.error)
-            callback = undefined
-        }
-
-        onFinished: {
-            var output = process.readAllStandardOutput()
-            console.log("Process.Finished: " + process.exitStatus + ", code: " + process.exitCode)
-            console.log("[" + output + "]")
-            if(callback !== undefined)
-                callback(null, JSON.parse(output))
-            callback = undefined
         }
     }
 

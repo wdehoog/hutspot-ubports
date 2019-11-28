@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-28 06:59+0000\n"
+"POT-Creation-Date: 2019-11-28 09:58+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,7 +45,7 @@ msgid "Create Playlist"
 msgstr ""
 
 #: ../qml/components/CreatePlaylist.qml:33
-#: ../qml/components/PlaylistPicker.qml:36 ../qml/Main.qml:773
+#: ../qml/components/PlaylistPicker.qml:36 ../qml/Main.qml:808
 msgid "Cancel"
 msgstr ""
 
@@ -78,6 +78,10 @@ msgstr ""
 msgid "View"
 msgstr ""
 
+#: ../qml/components/SearchResultContextMenu.qml:43
+msgid "Remove from Playlist"
+msgstr ""
+
 #: ../qml/components/SearchResultContextMenu.qml:58
 msgid "Add to another Playlist"
 msgstr ""
@@ -86,55 +90,55 @@ msgstr ""
 msgid "Use as Seeds for Recommendations"
 msgstr ""
 
-#: ../qml/Main.qml:323
+#: ../qml/Main.qml:324
 msgid "Failed to Refresh Authorization Token"
 msgstr ""
 
-#: ../qml/Main.qml:380
+#: ../qml/Main.qml:397
 msgid "Edit Playlist Details"
 msgstr ""
 
-#: ../qml/Main.qml:407
+#: ../qml/Main.qml:424
 msgid "Select a Playlist"
 msgstr ""
 
-#: ../qml/Main.qml:429
+#: ../qml/Main.qml:446
 msgid "Please confirm removing<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:559
+#: ../qml/Main.qml:594
 msgid "Please confirm to unfollow playlist:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:585
+#: ../qml/Main.qml:620
 msgid "Please confirm to unfollow artist:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:616
+#: ../qml/Main.qml:651
 msgid "Please confirm to un-save album:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:642
+#: ../qml/Main.qml:677
 msgid "Please confirm to un-save track:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:706
+#: ../qml/Main.qml:741
 msgid "View an Artist"
 msgstr ""
 
-#: ../qml/Main.qml:729 ../qml/Main.qml:781
+#: ../qml/Main.qml:764 ../qml/Main.qml:816
 msgid "Ok"
 msgstr ""
 
-#: ../qml/Main.qml:745
+#: ../qml/Main.qml:780
 msgid "Error"
 msgstr ""
 
-#: ../qml/Main.qml:799
+#: ../qml/Main.qml:834
 msgid "Confirm"
 msgstr ""
 
-#: ../qml/Main.qml:814
+#: ../qml/Main.qml:849
 msgid "Failed to transfer to"
 msgstr ""
 

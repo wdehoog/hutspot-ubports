@@ -11,6 +11,7 @@ Don't expect too much. Currently you can
   * browse your playlists/tracks/albums/artists
   * browse genre & moods playlists
   * search
+  * edit playlists
   * control a player (play,pause,prev,next,seek,volume)
  
 The [screenshots](screenshots) directory shows some images made while running with `clickable desktop`. 

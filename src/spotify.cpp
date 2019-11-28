@@ -53,6 +53,12 @@ Spotify::Spotify(QObject *parent) : QObject(parent)
     connect(o2Spotify, SIGNAL(closeBrowser()), this, SLOT(onCloseBrowser()));
     connect(o2Spotify, SIGNAL(refreshFinished(QNetworkReply::NetworkError, QString)), this, SLOT(onRefreshFinished(QNetworkReply::NetworkError, QString)));
 
+    // for http requests
+    manager = new QNetworkAccessManager(this);
+    QObject::connect(manager, SIGNAL(finished(QNetworkReply*)),this, SLOT(onRequestFinished(QNetworkReply*)));
+    QObject::connect(manager, SIGNAL(error(QNetworkReply::NetworkError)),this, SLOT(onRequestError(QNetworkReply::NetworkError)));
+
+
 }
 
 void Spotify::doO2Auth(const QString &scope) {
@@ -134,4 +140,30 @@ void Spotify::onLinkingFailed() {
 
 bool Spotify::isLinked() {
     return o2Spotify->linked();
+}
+
+void Spotify::performRequest(QString url, QString verb, QString data, QString token) {
+    QNetworkRequest request(url);
+    request.setRawHeader("Authorization", QString("Bearer %1").arg(token).toUtf8());
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    
+    manager->sendCustomRequest(request, verb.toUtf8(), data.toUtf8());
+}
+
+void Spotify::onRequestFinished(QNetworkReply *reply) {
+
+    if (reply->error() == QNetworkReply::NoError) {
+        qDebug() << "Spotify::onRequestFinished: " << reply->readAll();
+        Q_EMIT requestFinished(reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt(), reply->readAll());
+    } else {
+        qWarning() << "Spotify::onRequestFinished: Error: " << reply->error() << ": " << reply->errorString();
+        Q_EMIT requestError(reply->error(), reply->errorString());
+    }
+}
+
+void Spotify::onRequestError(QNetworkReply::NetworkError error) { 
+    QNetworkReply *resp = qobject_cast<QNetworkReply *>(sender());
+    qWarning() << "Spotify::onRequestError: " << error << ": " << resp->errorString();
+    qDebug() << "Spotify::onRequestError: " << resp->readAll();
+    Q_EMIT requestError(error, resp->errorString());
 }

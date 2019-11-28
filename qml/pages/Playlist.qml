@@ -139,23 +139,6 @@ Page {
                 PopupUtils.open(contextMenu, listItem)
             }
 
-            /*menu: SearchResultContextMenu {
-                contextType: Spotify.ItemType.Playlist
-
-                MenuItem {
-                    text: qsTr("Remove from Playlist")
-                    onClicked: {
-                        var idx = index
-                        var model = searchModel
-                        app.removeFromPlaylist(playlist, item, index+cursorHelper.offset, function(error, data) {
-                            if(!error)
-                                model.remove(idx, 1)
-                        })
-                    }
-                }
-
-            }*/
-
             onClicked: app.pushPage(Util.HutspotPage.Album, {album: item.album})
         }
 
