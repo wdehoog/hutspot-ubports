@@ -72,7 +72,7 @@ Page {
                     Text {
                         anchors.horizontalCenter: parent.horizontalCenter
                         //font.pixelSize: Theme.fontSizeLarge
-                        text: "hutspot 0.1"
+                        text: "hutspot 0.2"
                     }
 
                     Text {

@@ -64,10 +64,11 @@ Page {
         height: parent.height //- app.dockedPanel.visibleSize
         //clip: app.dockedPanel.expanded
 
-        header: Component { Column {
+        header: Component {
+            Column {
                 width: parent.width - 2*app.paddingMedium
                 x: app.paddingMedium
-                spacing: units.gu(1)
+                spacing: app.paddingMedium 
                 TextField {
                     id: searchField
                     width: parent.width
@@ -88,12 +89,15 @@ Page {
                 Row {
                     width: parent.width
                     spacing: app.paddingMedium
+                    height: childrenRect.height 
                     Text { 
                         id: label
+                        anchors.verticalCenter: parent.verticalCenter
                         text: i18n.tr("In") 
                     }
                     QtQc.ComboBox {
                         width: parent.width - label.width - parent.spacing
+                        height: searchField.height
                         background: Rectangle {
                             color: app.normalBackgroundColor
                             border.width: 1
@@ -113,22 +117,11 @@ Page {
                         Component.onCompleted: currentIndex = app.settings.currentItemClassSearch
                     }
                 }
-                /*Row {
-                    id: typeRow
+                Rectangle {
                     width: parent.width
-                    Label {
-                        id: silabel
-                        anchors.verticalCenter: parent.verticalCenter
-                        text: i18n.tr("Search In: ")
-                    }
-                    Button {
-                        id: popoverButton
-                        width: parent.width - silabel.width
-                        anchors.verticalCenter: parent.verticalCenter
-                        text: searchInTypeLabels[searchInType]
-                        onClicked: PopupUtils.open(pocSearchType, popoverButton)
-                    }
-                }*/
+                    height: app.paddingMedium
+                    opacity: 0
+                }
             }}
 
             /*SearchFieldWithMenu {
@@ -197,11 +190,6 @@ Page {
                 }
             }*/
 
-            Rectangle {
-                width: parent.width
-                height: app.paddingMedium
-                opacity: 0
-            }
 
 
         delegate: ListItem {
