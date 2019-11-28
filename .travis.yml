@@ -1,12 +1,9 @@
-language: cpp
-compiler:
-  - gcc
-build:
-  image: clickable/ci-16.04-armhf
-  except:
-    - tags
-  script:
-    - clickable clean build
-  artifacts:
-    paths:
-      - build/*/app/*.click
+dist: xenial
+
+before_install:
+  - sudo add-apt-repository -y ppa:bhdouglass/clickable
+  - sudo apt-get -q update
+  - sudo apt-get -y install clickable
+
+script:
+- clickable clean build
