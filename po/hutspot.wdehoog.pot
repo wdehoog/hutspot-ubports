@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-27 22:00+0000\n"
+"POT-Creation-Date: 2019-11-28 06:59+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,7 +45,7 @@ msgid "Create Playlist"
 msgstr ""
 
 #: ../qml/components/CreatePlaylist.qml:33
-#: ../qml/components/PlaylistPicker.qml:36 ../qml/Main.qml:772
+#: ../qml/components/PlaylistPicker.qml:36 ../qml/Main.qml:773
 msgid "Cancel"
 msgstr ""
 
@@ -86,55 +86,55 @@ msgstr ""
 msgid "Use as Seeds for Recommendations"
 msgstr ""
 
-#: ../qml/Main.qml:322
+#: ../qml/Main.qml:323
 msgid "Failed to Refresh Authorization Token"
 msgstr ""
 
-#: ../qml/Main.qml:379
+#: ../qml/Main.qml:380
 msgid "Edit Playlist Details"
 msgstr ""
 
-#: ../qml/Main.qml:406
+#: ../qml/Main.qml:407
 msgid "Select a Playlist"
 msgstr ""
 
-#: ../qml/Main.qml:428
+#: ../qml/Main.qml:429
 msgid "Please confirm removing<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:558
+#: ../qml/Main.qml:559
 msgid "Please confirm to unfollow playlist:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:584
+#: ../qml/Main.qml:585
 msgid "Please confirm to unfollow artist:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:615
+#: ../qml/Main.qml:616
 msgid "Please confirm to un-save album:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:641
+#: ../qml/Main.qml:642
 msgid "Please confirm to un-save track:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:705
+#: ../qml/Main.qml:706
 msgid "View an Artist"
 msgstr ""
 
-#: ../qml/Main.qml:728 ../qml/Main.qml:780
+#: ../qml/Main.qml:729 ../qml/Main.qml:781
 msgid "Ok"
 msgstr ""
 
-#: ../qml/Main.qml:744
+#: ../qml/Main.qml:745
 msgid "Error"
 msgstr ""
 
-#: ../qml/Main.qml:798
+#: ../qml/Main.qml:799
 msgid "Confirm"
 msgstr ""
 
-#: ../qml/Main.qml:813
+#: ../qml/Main.qml:814
 msgid "Failed to transfer to"
 msgstr ""
 
@@ -147,7 +147,7 @@ msgid "View Playlist"
 msgstr ""
 
 #: ../qml/pages/Playing.qml:499 ../qml/pages/Playing.qml:518
-#: ../qml/pages/Album.qml:78
+#: ../qml/pages/Album.qml:71
 msgid "no artist known"
 msgstr ""
 
@@ -156,11 +156,11 @@ msgid "no genre known"
 msgstr ""
 
 #: ../qml/pages/Playing.qml:526 ../qml/pages/Playing.qml:539
-#: ../qml/pages/Album.qml:87
+#: ../qml/pages/Album.qml:80
 msgid "tracks"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:528 ../qml/pages/Album.qml:89
+#: ../qml/pages/Playing.qml:528 ../qml/pages/Album.qml:82
 msgid "track"
 msgstr ""
 
@@ -344,6 +344,14 @@ msgstr ""
 msgid "Artist's Related Artists"
 msgstr ""
 
+#: ../qml/pages/GenreMood.qml:32
+msgid "Genres & Moods"
+msgstr ""
+
 #: ../qml/pages/Menu.qml:26 hutspot.desktop.in.h:1
 msgid "Hutspot"
+msgstr ""
+
+#: ../qml/pages/Menu.qml:74
+msgid "Genre & Mood"
 msgstr ""

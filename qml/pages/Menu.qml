@@ -62,10 +62,6 @@ Page {
                           name: i18n.tr("Top Stuff"),
                           icon: "image://theme/icon-m-like"
                          })
-        menuModel.append({hutspotMenuItem: Util.HutspotMenuItem.ShowGenreMoodPage,
-                          name: i18n.tr("Genre & Mood"),
-                          icon: "image://theme/icon-m-ambience"
-                         })
         menuModel.append({hutspotMenuItem: Util.HutspotMenuItem.ShowHistoryPage,
                           name: i18n.tr("History"),
                           icon: "image://theme/icon-m-backup"
@@ -74,6 +70,10 @@ Page {
                           name: i18n.tr("Recommended"),
                           icon: "image://theme/icon-m-acknowledge"
                          })*/
+        menuModel.append({hutspotMenuItem: Util.HutspotMenuItem.ShowGenreMoodPage,
+                          name: i18n.tr("Genre & Mood"),
+                          icon: "image://theme/weather-app-symbolic"
+                         })
         menuModel.append({hutspotMenuItem: Util.HutspotMenuItem.ShowSearchPage,
                           name: i18n.tr("Search"),
                           icon: "image://theme/toolkit_input-search"

@@ -9,10 +9,13 @@ It uses Spotify web-api and needs a Premium Account.
 Don't expect too much. Currently you can 
 
   * browse your playlists/tracks/albums/artists
+  * browse genre & moods playlists
   * search
-  * control a player
+  * control a player (play,pause,prev,next,seek,volume)
  
 The [screenshots](screenshots) directory shows some images made while running with `clickable desktop`. 
+
+Unfortunately it sometimes crashes. Sorry.
 
 ## Spotify on your UBports phone
 One option is to copy [spotifyd](https://github.com/Spotifyd/spotifyd/releases) on your phone. For example I use 0.2.19 from  spotifyd-2019-10-06-armv6-slim.zip on by opo. 

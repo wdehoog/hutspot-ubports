@@ -37,13 +37,6 @@ Page {
     header: PageHeader {
         id: header
         title: i18n.tr("Album")
-        leadingActionBar.actions: [
-            Action {
-                iconName: "back"
-                text: "Back"
-                onTriggered: pageStack.pop()
-            }
-        ]
         flickable: listView
     }
 

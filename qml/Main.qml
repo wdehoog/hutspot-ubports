@@ -33,6 +33,7 @@ MainView {
 
     property double iconSizeSmall: units.gu(2)
     property double iconSizeMedium: units.gu(4)
+    property double iconSizeLarge: units.gu(10)
 
     property double itemSizeMedium: units.gu(4)
     property double itemSizeLarge: units.gu(10)
@@ -1053,7 +1054,10 @@ MainView {
     }
 
     //
-    // handle exit/close. ToDo: onDestruction is never called
+    // handle exit/close. 
+    // ToDo: onDestruction is never called which is not a 
+    //       big roblem since powerd will remove the cooking      
+    //       when we disappear from the DBus.
     //
     StateSaver.properties: "title"
     StateSaver.enabled: false
