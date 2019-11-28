@@ -1,3 +1,6 @@
+language: cpp
+compiler:
+  - gcc
 build:
   image: clickable/ci-16.04-armhf
   except:
