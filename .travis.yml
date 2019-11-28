@@ -1,0 +1,9 @@
+build:
+  image: clickable/ci-16.04-armhf
+  except:
+    - tags
+  script:
+    - clickable clean build
+  artifacts:
+    paths:
+      - build/*/app/*.click
