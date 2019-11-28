@@ -18,4 +18,32 @@ export PULSE_PROP='media.role=multimedia'
 The easiest way to set it up is creating a config file as described in the [README from spotifyd](https://github.com/Spotifyd/spotifyd).
 
 
-Another problem is the audio getting choppy due to the phone being suspended when the display goes dark. Currently this is solved using a DBus call to `powerd` (requestSysState) by Hutspot when it is playing a track. If Hutspot crashes or quits it might not have notified `powerd` but powerd takes care of that (says [wiki](https://wiki.ubuntu.com/powerd).
+A problem is the audio getting choppy due to the phone being suspended when the display goes dark. Currently this is solved using a DBus call to `powerd` (requestSysState) by Hutspot when it is playing a track. If Hutspot crashes or quits it might not have notified `powerd` but powerd takes care of that (says [wiki](https://wiki.ubuntu.com/powerd).
+
+### Config file
+Spotifyd expects it's config file in ~/.config/spotifyd/spotifyd.conf'. It can be overriden though (`--config-path`).
+Mine contains:
+
+```
+username = xxxxx
+password = xxxxx
+
+backend = alsa
+device = pulse
+control = pulse
+mixer = Master
+volume_controller = alsa
+
+device_name = Phablet
+bitrate = 320
+cache_path = /home/phablet/.cache/spotifyd
+no_audio_cache = true
+
+volume_normalisation = true
+normalisation_pregain = -10
+zeroconf_port = 1234
+
+```
+
+I have put my spotify credentials in the config file. This is not mandatory. The Spotifyd website mentions other ways of authentication.
+
