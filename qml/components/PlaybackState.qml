@@ -7,42 +7,49 @@
 
 import QtQuick 2.0
 
-//import org.nemomobile.mpris 1.0
+import org.nemomobile.mpris 1.0
 import "../Util.js" as Util
 
 Item {   
-    /*MprisPlayer {
+    MprisPlayer {
         id: mprisPlayer
         serviceName: "hutspot"
         playbackStatus: is_playing ? Mpris.Playing : Mpris.Paused
 
-        identity: qsTr("Simple Spotify Controller")
+        identity: "Hutspot"
+        desktopEntry: "hutspot.wdehoog_hutspot_0.2"
 
         canControl: true
 
-        canPause: true
-        canPlay: true
+        // ToDo add more checks
+        canPause: item.id != -1
+        canPlay: item.id != -1
         canGoNext: true
         canGoPrevious: true
-
-        canSeek: false
+        canSeek: item.id != -1
 
         onPauseRequested: app.controller.playPause()
         onPlayRequested: app.controller.play()
         onPlayPauseRequested: app.controller.playPause()
         onNextRequested: app.controller.next()
         onPreviousRequested: app.controller.previous()
-    }*/
+        onSeekRequested: app.controller.seek(offset/1000)
+    }
+
     onItemChanged: {
         artistsString = Util.createItemsString(item.artists, qsTr("no artist known"))
         if (item.album.images && item.album.images.length > 0)
             coverArtUrl = item.album.images[0].url;
         else coverArtUrl = "";
 
-        //var metadata = {}
-        //metadata[Mpris.metadataToString(Mpris.Title)] = item.name
-        //metadata[Mpris.metadataToString(Mpris.Artist)] = artistsString
-        //mprisPlayer.metadata = metadata
+        // Album, ArtUrl, Artist, AlbumArtist, Composer, Length, TrackNumber, Title
+        var metadata = {}
+        metadata[Mpris.metadataToString(Mpris.Title)] = item.name
+        metadata[Mpris.metadataToString(Mpris.Artist)] = artistsString
+        metadata[Mpris.metadataToString(Mpris.ArtUrl)] = coverArtUrl
+        metadata[Mpris.metadataToString(Mpris.Length)] = item.duration_ms * 1000
+        metadata[Mpris.metadataToString(Mpris.Album)] = item.album.name
+        mprisPlayer.metadata = metadata
     }
     property string artistsString: ""
     property string coverArtUrl: ""
