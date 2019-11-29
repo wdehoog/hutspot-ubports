@@ -29,3 +29,8 @@ The name of the playlist to use can be configured in the Settings. It's default 
 ### Various
  * Device Page: A list is shown of known play devices. The current one is highlighted. Using the context menu (long press) you select another device.
  * The Playing page shows what is currently playing and contains various player controls.
+
+## Indicator Panel
+Since Hutspot implements the [Mpris2](https://specifications.freedesktop.org/mpris-spec/latest/) interface you can use the player controls on the Indicator Panel to command it.
+
+

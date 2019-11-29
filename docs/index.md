@@ -15,17 +15,17 @@ Main features:
  * Discover and control Connect Devices
  * Control Play/Pause/Next/Previous/Volume/Shuffle/Replay/Seek
  * Create and Edit Playlists
+ * Can be used by controls from indicator panel
 
 It does not support saving tracks nor offline playing
 
+Please report any problems or requests in the [Github Issue Tracker](https://github.com/wdehoog/hutspot-ubports/issues)
 
 ## Developing
 You can build it with [clickable](http://clickable.bhdouglass.com/en/latest/).
 
-I tried to crossbuild spotifyd with the pulseaudio backend but it fails. If you know how to fix that please let me know.
-
-
-Please report any problems or requests in the [Github Issue Tracker](https://github.com/wdehoog/hutspot-ubports/issues)
+Hutspot uses two libraries [qtdbusextended](https://github.com/nemomobile/qtdbusextended) and [qtmpris](https://git.merproject.org/mer-core/qtmpris). Their sources are currently included in the git repo. Building these libraries required some ugly stuff in two .pro files from qtmpris.
+Currently they are in the arm-linux-gnueabihf mode. If you want to build the x86_64-linux-gnu or another version you will need to adapt them.
 
 ### Thanks
  * Spotify for web api
@@ -42,5 +42,5 @@ Due to the issues with detecting Spotify capable players this app is not 'plug a
 ### Donations
 Sorry but I do not accept any donations. I do appreciate the gesture but it is a hobby that I am able to do because others are investing their time as well.
 
-If someone wants to show appreciation for my  work by a donation then I suggest to help support UBports.
+If someone wants to show appreciation for my  work by a donation then I suggest to support [UBports](https://ubports.com/donate).
 
