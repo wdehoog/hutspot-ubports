@@ -5,6 +5,14 @@ CONFIG += qt link_pkgconfig
 
 QT = core dbus qml
 
+# set paths to qtdbusextended
+#ARCH_TRIPLET=x86_64-linux-gnu
+ARCH_TRIPLET=arm-linux-gnueabihf
+QTDBUSEXTENDED=$$PWD/../../../build/$$ARCH_TRIPLET/qtdbusextended/install
+PKG_CONFIG = PKG_CONFIG_PATH=$$QTDBUSEXTENDED/usr/lib/$$ARCH_TRIPLET/pkgconfig pkg-config
+INCLUDEPATH += $$QTDBUSEXTENDED/usr/include/$$ARCH_TRIPLET/qt5/DBusExtended
+LIBS += -L$$QTDBUSEXTENDED/usr/lib/$$ARCH_TRIPLET
+
 PKGCONFIG = dbusextended-qt5
 TARGET = $${MPRISQTLIB}
 

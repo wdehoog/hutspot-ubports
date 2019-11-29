@@ -1,4 +1,19 @@
 {
   "template": "cmake",
-  "kill": "hutspot"
+  "kill": "hutspot",
+  "libraries": {
+     "qtdbusextended": {
+        "template": "qmake"
+     },
+     "qtmpris": {
+        "template": "qmake"
+     }
+   },
+   "install_lib": [
+      "$qtdbusextended_LIB_INSTALL_DIR/usr/lib/$ARCH_TRIPLET/*",
+      "$qtmpris_LIB_INSTALL_DIR/usr/lib/$ARCH_TRIPLET/*",
+      "$qtmpris_LIB_INSTALL_DIR/usr/lib/$ARCH_TRIPLET/qt5/mkspecs/features/*",
+      "$qtmpris_LIB_INSTALL_DIR/usr/lib/$ARCH_TRIPLET/pkgconfig/*",
+      "$qtmpris_LIB_INSTALL_DIR/usr/lib/$ARCH_TRIPLET/org/nemomobile/mpris/*"
+   ]
 }
