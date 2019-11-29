@@ -72,7 +72,7 @@ Page {
                     Text {
                         anchors.horizontalCenter: parent.horizontalCenter
                         //font.pixelSize: Theme.fontSizeLarge
-                        text: "hutspot 0.2"
+                        text: "Hutspot " + app.version
                     }
 
                     Text {
@@ -126,6 +126,11 @@ Page {
 "Willem-Jan de Hoog"
             }
 
+            Rectangle { 
+                width: parent.width
+                height: app.paddingLarge
+            }
+
 /*            Text {
                 text: i18n.tr("Translations")
             }
@@ -161,10 +166,8 @@ Page {
 Spotify: web api
 librespot-org: Librespot
 JMPerez: spotify-web-api-js
-pipacs: O2
-Nathan Osman: qmdnsengine
-kimmoli: IconProvider & MultiItemPicker
-leszek: DevicePixelRatioHack"
+pipacs: O2"
+
             }
         }
 

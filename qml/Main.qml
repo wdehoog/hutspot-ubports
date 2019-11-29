@@ -19,6 +19,8 @@ import "pages"
 MainView {
     id: app
     
+    property string version: "0.2"
+
     property alias settings: settings
 
     property alias deviceId: settings.deviceId

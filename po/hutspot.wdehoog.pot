@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-29 22:46+0000\n"
+"POT-Creation-Date: 2019-11-29 23:13+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,7 +45,7 @@ msgid "Create Playlist"
 msgstr ""
 
 #: ../qml/components/CreatePlaylist.qml:33
-#: ../qml/components/PlaylistPicker.qml:36 ../qml/Main.qml:808
+#: ../qml/components/PlaylistPicker.qml:36 ../qml/Main.qml:810
 msgid "Cancel"
 msgstr ""
 
@@ -90,55 +90,55 @@ msgstr ""
 msgid "Use as Seeds for Recommendations"
 msgstr ""
 
-#: ../qml/Main.qml:324
+#: ../qml/Main.qml:326
 msgid "Failed to Refresh Authorization Token"
 msgstr ""
 
-#: ../qml/Main.qml:397
+#: ../qml/Main.qml:399
 msgid "Edit Playlist Details"
 msgstr ""
 
-#: ../qml/Main.qml:424
+#: ../qml/Main.qml:426
 msgid "Select a Playlist"
 msgstr ""
 
-#: ../qml/Main.qml:446
+#: ../qml/Main.qml:448
 msgid "Please confirm removing<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:594
+#: ../qml/Main.qml:596
 msgid "Please confirm to unfollow playlist:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:620
+#: ../qml/Main.qml:622
 msgid "Please confirm to unfollow artist:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:651
+#: ../qml/Main.qml:653
 msgid "Please confirm to un-save album:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:677
+#: ../qml/Main.qml:679
 msgid "Please confirm to un-save track:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:741
+#: ../qml/Main.qml:743
 msgid "View an Artist"
 msgstr ""
 
-#: ../qml/Main.qml:764 ../qml/Main.qml:816
+#: ../qml/Main.qml:766 ../qml/Main.qml:818
 msgid "Ok"
 msgstr ""
 
-#: ../qml/Main.qml:780
+#: ../qml/Main.qml:782
 msgid "Error"
 msgstr ""
 
-#: ../qml/Main.qml:834
+#: ../qml/Main.qml:836
 msgid "Confirm"
 msgstr ""
 
-#: ../qml/Main.qml:849
+#: ../qml/Main.qml:851
 msgid "Failed to transfer to"
 msgstr ""
 
@@ -240,7 +240,7 @@ msgstr ""
 msgid "Contributors"
 msgstr ""
 
-#: ../qml/pages/About.qml:147
+#: ../qml/pages/About.qml:152
 msgid "Thanks to"
 msgstr ""
 

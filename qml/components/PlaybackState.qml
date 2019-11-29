@@ -17,7 +17,7 @@ Item {
         playbackStatus: is_playing ? Mpris.Playing : Mpris.Paused
 
         identity: "Hutspot"
-        desktopEntry: "hutspot.wdehoog_hutspot_0.2"
+        desktopEntry: "hutspot.wdehoog_hutspot_" + app.version
 
         canControl: true
 
