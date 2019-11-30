@@ -16,10 +16,12 @@
 int main(int argc, char *argv[])
 {
     QGuiApplication *app = new QGuiApplication(argc, (char**)argv);
-    
-    QCoreApplication::setApplicationName("hutspot");
-    QCoreApplication::setOrganizationName("wdehoog");
-    QCoreApplication::setOrganizationDomain("wdehoog");
+ 
+    // what should the real values be? hutspot.wdehoog?
+    QCoreApplication::setApplicationName("hutspot.wdehoog");
+    QCoreApplication::setOrganizationName("hutspot.wdehoog");
+    QCoreApplication::setOrganizationDomain("hutspot.wdehoog");
+
 
     qDebug() << "Starting app from main.cpp";
 
