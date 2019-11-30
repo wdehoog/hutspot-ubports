@@ -6,7 +6,10 @@
         "template": "qmake"
      },
      "qtmpris": {
-        "template": "qmake"
+        "template": "qmake",
+        "build_args": [
+            "\"ARCH_TRIPLET=$ARCH_TRIPLET\""
+        ]
      }
    },
    "install_lib": [
