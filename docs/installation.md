@@ -21,12 +21,10 @@ pkcon remove hutspot
 
 
 ### Stored data
-Application Settings etc are saved in 
-
-`.config/hutspot.wdehoog`, `.local/share/wdehoog/hutspot/` and `.config/wdehoog/` 
+Application Settings etc are saved in `.config/hutspot.wdehoog` and `.local/share/wdehoog/hutspot/`
 
 
 ### Build it yourself
 See the repository at [github](https://github.com/wdehoog/hutspot-ubports). 
-Install [clickable](http://clickable.bhdouglass.com/en/latest/), clone the repo and build it.
+Install [clickable](http://clickable.bhdouglass.com/en/latest/), clone the repo, build and install it.
 

@@ -21,6 +21,13 @@ It does not support saving tracks nor offline playing
 
 Please report any problems or requests in the [Github Issue Tracker](https://github.com/wdehoog/hutspot-ubports/issues)
 
+## Confinement
+Hutspot is an 'unconfined' app. This due to:
+  * Calling a restricted DBus method on repowerd to keep the phone from suspending while playing. Otherwise audio becomes choppy.
+  * All sorts of DBus activity due to acting as a Mpris2 player. being an Mpris2 compatible player allows the use of the media controls in the indicator panel.
+  * Qt Settings seems also restricted but Hutspot needs to save it's configuration.
+  * Morph the qml webview seems to require some sqlite things.
+
 ## Developing
 You can build it with [clickable](http://clickable.bhdouglass.com/en/latest/).
 
