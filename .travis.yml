@@ -6,7 +6,7 @@ before_install:
 - sudo apt-get -y install clickable
 
 script:
-- clickable clean build
+- clickable clean build-libs build
 
 deploy:
   provider: releases

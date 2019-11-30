@@ -28,7 +28,7 @@ Hutspot uses two libraries [qtdbusextended](https://github.com/nemomobile/qtdbus
 Currently they are in the arm-linux-gnueabihf mode. If you want to build the x86_64-linux-gnu or another version you will need to adapt them.
 
 ### Thanks
- * Spotify for web api
+ * Spotify for the [web api](https://developer.spotify.com/documentation/web-api/)
  * JMPerez for [spotify-web-api-js](https://github.com/JMPerez/spotify-web-api-js)
  * pipacs for [O2](https://github.com/pipacs/o2)
  * librespot-org for [Librespot](https://github.com/librespot-org/librespot)
