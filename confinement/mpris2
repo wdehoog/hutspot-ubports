@@ -1,0 +1,27 @@
+# Description: Allowed to implement Mpris2
+# Usage: common
+
+dbus (send)
+     bus=session
+     interface=org.freedesktop.DBus
+     path=/org/freedesktop/DBus
+     member=RequestName
+     peer=(label=unconfined),
+dbus (bind)
+     bus=session
+     name=org.mpris.MediaPlayer2.@{APP_ID_DBUS},
+dbus (receive, send)
+     bus=session
+     interface=org.mpris.MediaPlayer2
+     path=/org/mpris/MediaPlayer2
+     peer=(label=unconfined),
+dbus (receive, send)
+     bus=session
+     interface=org.mpris.MediaPlayer2.Player
+     path=/org/mpris/MediaPlayer2
+     peer=(label=unconfined),
+dbus (receive, send)
+     bus=session
+     path=/org/mpris/MediaPlayer2
+     interface=org.freedesktop.DBus.Properties
+     peer=(label=unconfined),

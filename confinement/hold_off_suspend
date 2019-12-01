@@ -1,0 +1,16 @@
+# Description: Can request to hold off suspend
+# Usage: common
+
+# Allow communications with Unity screen API
+dbus (send)
+     bus=system
+     interface="org.freedesktop.DBus.Introspectable"
+     path="/com/canonical/powerd"
+     member="Introspect"
+     peer=(label=unconfined),
+dbus (send)
+     bus=system
+     interface="com.canonical.powerd"
+     path="/com/canonical/powerd"
+     member="requestSysState"
+     peer=(label=unconfined),
