@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-01 10:48+0000\n"
+"POT-Creation-Date: 2019-12-01 12:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,7 +45,7 @@ msgid "Create Playlist"
 msgstr ""
 
 #: ../qml/components/CreatePlaylist.qml:33
-#: ../qml/components/PlaylistPicker.qml:36 ../qml/Main.qml:819
+#: ../qml/components/PlaylistPicker.qml:36 ../qml/Main.qml:823
 msgid "Cancel"
 msgstr ""
 
@@ -90,55 +90,55 @@ msgstr ""
 msgid "Use as Seeds for Recommendations"
 msgstr ""
 
-#: ../qml/Main.qml:335
+#: ../qml/Main.qml:339
 msgid "Failed to Refresh Authorization Token"
 msgstr ""
 
-#: ../qml/Main.qml:408
+#: ../qml/Main.qml:412
 msgid "Edit Playlist Details"
 msgstr ""
 
-#: ../qml/Main.qml:435
+#: ../qml/Main.qml:439
 msgid "Select a Playlist"
 msgstr ""
 
-#: ../qml/Main.qml:457
+#: ../qml/Main.qml:461
 msgid "Please confirm removing<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:605
+#: ../qml/Main.qml:609
 msgid "Please confirm to unfollow playlist:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:631
+#: ../qml/Main.qml:635
 msgid "Please confirm to unfollow artist:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:662
+#: ../qml/Main.qml:666
 msgid "Please confirm to un-save album:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:688
+#: ../qml/Main.qml:692
 msgid "Please confirm to un-save track:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:752
+#: ../qml/Main.qml:756
 msgid "View an Artist"
 msgstr ""
 
-#: ../qml/Main.qml:775 ../qml/Main.qml:827
+#: ../qml/Main.qml:779 ../qml/Main.qml:831
 msgid "Ok"
 msgstr ""
 
-#: ../qml/Main.qml:791
+#: ../qml/Main.qml:795
 msgid "Error"
 msgstr ""
 
-#: ../qml/Main.qml:845
+#: ../qml/Main.qml:849
 msgid "Confirm"
 msgstr ""
 
-#: ../qml/Main.qml:860
+#: ../qml/Main.qml:864
 msgid "Failed to transfer to"
 msgstr ""
 
@@ -150,37 +150,37 @@ msgstr ""
 msgid "View Playlist"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:499 ../qml/pages/Playing.qml:518
+#: ../qml/pages/Playing.qml:511 ../qml/pages/Playing.qml:530
 #: ../qml/pages/Album.qml:71
 msgid "no artist known"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:502
+#: ../qml/pages/Playing.qml:514
 msgid "no genre known"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:526 ../qml/pages/Playing.qml:539
+#: ../qml/pages/Playing.qml:538 ../qml/pages/Playing.qml:551
 #: ../qml/pages/Album.qml:80
 msgid "tracks"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:528 ../qml/pages/Album.qml:82
+#: ../qml/pages/Playing.qml:540 ../qml/pages/Album.qml:82
 msgid "track"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:536 ../qml/pages/Playing.qml:542
+#: ../qml/pages/Playing.qml:548 ../qml/pages/Playing.qml:554
 msgid "followers"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:540
+#: ../qml/pages/Playing.qml:552
 msgid "by"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:544
+#: ../qml/pages/Playing.qml:556
 msgid "public"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:546
+#: ../qml/pages/Playing.qml:558
 msgid "collaborative"
 msgstr ""
 
@@ -264,23 +264,23 @@ msgstr ""
 msgid "Set as Current"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:165
+#: ../qml/pages/Devices.qml:172
 msgid "Unknown Name"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:183
+#: ../qml/pages/Devices.qml:190
 msgid "active"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:183 ../qml/pages/Devices.qml:190
+#: ../qml/pages/Devices.qml:190 ../qml/pages/Devices.qml:197
 msgid "inactive"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:186
+#: ../qml/pages/Devices.qml:193
 msgid "restricted"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:186
+#: ../qml/pages/Devices.qml:193
 msgid "unrestricted"
 msgstr ""
 

@@ -66,6 +66,17 @@ Page {
                         }
                     }
                 }
+            }
+            Rectangle {
+                anchors.fill: parent
+                color: app.popupBackgroundColor
+                opacity: app.popupBackgroundOpacity
+                radius: app.popupRadius
+                z: -1
+            }
+        }
+    }
+
                 /*menu: contextMenu
 
                         MenuItem {
@@ -85,10 +96,6 @@ Page {
                         }
                     }
                 }*/
-            }
-        }
-    }
-
     ListView {
         id: listView
         anchors.fill: parent

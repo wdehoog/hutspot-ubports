@@ -53,6 +53,10 @@ MainView {
     property var fontPrimaryWeight: Font.Light
     property var fontHighlightWeight: Font.Bold
 
+    property color popupBackgroundColor: "#111111"
+    property double popupBackgroundOpacity: 0.1
+    property double popupRadius: units.dp(8)
+
     //
 
     objectName: 'mainView'

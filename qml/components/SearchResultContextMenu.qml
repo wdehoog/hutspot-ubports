@@ -105,5 +105,12 @@ Component {
                 break
             }
         }
+        Rectangle {
+            anchors.fill: parent
+            color: app.popupBackgroundColor
+            opacity: app.popupBackgroundOpacity
+            radius: app.popupRadius
+            z: -1
+        }
     }  
 }  
