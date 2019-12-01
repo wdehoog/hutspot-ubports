@@ -122,14 +122,14 @@ Item {
     function checkForNewDevices() {
         Spotify.getMyDevices(function(error, data) {
             if (data) {
-                try {
+                //try {
                     var i, j, added, removed, changed, found, device
 
                     // a new one has been added?
                     added = false
                     for(i=0; i < data.devices.length; i++) {
                         found = false
-                        for(j=0; i < devicesModel.count; j++) {
+                        for(j=0; j < devicesModel.count; j++) {
                             device = devicesModel.get(j)
                             if(data.devices[i].id === device.id) {
                                 found = true
@@ -146,7 +146,7 @@ Item {
                     for(i=0; i < devicesModel.count; i++) {
                         found = false
                         device = devicesModel.get(i)
-                        for(j=0; i < data.devices.length; j++) {
+                        for(j=0; j < data.devices.length; j++) {
                             if(data.devices[i].id === device.id) {
                                 found = true
                                 break
@@ -160,7 +160,7 @@ Item {
                     // changed
                     changed = false
                     for(i=0; i < data.devices.length; i++) {
-                        for(j=0; i < devicesModel.count; j++) {
+                        for(j=0; j < devicesModel.count; j++) {
                             device = devicesModel.get(j)
                             if(data.devices[i].id === device.id) {
                                 if(Util.hasDeviceChanged(data.devices[i], device))
@@ -181,9 +181,9 @@ Item {
                         //console.log("controller.checkForNewDevices: list differs")
                         devicesReloaded()
                     }
-                } catch (err) {
-                    console.log("controller.checkForNewDevices: error: " + err)
-                }
+                //} catch (err) {
+                //    console.log("controller.checkForNewDevices: error: " + err)
+                //}
             }
         })
     }

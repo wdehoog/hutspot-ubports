@@ -112,6 +112,7 @@ Page {
             Column {
                 id: column
                 width: parent.width
+                anchors.verticalCenter: parent.verticalCenter
                 Text {
                     id: nameLabel
                     //color: is_active ? Theme.highlightColor : Theme.primaryColor

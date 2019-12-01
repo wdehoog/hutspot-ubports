@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-01 12:30+0000\n"
+"POT-Creation-Date: 2019-12-01 21:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -264,51 +264,48 @@ msgstr ""
 msgid "Set as Current"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:172
+#: ../qml/pages/Devices.qml:173
 msgid "Unknown Name"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:190
+#: ../qml/pages/Devices.qml:191
 msgid "active"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:190 ../qml/pages/Devices.qml:197
+#: ../qml/pages/Devices.qml:191 ../qml/pages/Devices.qml:198
 msgid "inactive"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:193
+#: ../qml/pages/Devices.qml:194
 msgid "restricted"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:193
+#: ../qml/pages/Devices.qml:194
 msgid "unrestricted"
 msgstr ""
 
-#: ../qml/pages/Search.qml:42 ../qml/pages/Menu.qml:83
+#: ../qml/pages/Search.qml:53 ../qml/pages/Search.qml:100
+#: ../qml/pages/Menu.qml:83
 msgid "Search"
 msgstr ""
 
-#: ../qml/pages/Search.qml:75
-msgid "Search for"
-msgstr ""
-
-#: ../qml/pages/Search.qml:96
+#: ../qml/pages/Search.qml:136
 msgid "In"
 msgstr ""
 
-#: ../qml/pages/Search.qml:108
+#: ../qml/pages/Search.qml:148
 msgid "Albums"
 msgstr ""
 
-#: ../qml/pages/Search.qml:109
+#: ../qml/pages/Search.qml:149
 msgid "Artists"
 msgstr ""
 
-#: ../qml/pages/Search.qml:110
+#: ../qml/pages/Search.qml:150
 msgid "Playlists"
 msgstr ""
 
-#: ../qml/pages/Search.qml:111
+#: ../qml/pages/Search.qml:151
 msgid "Tracks"
 msgstr ""
 

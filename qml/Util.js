@@ -270,7 +270,7 @@ function updateSearchHistory(searchString, search_history, maxSize) {
     if(!searchString || searchString.length === 0)
         return
 
-    var sh = search_history.value
+    var sh = JSON.parse(search_history)
     var pos = sh.indexOf(searchString)
     if(pos > -1) {
         // already in the list so reorder
@@ -284,7 +284,7 @@ function updateSearchHistory(searchString, search_history, maxSize) {
     while(sh.length > maxSize)
         sh.pop()
 
-    search_history.value = sh
+    return JSON.stringify(sh)
 }
 
 function processSearchString(searchString) {

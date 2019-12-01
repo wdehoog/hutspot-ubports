@@ -33,20 +33,24 @@ Page {
         id: searchModel
     }
 
+    function reloadSearchHistoryModel() {
+        searchHistoryModel.clear()
+        //app.settings.searchHistory = "[]"
+        //console.log("reloadSearchHistoryModel: " + app.settings.searchHistory)
+        var data = JSON.parse(app.settings.searchHistory)
+        for(var i=0;i<data.length;i++) {
+            searchHistoryModel.append({query: data[i]})
+        }
+    }
+
     ListModel {
         id: searchHistoryModel
+        Component.onCompleted: reloadSearchHistoryModel()
     }
 
     header: PageHeader {
         id: pHeader
         title: i18n.tr("Search")
-        leadingActionBar.actions: [
-            Action {
-                iconName: "back"
-                text: "Back"
-                onTriggered: pageStack.pop()
-            }
-        ]
         flickable: listView
     }
 
@@ -69,7 +73,7 @@ Page {
                 width: parent.width - 2*app.paddingMedium
                 x: app.paddingMedium
                 spacing: app.paddingMedium 
-                TextField {
+                /*TextField {
                     id: searchField
                     width: parent.width
                     placeholderText: i18n.tr("Search for")
@@ -85,6 +89,42 @@ Page {
                         value: searchField.text.toLowerCase().trim()
                     }
                     Keys.onReturnPressed: refresh()
+                }*/
+                Row {
+                    width: parent.width
+                    spacing: app.paddingMedium
+                    height: childrenRect.height 
+                    Text { 
+                        id: tlabel
+                        anchors.verticalCenter: parent.verticalCenter
+                        text: i18n.tr("Search") 
+                    }
+                    QtQc.ComboBox {
+                        width: parent.width - tlabel.width - parent.spacing
+                        height: pHeader.height * 0.9
+                        background: Rectangle {
+                            color: app.normalBackgroundColor
+                            border.width: 1
+                            border.color: "grey"
+                            radius: 7
+                        }
+                        editable: true
+                        model: searchHistoryModel
+                        onAccepted: {
+                            searchString = editText.toLowerCase().trim()
+                            refresh()
+                            app.settings.searchHistory = 
+                                Util.updateSearchHistory(editText,
+                                                         app.settings.searchHistory,
+                                                         app.settings.searchHistoryMaxSize)                         
+                            reloadSearchHistoryModel()
+                        }
+                        onActivated: {
+                            searchString = model.get(index).query.toLowerCase().trim()
+                            refresh()
+                        }
+                        //Keys.onReturnPressed: refresh()
+                    }
                 }
                 Row {
                     width: parent.width
@@ -97,7 +137,7 @@ Page {
                     }
                     QtQc.ComboBox {
                         width: parent.width - label.width - parent.spacing
-                        height: searchField.height
+                        height: pHeader.height * 0.9
                         background: Rectangle {
                             color: app.normalBackgroundColor
                             border.width: 1
