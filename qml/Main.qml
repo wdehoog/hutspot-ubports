@@ -12,6 +12,7 @@ import SystemUtil 1.0
 
 import "Spotify.js" as Spotify
 import "Util.js" as Util
+import "UBports.js" as UBports
 
 import "components"
 import "pages"
@@ -19,7 +20,13 @@ import "pages"
 MainView {
     id: app
     
-    property string version: "0.2"
+    readonly property string version: "0.3"
+
+    readonly property string app_name: "hutspot"
+    readonly property string app_version: version
+    readonly property string app_full_name: "hutspot.wdehoog"
+    readonly property string app_id: app_full_name + "_" + app_name + "_" + app_version
+    readonly property string app_id_dbus: UBports.createAppIdDbus(app_id)
 
     property alias settings: settings
 
@@ -248,6 +255,8 @@ MainView {
     }
 
     Component.onCompleted: {
+        console.log("app_id     : " + app_id)
+        console.log("app_id_dbus: " + app_id_dbus)
         pageStack.push(Qt.resolvedUrl("pages/Menu.qml"))
         startSpotify()
     }

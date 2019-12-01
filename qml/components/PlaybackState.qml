@@ -11,13 +11,21 @@ import org.nemomobile.mpris 1.0
 import "../Util.js" as Util
 
 Item {   
+
+
     MprisPlayer {
         id: mprisPlayer
-        serviceName: "hutspot"
+
+        // Used by apparmor to check dbus permissions. Use APP_ID_DBUS.      
+        serviceName: app.app_id_dbus
+
         playbackStatus: is_playing ? Mpris.Playing : Mpris.Paused
 
+        // label
         identity: "Hutspot"
-        desktopEntry: "hutspot.wdehoog_hutspot_" + app.version
+
+        // See for actual desktop file name: /home/phablet/.local/share/applications/
+        desktopEntry: app.app_id
 
         canControl: true
 
@@ -38,7 +46,7 @@ Item {
 
     onItemChanged: {
         artistsString = Util.createItemsString(item.artists, qsTr("no artist known"))
-        if (item.album.images && item.album.images.length > 0)
+        if (item.album && item.album.images && item.album.images.length > 0)
             coverArtUrl = item.album.images[0].url;
         else coverArtUrl = "";
 
