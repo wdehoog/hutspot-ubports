@@ -8,7 +8,7 @@ import QtQuick 2.7
 import Ubuntu.Components 1.3
 //import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
-
+import QtGraphicalEffects 1.0
 import QtQuick 2.2
 
 import "../Util.js" as Util
@@ -77,7 +77,7 @@ Page {
                          })*/
         menuModel.append({hutspotMenuItem: Util.HutspotMenuItem.ShowGenreMoodPage,
                           name: i18n.tr("Genre & Mood"),
-                          icon: "image://theme/weather-app-symbolic"
+                          icon: "image://theme/weather-app-symbolic",
                          })
         menuModel.append({hutspotMenuItem: Util.HutspotMenuItem.ShowSearchPage,
                           name: i18n.tr("Search"),
@@ -85,7 +85,9 @@ Page {
                          })
         menuModel.append({hutspotMenuItem: Util.HutspotMenuItem.ShowDevicesPage,
                           name: i18n.tr("Devices"),
-                          icon: "image://theme/audio-speakers-symbolic"
+                          icon: "image://theme/audio-speakers-symbolic",
+                          name: "devices"
+                                //"image://theme/audio-volume-muted-blocking-panel"
                          })
         /*menuModel.append({hutspotMenuItem: Util.HutspotMenuItem.ShowSettingsPage,
                           name: i18n.tr("Settings"),
@@ -107,42 +109,51 @@ Page {
 
         anchors.fill: parent
 
-         delegate: ListItem {
-             width: parent.width - 2 * app.paddingLarge
-             x: app.paddingLarge
+        delegate: ListItem {
+            width: parent.width - 2 * app.paddingLarge
+            x: app.paddingLarge
 
-             Image {
-                 id: image
-                 width: app.iconSizeMedium
-                 height: width
-                 anchors.left: parent.left
-                 anchors.verticalCenter: parent.verticalCenter
-                 fillMode: Image.PreserveAspectFit
-                 source: model.icon
-             }
+            Image {
+                id: image
+                width: app.iconSizeMedium
+                height: width
+                anchors.left: parent.left
+                anchors.verticalCenter: parent.verticalCenter
+                fillMode: Image.PreserveAspectFit
+                source: model.icon
+            }
 
-             Text {
-                 anchors.left: image.right
-                 anchors.leftMargin: app.paddingLarge
-                 anchors.right: parent.right
-                 anchors.verticalCenter: parent.verticalCenter
-                 //color: _currentIndex === index ? Theme.highlightColor : Theme.primaryColor
-                 text: model.name
-             }
+            Colorize {
+                visible: name == "devices" && !app.controller.hasCurrentDevice
+                anchors.fill: image
+                source: image
+                hue: 0.0
+                saturation: 1.0
+                lightness: -0.2
+            }
 
-             MouseArea {
-                 anchors.fill: parent
-                 onPressed: _currentIndex = index
-                 onReleased:  _currentIndex = 0
-                 onClicked: {
-                     selectedMenuItem = model.hutspotMenuItem
-                     closeIt()
-                 }
-             }
+            Text {
+                anchors.left: image.right
+                anchors.leftMargin: app.paddingLarge
+                anchors.right: parent.right
+                anchors.verticalCenter: parent.verticalCenter
+                //color: _currentIndex === index ? Theme.highlightColor : Theme.primaryColor
+                text: model.name
+            }
 
-         }
+            MouseArea {
+                anchors.fill: parent
+                onPressed: _currentIndex = index
+                onReleased:  _currentIndex = 0
+                onClicked: {
+                    selectedMenuItem = model.hutspotMenuItem
+                    closeIt()
+                }
+            }
+
+        }
     }
-
+    
     function closeIt() {
         // we want the dialog to be removed from the page stack before
         // the caller acts.

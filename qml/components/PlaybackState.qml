@@ -64,7 +64,7 @@ Item {
 
     property var device: {
         "id": "-1",
-        "is_active": true,
+        "is_active": false,
         "is_private_session": false,
         "is_restricted": false,
         "type": "Nothing",
@@ -95,6 +95,7 @@ Item {
     }
 
     function importState(state) {
+        //console.log("importState: " + JSON.stringify(state.device))
         device = state.device;
         repeat_state = state.repeat_state;
         shuffle_state = state.shuffle_state;

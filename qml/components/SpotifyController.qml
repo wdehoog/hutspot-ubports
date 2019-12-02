@@ -28,6 +28,9 @@ Item {
         return defaultValue;
     }
 
+    property bool hasCurrentDevice: playbackState.device.is_active
+    onHasCurrentDeviceChanged: console.log("hasCurrentDevice: " + hasCurrentDevice)
+
     property alias playbackState: playbackState
     property alias devices: devicesModel
 
@@ -122,6 +125,7 @@ Item {
     function checkForNewDevices() {
         Spotify.getMyDevices(function(error, data) {
             if (data) {
+                //console.log("getMyDevices:" + JSON.stringify(data))
                 //try {
                     var i, j, added, removed, changed, found, device
 
@@ -147,7 +151,7 @@ Item {
                         found = false
                         device = devicesModel.get(i)
                         for(j=0; j < data.devices.length; j++) {
-                            if(data.devices[i].id === device.id) {
+                            if(data.devices[j].id === device.id) {
                                 found = true
                                 break
                             }
