@@ -100,13 +100,20 @@ Page {
                         text: i18n.tr("Search") 
                     }
                     QtQc.ComboBox {
+                        id: searchCombo
                         width: parent.width - tlabel.width - parent.spacing
                         height: pHeader.height * 0.9
+                        indicator.width: height
                         background: Rectangle {
                             color: app.normalBackgroundColor
                             border.width: 1
                             border.color: "grey"
                             radius: 7
+                        }
+                        delegate: QtQc.ItemDelegate {
+                            width: searchCombo.width
+                            height: searchCombo.height
+                            text: modelData
                         }
                         editable: true
                         model: searchHistoryModel
@@ -136,13 +143,20 @@ Page {
                         text: i18n.tr("In") 
                     }
                     QtQc.ComboBox {
+                        id: itemClassCombo
                         width: parent.width - label.width - parent.spacing
                         height: pHeader.height * 0.9
+                        indicator.width: height
                         background: Rectangle {
                             color: app.normalBackgroundColor
                             border.width: 1
                             border.color: "grey"
                             radius: 7
+                        }
+                        delegate: QtQc.ItemDelegate {
+                            width: itemClassCombo.width
+                            height: itemClassCombo.height
+                            text: modelData
                         }
                         model: [ 
                             i18n.tr("Albums"), 
