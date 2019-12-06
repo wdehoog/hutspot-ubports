@@ -15,8 +15,7 @@ At startup authorization is done using a webview or external browser window. The
 ### Lists
 Hutspot loads items per set using a configured number (max. 50). When there are more results available the next set will be loaded when the list is scrolled to it's end.
 
-Various actions can triggered using the context menu (long press) of a List Item.
-
+Various actions can be triggered by clicking on an item or using the context menu (long press).
 
 ### Player Queue
 The Spotify Web-API does not support a player queue. Therefore Hutspot uses it's own special queue playlist. This special *Queue Playlist* is used for :

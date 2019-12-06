@@ -111,12 +111,12 @@ layout: default
  * Click on Playlist item to select it
 
 ### Search Page
+ * Search Text contains your query. It is a combobox with a list of your last searches.
  * Use select box to choose the category to search in
    * Albums
    * Artists
    * Playlists
    * Tracks
- * Search Text contains your query
  * Click on an Album to view it
  * Click on an Artist to view it
  * Click on a Playlist to view it
@@ -140,9 +140,8 @@ layout: default
    * Add to Playlist
 
 ### Devices Page
- * Buttons on page header provide
-   * Reload Devices
-   * (Re)Login at Spotify
+ * Button on page header provide
+   * (Re)Login at Spotify.
  * Pushup menu provides
    * Login
    * Refresh Token

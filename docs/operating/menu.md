@@ -12,6 +12,8 @@ The menu list:
   * Magnifier: Search, search Albums, Artists, Playlists and Tracks
   * Speaker: Devices, show available Spotify Play Devices
 
+The Speaker icon shows red when there is no 'current player'.
+
 ## Menu page
 The page header has two buttons on the right:
 
