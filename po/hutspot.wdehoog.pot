@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-02 21:17+0000\n"
+"POT-Creation-Date: 2019-12-04 20:51+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -250,10 +250,6 @@ msgstr ""
 
 #: ../qml/pages/Devices.qml:28 ../qml/pages/Menu.qml:87
 msgid "Devices"
-msgstr ""
-
-#: ../qml/pages/Devices.qml:31
-msgid "Reload Devices"
 msgstr ""
 
 #: ../qml/pages/Devices.qml:36

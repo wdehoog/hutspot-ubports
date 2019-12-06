@@ -45,6 +45,7 @@ Item {
     }
 
     onItemChanged: {
+        //console.log("onItemChanged")
         artistsString = Util.createItemsString(item.artists, qsTr("no artist known"))
         if (item.album && item.album.images && item.album.images.length > 0)
             coverArtUrl = item.album.images[0].url;
@@ -57,6 +58,7 @@ Item {
         metadata[Mpris.metadataToString(Mpris.ArtUrl)] = coverArtUrl
         metadata[Mpris.metadataToString(Mpris.Length)] = item.duration_ms * 1000
         metadata[Mpris.metadataToString(Mpris.Album)] = item.album.name
+        //console.log("  new metadata: " + JSON.stringify(metadata))
         mprisPlayer.metadata = metadata
     }
     property string artistsString: ""
@@ -96,13 +98,22 @@ Item {
 
     function importState(state) {
         //console.log("importState: " + JSON.stringify(state.device))
-        device = state.device;
-        repeat_state = state.repeat_state;
-        shuffle_state = state.shuffle_state;
-        context = state.context;
-        timestamp = state.timestamp;
-        progress_ms = state.progress_ms;
-        is_playing = state.is_playing;
-        item = state.item;
+        device = state.device
+        repeat_state = state.repeat_state
+        shuffle_state = state.shuffle_state
+        context = state.context
+        timestamp = state.timestamp
+        progress_ms = state.progress_ms
+        is_playing = state.is_playing
+        item = state.item
+    }
+
+    function notifyNoState(status) {
+        // not playing anymore
+        // ToDo: keep the rest of the state or clean all?
+        device.is_playing = false
+        is_playing = false
+        if(status == 200)
+            device.id = "-1"
     }
 }

@@ -28,7 +28,8 @@ Item {
         return defaultValue;
     }
 
-    property bool hasCurrentDevice: playbackState.device.is_active
+    property bool _hasActiveDevice: false
+    property bool hasCurrentDevice: playbackState.is_playing || _hasActiveDevice
     onHasCurrentDeviceChanged: console.log("hasCurrentDevice: " + hasCurrentDevice)
 
     property alias playbackState: playbackState
@@ -42,7 +43,8 @@ Item {
         id: handleRendererInfo
         interval: 1000
         onRunningChanged: if (running) refreshCount = 0
-        running: playbackState.is_playing || Qt.application.active 
+        //running: playbackState.is_playing || Qt.application.active 
+        running: Qt.application.active 
         property int refreshCount: 0
         repeat: true
         onTriggered: {
@@ -72,7 +74,7 @@ Item {
         onHasValidTokenChanged: {
             if(app.hasValidToken) {
                 refreshPlaybackState()
-                reloadDevices()
+                checkForNewDevices()
             }
         }
     }
@@ -179,12 +181,19 @@ Item {
                         devicesModel.clear();
                         for(i=0; i < data.devices.length; i++) {
                             devicesModel.append(data.devices[i])
-                            //if (data.devices[i].is_active)
-                            //    playbackState.device = data.devices[i]
                         }
-                        //console.log("controller.checkForNewDevices: list differs")
                         devicesReloaded()
                     }
+
+                    // look for active device
+                    found = false
+                    for(i=0; i < devicesModel.count; i++) {
+                        if(devicesModel.get(i).is_active) {
+                            found = true
+                            break
+                        }
+                    }
+                    _hasActiveDevice = found
                 //} catch (err) {
                 //    console.log("controller.checkForNewDevices: error: " + err)
                 //}
@@ -193,27 +202,6 @@ Item {
     }
 
     signal devicesReloaded()
-
-    function reloadDevices() {
-        Spotify.getMyDevices(function(error, data) {
-            if (data) {
-                try {
-                    console.log("controller.reloadDevices: #devices: " + data.devices.length)
-                    devicesModel.clear();
-                    for (var i=0; i < data.devices.length; i++) {
-                        devicesModel.append(data.devices[i]);
-                        if (data.devices[i].is_active)
-                            playbackState.device = data.devices[i]
-                    }
-                    devicesReloaded()
-                } catch (err) {
-                    console.log("controller.reloadDevices: error: " + err)
-                }
-            } else {
-                console.log("controller.reloadDevices: No Data for getMyDevices")
-            }
-        })
-    }
 
     function delayedRefreshPlaybackState() {
         // for some reason we need to wait
@@ -307,18 +295,22 @@ Item {
         _waitForPlaybackState = true
         var oldContextId = playbackState.context ? playbackState.context.uri : undefined;
 
-        Spotify.getMyCurrentPlaybackState({}, function (error, state) {
+        Spotify.getMyCurrentPlaybackState({}, function (error, data, status) {
             _waitForPlaybackState = false
             if(_ignorePlaybackState) {
                 _ignorePlaybackState = false
                 return
             }
 
-            if (state) {
-                playbackState.importState(state)
-                if (state.context && state.context.uri !== oldContextId) {
+            if(!error && !data) {
+                // status: 200 for no device, 204 for not playing or private session
+                playbackState.notifyNoState(status)
+                checkForNewDevices()
+            } else if (data) {
+                playbackState.importState(data)
+                if (data.context && data.context.uri !== oldContextId) {
                     var cid = Util.getIdFromURI(playbackState.context.uri)
-                    switch (state.context.type) {
+                    switch (data.context.type) {
                         case 'album':
                             Spotify.getAlbum(cid, {}, function(error, data) {
                                 playbackState.contextDetails = data

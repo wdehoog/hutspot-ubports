@@ -93,7 +93,7 @@ function _performRequest(requestData, callback) {
         }
 
         if (req.status >= 200 && req.status < 300) {
-          callback(null, data);
+          callback(null, data, req.status);
         } else {
           callback(data.error);
           if(data.error) {

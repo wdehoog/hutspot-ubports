@@ -27,11 +27,11 @@ Page {
         id: header
         title: i18n.tr("Devices")
         trailingActionBar.actions: [
-            Action {
+            /*Action {
                 text: i18n.tr("Reload Devices")
                 iconName: "reload"
-                onTriggered: app.controller.reloadDevices()
-            },
+                onTriggered: app.controller.checkForNewDevices()
+            },*/
             Action {
                 text: i18n.tr("Login")
                 iconName: "stock_key"
@@ -164,7 +164,7 @@ Page {
             if(isDeviceInList(_toBeAddedName))
                 count = 0
             else
-                app.controller.reloadDevices()
+                app.controller.checkForNewDevices()
             count--
         }
     }
@@ -321,8 +321,10 @@ Page {
     }
 
     Component.onCompleted: {
-        if(app.hasValidToken)
+        if(app.hasValidToken) {
             refreshDevices()
+            app.controller.checkForNewDevices()
+        }
     }
 
 }
