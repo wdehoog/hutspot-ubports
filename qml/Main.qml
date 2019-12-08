@@ -749,6 +749,14 @@ MainView {
              })
     }
 
+    function loadAlbum(album, fromPlaying) {
+        // can be a simple album or context only so get the complete one
+        Spotify.getObject(album.href, function(error, data) {
+            if(data)
+                app.pushPage(Util.HutspotPage.Album, {album: data}, fromPlaying)
+        })
+    }
+
     function loadArtist(artists, fromPlaying) {
         if(artists.length > 1) {
             // choose

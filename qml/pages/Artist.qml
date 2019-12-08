@@ -20,7 +20,7 @@ Page {
     id: artistPage
     objectName: "ArtistPage"
 
-    property string defaultImageSource : "image://theme/icon-l-music"
+    property string defaultImageSource : "image://theme/stock_music"
     property bool showBusy: false
 
     property var currentArtist

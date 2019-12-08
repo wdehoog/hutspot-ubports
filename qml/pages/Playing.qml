@@ -35,7 +35,7 @@ Page {
 
     property string viewMenuText: ""
     property bool showTrackInfo: true
-    property int contextType: 0
+    property int contextType: -1
 
     property int currentIndex: -1
 
@@ -53,23 +53,53 @@ Page {
         flickable: listView
     }
 
+    property bool _viewAlbumEnabled: false
+    property bool _viewArtistEnabled: false
+    property bool _viewPlaylistEnabled: false
+    //property bool viewTrackEnabled: false
+
+    function updateContextMenu() {
+        _viewAlbumEnabled = false
+        _viewArtistEnabled = false
+        _viewPlaylistEnabled = false
+        //viewTrackEnabled = false
+
+        switch(getContextType()) {
+        case Spotify.ItemType.Album:
+            _viewAlbumEnabled= true
+            _viewArtistEnabled = true
+            break
+        case Spotify.ItemType.Artist:
+            _viewArtistEnabled = true
+            break
+        case Spotify.ItemType.Playlist:
+            _viewPlaylistEnabled = true
+            break
+        case Spotify.ItemType.Track:
+            _viewAlbumEnabled = true
+            _viewArtistEnabled = false
+            break
+        }
+    }
+
     Component {
         id: contextMenu
 
         ActionSelectionPopover {
+            id: pop
 
             actions: ActionList {
                 Action {
                     id: viewAlbum
                     text: i18n.tr("View Album")
-                    visible: enabled
+                    visible: _viewAlbumEnabled
                     onTriggered: {
                         switch(getContextType()) {
                         case Spotify.ItemType.Album:
-                            app.pushPage(Util.HutspotPage.Album, {album: app.controller.playbackState.context}, true)
+                            app.loadAlbum(app.controller.playbackState.context, true)
                             break
                         case Spotify.ItemType.Track:
-                            app.pushPage(Util.HutspotPage.Album, {album: app.controller.playbackState.item.album}, true)
+                            app.loadAlbum(app.controller.playbackState.item.album, true)
                             break
                         }
                     }
@@ -77,7 +107,7 @@ Page {
                 Action {
                     id: viewArtist
                     text: i18n.tr("View Artist")
-                    visible: enabled
+                    visible: _viewArtistEnabled
                     onTriggered: {
                         switch(getContextType()) {
                         case Spotify.ItemType.Album:
@@ -95,7 +125,7 @@ Page {
                 Action {
                     id: viewPlaylist
                     text: i18n.tr("View Playlist")
-                    visible: enabled
+                    visible: _viewPlaylistEnabled
                     onTriggered: {
                         app.pushPage(Util.HutspotPage.Playlist, {playlist: app.controller.playbackState.context}, true)
                     }
@@ -112,6 +142,19 @@ Page {
         }
     }
 
+    SearchResultContextMenu {
+        id: searchResultContextMenu
+        property var model
+        property var context
+    }
+
+    AlbumTrackContextMenu {
+        id: albumTrackContextMenu
+        property var model: null
+        property var context
+        //property bool enableQueueItems: true
+        property bool fromPlaying: true
+    }
 
     ListView {
         id: listView
@@ -178,38 +221,11 @@ Page {
                     onThirdLabelClicked: openMenu()
 
                     function openMenu() {
-                        cmenu.update()
-                        cmenu.open(infoContainer)
+                        updateContextMenu()             
+                        PopupUtils.open(contextMenu, info)
                     }
                 }
             }
-
-            /*ContextMenu {
-                id: cmenu
-
-                function update() {
-                    viewAlbum.enabled = false
-                    viewArtist.enabled = false
-                    viewPlaylist.enabled = false
-                    switch(getContextType()) {
-                    case Spotify.ItemType.Album:
-                        viewAlbum.enabled = true
-                        viewArtist.enabled = true
-                        break
-                    case Spotify.ItemType.Artist:
-                        viewArtist.enabled = true
-                        break
-                    case Spotify.ItemType.Playlist:
-                        viewPlaylist.enabled = true
-                        break
-                    case Spotify.ItemType.Track:
-                        viewAlbum.enabled = true
-                        viewArtist.enabled = false
-                        break
-                    }
-                }
-
-            }*/
 
             /*Text {
                 truncationMode: TruncationMode.Fade
@@ -276,14 +292,16 @@ Page {
                 //onStatusChanged: console.log("Loader: " + loader.status)
             }
 
-            /*menu: AlbumTrackContextMenu {
-                context: app.controller.playbackState.context
-                enableQueueItems: false
-                fromPlaying: true
-            }*/
-
             onPressAndHold: {
-                PopupUtils.open(contextMenu, listItem)
+                //console.log("contextType: " + contextType + " => " + JSON.stringify(app.controller.playbackState.context))
+                if(contextType > 0) {
+                    searchResultContextMenu.model = model
+                    PopupUtils.open(searchResultContextMenu, listItem)
+                } else {
+                    albumTrackContextMenu.model = model
+                    albumTrackContextMenu.context = app.controller.playbackState.context
+                    PopupUtils.open(albumTrackContextMenu, listItem)
+                }
             }
 
             Connections {
@@ -472,9 +490,8 @@ Page {
 
                     Text {
                         id: spotifyConnectLabel
-                        text: app.controller.playbackState.device !== undefined ? "Listening on <b>" + app.controller.playbackState.device.name + "</b>" : ""
+                        text: app.controller.hasCurrentDevice ? "Listening on <b>" + app.controller.playbackState.device.name + "</b>" : i18n.tr("no current device")
                     }
-                    visible: app.controller.playbackState.device !== undefined
                 }
             }
         }
@@ -698,8 +715,12 @@ Page {
                     loadPlaylistTracks(app.id, currentId)
                     loadPlaylistTrackInfo()
                     break
+                default:
+                    contextType = -1
+                    break
             }
-        }
+        } else
+          contextType = -1
     }
 
     // try to detect end of playlist play

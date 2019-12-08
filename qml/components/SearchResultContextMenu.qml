@@ -30,7 +30,7 @@ Component {
                 text: i18n.tr("View Album")
                 enabled: model && (model.type === Util.SpotifyItemType.Track)
                 visible: enabled
-                onTriggered: app.pushPage(Util.HutspotPage.Album, {album: model.item.album})
+                onTriggered: app.loadAlbum(model.item.album, false)
             }
             Action {
                 text: i18n.tr("Add to Playlist")

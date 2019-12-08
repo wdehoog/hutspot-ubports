@@ -1656,6 +1656,16 @@ function setShuffle(state, options, callback) {
 };
 
 /**
+ * Get the object Spotify gave a url for
+ */
+function getObject(url, callback) {
+  var requestData = {
+    url: url
+  };
+  return _checkParamsAndPerformRequest(requestData, {}, callback);
+}
+
+/**
  * Gets the access token in use.
  *
  * @return {string} accessToken The access token

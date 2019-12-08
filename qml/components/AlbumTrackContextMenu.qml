@@ -10,6 +10,7 @@ import QtQuick 2.7
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 
+import "../Spotify.js" as Spotify
 import "../Util.js" as Util
 
 Component {
@@ -29,7 +30,9 @@ Component {
                 text: i18n.tr("View Album")
                 visible: enabled
                 enabled: fromPlaying && model.type === Util.SpotifyItemType.Track
-                onTriggered: app.pushPage(Util.HutspotPage.Album, {album: model.item.album}, fromPlaying)
+                onTriggered: {
+                  app.loadAlbum(model.item.album ? model.item.album : context, fromPlaying)
+                }
             }
 
             Action {

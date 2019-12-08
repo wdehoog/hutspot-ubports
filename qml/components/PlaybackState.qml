@@ -30,13 +30,14 @@ Item {
         canControl: true
 
         // ToDo add more checks
-        canPause: item.id != -1
-        canPlay: item.id != -1
+        canPause: item && item.id != -1
+        canPlay: item && item.id != -1
         canGoNext: true
         canGoPrevious: true
-        canSeek: item.id != -1
+        canSeek: item && item.id != -1
 
         onPauseRequested: app.controller.playPause()
+        onStopRequested: app.controller.pause()
         onPlayRequested: app.controller.play()
         onPlayPauseRequested: app.controller.playPause()
         onNextRequested: app.controller.next()
@@ -45,6 +46,13 @@ Item {
     }
 
     onItemChanged: {
+        var metadata = {}
+
+        if(item == null) {
+            coverArtUrl = "";
+            mprisPlayer.metadata = metadata
+        }
+
         //console.log("onItemChanged")
         artistsString = Util.createItemsString(item.artists, qsTr("no artist known"))
         if (item.album && item.album.images && item.album.images.length > 0)
@@ -52,12 +60,12 @@ Item {
         else coverArtUrl = "";
 
         // Album, ArtUrl, Artist, AlbumArtist, Composer, Length, TrackNumber, Title
-        var metadata = {}
         metadata[Mpris.metadataToString(Mpris.Title)] = item.name
         metadata[Mpris.metadataToString(Mpris.Artist)] = artistsString
         metadata[Mpris.metadataToString(Mpris.ArtUrl)] = coverArtUrl
         metadata[Mpris.metadataToString(Mpris.Length)] = item.duration_ms * 1000
-        metadata[Mpris.metadataToString(Mpris.Album)] = item.album.name
+        if(item.album && item.album.name)
+            metadata[Mpris.metadataToString(Mpris.Album)] = item.album.name
         //console.log("  new metadata: " + JSON.stringify(metadata))
         mprisPlayer.metadata = metadata
     }

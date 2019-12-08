@@ -20,7 +20,7 @@ Page {
     id: albumPage
     objectName: "AlbumPage"
 
-    property string defaultImageSource : "image://theme/stock-music"
+    property string defaultImageSource : "image://theme/stock_music"
     property bool showBusy: false
     property var album
     property var albumArtists
