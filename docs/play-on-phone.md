@@ -3,7 +3,7 @@ title: Spotify Player on your phablet
 nav_order: 4
 layout: default
 ---
-### Spotify Player on your UBports phone
+## Spotifyd 
 One option is to install [spotifyd](https://github.com/Spotifyd/spotifyd/releases) on your phone. For example I use 0.2.19 from  spotifyd-2019-10-06-armv6-slim.zip on by opo. 
 
 This version does not have the pulseaudio backend. It will still work but you will have to take care of setting an environment variable in order for the volume controls to work:
@@ -50,3 +50,8 @@ I have put my spotify credentials in the config file. This is not mandatory. The
 ### Remark
 I tried to crossbuild spotifyd with it's pulseaudio backend but it fails. If you know how to fix that please let me know.
 
+
+## Other players
+You could also try [Librespot](https://github.com/librespot-org/librespot) or [Raspotify](https://github.com/dtcooper/raspotify) (Librespot build for the RaspberryPI).
+
+I tried [Librespot-java](https://github.com/librespot-org/librespot-java) using jre/jkd from Oracle and OpenJDK but this makes the my phone reboot instantly.
