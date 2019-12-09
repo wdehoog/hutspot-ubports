@@ -43,9 +43,22 @@ Item {
         onNextRequested: app.controller.next()
         onPreviousRequested: app.controller.previous()
         onSeekRequested: app.controller.seek(offset/1000)
+
+        // a trick to wake up and update the mpris metadata.
+        // let spotifyd on song change hook do: OpenUri file://wakeup.wav
+        supportedUriSchemes: ["file"]
+        supportedMimeTypes: ["audio/x-wav", "audio/x-vorbis+ogg"]
+        onOpenUriRequested: {
+            console.log("onOpenUriRequested: " + url)
+            app.controller.refreshPlaybackState()
+            // hopefully triggers updateMetaData()
+        }
     }
 
-    onItemChanged: {
+    onItemChanged: updateMetaData()
+
+    function updateMetaData() {
+        console.log("updateMetaData")
         var metadata = {}
 
         if(item == null) {
@@ -69,6 +82,7 @@ Item {
         //console.log("  new metadata: " + JSON.stringify(metadata))
         mprisPlayer.metadata = metadata
     }
+
     property string artistsString: ""
     property string coverArtUrl: ""
 

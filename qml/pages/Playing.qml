@@ -473,7 +473,8 @@ Page {
                 height: spotifyConnectRow.childrenRect.height + app.paddingSmall*2
                 MouseArea {
                     anchors.fill: spotifyConnectRow
-                    onClicked: pageStack.push(Qt.resolvedUrl("Devices.qml"))
+                    onClicked: pageStack.push(Qt.resolvedUrl("Devices.qml"),
+                                              {fromPlaying: true})
                 }
 
                 Row {

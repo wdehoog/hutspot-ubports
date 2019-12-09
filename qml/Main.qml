@@ -91,6 +91,10 @@ MainView {
         }
         width: parent.width - 2*paddingSmall
         x: paddingSmall
+        showPlayingPageButton: pageStack.currentPage 
+                               && pageStack.currentPage.hasOwnProperty("fromPlaying") 
+                               ? !pageStack.currentPage.fromPlaying 
+                               : true
     }
 
     function loadFirstPage() {

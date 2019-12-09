@@ -19,6 +19,8 @@ Page {
 
     property bool isBusy: waitForInSpotifyList.running
 
+    property bool fromPlaying: false
+
     property var _model
 
     anchors.fill: parent

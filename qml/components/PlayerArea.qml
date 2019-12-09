@@ -6,7 +6,10 @@ import QtQuick.Layouts 1.3
 
 Item {
     id: playerArea
+
     property string defaultImageSource : "image://theme/stock_music"
+
+    property bool showPlayingPageButton: true 
 
     width: parent.width
     height: app.itemSizeLarge
@@ -106,6 +109,7 @@ Item {
             // menu
             Button {
                 id: playingButton
+                visible: showPlayingPageButton
                 width: row.itemWidth * 0.8
                 height: width
                 color: "white"
