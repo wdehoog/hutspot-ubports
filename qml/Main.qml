@@ -1001,7 +1001,10 @@ MainView {
     Connections {
         target: controller.playbackState
         onIs_playingChanged: {
-            console.log("onIs_playingChanged: " + controller.playbackState.is_playing)
+            //console.log("onIs_playingChanged: " + controller.playbackState.is_playing)
+            if(!settings.preventSuspendWhilePlaying)
+                return
+
             if(controller.playbackState.is_playing) {
               // cancel pending quit
               if(delayTimer.running) 
@@ -1063,6 +1066,7 @@ MainView {
         property bool authUsingBrowser: false
         property bool queryForMarket: true
         property bool confirmUnFollowSave: true
+        property bool preventSuspendWhilePlaying: true
 
         property var history
 

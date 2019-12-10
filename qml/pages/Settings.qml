@@ -118,6 +118,20 @@ Page {
                 }
             }
 
+            Item {
+                width: parent.width
+                height: childrenRect.height
+                Label {
+                    anchors.left: parent.left
+                    text: i18n.tr("Prevent suspending while playing")
+                }
+                CheckBox {
+                    id: preventSuspendWhilePlaying
+                    anchors.right: parent.right
+                    checked: app.settings.preventSuspendWhilePlaying
+                    onCheckedChanged: app.settings.preventSuspendWhilePlaying = checked
+                }
+            }
             /*TextField {
                 id: country
                 placeholderText: label
