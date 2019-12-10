@@ -179,19 +179,24 @@ MainView {
         }
     }
 
+    property bool _playingPageOnPageStack: false
+
     function showPage(pageName) {
         var page
         switch(pageName) {
         case 'PlayingPage':
-            // when not having the Playing page as attached page
-            // pop all pages above playing page or add it
-            var pPage = pageStack.find(function(page) {
-                return page.objectName === "PlayingPage"
-            })
-            if(pPage !== null)
-                pageStack.pop(pPage)
-            else
-                pageStack.push(playingPage)
+            // there can be only one
+            if(!_playingPageOnPageStack) {
+                pageStack.push(Qt.resolvedUrl("pages/Playing.qml"))
+                _playingPageOnPageStack = true
+            } else {
+                app.showConfirmDialog(i18n.tr("Playing page is already loaded. Go back to it and discard the pages on top?"),
+                    function() {
+                        while(pageStack.currentPage.objectName !== "PlayingPage")
+                            pageStack.pop()
+                    }
+                )
+            }
             break;
         case 'NewReleasePage':
             //pageStack.clear()

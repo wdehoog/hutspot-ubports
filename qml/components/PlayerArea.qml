@@ -4,6 +4,8 @@ import Ubuntu.Components.Popups 1.3
 //import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
 
+import "../Util.js" as Util
+
 Item {
     id: playerArea
 
@@ -117,9 +119,7 @@ Item {
                 anchors.right: parent.right
                 action: Action {
                     iconName: "go-next"
-                    onTriggered: {
-                        pageStack.push(Qt.resolvedUrl("../pages/Playing.qml"))
-                    }
+                    onTriggered: app.doSelectedMenuItem(Util.HutspotMenuItem.ShowPlayingPage)
                 }
             }
 

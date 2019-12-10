@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-09 20:25+0000\n"
+"POT-Creation-Date: 2019-12-10 20:07+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,11 +23,12 @@ msgid "Play"
 msgstr ""
 
 #: ../qml/components/AlbumTrackContextMenu.qml:30
-#: ../qml/components/SearchResultContextMenu.qml:30 ../qml/pages/Playing.qml:94
+#: ../qml/components/SearchResultContextMenu.qml:30
+#: ../qml/pages/Playing.qml:104
 msgid "View Album"
 msgstr ""
 
-#: ../qml/components/AlbumTrackContextMenu.qml:39 ../qml/pages/Playing.qml:109
+#: ../qml/components/AlbumTrackContextMenu.qml:39 ../qml/pages/Playing.qml:119
 msgid "View Artist"
 msgstr ""
 
@@ -45,7 +46,7 @@ msgid "Create Playlist"
 msgstr ""
 
 #: ../qml/components/CreatePlaylist.qml:33
-#: ../qml/components/PlaylistPicker.qml:36 ../qml/Main.qml:835
+#: ../qml/components/PlaylistPicker.qml:36 ../qml/Main.qml:840
 msgid "Cancel"
 msgstr ""
 
@@ -90,55 +91,59 @@ msgstr ""
 msgid "Use as Seeds for Recommendations"
 msgstr ""
 
-#: ../qml/Main.qml:343
+#: ../qml/Main.qml:193
+msgid "Playing page is already loaded. Go back?"
+msgstr ""
+
+#: ../qml/Main.qml:348
 msgid "Failed to Refresh Authorization Token"
 msgstr ""
 
-#: ../qml/Main.qml:416
+#: ../qml/Main.qml:421
 msgid "Edit Playlist Details"
 msgstr ""
 
-#: ../qml/Main.qml:443
+#: ../qml/Main.qml:448
 msgid "Select a Playlist"
 msgstr ""
 
-#: ../qml/Main.qml:465
+#: ../qml/Main.qml:470
 msgid "Please confirm removing<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:613
+#: ../qml/Main.qml:618
 msgid "Please confirm to unfollow playlist:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:639
+#: ../qml/Main.qml:644
 msgid "Please confirm to unfollow artist:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:670
+#: ../qml/Main.qml:675
 msgid "Please confirm to un-save album:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:696
+#: ../qml/Main.qml:701
 msgid "Please confirm to un-save track:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:768
+#: ../qml/Main.qml:773
 msgid "View an Artist"
 msgstr ""
 
-#: ../qml/Main.qml:791 ../qml/Main.qml:843
+#: ../qml/Main.qml:796 ../qml/Main.qml:848
 msgid "Ok"
 msgstr ""
 
-#: ../qml/Main.qml:807
+#: ../qml/Main.qml:812
 msgid "Error"
 msgstr ""
 
-#: ../qml/Main.qml:861
+#: ../qml/Main.qml:866
 msgid "Confirm"
 msgstr ""
 
-#: ../qml/Main.qml:876
+#: ../qml/Main.qml:881
 msgid "Failed to transfer to"
 msgstr ""
 
@@ -146,45 +151,49 @@ msgstr ""
 msgid "Playing"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:127
+#: ../qml/pages/Playing.qml:56
+msgid "Back"
+msgstr ""
+
+#: ../qml/pages/Playing.qml:137
 msgid "View Playlist"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:494
+#: ../qml/pages/Playing.qml:504
 msgid "no current device"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:529 ../qml/pages/Playing.qml:548
+#: ../qml/pages/Playing.qml:539 ../qml/pages/Playing.qml:558
 #: ../qml/pages/Album.qml:71
 msgid "no artist known"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:532
+#: ../qml/pages/Playing.qml:542
 msgid "no genre known"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:556 ../qml/pages/Playing.qml:569
+#: ../qml/pages/Playing.qml:566 ../qml/pages/Playing.qml:579
 #: ../qml/pages/Album.qml:80
 msgid "tracks"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:558 ../qml/pages/Album.qml:82
+#: ../qml/pages/Playing.qml:568 ../qml/pages/Album.qml:82
 msgid "track"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:566 ../qml/pages/Playing.qml:572
+#: ../qml/pages/Playing.qml:576 ../qml/pages/Playing.qml:582
 msgid "followers"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:570
+#: ../qml/pages/Playing.qml:580
 msgid "by"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:574
+#: ../qml/pages/Playing.qml:584
 msgid "public"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:576
+#: ../qml/pages/Playing.qml:586
 msgid "collaborative"
 msgstr ""
 

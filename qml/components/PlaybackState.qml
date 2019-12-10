@@ -58,7 +58,7 @@ Item {
     onItemChanged: updateMetaData()
 
     function updateMetaData() {
-        console.log("updateMetaData")
+        //console.log("updateMetaData")
         var metadata = {}
 
         if(item == null) {

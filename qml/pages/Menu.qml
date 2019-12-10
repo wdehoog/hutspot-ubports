@@ -35,12 +35,12 @@ Page {
             Action {
                 iconName: "info"
                 text: i18n.tr("About")
-                onTriggered: pageStack.push(Qt.resolvedUrl("About.qml") )
+                onTriggered: app.doSelectedMenuItem(Util.HutspotMenuItem.ShowAboutPage)
             },
             Action {
                 iconName: "settings"
                 text: i18n.tr("Settings")
-                onTriggered: pageStack.push(Qt.resolvedUrl("Settings.qml") )
+                onTriggered: app.doSelectedMenuItem(Util.HutspotMenuItem.ShowSettingsPage)
             }
         ]
     }
