@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-10 20:07+0000\n"
+"POT-Creation-Date: 2019-12-10 21:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,12 +46,14 @@ msgid "Create Playlist"
 msgstr ""
 
 #: ../qml/components/CreatePlaylist.qml:33
-#: ../qml/components/PlaylistPicker.qml:36 ../qml/Main.qml:840
+#: ../qml/components/PlaylistPicker.qml:36
+#: ../qml/components/ArtistPicker.qml:35 ../qml/Main.qml:841
 msgid "Cancel"
 msgstr ""
 
 #: ../qml/components/CreatePlaylist.qml:40
 #: ../qml/components/PlaylistPicker.qml:52
+#: ../qml/components/ArtistPicker.qml:42
 msgid "Select"
 msgstr ""
 
@@ -91,8 +93,13 @@ msgstr ""
 msgid "Use as Seeds for Recommendations"
 msgstr ""
 
+#: ../qml/components/ArtistPicker.qml:30
+msgid "Select Artist"
+msgstr ""
+
 #: ../qml/Main.qml:193
-msgid "Playing page is already loaded. Go back?"
+msgid ""
+"Playing page is already loaded. Go back to it and discard the pages on top?"
 msgstr ""
 
 #: ../qml/Main.qml:348
@@ -131,19 +138,19 @@ msgstr ""
 msgid "View an Artist"
 msgstr ""
 
-#: ../qml/Main.qml:796 ../qml/Main.qml:848
+#: ../qml/Main.qml:797 ../qml/Main.qml:849
 msgid "Ok"
 msgstr ""
 
-#: ../qml/Main.qml:812
+#: ../qml/Main.qml:813
 msgid "Error"
 msgstr ""
 
-#: ../qml/Main.qml:866
+#: ../qml/Main.qml:867
 msgid "Confirm"
 msgstr ""
 
-#: ../qml/Main.qml:881
+#: ../qml/Main.qml:882
 msgid "Failed to transfer to"
 msgstr ""
 

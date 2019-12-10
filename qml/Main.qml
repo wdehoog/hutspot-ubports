@@ -771,7 +771,8 @@ MainView {
             // choose
             var ms = pageStack.push(Qt.resolvedUrl("components/ArtistPicker.qml"),
                                     { label: i18n.tr("View an Artist"), artists: artists } );
-            ms.done.connect(function() {
+
+            ms.accepted.connect(function() {
                 if(ms.selectedItem) {
                     app.pushPage(Util.HutspotPage.Artist, {currentArtist: ms.selectedItem.item}, fromPlaying)
                 }
