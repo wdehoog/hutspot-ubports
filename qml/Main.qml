@@ -271,6 +271,7 @@ MainView {
         console.log("app_id     : " + app_id)
         console.log("app_id_dbus: " + app_id_dbus)
         pageStack.push(Qt.resolvedUrl("pages/Menu.qml"))
+        history = settings.history
         startSpotify()
     }
 
@@ -875,11 +876,16 @@ MainView {
         Spotify.transferMyPlayback([id],{}, function(error, data) {
             if(!error) {
                 controller.refreshPlaybackState()
-                deviceId.value = newId
-                deviceName.value = newName
+                settings.deviceId = newId
+                if(settings.deviceName == newName) {
+                    // restore volume
+                    console.log("restore volume: " + settings.deviceVolume)
+                    controller.setVolume(settings.deviceVolume)
+                } else
+                    settings.deviceName = newName
                 callback(null, data)
             } else
-                showErrorMessage(error, i18n.tr("Failed to transfer to") + " " + deviceName.value)
+                showErrorMessage(error, i18n.tr("Failed to transfer to") + " " + settings.deviceName)
         })
     }
 
@@ -958,7 +964,7 @@ MainView {
         var i
         for(i=0;i<spotifyController.devices.count;i++) {
             var device = spotifyController.devices.get(i)
-            if(device.name === deviceName.value) {
+            if(device.name === settings.deviceName) {
                 if(logging_flags.discovery)console.log("onDevicesChanged found current: " + JSON.stringify(device))
                 // Now we want to make sure it is our 'current' Spotify device.
                 // How do we know what Spotify thinks our current device is?
@@ -974,14 +980,14 @@ MainView {
                     setDevice(device.id, device.name, function(error, data){
                         // no refresh since it might keep on recursing
                         if(error)
-                            console.log("Failed to set device [" + deviceName.value + "] as current: " + error)
+                            console.log("Failed to set device [" + settings.deviceName + "] as current: " + error)
                         else
-                            console.log("Set device [" + deviceName.value + "] as current")
+                            console.log("Set device [" + settings.deviceName + "] as current")
                     })
                 } else {
                     if(logging_flags.discovery) {
-                        console.log("Device [" + deviceName.value + "] already in playbackState.")
-                        console.log("  id: " + deviceId.value + ", pbs id: " + spotifyController.playbackState.device.id)
+                        console.log("Device [" + settings.deviceName + "] already in playbackState.")
+                        console.log("  id: " + settings.deviceId + ", pbs id: " + spotifyController.playbackState.device.id)
                     }
                 }
                 break
@@ -1020,6 +1026,7 @@ MainView {
               }
             }
         }
+        onDeviceChanged: settings.deviceVolume = controller.playbackState.device.volume_percent
     }
 
     function delayedExec(callback, delay) {
@@ -1075,6 +1082,7 @@ MainView {
 
         property string deviceId: ""
         property string deviceName: ""
+        property int deviceVolume: 0
 
     }
 }
