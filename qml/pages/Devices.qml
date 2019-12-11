@@ -131,6 +131,11 @@ Page {
                 }
             }
 
+            onClicked: {
+                _model = model
+                PopupUtils.open(contextMenu, delegate)
+            }
+
             onPressAndHold: {
                 _model = model
                 PopupUtils.open(contextMenu, delegate)
