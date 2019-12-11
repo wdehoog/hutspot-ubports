@@ -1,11 +1,12 @@
 import QtQuick 2.7
 import Ubuntu.Components 1.3
-import Ubuntu.Components.ListItems 1.3
+import QtQuick.Controls 2.2 as QtQc
 
 Page {
     id: settingsPage
     objectName: "SettingsPage"
 
+    property alias _mnor : maxNumberOfResults
 
     header: PageHeader {
         id: pageHeader
@@ -78,15 +79,28 @@ Page {
                     text: i18n.tr("Authorize using")
                 }
 
-                ItemSelector {
+                QtQc.ComboBox {
                     id: authUsingBrowserSelector
                     anchors.right: parent.right
                     width: parent.width - authUsingBrowserLabel.width - app.paddingLarge
-                    height: currentlyExpanded ? 2 * itemHeight : itemHeight
+                    height: _mnor.height //pageHeader.height * 0.9
 
-                    selectedIndex: app.settings.authUsingBrowser ? 1 : 0 
-                    onDelegateClicked: {
-                        app.settings.authUsingBrowser = index == 1
+                    indicator.width: height
+                    background: Rectangle {
+                        color: app.normalBackgroundColor
+                        border.width: 1
+                        border.color: "grey"
+                        radius: 7
+                    }
+                    delegate: QtQc.ItemDelegate {
+                        width: authUsingBrowserSelector.width
+                        height: authUsingBrowserSelector.height
+                        text: modelData
+                    }
+
+                    Component.onCompleted: currentIndex = app.settings.authUsingBrowser ? 1 : 0 
+                    onActivated: {
+                        app.settings.authUsingBrowser = currentIndex == 1
                         console.log("new authUsingBrowser: " + app.settings.authUsingBrowser);
                     }
                     model: [

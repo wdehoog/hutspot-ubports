@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-10 21:56+0000\n"
+"POT-Creation-Date: 2019-12-11 19:57+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -208,35 +208,35 @@ msgstr ""
 msgid "Playlist"
 msgstr ""
 
-#: ../qml/pages/Settings.qml:12 ../qml/pages/Menu.qml:42
+#: ../qml/pages/Settings.qml:13 ../qml/pages/Menu.qml:42
 msgid "Settings"
 msgstr ""
 
-#: ../qml/pages/Settings.qml:32
+#: ../qml/pages/Settings.qml:33
 msgid "Confirm Un-Follow/Save"
 msgstr ""
 
-#: ../qml/pages/Settings.qml:45
+#: ../qml/pages/Settings.qml:46
 msgid "Query for Market"
 msgstr ""
 
-#: ../qml/pages/Settings.qml:78
+#: ../qml/pages/Settings.qml:79
 msgid "Authorize using"
 msgstr ""
 
-#: ../qml/pages/Settings.qml:93
+#: ../qml/pages/Settings.qml:107
 msgid "Internal Webview"
 msgstr ""
 
-#: ../qml/pages/Settings.qml:94
+#: ../qml/pages/Settings.qml:108
 msgid "External Browser"
 msgstr ""
 
-#: ../qml/pages/Settings.qml:106
+#: ../qml/pages/Settings.qml:120
 msgid "Number of results per request (limit)"
 msgstr ""
 
-#: ../qml/pages/Settings.qml:126
+#: ../qml/pages/Settings.qml:140
 msgid "Prevent suspending while playing"
 msgstr ""
 
@@ -284,23 +284,23 @@ msgstr ""
 msgid "Set as Current"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:175
+#: ../qml/pages/Devices.qml:180
 msgid "Unknown Name"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:193
+#: ../qml/pages/Devices.qml:198
 msgid "active"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:193 ../qml/pages/Devices.qml:200
+#: ../qml/pages/Devices.qml:198 ../qml/pages/Devices.qml:205
 msgid "inactive"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:196
+#: ../qml/pages/Devices.qml:201
 msgid "restricted"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:196
+#: ../qml/pages/Devices.qml:201
 msgid "unrestricted"
 msgstr ""
 
