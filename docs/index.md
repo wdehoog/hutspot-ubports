@@ -15,6 +15,7 @@ Main features:
  * Discover and control Connect Devices
  * Control Play/Pause/Next/Previous/Volume/Shuffle/Replay/Seek
  * Create and Edit Playlists
+ * Keep track of visited Albums, Artists and Playlists 
  * Can be used by controls from indicator panel
 
 It does not support saving tracks nor offline playing

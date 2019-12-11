@@ -106,7 +106,7 @@ layout: default
    * Add to another Playlist
 
 ### Choose Playlist Dialog
- * Pulldown menu provides
+ * Button on header:
    * Create New Playlist
  * Click on Playlist item to select it
 
@@ -138,6 +138,23 @@ layout: default
    * Add to Queue
    * Replace Queue
    * Add to Playlist
+
+### History Page
+ * Button on header:
+   * Clear History 
+ * Click on an Album to view it
+ * Click on an Artist to view it
+ * Click on a Playlist to view it
+ * Click on the star of an Item to toggle Followed/Saved state
+ * Context Menu of an Album provides: 
+   * Play
+   * View
+ * Context Menu of an Artist provides: 
+   * Play
+   * View
+ * Context Menu of a Playlist provides: 
+   * Play
+   * View
 
 ### Devices Page
  * Button on page header provide

@@ -10,12 +10,13 @@ The menu list:
   * Person: My Stuff, your Saved Albums and Tracks, Playlists, Recently Played and Followed Artists
   * Ambience: Genre & Mood, Spotify's list of Categories of Playlists
   * Magnifier: Search, search Albums, Artists, Playlists and Tracks
+  * Clock: History list of recently visited Albums, Artists and Playlists
   * Speaker: Devices, show available Spotify Play Devices
 
 The Speaker icon shows red when there is no 'current player'.
 
 ## Menu page
-The page header has two buttons on the right:
+The page header has some buttons on the right:
 
   * Question mark: open the help/information site in a browser
   * Gear: open the Settings page

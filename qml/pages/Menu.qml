@@ -67,10 +67,6 @@ Page {
                           name: i18n.tr("Top Stuff"),
                           icon: "image://theme/icon-m-like"
                          })
-        menuModel.append({hutspotMenuItem: Util.HutspotMenuItem.ShowHistoryPage,
-                          name: i18n.tr("History"),
-                          icon: "image://theme/icon-m-backup"
-                         })
         menuModel.append({hutspotMenuItem: Util.HutspotMenuItem.ShowRecommendedPage,
                           name: i18n.tr("Recommended"),
                           icon: "image://theme/icon-m-acknowledge"
@@ -82,6 +78,10 @@ Page {
         menuModel.append({hutspotMenuItem: Util.HutspotMenuItem.ShowSearchPage,
                           name: i18n.tr("Search"),
                           icon: "image://theme/toolkit_input-search"
+                         })
+        menuModel.append({hutspotMenuItem: Util.HutspotMenuItem.ShowHistoryPage,
+                          name: i18n.tr("History"),
+                          icon: "image://theme/history"
                          })
         menuModel.append({hutspotMenuItem: Util.HutspotMenuItem.ShowDevicesPage,
                           name: i18n.tr("Devices"),

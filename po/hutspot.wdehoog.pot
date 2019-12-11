@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-11 20:28+0000\n"
+"POT-Creation-Date: 2019-12-11 21:32+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -305,7 +305,7 @@ msgid "unrestricted"
 msgstr ""
 
 #: ../qml/pages/Search.qml:53 ../qml/pages/Search.qml:100
-#: ../qml/pages/Menu.qml:83
+#: ../qml/pages/Menu.qml:79
 msgid "Search"
 msgstr ""
 
@@ -365,6 +365,18 @@ msgstr ""
 msgid "Artist's Related Artists"
 msgstr ""
 
+#: ../qml/pages/History.qml:28 ../qml/pages/Menu.qml:83
+msgid "History"
+msgstr ""
+
+#: ../qml/pages/History.qml:33
+msgid "Clear"
+msgstr ""
+
+#: ../qml/pages/History.qml:35
+msgid "Clear History?"
+msgstr ""
+
 #: ../qml/pages/GenreMood.qml:32
 msgid "Genres & Moods"
 msgstr ""
@@ -377,6 +389,6 @@ msgstr ""
 msgid "Help"
 msgstr ""
 
-#: ../qml/pages/Menu.qml:79
+#: ../qml/pages/Menu.qml:75
 msgid "Genre & Mood"
 msgstr ""

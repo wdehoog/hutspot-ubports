@@ -1075,7 +1075,7 @@ MainView {
         property bool confirmUnFollowSave: true
         property bool preventSuspendWhilePlaying: true
 
-        property var history
+        property var history: []
 
         property var searchHistory: "[]"
         property int searchHistoryMaxSize: 10
