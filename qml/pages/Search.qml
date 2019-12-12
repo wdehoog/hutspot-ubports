@@ -73,23 +73,6 @@ Page {
                 width: parent.width - 2*app.paddingMedium
                 x: app.paddingMedium
                 spacing: app.paddingMedium 
-                /*TextField {
-                    id: searchField
-                    width: parent.width
-                    placeholderText: i18n.tr("Search for")
-                    inputMethodHints: Qt.ImhNoPredictiveText
-                    primaryItem: Icon {
-                        height: parent.height
-                        width: height
-                        name: "find"
-                    }
-                    Binding {
-                        target: searchPage
-                        property: "searchString"
-                        value: searchField.text.toLowerCase().trim()
-                    }
-                    Keys.onReturnPressed: refresh()
-                }*/
                 Row {
                     width: parent.width
                     spacing: app.paddingMedium
@@ -130,7 +113,6 @@ Page {
                             searchString = model.get(index).query.toLowerCase().trim()
                             refresh()
                         }
-                        //Keys.onReturnPressed: refresh()
                     }
                 }
                 Row {
@@ -177,74 +159,6 @@ Page {
                     opacity: 0
                 }
             }}
-
-            /*SearchFieldWithMenu {
-                id: searchField
-                width: parent.width
-                placeholderText: qsTr("Search text")
-                Binding {
-                    target: searchPage
-                    property: "searchString"
-                    value: searchField.text.toLowerCase().trim()
-                }
-                EnterKey.enabled: text.length > 0
-                EnterKey.onClicked: {
-                    refresh()
-                    Util.updateSearchHistory(searchField.text.trim(),
-                                             app.search_history,
-                                             app.search_history_max_size.value)
-                }
-                EnterKey.iconSource: "image://theme/icon-m-search"
-                Component.onCompleted: searchField.forceActiveFocus()
-
-                menu: ContextMenu {
-                    onActiveChanged: {
-                        // somehow the menu is opened by scrolling up. very annoying.
-                        // and also causing the button to become too close to the 'next page' bulb
-                        // so if the menu opens or closes scroll back to the top
-                        listView.positionViewAtBeginning()
-                    }
-
-                    MenuItem {
-                        text: qsTr("Clear Current Text")
-                        onClicked: {
-                            searchField.text = ""
-                            searchField.forceActiveFocus()
-                        }
-                    }
-                    MenuItem {
-                        text: qsTr("Select Recently Used Query")
-                        onClicked: {
-                            searchHistoryModel.clear()
-                            var sh = app.search_history.value
-                            for(var i=0;i<sh.length;i++)
-                                searchHistoryModel.append({id: i, name: sh[i]})
-                            var ms = pageStack.push(Qt.resolvedUrl("../components/ItemPicker.qml"),
-                                                    {items: searchHistoryModel, label: qsTr("Search History")} );
-                            ms.accepted.connect(function() {
-                                if(ms.selectedIndex === -1)
-                                    return
-                                searchField.text = ms.items.get(ms.selectedIndex).name
-                                searchField.forceActiveFocus()
-                                refresh()
-                                Util.updateSearchHistory(searchField.text.trim(),
-                                                         app.search_history,
-                                                         app.search_history_max_size.value)                            })
-                                listView.positionViewAtBeginning() // see above
-                        }
-                    }
-                    MenuItem {
-                        text: qsTr("Clear Recently Used Queries")
-                        onClicked: {
-                            app.showConfirmDialog(qsTr("Please confirm Clearing the Search History"), function() {
-                                app.search_history.value = []
-                            })
-                        }
-                    }
-                }
-            }*/
-
-
 
         delegate: ListItem {
             id: listItem

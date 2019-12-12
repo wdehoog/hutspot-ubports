@@ -17,17 +17,15 @@ Hutspot loads items per set using a configured number (max. 50). When there are 
 
 Various actions can be triggered by clicking on an item or using the context menu (long press).
 
-### Player Queue
-The Spotify Web-API does not support a player queue. Therefore Hutspot uses it's own special queue playlist. This special *Queue Playlist* is used for :
-
- * When you want to play or queue a single track
- * When you want to play a list of recommended tracks
-
-The name of the playlist to use can be configured in the Settings. It's default value is 'Hutspot Queue'.
 
 ### Various
  * Device Page: A list is shown of known play devices. The current one is highlighted. Using the context menu (long press) you select another device.
  * The Playing page shows what is currently playing and contains various player controls.
+
+
+### History
+It seems that Spotify does not update the Recently Used list for tracks started using the web-api. Hutspot keeps track of the Albums, Artists and Playlists you visited.
+
 
 ## Indicator Panel
 Since Hutspot implements the [Mpris2](https://specifications.freedesktop.org/mpris-spec/latest/) interface you can use the player controls on the Indicator Panel to command it.

@@ -21,18 +21,10 @@ Page {
             switch(_itemClass) {
             case 0: return i18n.tr("My Saved Albums")
             case 1: return i18n.tr("My Playlists")
-            case 2: return i18n.tr("My Recently Played")
-            case 3: return i18n.tr("My Saved Tracks")
-            case 4: return i18n.tr("My Followed Artists")
+            case 2: return i18n.tr("My Saved Tracks")
+            case 3: return i18n.tr("My Followed Artists")
             }
         }
-        leadingActionBar.actions: [
-            Action {
-                iconName: "back"
-                text: "Back"
-                onTriggered: pageStack.pop()
-            }
-        ]
         trailingActionBar.actions: [
             Action {
                 iconName: "go-next"
@@ -58,12 +50,13 @@ Page {
     SearchResultContextMenu {
         id: contextMenu
         property var model
+        property var contextType: -1
     }
 
     ListView {
         id: listView
         anchors.fill: parent
-        spacing: units.dp(8)
+        //spacing: 
         model: searchModel
         //interactive: contentHeight > height
 
@@ -148,16 +141,18 @@ Page {
 
     property var savedAlbums
     property var userPlaylists
-    property var recentlyPlayedTracks
     property var savedTracks
     property var followedArtists
-    // 0: Saved Albums, 1: User Playlists, 2: Recently Played Tracks, 3: Saved Tracks, 4: Followed Artists
-    property int _itemClass: app.settings.currentItemClassMyStuff
+    // 0: Saved Albums, 1: User Playlists, 2: Saved Tracks, 3: Followed Artists
+    property int _itemClass: (app.settings.currentItemClassMyStuff >= 0
+                              && app.settings.currentItemClassMyStuff <= 3)
+                             ? app.settings.currentItemClassMyStuff
+                             : 0
 
     function nextItemClass() {
         var i = _itemClass
         i++
-        if(i > 4)
+        if(i > 3)
             i = 0
         _itemClass = i
         app.settings.currentItemClassMyStuff = i
@@ -169,7 +164,7 @@ Page {
         var i = _itemClass
         i--
         if(i < 0)
-            i = 4
+            i = 3
         _itemClass = i
         app.settings.currentItemClassMyStuff = i
         refreshDirection = 0
@@ -205,8 +200,6 @@ Page {
             count += savedAlbums.items.length
         else if(userPlaylists)
             count += userPlaylists.items.length
-        else if(recentlyPlayedTracks)
-            count += recentlyPlayedTracks.items.length
         else if(savedTracks)
             count += savedTracks.items.length
         else if(followedArtists)
@@ -227,15 +220,6 @@ Page {
                          name: userPlaylists.items[i].name,
                          item: userPlaylists.items[i],
                          following: true, saved: false})
-            }
-        if(recentlyPlayedTracks)
-            // context, played_at, track
-            for(i=0;i<recentlyPlayedTracks.items.length;i++) {
-                addData({type: 3, stype: 3,
-                         name: recentlyPlayedTracks.items[i].track.name,
-                         item: recentlyPlayedTracks.items[i].track,
-                         following: false, saved: false,
-                         played_at: recentlyPlayedTracks.items[i].played_at})
             }
         if(savedTracks)
             for(i=0;i<savedTracks.items.length;i++) {
@@ -261,7 +245,6 @@ Page {
         savedAlbums = undefined
         userPlaylists = undefined
         savedTracks = undefined
-        recentlyPlayedTracks = undefined
         followedArtists = undefined
         append()
     }
@@ -307,28 +290,6 @@ Page {
             })
             break
         case 2:
-            // unfortunately:
-            //   Any tracks listened to while the user had “Private Session” enabled in
-            //   their client will not be returned in the list of recently played tracks.
-            // and it seems Librespot just does that when using credentials
-            options = {limit: cursorHelper.limit}
-            // 'RecentlyPlayedTracks' has 'before' and 'after' fields
-            if(refreshDirection < 0) // previous set is looking forward in time
-                options.after = cursorHelper.after
-            else if(refreshDirection > 0) // next set is looking back in time
-                options.before = cursorHelper.before
-            Spotify.getMyRecentlyPlayedTracks(options, function(error, data) {
-                if(data) {
-                    console.log("number of RecentlyPlayedTracks: " + data.items.length)
-                    recentlyPlayedTracks = data
-                    cursorHelper.update(Util.loadCursor(data, Util.CursorType.RecentlyPlayed))
-                } else
-                    console.log("No Data for getMyRecentlyPlayedTracks")
-                loadData()
-                _loading = false
-            })
-            break
-        case 3:
             Spotify.getMySavedTracks({offset: searchModel.count, limit: cursorHelper.limit}, function(error, data) {
                 if(data) {
                     console.log("number of SavedTracks: " + data.items.length)
@@ -341,7 +302,7 @@ Page {
                 _loading = false
             })
             break
-        case 4:
+        case 3:
             // 'Followed Artists' only has an 'after' field
             options = {limit: cursorHelper.limit}
             if(refreshDirection > 0)

@@ -52,11 +52,10 @@ layout: default
    * View
    * Use as Seeds for Recommendations
 
-### My Stuff Page
+### Library Page
  * Click on the page header buttons to switch between showing
    * Saved Albums
    * Playlists
-   * Recently Played 
    * Saved Tracks
    * Followed Artists
  * Click on an Album to view it
@@ -75,11 +74,28 @@ layout: default
  * Context Menu of a Playlist provides: 
    * Play
    * View
-   * Use as Seeds for Recommendations
  * Context Menu of a Track provides: 
    * Play
    * Add to Queue
    * Replace Queue
+   * Add to Playlist
+
+### Top Page
+ * Click on the page header buttons to switch between showing
+   * Top Artists
+   * Top Tracks
+   * Recently Played Tracks
+ * Use the combobox to select the time range used 
+   * Short: approximately last 4 weeks
+   * Medium: approximately last 6 months
+   * Long: several years 
+ * Click on an Artist to view it
+ * Click on a Track to view it's Album
+ * Context Menu of an Artist provides: 
+   * Play
+   * View
+ * Context Menu of a Track provides: 
+   * Play
    * Add to Playlist
 
 ### Playing Page

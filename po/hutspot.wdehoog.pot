@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-11 21:32+0000\n"
+"POT-Creation-Date: 2019-12-12 14:19+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -85,12 +85,8 @@ msgstr ""
 msgid "Remove from Playlist"
 msgstr ""
 
-#: ../qml/components/SearchResultContextMenu.qml:58
+#: ../qml/components/SearchResultContextMenu.qml:54
 msgid "Add to another Playlist"
-msgstr ""
-
-#: ../qml/components/SearchResultContextMenu.qml:65
-msgid "Use as Seeds for Recommendations"
 msgstr ""
 
 #: ../qml/components/ArtistPicker.qml:30
@@ -152,6 +148,44 @@ msgstr ""
 
 #: ../qml/Main.qml:888
 msgid "Failed to transfer to"
+msgstr ""
+
+#: ../qml/pages/TopStuff.qml:34
+msgid "Top Tracks"
+msgstr ""
+
+#: ../qml/pages/TopStuff.qml:35
+msgid "Top Artists"
+msgstr ""
+
+#: ../qml/pages/TopStuff.qml:36
+msgid "My Recently Played"
+msgstr ""
+
+#: ../qml/pages/TopStuff.qml:42 ../qml/pages/MyStuff.qml:31
+#: ../qml/pages/Artist.qml:56
+msgid "next"
+msgstr ""
+
+#: ../qml/pages/TopStuff.qml:47 ../qml/pages/MyStuff.qml:36
+#: ../qml/pages/Artist.qml:61
+msgid "previous"
+msgstr ""
+
+#: ../qml/pages/TopStuff.qml:88
+msgid "Range"
+msgstr ""
+
+#: ../qml/pages/TopStuff.qml:107
+msgid "Short (weeks)"
+msgstr ""
+
+#: ../qml/pages/TopStuff.qml:108
+msgid "Medium (months)"
+msgstr ""
+
+#: ../qml/pages/TopStuff.qml:109
+msgid "Long (years)"
 msgstr ""
 
 #: ../qml/pages/Playing.qml:27 ../qml/pages/Playing.qml:52
@@ -304,28 +338,28 @@ msgstr ""
 msgid "unrestricted"
 msgstr ""
 
-#: ../qml/pages/Search.qml:53 ../qml/pages/Search.qml:100
+#: ../qml/pages/Search.qml:53 ../qml/pages/Search.qml:83
 #: ../qml/pages/Menu.qml:79
 msgid "Search"
 msgstr ""
 
-#: ../qml/pages/Search.qml:143
+#: ../qml/pages/Search.qml:125
 msgid "In"
 msgstr ""
 
-#: ../qml/pages/Search.qml:162
+#: ../qml/pages/Search.qml:144
 msgid "Albums"
 msgstr ""
 
-#: ../qml/pages/Search.qml:163
+#: ../qml/pages/Search.qml:145
 msgid "Artists"
 msgstr ""
 
-#: ../qml/pages/Search.qml:164
+#: ../qml/pages/Search.qml:146
 msgid "Playlists"
 msgstr ""
 
-#: ../qml/pages/Search.qml:165
+#: ../qml/pages/Search.qml:147
 msgid "Tracks"
 msgstr ""
 
@@ -338,23 +372,11 @@ msgid "My Playlists"
 msgstr ""
 
 #: ../qml/pages/MyStuff.qml:24
-msgid "My Recently Played"
-msgstr ""
-
-#: ../qml/pages/MyStuff.qml:25
 msgid "My Saved Tracks"
 msgstr ""
 
-#: ../qml/pages/MyStuff.qml:26
+#: ../qml/pages/MyStuff.qml:25
 msgid "My Followed Artists"
-msgstr ""
-
-#: ../qml/pages/MyStuff.qml:39 ../qml/pages/Artist.qml:56
-msgid "next"
-msgstr ""
-
-#: ../qml/pages/MyStuff.qml:44 ../qml/pages/Artist.qml:61
-msgid "previous"
 msgstr ""
 
 #: ../qml/pages/Artist.qml:42
@@ -387,6 +409,10 @@ msgstr ""
 
 #: ../qml/pages/Menu.qml:32
 msgid "Help"
+msgstr ""
+
+#: ../qml/pages/Menu.qml:67
+msgid "Top"
 msgstr ""
 
 #: ../qml/pages/Menu.qml:75

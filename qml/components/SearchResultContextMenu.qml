@@ -48,10 +48,6 @@ Component {
                     var idx = index
                     var smodel = model
                     app.removeFromPlaylist(playlist, model.item, index+cursorHelper.offset)
-                    /*app.removeFromPlaylist(playlist, model.item, index+cursorHelper.offset, function(error, data) {
-                        if(!error)
-                            smodel.remove(idx, 1)
-                    })*/
                 }
             }
             Action {
@@ -61,12 +57,12 @@ Component {
                 visible: enabled
                 onTriggered: app.addToPlaylist(model.item)
             }
-            Action {
+            /*Action {
                 text: i18n.tr("Use as Seeds for Recommendations")
                 enabled: model && (model.type === Util.SpotifyItemType.Playlist)
                 visible: enabled
                 onTriggered: app.useAsSeeds(model.item)
-            }
+            }*/
         }
 
         function handlePlayClicked() {

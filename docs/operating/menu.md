@@ -7,7 +7,8 @@ layout: default
 ## Menu
 The menu list:
 
-  * Person: My Stuff, your Saved Albums and Tracks, Playlists, Recently Played and Followed Artists
+  * List: Library, your Saved Albums and Tracks, Playlists and Followed Artists
+  * Heart: Top, your favorite Artists and Tracks and Recently Played Tracks
   * Ambience: Genre & Mood, Spotify's list of Categories of Playlists
   * Magnifier: Search, search Albums, Artists, Playlists and Tracks
   * Clock: History list of recently visited Albums, Artists and Playlists

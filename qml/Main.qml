@@ -20,7 +20,7 @@ import "pages"
 MainView {
     id: app
     
-    readonly property string version: "0.3"
+    readonly property string version: "0.4"
 
     readonly property string app_name: "hutspot"
     readonly property string app_version: version
@@ -1069,6 +1069,7 @@ MainView {
         property int currentItemClassMyStuff: 0
         property int currentItemClassArtist: 0
         property int currentItemClassSearch: 0
+        property int currentItemClassTopStuff: 0
 
         property bool authUsingBrowser: false
         property bool queryForMarket: true

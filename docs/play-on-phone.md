@@ -47,8 +47,8 @@ zeroconf_port = 1234
 
 I have put my spotify credentials in the config file. This is not mandatory. The Spotifyd website mentions other ways of authentication.
 
-### Remark
-I tried to crossbuild spotifyd with it's pulseaudio backend but it fails. If you know how to fix that please let me know.
+### Remarks
+ I tried to crossbuild spotifyd with it's pulseaudio backend but it fails. If you know how to fix that please let me know.
 
 
 ## Other players

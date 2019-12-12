@@ -60,14 +60,14 @@ Page {
                           icon: "image://theme/icon-m-health"
                          })*/
         menuModel.append({hutspotMenuItem: Util.HutspotMenuItem.ShowMyStuffPage,
-                          name: ("My Stuff"),
-                          icon: "image://theme/contact" // -events
+                          name: ("Library"),
+                          icon: "image://theme/view-list-symbolic"
                          })
-        /*menuModel.append({hutspotMenuItem: Util.HutspotMenuItem.ShowTopStuffPage,
-                          name: i18n.tr("Top Stuff"),
-                          icon: "image://theme/icon-m-like"
+        menuModel.append({hutspotMenuItem: Util.HutspotMenuItem.ShowTopStuffPage,
+                          name: i18n.tr("Top"),
+                          icon: "image://theme/unlike"
                          })
-        menuModel.append({hutspotMenuItem: Util.HutspotMenuItem.ShowRecommendedPage,
+        /*menuModel.append({hutspotMenuItem: Util.HutspotMenuItem.ShowRecommendedPage,
                           name: i18n.tr("Recommended"),
                           icon: "image://theme/icon-m-acknowledge"
                          })*/
