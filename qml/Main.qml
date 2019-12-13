@@ -106,13 +106,13 @@ MainView {
             if(!playing_as_attached_page.value)
                 pageUrl = Qt.resolvedUrl("pages/Playing.qml")
             else
-                pageUrl = Qt.resolvedUrl("pages/MyStuff.qml")
+                pageUrl = Qt.resolvedUrl("pages/Library.qml")
             break;
         case "NewReleasePage":
             pageUrl = Qt.resolvedUrl("pages/NewAndFeatured.qml")
             break;
-        case "MyStuffPage":
-            pageUrl = Qt.resolvedUrl("pages/MyStuff.qml")
+        case "LibraryPage":
+            pageUrl = Qt.resolvedUrl("pages/Library.qml")
             break;
         case "TopStuffPage":
             pageUrl = Qt.resolvedUrl("pages/TopStuff.qml")
@@ -146,8 +146,8 @@ MainView {
         case Util.HutspotMenuItem.ShowNewReleasePage:
             app.showPage('NewReleasePage')
             break
-        case Util.HutspotMenuItem.ShowMyStuffPage:
-            app.showPage('MyStuffPage')
+        case Util.HutspotMenuItem.ShowLibraryPage:
+            app.showPage('LibraryPage')
             break
         case Util.HutspotMenuItem.ShowTopStuffPage:
             app.showPage('TopStuffPage')
@@ -202,9 +202,9 @@ MainView {
             //pageStack.clear()
             page = pageStack.push(Qt.resolvedUrl("pages/NewAndFeatured.qml"))
             break;
-        case 'MyStuffPage':
+        case 'LibraryPage':
             //pageStack.clear()
-            page = pageStack.push(Qt.resolvedUrl("pages/MyStuff.qml"))
+            page = pageStack.push(Qt.resolvedUrl("pages/Library.qml"))
             break;
         case 'TopStuffPage':
             //pageStack.clear()
@@ -1066,7 +1066,7 @@ MainView {
         property int searchLimit: 50
         property int sorted_list_limit: 1000
 
-        property int currentItemClassMyStuff: 0
+        property int currentItemClassLibrary: 0
         property int currentItemClassArtist: 0
         property int currentItemClassSearch: 0
         property int currentItemClassTopStuff: 0

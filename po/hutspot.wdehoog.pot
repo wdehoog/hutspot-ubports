@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-13 21:10+0000\n"
+"POT-Creation-Date: 2019-12-13 21:27+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -162,12 +162,12 @@ msgstr ""
 msgid "My Recently Played"
 msgstr ""
 
-#: ../qml/pages/TopStuff.qml:42 ../qml/pages/MyStuff.qml:31
+#: ../qml/pages/TopStuff.qml:42 ../qml/pages/Library.qml:31
 #: ../qml/pages/Artist.qml:56
 msgid "next"
 msgstr ""
 
-#: ../qml/pages/TopStuff.qml:47 ../qml/pages/MyStuff.qml:36
+#: ../qml/pages/TopStuff.qml:47 ../qml/pages/Library.qml:36
 #: ../qml/pages/Artist.qml:61
 msgid "previous"
 msgstr ""
@@ -355,7 +355,7 @@ msgstr ""
 msgid "Artists"
 msgstr ""
 
-#: ../qml/pages/Search.qml:146
+#: ../qml/pages/Search.qml:146 ../qml/pages/Library.qml:23
 msgid "Playlists"
 msgstr ""
 
@@ -363,20 +363,16 @@ msgstr ""
 msgid "Tracks"
 msgstr ""
 
-#: ../qml/pages/MyStuff.qml:22
-msgid "My Saved Albums"
+#: ../qml/pages/Library.qml:22
+msgid "Saved Albums"
 msgstr ""
 
-#: ../qml/pages/MyStuff.qml:23
-msgid "My Playlists"
+#: ../qml/pages/Library.qml:24
+msgid "Saved Tracks"
 msgstr ""
 
-#: ../qml/pages/MyStuff.qml:24
-msgid "My Saved Tracks"
-msgstr ""
-
-#: ../qml/pages/MyStuff.qml:25
-msgid "My Followed Artists"
+#: ../qml/pages/Library.qml:25
+msgid "Followed Artists"
 msgstr ""
 
 #: ../qml/pages/Artist.qml:42

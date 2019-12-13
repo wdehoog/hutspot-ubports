@@ -59,7 +59,7 @@ Page {
                           name: i18n.tr("New & Featured"),
                           icon: "image://theme/icon-m-health"
                          })*/
-        menuModel.append({hutspotMenuItem: Util.HutspotMenuItem.ShowMyStuffPage,
+        menuModel.append({hutspotMenuItem: Util.HutspotMenuItem.ShowLibraryPage,
                           name: ("Library"),
                           icon: "image://theme/view-list-symbolic"
                          })

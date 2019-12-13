@@ -429,7 +429,7 @@ var HutspotMenuItem = {
     ShowAboutPage: 0,
     ShowDevicesPage: 1,
     ShowGenreMoodPage: 2,
-    ShowMyStuffPage: 3,
+    ShowLibraryPage: 3,
     ShowNewReleasePage: 4,
     ShowPlayingPage: 5,
     ShowSearchPage: 6,
