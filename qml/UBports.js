@@ -21,4 +21,5 @@ function createAppIdDbus(app_id) {
 }
 
 function createDesktopFileName(app_name, app_full_name) {
+  return app_full_name + "_" + app_name
 }

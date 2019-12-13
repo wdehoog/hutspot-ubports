@@ -346,7 +346,7 @@ Item {
         }, function(error, data) {
             if(!error) {
                 playbackState.item = track
-                refreshPlaybackState();
+                refreshPlaybackState()
             } else
                 app.showErrorMessage(error, qsTr("Play Failed"))
         })
@@ -357,9 +357,11 @@ Item {
             'device_id': getDeviceId(),
             'context_uri': context.uri
         }
+        var uri = context.uri
         Spotify.play(options, function(error, data) {
             if (!error) {
-              refreshPlaybackState();
+              refreshPlaybackState()
+              app.notifyHistoryUri(uri)
             } else
                 app.showErrorMessage(error, qsTr("Play Failed"))
         })
