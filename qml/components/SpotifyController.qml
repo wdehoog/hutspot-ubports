@@ -266,9 +266,7 @@ Item {
     }
 
     function setRepeat(value, callback) {
-            console.log("setRepeat: " + value)
         Spotify.setRepeat(value, {}, function(error, data) {
-            console.log("setRepeat: " + error + ":" + data)
             if (!error) {
                 playbackState.repeat_state = value;
                 delayedRefreshPlaybackState();
