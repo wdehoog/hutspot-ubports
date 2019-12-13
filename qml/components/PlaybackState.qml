@@ -110,16 +110,8 @@ Item {
         "album": {"name": "", "id": -1, "images": []}
     }
 
-    function nextRepeatState() {
-        if (repeat_state === "off")
-            return "context"
-        else if (repeat_state === "context")
-            return "track";
-        return "off";
-    }
-
     function importState(state) {
-        //console.log("importState: " + JSON.stringify(state.device))
+        //console.log("importState: " + JSON.stringify(state))
         device = state.device
         repeat_state = state.repeat_state
         shuffle_state = state.shuffle_state

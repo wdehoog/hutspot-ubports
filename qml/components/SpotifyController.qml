@@ -206,10 +206,10 @@ Item {
     function delayedRefreshPlaybackState() {
         // for some reason we need to wait
         // thx spotify
-        //handleRendererInfo.refreshCount = 0
-        //timer.setTimeout(function () {
+        handleRendererInfo.refreshCount = 0
+        timer.setTimeout(function () {
             refreshPlaybackState();
-        //}, 300)
+        }, 300)
     }
 
     function next(callback) {
@@ -266,7 +266,9 @@ Item {
     }
 
     function setRepeat(value, callback) {
+            console.log("setRepeat: " + value)
         Spotify.setRepeat(value, {}, function(error, data) {
+            console.log("setRepeat: " + error + ":" + data)
             if (!error) {
                 playbackState.repeat_state = value;
                 delayedRefreshPlaybackState();
@@ -274,6 +276,14 @@ Item {
 
             if (callback) callback(error, data)
         })
+    }
+
+    function nextRepeatState() {
+        if (playbackState.repeat_state === "off")
+            return "context"
+        else if (playbackState.repeat_state === "context")
+            return "track";
+        return "off";
     }
 
     function setShuffle(value, callback) {

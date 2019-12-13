@@ -27,6 +27,9 @@ When you play a playlist you are in fact playing a specific snapshot of that pla
 
 As Hutspot uses a playlist for playing seperate tracks this is a problem. Currently Hutspot, when reaching the end of the last track, tries to determine if the playlist has been modified and then to load the fresh snapshot and continue with the new tracks. Unfortunately this is not working correctly.
 
+#### Repeat State
+The web-api allows for three Repeat states: 'off', 'context' and 'track'. Sometimes the repeat state can not be set to 'track' and is reverted by Spotify to 'context'. In that case press the button twice to skip to 'off'.
+
 #### Spotify WebAPI
 The Spotify web-api has some limitations:
 

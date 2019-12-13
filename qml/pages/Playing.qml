@@ -461,12 +461,13 @@ Page {
                     width: buttonRow.itemWidth
                     color: app.controller.playbackState.repeat_state == "off" 
                            ? "white" 
-                           : (app.controller.playbackState.repeat_state == "track" 
-                              ? "#E5E4E2"  
-                              : "#BCC6CC") // white/platinum/metallic silver
+                           : "#E5E4E2"  
+                           //   : "#BCC6CC") // white/platinum/metallic silver
                     action: Action {
-                        iconName: "media-playlist-repeat"
-                        onTriggered: app.controller.setRepeat(app.controller.playbackState.nextRepeatState())
+                        iconName: app.controller.playbackState.repeat_state == "track" 
+                                  ? "media-playlist-repeat-one"
+                                  : "media-playlist-repeat"
+                        onTriggered: app.controller.setRepeat(app.controller.nextRepeatState())
                     }
                 }
             }
