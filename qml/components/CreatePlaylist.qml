@@ -15,6 +15,7 @@ Page {
 
     signal accepted()
 
+    property string titleText: i18n.tr("Create Playlist")
     property string name: ""
     property bool publicPL: true
     property bool collaborativePL: false
@@ -25,7 +26,7 @@ Page {
         contents: Text {
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
-            text: i18n.tr("Create Playlist")
+            text: titleText
         }
         leadingActionBar.actions: [
             Action {
@@ -66,6 +67,7 @@ Page {
             TextField {
                 id: nameField
                 width: parent.width
+                text: name
                 placeholderText: i18n.tr("Name for the new playlist")
                 onTextChanged: name = text
             }
@@ -96,6 +98,7 @@ Page {
             TextField {
                 id: descriptionField
                 width: parent.width
+                text: description
                 placeholderText: i18n.tr("Description (optional)")
                 onTextChanged: description = text
             }

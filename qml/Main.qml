@@ -421,7 +421,7 @@ MainView {
         var ms = pageStack.push(Qt.resolvedUrl("components/CreatePlaylist.qml"),
                                 {titleText: i18n.tr("Edit Playlist Details"),
                                  name: playlist.name, description: playlist.description,
-                                 publicPL: playlist['public'], collaborative: playlist.collaborative} );
+                                 publicPL: playlist['public'], collaborativePL: playlist.collaborative} );
         ms.accepted.connect(function() {
             if(ms.name && ms.name.length > 0) {
                 var options = {name: ms.name,

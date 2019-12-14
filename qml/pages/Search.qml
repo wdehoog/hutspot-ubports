@@ -66,8 +66,7 @@ Page {
 
         width: parent.width
         anchors.top: parent.top
-        height: parent.height //- app.dockedPanel.visibleSize
-        //clip: app.dockedPanel.expanded
+        height: parent.height 
 
         header: Component {
             Column {
