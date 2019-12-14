@@ -18,15 +18,13 @@ layout: default
  * Click on the star of a Track to toggle Saved state
  * Context Menu of a Track provides: 
    * Play
-   * Add to Queue
-   * Replace Queue
    * Add to Playlist
 
 ### Artist Page
  * External link button on page header
     * Load Artist About Page in Browser
  * Click on Artist Image to play this artists tracks
- * Click on the Page Header to switch between showing
+ * Click on the Page Header '<' & '>' buttons to switch between showing
    * Albums
    * Related Artists
  * Click on Star to toggle Followed state
@@ -50,10 +48,9 @@ layout: default
  * Context Menu of a Playlist provides: 
    * Play
    * View
-   * Use as Seeds for Recommendations
 
 ### Library Page
- * Click on the page header buttons to switch between showing
+ * Click on the page header '<' & '>' buttons to switch between showing
    * Saved Albums
    * Playlists
    * Saved Tracks
@@ -66,18 +63,14 @@ layout: default
  * Context Menu of an Album provides: 
    * Play
    * View
-   * Unfollow
  * Context Menu of an Artist provides: 
    * Play
    * View
-   * Unfollow
  * Context Menu of a Playlist provides: 
    * Play
    * View
  * Context Menu of a Track provides: 
    * Play
-   * Add to Queue
-   * Replace Queue
    * Add to Playlist
 
 ### Top Page
@@ -96,6 +89,7 @@ layout: default
    * View
  * Context Menu of a Track provides: 
    * Play
+   * View Album
    * Add to Playlist
 
 ### Playing Page
@@ -117,7 +111,7 @@ layout: default
  * Click on a Track to view it's Album
  * Context Menu of a Track provides: 
    * Play
-   * Add to Queue
+   * View Album
    * Remove from Playist
    * Add to another Playlist
 
@@ -151,8 +145,6 @@ layout: default
    * View
  * Context Menu of a Track provides: 
    * Play
-   * Add to Queue
-   * Replace Queue
    * Add to Playlist
 
 ### History Page
@@ -174,11 +166,10 @@ layout: default
 
 ### Devices Page
  * Button on page header provide
-   * (Re)Login at Spotify.
- * Pushup menu provides
-   * Login
-   * Refresh Token
+   * (Re)Login at Spotify. Should not be necessary.
+ * Click on a Device provides:
+   * Set as Current
  * Context Menu on a Device provides:
    * Set as Current
-   * Connect using Authorization Blob 
+
 

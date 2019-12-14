@@ -205,7 +205,17 @@ Page {
         if(i > 1)
             i = 0
         _itemClass = i
-        app.current_item_classes.artist = i
+        app.settings.currentItemClassArtist = i
+        refresh()
+    }
+
+    function prevItemClass() {
+        var i = _itemClass
+        i--
+        if(i < 0)
+            i = 1
+        _itemClass = i
+        app.settings.currentItemClassArtist = i
         refresh()
     }
 
@@ -268,7 +278,7 @@ Page {
                                     {offset: searchModel.count, limit: cursorHelper.limit},
                                     function(error, data) {
                 if(data) {
-                    console.log("number of ArtistAlbums: " + data.items.length)
+                    //console.log("number of ArtistAlbums: " + data.items.length)
                     artistAlbums = data
                     cursorHelper.offset = data.offset
                     cursorHelper.total = data.total
@@ -284,7 +294,7 @@ Page {
                                             {offset: searchModel.count, limit: cursorHelper.limit},
                                             function(error, data) {
                 if(data) {
-                    console.log("number of ArtistRelatedArtists: " + data.artists.length)
+                    //console.log("number of ArtistRelatedArtists: " + data.artists.length)
                     relatedArtists = data
                     cursorHelper.offset = 0 // no cursor, always 20
                     cursorHelper.total = data.artists.length
