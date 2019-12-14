@@ -82,8 +82,7 @@ MainView {
 
     PlayerArea {
         id: playerArea
-        visible: pageStack.currentPage 
-                 ? pageStack.currentPage.objectName !== "PlayingPage" : true
+        visible: pageStack.currentPage.objectName !== "PlayingPage"
         height: visible ? itemSizeLarge : 0
         anchors {
             bottom: parent.bottom
@@ -91,10 +90,10 @@ MainView {
         }
         width: parent.width - 2*paddingSmall
         x: paddingSmall
-        showPlayingPageButton: pageStack.currentPage 
-                               && pageStack.currentPage.hasOwnProperty("fromPlaying") 
-                               ? !pageStack.currentPage.fromPlaying 
-                               : true
+        allowGoPlayingPage: pageStack.currentPage.hasOwnProperty("fromPlaying") 
+                            ? !pageStack.currentPage.fromPlaying 
+                            : true
+        showHomeButton: pageStack.currentPage.objectName !== "MenuPage"
     }
 
     function loadFirstPage() {
@@ -265,6 +264,11 @@ MainView {
             //if(playing_as_attached_page.value)
             //    pageStack.pushAttached(playingPage)
         }
+    }
+
+    function goHome() {
+        while(pageStack.currentPage.objectName !== "MenuPage")
+            pageStack.pop()
     }
 
     Component.onCompleted: {

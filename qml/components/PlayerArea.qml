@@ -11,7 +11,8 @@ Item {
 
     property string defaultImageSource : "image://theme/stock_music"
 
-    property bool showPlayingPageButton: true 
+    property bool allowGoPlayingPage: true 
+    property bool showHomeButton: true 
 
     width: parent.width
     height: app.itemSizeLarge
@@ -55,6 +56,13 @@ Item {
                     width: height
                     height: parent.height //* 0.9
                     fillMode: Image.PreserveAspectFit
+                }
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                      if(allowGoPlayingPage)
+                          app.doSelectedMenuItem(Util.HutspotMenuItem.ShowPlayingPage)
+                    }
                 }
             }
 
@@ -108,18 +116,18 @@ Item {
                 }
             }
 
-            // menu
             Button {
                 id: playingButton
-                visible: showPlayingPageButton
                 width: row.itemWidth * 0.8
                 height: width
+                visible: showHomeButton
                 color: "white"
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
                 action: Action {
-                    iconName: "go-next"
-                    onTriggered: app.doSelectedMenuItem(Util.HutspotMenuItem.ShowPlayingPage)
+                    //iconName: "go-next"
+                    iconName: "home"
+                    onTriggered: app.goHome()
                 }
             }
 

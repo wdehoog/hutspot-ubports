@@ -15,6 +15,8 @@ import "../Util.js" as Util
 
 Page {
 
+    objectName: "MenuPage"
+
     property bool popOnExit: true
     property int selectedMenuItem: -1
     property int _currentIndex: -1

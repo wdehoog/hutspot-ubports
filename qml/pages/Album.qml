@@ -111,8 +111,7 @@ Page {
         model: searchModel
 
         width: parent.width
-        height: parent.height // - app.dockedPanel.visibleSize
-        //clip: app.dockedPanel.expanded
+        height: parent.height 
 
         header: headerComponent
 
@@ -120,7 +119,6 @@ Page {
             id: listItem
             width: parent.width - 2 * app.paddingMedium
             x: app.paddingMedium
-            //contentHeight: Theme.itemSizeExtraSmall
 
             AlbumTrackListItem {
                 id: albumTrackListItem
