@@ -62,24 +62,26 @@ Item {
         var metadata = {}
 
         if(item == null) {
-            coverArtUrl = "";
+            coverArtUrl = ""
+            artistsString = ""
             mprisPlayer.metadata = metadata
+        } else {
+            //console.log("onItemChanged")
+            artistsString = Util.createItemsString(item.artists, qsTr("no artist known"))
+            if (item.album && item.album.images && item.album.images.length > 0)
+                coverArtUrl = item.album.images[0].url;
+            else coverArtUrl = "";
+
+            // Album, ArtUrl, Artist, AlbumArtist, Composer, Length, TrackNumber, Title
+            metadata[Mpris.metadataToString(Mpris.Title)] = item.name
+            metadata[Mpris.metadataToString(Mpris.Artist)] = artistsString
+            metadata[Mpris.metadataToString(Mpris.ArtUrl)] = coverArtUrl
+            metadata[Mpris.metadataToString(Mpris.Length)] = item.duration_ms * 1000
+            if(item.album && item.album.name)
+                metadata[Mpris.metadataToString(Mpris.Album)] = item.album.name
+            //console.log("  new metadata: " + JSON.stringify(metadata))
         }
 
-        //console.log("onItemChanged")
-        artistsString = Util.createItemsString(item.artists, qsTr("no artist known"))
-        if (item.album && item.album.images && item.album.images.length > 0)
-            coverArtUrl = item.album.images[0].url;
-        else coverArtUrl = "";
-
-        // Album, ArtUrl, Artist, AlbumArtist, Composer, Length, TrackNumber, Title
-        metadata[Mpris.metadataToString(Mpris.Title)] = item.name
-        metadata[Mpris.metadataToString(Mpris.Artist)] = artistsString
-        metadata[Mpris.metadataToString(Mpris.ArtUrl)] = coverArtUrl
-        metadata[Mpris.metadataToString(Mpris.Length)] = item.duration_ms * 1000
-        if(item.album && item.album.name)
-            metadata[Mpris.metadataToString(Mpris.Album)] = item.album.name
-        //console.log("  new metadata: " + JSON.stringify(metadata))
         mprisPlayer.metadata = metadata
     }
 
