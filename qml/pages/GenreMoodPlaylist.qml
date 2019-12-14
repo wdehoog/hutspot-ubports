@@ -39,6 +39,7 @@ Page {
     SearchResultContextMenu {
         id: contextMenu
         property var model
+        property var contextType: -1
     }
 
     ListView {

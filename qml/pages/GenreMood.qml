@@ -106,7 +106,7 @@ Page {
         Spotify.getCategories({offset: searchModel.count, limit: cursorHelper.limit}, function(error, data) {
             if(data) {
                 try {
-                    console.log("number of Categories: " + data.categories.items.length)
+                    //console.log("number of Categories: " + data.categories.items.length)
                     cursorHelper.offset = data.categories.offset
                     cursorHelper.total = data.categories.total
                     for(i=0;i<data.categories.items.length;i++) {

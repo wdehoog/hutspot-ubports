@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-14 08:43+0000\n"
+"POT-Creation-Date: 2019-12-14 08:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -338,28 +338,28 @@ msgstr ""
 msgid "unrestricted"
 msgstr ""
 
-#: ../qml/pages/Search.qml:53 ../qml/pages/Search.qml:83
+#: ../qml/pages/Search.qml:53 ../qml/pages/Search.qml:84
 #: ../qml/pages/Menu.qml:79
 msgid "Search"
 msgstr ""
 
-#: ../qml/pages/Search.qml:125
+#: ../qml/pages/Search.qml:126
 msgid "In"
 msgstr ""
 
-#: ../qml/pages/Search.qml:144
+#: ../qml/pages/Search.qml:145
 msgid "Albums"
 msgstr ""
 
-#: ../qml/pages/Search.qml:145
+#: ../qml/pages/Search.qml:146
 msgid "Artists"
 msgstr ""
 
-#: ../qml/pages/Search.qml:146 ../qml/pages/Library.qml:23
+#: ../qml/pages/Search.qml:147 ../qml/pages/Library.qml:23
 msgid "Playlists"
 msgstr ""
 
-#: ../qml/pages/Search.qml:147
+#: ../qml/pages/Search.qml:148
 msgid "Tracks"
 msgstr ""
 
