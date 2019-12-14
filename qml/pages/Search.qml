@@ -170,6 +170,7 @@ Page {
             SearchResultListItem {
                 id: searchResultListItem
                 dataModel: model
+                onToggleFavorite: app.handleToggleFavorite(model)
             }
 
             onPressAndHold: {

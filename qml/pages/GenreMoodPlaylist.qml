@@ -58,6 +58,9 @@ Page {
 
             SearchResultListItem {
                 dataModel: model
+                onToggleFavorite: app.toggleFollowPlaylist(model.item, model.following, function(followed) {
+                                      model.following = followed
+                                  })
             }
 
             onPressAndHold: {

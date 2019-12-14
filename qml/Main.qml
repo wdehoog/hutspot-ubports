@@ -759,6 +759,29 @@ MainView {
              })
     }
 
+    function handleToggleFavorite(model) {
+        switch(model.type) {
+        case 0:
+            app.toggleSavedAlbum(model.item, model.saved, function(saved) {
+                model.saved = saved
+            })
+            break;
+        case 1:
+            app.toggleFollowArtist(model.item, model.following, function(followed) {
+                model.following = followed
+            })
+            break;
+        case 2:
+            app.toggleFollowPlaylist(model.item, model.following, function(followed) {
+                model.following = followed
+            })
+            break;
+        case 3:
+            app.toggleSavedTrack(model)
+            break;
+        }
+    }
+
     function loadAlbum(album, fromPlaying) {
         // can be a simple album or context only so get the complete one
         Spotify.getObject(album.href, function(error, data) {

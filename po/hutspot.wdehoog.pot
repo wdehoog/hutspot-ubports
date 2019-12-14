@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-14 09:01+0000\n"
+"POT-Creation-Date: 2019-12-14 11:11+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,7 +47,7 @@ msgstr ""
 
 #: ../qml/components/CreatePlaylist.qml:34
 #: ../qml/components/PlaylistPicker.qml:36
-#: ../qml/components/ArtistPicker.qml:35 ../qml/Main.qml:843
+#: ../qml/components/ArtistPicker.qml:35 ../qml/Main.qml:865
 msgid "Cancel"
 msgstr ""
 
@@ -102,51 +102,51 @@ msgstr ""
 msgid "Failed to Refresh Authorization Token"
 msgstr ""
 
-#: ../qml/Main.qml:423
+#: ../qml/Main.qml:422
 msgid "Edit Playlist Details"
 msgstr ""
 
-#: ../qml/Main.qml:450
+#: ../qml/Main.qml:449
 msgid "Select a Playlist"
 msgstr ""
 
-#: ../qml/Main.qml:472
+#: ../qml/Main.qml:471
 msgid "Please confirm removing<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:620
+#: ../qml/Main.qml:619
 msgid "Please confirm to unfollow playlist:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:646
+#: ../qml/Main.qml:645
 msgid "Please confirm to unfollow artist:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:677
+#: ../qml/Main.qml:676
 msgid "Please confirm to un-save album:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:703
+#: ../qml/Main.qml:702
 msgid "Please confirm to un-save track:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:775
+#: ../qml/Main.qml:797
 msgid "View an Artist"
 msgstr ""
 
-#: ../qml/Main.qml:799 ../qml/Main.qml:851
+#: ../qml/Main.qml:821 ../qml/Main.qml:873
 msgid "Ok"
 msgstr ""
 
-#: ../qml/Main.qml:815
+#: ../qml/Main.qml:837
 msgid "Error"
 msgstr ""
 
-#: ../qml/Main.qml:869
+#: ../qml/Main.qml:891
 msgid "Confirm"
 msgstr ""
 
-#: ../qml/Main.qml:889
+#: ../qml/Main.qml:911
 msgid "Failed to transfer to"
 msgstr ""
 
