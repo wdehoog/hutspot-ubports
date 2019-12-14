@@ -44,6 +44,12 @@ Page {
         id: searchModel
     }
 
+    SearchResultContextMenu {
+        id: contextMenu
+        property var model
+        property var contextType: -1
+    }
+
     ListView {
         id: listView
         model: searchModel
@@ -61,6 +67,11 @@ Page {
                 id: searchResultListItem
                 dataModel: model
                 onToggleFavorite: app.handleToggleFavorite(model)
+            }
+
+            onPressAndHold: {
+                contextMenu.model = model
+                PopupUtils.open(contextMenu, listItem)
             }
 
             onClicked: {
