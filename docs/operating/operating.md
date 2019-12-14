@@ -19,6 +19,7 @@ Various actions can be triggered by clicking on an item or using the context men
 
 
 ### Various
+ * Player Area: at the bottom from most pages is the Player Area which allows you to play/pause the music. There is a Home button to go back to the main menu and when you click on the image you open the Playing page.
  * Device Page: A list is shown of known play devices. The current one is highlighted. Using the context menu (long press) you select another device.
  * The Playing page shows what is currently playing and contains various player controls.
 

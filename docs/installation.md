@@ -10,7 +10,7 @@ Hutspot binaries are currently only available on [github](https://github.com/wde
 Download the click package and install it on your phone. For example:
 
 ```
-pkcon install-local --allow-untrusted hutspot.wdehoog_0.0.2_armhf.click
+pkcon install-local --allow-untrusted hutspot.wdehoog_0.4_armhf.click
 ```
 
 ### Uninstall
