@@ -20,7 +20,7 @@ import "pages"
 MainView {
     id: app
     
-    readonly property string version: "0.4"
+    readonly property string version: "0.4.1"
 
     readonly property string app_name: "hutspot"
     readonly property string app_version: version
@@ -193,6 +193,7 @@ MainView {
                     function() {
                         while(pageStack.currentPage.objectName !== "PlayingPage")
                             pageStack.pop()
+                        _playingPageOnPageStack = false
                     }
                 )
             }
@@ -267,8 +268,9 @@ MainView {
     }
 
     function goHome() {
-        while(pageStack.currentPage.objectName !== "MenuPage")
+        while(pageStack.currentPage.objectName !== "MenuPage") 
             pageStack.pop()
+        _playingPageOnPageStack = false
     }
 
     Component.onCompleted: {
