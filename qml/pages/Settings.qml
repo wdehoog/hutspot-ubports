@@ -101,12 +101,34 @@ Page {
                     Component.onCompleted: currentIndex = app.settings.authUsingBrowser ? 1 : 0 
                     onActivated: {
                         app.settings.authUsingBrowser = currentIndex == 1
-                        console.log("new authUsingBrowser: " + app.settings.authUsingBrowser);
+                        console.log("new authUsingBrowser: " + app.settings.authUsingBrowser)
                     }
                     model: [
                         i18n.tr("Internal Webview"),
                         i18n.tr("External Browser")
                     ]
+                }
+            }
+
+            Item {
+                width: parent.width
+                height: childrenRect.height
+                Label {
+                    id: searchHistoryMaxSizeLabel
+                    anchors.left: parent.left
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: i18n.tr("Number of Search History Items to save")
+                }
+                TextField {
+                    id: searchHistoryMaxSize
+                    anchors.right: parent.right
+                    anchors.verticalCenter: parent.verticalCenter
+                    width: parent.width - searchHistoryMaxSizeLabel.width - app.paddingLarge
+
+                    maximumLength: 4
+                    validator: IntValidator{bottom: 1; top: 500;}
+                    text: app.settings.searchHistoryMaxSize
+                    onAccepted: app.settings.searchHistoryMaxSize = parseInt(text)
                 }
             }
 

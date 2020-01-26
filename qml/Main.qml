@@ -1108,7 +1108,7 @@ MainView {
         property var history: []
 
         property var searchHistory: "[]"
-        property int searchHistoryMaxSize: 10
+        property int searchHistoryMaxSize: 50
 
         property string deviceId: ""
         property string deviceName: ""

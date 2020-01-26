@@ -15,4 +15,11 @@ Spotify web-api search supports the '*' wildcard (max. 2). It does not seem to s
 
 Hutspot will append a '*' to the search string if not yet present to make searching easier but what if you want to search for a specific string? Then you don't want the wildcard to be added. So only if no wildcard is present in the query and no dash and no quote wildcard character is added at the end.
 
+### Field Filters
+Spotify web-api search supports the use of field filters. Hutspot checks for *album*, *artist*, *genre*, *track* and *year*. If one of these filters is present no wildcard will be added.
+An example of using these field filters:
+```
+artist:shosta* album:symph*
+```
+
 For more information on query possibilities and syntax see the [Spotify Web-API Reference](https://developer.spotify.com/documentation/web-api/reference/search/search/).

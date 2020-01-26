@@ -71,6 +71,7 @@ function _buildUrl(url, parameters) {
 function _performRequest(requestData, callback) {
   var req = new XMLHttpRequest();
     var type = requestData.type || 'GET';
+    //console.log(_buildUrl(requestData.url, requestData.params));
     req.open(type, _buildUrl(requestData.url, requestData.params));
     if (_accessToken) {
       req.setRequestHeader('Authorization', 'Bearer ' + _accessToken);

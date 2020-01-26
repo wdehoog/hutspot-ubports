@@ -289,6 +289,7 @@ function updateSearchHistory(searchString, search_history, maxSize) {
 
 function processSearchString(searchString) {
     // if no wildcard present and no dash and no quote
+    // and no field filter
     // we add a wildcard at the end
     var canAdd = true
     var symbols = "*-'\""
@@ -299,6 +300,17 @@ function processSearchString(searchString) {
             break
         }
     }
+    if(searchString.indexOf("album:") > -1)
+        canAdd = false
+    if(searchString.indexOf("artist:") > -1)
+        canAdd = false
+    if(searchString.indexOf("genre:") > -1)
+        canAdd = false
+    if(searchString.indexOf("track:") > -1)
+        canAdd = false
+    if(searchString.indexOf("year:") > -1)
+        canAdd = false
+
     if(canAdd)
         searchString = searchString + '*'
     return searchString
