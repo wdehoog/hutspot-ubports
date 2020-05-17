@@ -175,6 +175,9 @@ MainView {
         case Util.HutspotMenuItem.ShowHelp:
             Qt.openUrlExternally("https://wdehoog.github.io/hutspot-ubports")
             break;
+        case Util.HutspotMenuItem.ShowShowPage:
+            pageStack.push(Qt.resolvedUrl("pages/Show.qml"))
+            break;
         }
     }
 
@@ -226,6 +229,9 @@ MainView {
             //pageStack.clear()
             page = pageStack.push(Qt.resolvedUrl("pages/Recommended.qml"))
             break;
+        case 'ShowPage':
+            page = pageStack.push(Qt.resolvedUrl("pages/Show.qml"))
+            break;
         default:
             return
         }
@@ -234,8 +240,6 @@ MainView {
         //firstPage.value = pageName
     }
 
-    //
-    // 0: Album, 1: Artist, 2: Playlist
     function pushPage(type, options, fromPlaying) {
         var pageUrl = undefined
         switch(type) {
@@ -250,6 +254,9 @@ MainView {
             break
         case Util.HutspotPage.GenreMoodPlaylist:
             pageUrl = "pages/GenreMoodPlaylist.qml"
+            break
+        case Util.HutspotPage.Show:
+            pageUrl = "pages/Show.qml"
             break
         }
 

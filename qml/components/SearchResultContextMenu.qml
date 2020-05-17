@@ -99,8 +99,12 @@ Component {
             case Util.SpotifyItemType.Playlist:
                 app.pushPage(Util.HutspotPage.Playlist, {playlist: model.item})
                 break
+            case Util.SpotifyItemType.Show:
+                app.pushPage(Util.HutspotPage.Show, {show: model.item})
+                break
             }
         }
+
         Rectangle {
             anchors.fill: parent
             color: app.popupBackgroundColor

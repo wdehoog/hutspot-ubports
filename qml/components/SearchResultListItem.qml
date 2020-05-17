@@ -126,6 +126,8 @@ Rectangle {
         switch(dataModel.type) {
         case Util.SpotifyItemType.Album:
         case Util.SpotifyItemType.Artist:
+        case Util.SpotifyItemType.Show:
+        case Util.SpotifyItemType.Episode:
         case Util.SpotifyItemType.Playlist:
             if(dataModel.item.images)
                 images = dataModel.item.images
@@ -188,6 +190,14 @@ Rectangle {
                     sb.append(dataModel.item.album.name)
             }
             break
+        case Util.SpotifyItemType.Episode:
+            if(dataModel.item.description)
+                sb.append(dataModel.item.description)
+            break
+        case Util.SpotifyItemType.Show:
+            if(dataModel.item.description)
+                sb.append(dataModel.item.description)
+            break 
         }
         return sb.toString(", ")
     }
@@ -216,6 +226,19 @@ Rectangle {
                 sb.append(qsTr("played at ") + Util.getPlayedAtText(dataModel.played_at))
             if(contextType === Util.SpotifyItemType.Playlist && dataModel.added_at)
                 sb.append("@" + Util.getAddedAtText(dataModel.added_at)) // qsTr("added on ")
+            break
+        case Util.SpotifyItemType.Episode:
+            if(dataModel.item.duration_ms)
+                sb.append(Util.getDurationString(dataModel.item.duration_ms))
+            if(dataModel.item.release_date)
+                sb.append(Util.getReleaseDateText(dataModel.item.release_date))
+            if(dataModel.item.language)
+                sb.append(dataModel.item.language)
+            break
+        case Util.SpotifyItemType.Show:
+            if(dataModel.item.languages)
+                sb.append(Util.createItemsString(dataModel.item.languages, ""))
+            break
         }
         return sb.toString(", ")
     }

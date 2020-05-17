@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-26 22:03+0000\n"
+"POT-Creation-Date: 2020-05-17 21:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,7 +47,7 @@ msgstr ""
 
 #: ../qml/components/CreatePlaylist.qml:34
 #: ../qml/components/PlaylistPicker.qml:36
-#: ../qml/components/ArtistPicker.qml:35 ../qml/Main.qml:871
+#: ../qml/components/ArtistPicker.qml:35 ../qml/Main.qml:878
 msgid "Cancel"
 msgstr ""
 
@@ -93,60 +93,60 @@ msgstr ""
 msgid "Select Artist"
 msgstr ""
 
-#: ../qml/Main.qml:192
+#: ../qml/Main.qml:195
 msgid ""
 "Playing page is already loaded. Go back to it and discard the pages on top?"
 msgstr ""
 
-#: ../qml/Main.qml:355
+#: ../qml/Main.qml:362
 msgid "Failed to Refresh Authorization Token"
 msgstr ""
 
-#: ../qml/Main.qml:428
+#: ../qml/Main.qml:435
 msgid "Edit Playlist Details"
 msgstr ""
 
-#: ../qml/Main.qml:455
+#: ../qml/Main.qml:462
 msgid "Select a Playlist"
 msgstr ""
 
-#: ../qml/Main.qml:477
+#: ../qml/Main.qml:484
 msgid "Please confirm removing<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:625
+#: ../qml/Main.qml:632
 msgid "Please confirm to unfollow playlist:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:651
+#: ../qml/Main.qml:658
 msgid "Please confirm to unfollow artist:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:682
+#: ../qml/Main.qml:689
 msgid "Please confirm to un-save album:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:708
+#: ../qml/Main.qml:715
 msgid "Please confirm to un-save track:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:803
+#: ../qml/Main.qml:810
 msgid "View an Artist"
 msgstr ""
 
-#: ../qml/Main.qml:827 ../qml/Main.qml:879
+#: ../qml/Main.qml:834 ../qml/Main.qml:886
 msgid "Ok"
 msgstr ""
 
-#: ../qml/Main.qml:843
+#: ../qml/Main.qml:850
 msgid "Error"
 msgstr ""
 
-#: ../qml/Main.qml:897
+#: ../qml/Main.qml:904
 msgid "Confirm"
 msgstr ""
 
-#: ../qml/Main.qml:917
+#: ../qml/Main.qml:924
 msgid "Failed to transfer to"
 msgstr ""
 
@@ -342,7 +342,7 @@ msgstr ""
 msgid "unrestricted"
 msgstr ""
 
-#: ../qml/pages/Search.qml:53 ../qml/pages/Search.qml:83
+#: ../qml/pages/Search.qml:51 ../qml/pages/Search.qml:81
 #: ../qml/pages/Menu.qml:81
 msgid "Search"
 msgstr ""
@@ -365,6 +365,18 @@ msgstr ""
 
 #: ../qml/pages/Search.qml:147
 msgid "Tracks"
+msgstr ""
+
+#: ../qml/pages/Search.qml:148
+msgid "Episodes"
+msgstr ""
+
+#: ../qml/pages/Search.qml:149
+msgid "Shows"
+msgstr ""
+
+#: ../qml/pages/Show.qml:34
+msgid "Show"
 msgstr ""
 
 #: ../qml/pages/Library.qml:22

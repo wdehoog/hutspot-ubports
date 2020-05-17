@@ -1436,6 +1436,13 @@ function getMyCurrentPlayingTrack(options, callback) {
   return _checkParamsAndPerformRequest(requestData, options, callback);
 };
 
+function getShow(showId, options, callback) {
+  var requestData = {
+    url: _baseUri + '/shows/' + showId
+  };
+  return _checkParamsAndPerformRequest(requestData, options, callback);
+};
+
 /**
  * Transfer playback to a new device and determine if it should start playing.
  * See [Transfer a User’s Playback](https://developer.spotify.com/web-api/transfer-a-users-playback/) on

@@ -51,6 +51,10 @@ function getPlayedAtText(playedAt) {
     return playedAt.split('T')[0]
 }
 
+function getReleaseDateText(releaseDate) {
+    return releaseDate.split('T')[0]
+}
+
 function getAddedAtText(addedAt) {
     return addedAt.split('T')[0]
 }
@@ -272,6 +276,7 @@ function updateSearchHistory(searchString, search_history, maxSize) {
 
     var sh = JSON.parse(search_history)
     var pos = sh.indexOf(searchString)
+    console.log("updateSearchHistory " + searchString + ": maxSize=" + maxSize + ", pos=" + pos)
     if(pos > -1) {
         // already in the list so reorder
         for(var i=pos;i>0;i--)
@@ -434,7 +439,9 @@ var SpotifyItemType = {
     Album: 0,
     Artist: 1,
     Playlist: 2,
-    Track: 3
+    Track: 3,
+    Episode: 4,
+    Show: 5
 }
 
 var HutspotMenuItem = {
@@ -449,7 +456,9 @@ var HutspotMenuItem = {
     ShowTopStuffPage: 8,
     ShowHistoryPage: 9,
     ShowRecommendedPage: 10,
-    ShowHelp: 11
+    ShowHelp: 11,
+    ShowShowPage: 12,
+    ShowEpisodePage: 13
 }
 
 var HutspotPage = {

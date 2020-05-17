@@ -35,12 +35,10 @@ Page {
 
     function reloadSearchHistoryModel() {
         searchHistoryModel.clear()
-        //app.settings.searchHistory = "[]"
         //console.log("reloadSearchHistoryModel: " + app.settings.searchHistory)
         var data = JSON.parse(app.settings.searchHistory)
-        for(var i=0;i<data.length;i++) {
+        for(var i=0;i<data.length;i++) 
             searchHistoryModel.append({query: data[i]})
-        }
     }
 
     ListModel {
@@ -50,7 +48,7 @@ Page {
 
     header: PageHeader {
         id: pHeader
-        title: i18n.tr("Search")
+        title: i18n.tr("Search") + " (" + searchModel.count + "/" + cursorHelper.total + ")"
         flickable: listView
     }
 
@@ -110,8 +108,10 @@ Page {
                             reloadSearchHistoryModel()
                         }
                         onActivated: {
-                            searchString = model.get(index).query.toLowerCase().trim()
-                            refresh()
+                            var selectedText = model.get(index).query
+                            editText = selectedText
+                            accepted()
+                            editText = selectedText // why is this needed?
                         }
                     }
                 }
@@ -144,7 +144,9 @@ Page {
                             i18n.tr("Albums"), 
                             i18n.tr("Artists"), 
                             i18n.tr("Playlists"), 
-                            i18n.tr("Tracks") 
+                            i18n.tr("Tracks"), 
+                            i18n.tr("Episodes"), 
+                            i18n.tr("Shows"), 
                         ]
                         onActivated: {
                           setItemClass(index)
@@ -165,7 +167,6 @@ Page {
             width: parent.width - 2*app.paddingMedium
             x: app.paddingMedium
             //height: searchResultListItem.height
-            //contentHeight: Theme.itemSizeLarge
 
             SearchResultListItem {
                 id: searchResultListItem
@@ -268,6 +269,10 @@ Page {
             types.push('playlist')
         else if(_itemClass === 3)
             types.push('track')
+        else if(_itemClass === 4)
+            types.push('episode')
+        else if(_itemClass === 5)
+            types.push('show')
 
         var options = {offset: searchModel.count, limit: cursorHelper.limit}
         if(app.settings.queryForMarket)
@@ -322,8 +327,35 @@ Page {
                         cursorHelper.total = data.tracks.total
                         app.loadTracksInModel(data, data.tracks.items.length, searchModel, function(data, i) {return data.tracks.items[i]})
                     }
+
+                    // episodes
+                    if(data.hasOwnProperty('episodes')) {
+                        cursorHelper.offset = data.episodes.offset
+                        cursorHelper.total = data.episodes.total
+                        for(i=0;i<data.episodes.items.length;i++) {
+                            searchModel.append({type: 4,
+                                                name: data.episodes.items[i].name,
+                                                item: data.episodes.items[i],
+                                                following: false,
+                                                saved: false})
+                        }
+                    }
+
+                    // shows
+                    if(data.hasOwnProperty('shows')) {
+                        cursorHelper.offset = data.shows.offset
+                        cursorHelper.total = data.shows.total
+                        for(i=0;i<data.shows.items.length;i++) {
+                            searchModel.append({type: 5,
+                                                name: data.shows.items[i].name,
+                                                item: data.shows.items[i],
+                                                following: false,
+                                                saved: false})
+                        }
+                    }
+
                 } catch (err) {
-                    console.log("Search.refresh error: " + err)
+                    console.log("Search.refresh exception: " + err)
                 }
             } else {
                 console.log("Search for: " + searchString + " returned no results.")
