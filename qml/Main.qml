@@ -847,10 +847,17 @@ MainView {
                 msg = text + ": " + error
         } else
             msg = text
-        _dialogTitle = i18n.tr("Error")      
-        _dialogText = msg      
+        _dialogTitle = i18n.tr("Error")
+        _dialogText = msg
         PopupUtils.open(msgDialog)
     }
+
+    function showMessageDialog(title, text) {
+        _dialogTitle = title
+        _dialogText = text      
+        PopupUtils.open(msgDialog)
+    }
+
 
     signal confirmAccepted()
     signal confirmRejected()
@@ -877,6 +884,7 @@ MainView {
             Button {
                 text: i18n.tr("Cancel")
                 color: theme.palette.normal.negative
+                visible: _dialogCancelButtonVisible
                 onClicked: {
                   PopupUtils.close(dialogue)
                   confirmRejected()  

@@ -87,9 +87,7 @@ Page {
                     return s
                 }
                 onFirstLabelClicked: secondLabelClicked()
-                //onSecondLabelClicked: app.loadArtist(show.artists)
-                onSecondLabelClicked: pageStack.push(descriptionDialog,
-                                          {"descr": show.description})
+                onSecondLabelClicked: showMessageDialog("Show Description", show.description)
                 onThirdLabelClicked: secondLabelClicked()
                 isFavorite: isShowSaved
                 onToggleFavorite: app.toggleSavedShow(show, isShowSaved, function(saved) {
@@ -126,8 +124,7 @@ Page {
             }
 
             //onClicked: app.controller.playTrackInContext(item, show)
-            onClicked: pageStack.push(descriptionDialog,
-                                      {"descr": item.description})
+            onClicked: showMessageDialog("Episode Description", item.description)
         }
 
         onAtYEndChanged: {
@@ -208,33 +205,6 @@ Page {
             }
             _loading = false
         })
-    }
-
-    Dialog {
-        id: descriptionDialog
-        property string descr: ""
-
-        // Note: could not get TextArea scrolling so added a Flickable
-        Flickable {
-            anchors.fill: parent
-            contentHeight: column.height
-
-            Column {
-                id: column
-                width: parent.width
-
-                PageHeader {
-                    title: qsTr("Description")
-                }
-
-                TextArea {
-                    id: descField
-                    width: parent.width
-                    readOnly: true
-                    text: descriptionDialog.descr
-                }
-            }
-        }
     }
 
     Connections {

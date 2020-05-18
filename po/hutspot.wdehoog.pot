@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-17 21:23+0000\n"
+"POT-Creation-Date: 2020-05-18 21:24+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,7 +47,7 @@ msgstr ""
 
 #: ../qml/components/CreatePlaylist.qml:34
 #: ../qml/components/PlaylistPicker.qml:36
-#: ../qml/components/ArtistPicker.qml:35 ../qml/Main.qml:878
+#: ../qml/components/ArtistPicker.qml:35 ../qml/Main.qml:885
 msgid "Cancel"
 msgstr ""
 
@@ -134,7 +134,7 @@ msgstr ""
 msgid "View an Artist"
 msgstr ""
 
-#: ../qml/Main.qml:834 ../qml/Main.qml:886
+#: ../qml/Main.qml:834 ../qml/Main.qml:894
 msgid "Ok"
 msgstr ""
 
@@ -142,11 +142,11 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: ../qml/Main.qml:904
+#: ../qml/Main.qml:912
 msgid "Confirm"
 msgstr ""
 
-#: ../qml/Main.qml:924
+#: ../qml/Main.qml:932
 msgid "Failed to transfer to"
 msgstr ""
 
