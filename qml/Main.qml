@@ -19,7 +19,7 @@ import SystemUtil 1.0
 
 import "Spotify.js" as Spotify
 import "Util.js" as Util
-import "UBports.js" as UBports
+import "UT.js" as UT
 
 import "components"
 import "pages"
@@ -33,7 +33,7 @@ MainView {
     readonly property string app_version: version
     readonly property string app_full_name: "hutspot.wdehoog"
     readonly property string app_id: app_full_name + "_" + app_name + "_" + app_version
-    readonly property string app_id_dbus: UBports.createAppIdDbus(app_id)
+    readonly property string app_id_dbus: UT.createAppIdDbus(app_id)
 
     property alias settings: settings
 
@@ -180,7 +180,7 @@ MainView {
             pageStack.push(Qt.resolvedUrl("pages/About.qml"))
             break;
         case Util.HutspotMenuItem.ShowHelp:
-            Qt.openUrlExternally("https://wdehoog.github.io/hutspot-ubports")
+            Qt.openUrlExternally("https://wdehoog.github.io/hutspot-ut")
             break;
         case Util.HutspotMenuItem.ShowShowPage:
             pageStack.push(Qt.resolvedUrl("pages/Show.qml"))

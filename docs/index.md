@@ -4,7 +4,7 @@ nav_order: 1
 layout: default
 ---
 #  Welcome to the Hutspot Documentation
-Hutspot is a Spotify controller for UBports. It uses the [Spotify web-api](https://developer.spotify.com/documentation/web-api/). Playing is done on an 'connect' device. It requires a premium Spotify account. 
+Hutspot is a Spotify controller for Ubuntu Touch. It uses the [Spotify web-api](https://developer.spotify.com/documentation/web-api/). Playing is done on an 'connect' device. It requires a premium Spotify account. 
 
 Main features:
 

@@ -77,7 +77,7 @@ Page {
 
                     Text {
                         horizontalAlignment: Text.AlignHCenter
-                        text: i18n.tr("Spotify controller for UBports")
+                        text: i18n.tr("Spotify controller for Ubuntu Touch")
                         width: parent.width
                         wrapMode: Text.WordWrap
                     }

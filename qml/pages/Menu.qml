@@ -32,7 +32,7 @@ Page {
             Action {
                 iconName: "help"
                 text: i18n.tr("Help")
-                onTriggered: Qt.openUrlExternally("https://wdehoog.github.io/hutspot-ubports")
+                onTriggered: Qt.openUrlExternally("https://wdehoog.github.io/hutspot-ut")
             },
             Action {
                 iconName: "info"
