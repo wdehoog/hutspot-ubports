@@ -326,6 +326,35 @@ function containsMySavedAlbums(albumIds, options, callback) {
   return _checkParamsAndPerformRequest(requestData, options, callback);
 };
 
+function getMySavedShows(options, callback) {
+  var requestData = {
+    url: _baseUri + '/me/shows'
+  };
+  return _checkParamsAndPerformRequest(requestData, options, callback);
+};
+
+function addToMySavedShows(showIds, options, callback) {
+  var requestData = {
+    url: _baseUri + '/me/shows',
+    type: 'PUT',
+    params: {
+         ids: showIds.join(',')
+    }
+  };
+  return _checkParamsAndPerformRequest(requestData, options, callback);
+};
+
+function removeFromMySavedShows(showIds, options, callback) {
+  var requestData = {
+    url: _baseUri + '/me/shows',
+    type: 'DELETE',
+    params: {
+         ids: showIds.join(',')
+    }
+  };
+  return _checkParamsAndPerformRequest(requestData, options, callback);
+};
+
 /**
  * Get the current user’s top artists based on calculated affinity.
  * See [Get a User’s Top Artists](https://developer.spotify.com/web-api/get-users-top-artists-and-tracks/) on

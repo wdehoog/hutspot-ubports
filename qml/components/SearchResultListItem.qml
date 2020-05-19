@@ -1,7 +1,6 @@
 /**
  * Hutspot. 
- * Copyright (C) 2018 Willem-Jan de Hoog
- * Copyright (C) 2018 Maciej Janiszewski
+ * Copyright (C) 2020 Willem-Jan de Hoog
  *
  * License: MIT
  */

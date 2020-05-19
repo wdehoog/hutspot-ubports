@@ -23,6 +23,7 @@ Page {
             case 1: return i18n.tr("Playlists")
             case 2: return i18n.tr("Saved Tracks")
             case 3: return i18n.tr("Followed Artists")
+            case 4: return i18n.tr("Saved Shows")
             }
         }
         trailingActionBar.actions: [
@@ -90,6 +91,9 @@ Page {
                 case 3:
                     app.pushPage(Util.HutspotPage.Album, {album: item.album})
                     break;
+                case 5:
+                    app.pushPage(Util.HutspotPage.Show, {show: item})
+                    break;
                 }
             }
         }
@@ -106,53 +110,21 @@ Page {
         anchors.right: parent.right
     }
 
-    // when the page is on the stack but not on top a refresh can wait
-    //property bool _needsRefresh: false
-
-    /*Connections {
-        target: app
-
-        onPlaylistEvent: {
-            if(_itemClass !== 1)
-                return
-            switch(event.type) {
-            case Util.PlaylistEventType.AddedTrack:
-            case Util.PlaylistEventType.ChangedDetails:
-            case Util.PlaylistEventType.RemovedTrack:
-            case Util.PlaylistEventType.ReplacedAllTracks:
-                // check if the playlist is in the current list if so trigger a refresh
-                var i = Util.doesListModelContain(searchModel, Spotify.ItemType.Playlist, event.playlistId)
-                if(i >= 0) {
-                    if(libraryPage.status === PageStatus.Active)
-                        refresh()
-                    else
-                        _needsRefresh = true
-                }
-                break
-             case Util.PlaylistEventType.CreatedPlaylist:
-                 if(libraryPage.status === PageStatus.Active)
-                     refresh()
-                 else
-                     _needsRefresh = true
-                 break
-            }
-        }
-    }*/
-
     property var savedAlbums
     property var userPlaylists
     property var savedTracks
     property var followedArtists
-    // 0: Saved Albums, 1: User Playlists, 2: Saved Tracks, 3: Followed Artists
+    property var savedShows
+
     property int _itemClass: (app.settings.currentItemClassLibrary >= 0
-                              && app.settings.currentItemClassLibrary <= 3)
+                              && app.settings.currentItemClassLibrary <= 4)
                              ? app.settings.currentItemClassLibrary
                              : 0
 
     function nextItemClass() {
         var i = _itemClass
         i++
-        if(i > 3)
+        if(i > 4)
             i = 0
         _itemClass = i
         app.settings.currentItemClassLibrary = i
@@ -164,7 +136,7 @@ Page {
         var i = _itemClass
         i--
         if(i < 0)
-            i = 3
+            i = 4
         _itemClass = i
         app.settings.currentItemClassLibrary = i
         refreshDirection = 0
@@ -203,37 +175,46 @@ Page {
         else if(savedTracks)
             count += savedTracks.items.length
         else if(followedArtists)
-            count += followedArtists.artists.items
+            count += followedArtists.artists.items.length
+        else if(savedShows)
+            count += savedShows.items.length
         if(count < cursorHelper.total)
             append()
 
         // add data
         if(savedAlbums)
             for(i=0;i<savedAlbums.items.length;i++)
-                addData({type: 0, stype: 0,
+                addData({type: 0,
                          name: savedAlbums.items[i].album.name,
                          item: savedAlbums.items[i].album,
                          following: false, saved: true})
         if(userPlaylists)
             for(i=0;i<userPlaylists.items.length;i++) {
-                addData({type: 2, stype: 2,
+                addData({type: 2,
                          name: userPlaylists.items[i].name,
                          item: userPlaylists.items[i],
                          following: true, saved: false})
             }
         if(savedTracks)
             for(i=0;i<savedTracks.items.length;i++) {
-                addData({type: 3, stype: 4,
+                addData({type: 3,
                          name: savedTracks.items[i].track.name,
                          item: savedTracks.items[i].track,
                          following: true, saved: true})
             }
         if(followedArtists)
             for(i=0;i<followedArtists.artists.items.length;i++) {
-                addData({type: 1, stype: 1,
+                addData({type: 1,
                          name: followedArtists.artists.items[i].name,
                          item: followedArtists.artists.items[i],
                          following: true, saved: false})
+            }
+        if(savedShows)
+            for(i=0;i<savedShows.items.length;i++) {
+                addData({type: 5,
+                         name: savedShows.items[i].show.name,
+                         item: savedShows.items[i].show,
+                         following: false, saved: true})
             }
     }
 
@@ -246,6 +227,7 @@ Page {
         userPlaylists = undefined
         savedTracks = undefined
         followedArtists = undefined
+        savedShows = undefined
         append()
     }
 
@@ -314,6 +296,19 @@ Page {
                     cursorHelper.update(Util.loadCursor(data.artists, Util.CursorType.FollowedArtists))
                 } else
                     console.log("No Data for getFollowedArtists")
+                loadData()
+                _loading = false
+            })
+            break
+        case 4:
+            Spotify.getMySavedShows({offset: searchModel.count, limit: cursorHelper.limit}, function(error, data) {
+                if(data) {
+                    console.log("number of SavedShows: " + data.items.length)
+                    savedShows = data
+                    cursorHelper.offset = data.offset
+                    cursorHelper.total = data.total
+                } else
+                    console.log("No Data for getMySavedShows")
                 loadData()
                 _loading = false
             })

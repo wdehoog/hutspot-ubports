@@ -1,3 +1,10 @@
+/**
+ * Hutspot. 
+ * Copyright (C) 2020 Willem-Jan de Hoog
+ *
+ * License: MIT
+ */
+
 import QtQuick 2.7
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
@@ -720,6 +727,32 @@ MainView {
             _unSaveTrack(track, callback)
     }
 
+    function saveShow(show, callback) {
+        Spotify.addToMySavedShows([show.id], function(error, data) {
+            callback(error, data)
+            var event = new Util.FavoriteEvent(Util.SpotifyItemType.Show, show.id, show.uri, true)
+            favoriteEvent(event)
+        })
+    }
+
+    function _unSaveShow(show, callback) {
+        Spotify.removeFromMySavedShow([show.id], function(error, data) {
+            callback(error, data)
+            var event = new Util.FavoriteEvent(Util.SpotifyItemType.Show, show.id, show.uri, false)
+            favoriteEvent(event)
+        })
+    }
+
+    function unSaveShow(track, callback) {
+        if(settings.confirmUnFollowSave) {
+            app.showConfirmDialog(i18n.tr("Please confirm to un-save Show:<br><br><b>" + show.name + "</b>"),
+                                  function() {
+                _unSaveShow(track, callback)
+            })
+        } else
+            _unSaveShow(track, callback)
+    }
+
     function toggleSavedTrack(model) {
         if(model.saved)
             unSaveTrack(model.item, function(error,data) {
@@ -772,6 +805,19 @@ MainView {
              })
     }
 
+    function toggleSavedShow(show, isShowSaved, callback) {
+        if(isShowSaved)
+            unSaveShow(show, function(error,data) {
+                if(!error)
+                    callback(false)
+            })
+        else
+            saveShow(show, function(error,data) {
+                if(!error)
+                    callback(true)
+            })
+    }
+
     function handleToggleFavorite(model) {
         switch(model.type) {
         case 0:
@@ -791,6 +837,11 @@ MainView {
             break;
         case 3:
             app.toggleSavedTrack(model)
+            break;
+        case 5:
+            app.toggleSavedShow(model.item, model.saved, function(saved) {
+                model.saved = saved
+            })
             break;
         }
     }
