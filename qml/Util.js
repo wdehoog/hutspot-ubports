@@ -465,7 +465,8 @@ var HutspotPage = {
     Album: 0,
     Artist: 1,
     Playlist: 2,
-    GenreMoodPlaylist: 3
+    GenreMoodPlaylist: 3,
+    Show: 4,
 }
 
 var PlaylistEventType = {

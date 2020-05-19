@@ -195,8 +195,8 @@ Rectangle {
                 sb.append(dataModel.item.description)
             break
         case Util.SpotifyItemType.Show:
-            if(dataModel.item.description)
-                sb.append(dataModel.item.description)
+            if(dataModel.item.publisher)
+                sb.append(dataModel.item.publisher)
             break 
         }
         return sb.toString(", ")
@@ -214,7 +214,7 @@ Rectangle {
             break
         case Util.SpotifyItemType.Artist:
             if(typeof(dataModel.item.followers) !== 'undefined')
-                sb.append(Util.abbreviateNumber(dataModel.item.followers.total) + " " + qsTr("followers"))
+                sb.append(Util.abbreviateNumber(dataModel.item.followers.total) + " " + i18n.tr("followers"))
             break
         case Util.SpotifyItemType.Playlist:
             sb.append(getNumTracksText(dataModel.item.tracks.total))
@@ -232,12 +232,16 @@ Rectangle {
                 sb.append(Util.getDurationString(dataModel.item.duration_ms))
             if(dataModel.item.release_date)
                 sb.append(Util.getReleaseDateText(dataModel.item.release_date))
-            if(dataModel.item.language)
-                sb.append(dataModel.item.language)
+            if(dataModel.item.languages)
+                sb.append(Util.createItemsString(dataModel.item.languages, ""))
             break
         case Util.SpotifyItemType.Show:
             if(dataModel.item.languages)
                 sb.append(Util.createItemsString(dataModel.item.languages, ""))
+            if(dataModel.item.explicit)
+                sb.append(i18n.tr("explicit"))
+            if(dataModel.item.is_externally_hosted)
+                sb.append(i18n.tr("externally hosted"))
             break
         }
         return sb.toString(", ")

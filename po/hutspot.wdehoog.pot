@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-18 21:24+0000\n"
+"POT-Creation-Date: 2020-05-19 18:46+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -71,6 +71,19 @@ msgstr ""
 
 #: ../qml/components/CreatePlaylist.qml:102
 msgid "Description (optional)"
+msgstr ""
+
+#: ../qml/components/SearchResultListItem.qml:217 ../qml/pages/Playing.qml:577
+#: ../qml/pages/Playing.qml:583
+msgid "followers"
+msgstr ""
+
+#: ../qml/components/SearchResultListItem.qml:242
+msgid "explicit"
+msgstr ""
+
+#: ../qml/components/SearchResultListItem.qml:244
+msgid "externally hosted"
 msgstr ""
 
 #: ../qml/components/PlaylistPicker.qml:31
@@ -220,10 +233,6 @@ msgstr ""
 
 #: ../qml/pages/Playing.qml:569 ../qml/pages/Album.qml:82
 msgid "track"
-msgstr ""
-
-#: ../qml/pages/Playing.qml:577 ../qml/pages/Playing.qml:583
-msgid "followers"
 msgstr ""
 
 #: ../qml/pages/Playing.qml:581

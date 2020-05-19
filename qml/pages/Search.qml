@@ -193,6 +193,9 @@ Page {
                 case 3:
                     app.pushPage(Util.HutspotPage.Album, {album: item.album})
                     break;
+                case 5:
+                    app.pushPage(Util.HutspotPage.Show, {show: item})
+                    break;
                 }
             }
         }
