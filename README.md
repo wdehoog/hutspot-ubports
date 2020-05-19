@@ -1,11 +1,11 @@
 # Hutspot
 
-A simple Spotify Controller for UBports.
+A simple Spotify Controller for Ubuntu Touch.
 
 One more time: No this is *NOT* a player, it's a controller. It is based on [Hutspot for SailfishOS](https://github.com/sailfish-spotify/hutspot). It uses Spotify web-api and needs a Premium Account.
 
 
-Read the docs at [https://wdehoog.github.io/hutspot-ubports/](https://wdehoog.github.io/hutspot-ubports/) for what it can and cannot do. 
+Read the docs at [https://wdehoog.github.io/hutspot-ut/](https://wdehoog.github.io/hutspot-ut/) for what it can and cannot do. 
 
  
 The [screenshots](screenshots) directory shows some images made while running with `clickable desktop`. 
