@@ -1,15 +1,18 @@
 {
-  "template": "cmake",
+  "builder": "cmake",
   "kill": "hutspot",
   "libraries": {
      "qtdbusextended": {
-        "template": "qmake"
+        "builder": "qmake"
      },
      "qtmpris": {
-        "template": "qmake",
+        "builder": "qmake",
         "build_args": [
             "\"ARCH_TRIPLET=$ARCH_TRIPLET\""
         ]
+     },
+     "qmdnsengine": {
+        "builder": "cmake"
      }
    },
    "install_lib": [
@@ -17,6 +20,7 @@
       "$qtmpris_LIB_INSTALL_DIR/usr/lib/$ARCH_TRIPLET/*",
       "$qtmpris_LIB_INSTALL_DIR/usr/lib/$ARCH_TRIPLET/qt5/mkspecs/features/*",
       "$qtmpris_LIB_INSTALL_DIR/usr/lib/$ARCH_TRIPLET/pkgconfig/*",
-      "$qtmpris_LIB_INSTALL_DIR/usr/lib/$ARCH_TRIPLET/org/nemomobile/mpris/*"
+      "$qtmpris_LIB_INSTALL_DIR/usr/lib/$ARCH_TRIPLET/org/nemomobile/mpris/*",
+      "$qmdnsengine_LIB_INSTALL_DIR/lib/*"
    ]
 }

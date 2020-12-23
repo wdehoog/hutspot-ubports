@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-19 20:48+0000\n"
+"POT-Creation-Date: 2020-12-23 15:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,7 +47,7 @@ msgstr ""
 
 #: ../qml/components/CreatePlaylist.qml:34
 #: ../qml/components/PlaylistPicker.qml:36
-#: ../qml/components/ArtistPicker.qml:35 ../qml/Main.qml:936
+#: ../qml/components/ArtistPicker.qml:35 ../qml/Main.qml:940
 msgid "Cancel"
 msgstr ""
 
@@ -111,59 +111,59 @@ msgid ""
 "Playing page is already loaded. Go back to it and discard the pages on top?"
 msgstr ""
 
-#: ../qml/Main.qml:369
+#: ../qml/Main.qml:373
 msgid "Failed to Refresh Authorization Token"
 msgstr ""
 
-#: ../qml/Main.qml:442
+#: ../qml/Main.qml:446
 msgid "Edit Playlist Details"
 msgstr ""
 
-#: ../qml/Main.qml:469
+#: ../qml/Main.qml:473
 msgid "Select a Playlist"
 msgstr ""
 
-#: ../qml/Main.qml:491
+#: ../qml/Main.qml:495
 msgid "Please confirm removing<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:639
+#: ../qml/Main.qml:643
 msgid "Please confirm to unfollow playlist:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:665
+#: ../qml/Main.qml:669
 msgid "Please confirm to unfollow artist:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:696
+#: ../qml/Main.qml:700
 msgid "Please confirm to un-save album:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:722
+#: ../qml/Main.qml:726
 msgid "Please confirm to un-save track:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:748
+#: ../qml/Main.qml:752
 msgid "Please confirm to un-save Show:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:861
+#: ../qml/Main.qml:865
 msgid "View an Artist"
 msgstr ""
 
-#: ../qml/Main.qml:885 ../qml/Main.qml:945
+#: ../qml/Main.qml:889 ../qml/Main.qml:949
 msgid "Ok"
 msgstr ""
 
-#: ../qml/Main.qml:901
+#: ../qml/Main.qml:905
 msgid "Error"
 msgstr ""
 
-#: ../qml/Main.qml:963
+#: ../qml/Main.qml:967
 msgid "Confirm"
 msgstr ""
 
-#: ../qml/Main.qml:983
+#: ../qml/Main.qml:987
 msgid "Failed to transfer to"
 msgstr ""
 
@@ -300,7 +300,7 @@ msgid "About"
 msgstr ""
 
 #: ../qml/pages/About.qml:80
-msgid "Spotify controller for UBports"
+msgid "Spotify controller for Ubuntu Touch"
 msgstr ""
 
 #: ../qml/pages/About.qml:90

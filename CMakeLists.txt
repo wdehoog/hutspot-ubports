@@ -37,6 +37,11 @@ execute_process(
     OUTPUT_STRIP_TRAILING_WHITESPACE
 )
 
+# qmdnsengine
+set(LIBQMDNSENGINE_INSTALL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/build/${ARCH_TRIPLET}/qmdnsengine/install)
+include_directories(${LIBQMDNSENGINE_INSTALL_DIR}/include)
+link_directories(${LIBQMDNSENGINE_INSTALL_DIR}/lib)
+
 configure_file(manifest.json.in ${CMAKE_CURRENT_BINARY_DIR}/manifest.json)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/manifest.json DESTINATION ${CMAKE_INSTALL_PREFIX})
 install(FILES ${PROJECT_NAME}.apparmor DESTINATION ${DATA_DIR})
@@ -60,6 +65,7 @@ target_link_libraries(${PROJECT_NAME}
   Qt5::Network
   Qt5::Widgets
 
+  qmdnsengine
 )
 
 # Translations

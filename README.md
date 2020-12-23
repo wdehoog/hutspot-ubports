@@ -17,6 +17,6 @@ You can build it with [clickable](http://clickable.bhdouglass.com/en/latest/).
 
 ## License
 
-Copyright (C) 2019  Willem-Jan de Hoog
+Copyright (C) 2020  Willem-Jan de Hoog
 
 Licensed under the MIT license

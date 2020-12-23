@@ -8,6 +8,7 @@
 //#include <QTranslator>
 //#include <QDebug>
 
+#include "mdns.h"
 #include "qdeclarativeprocess.h"
 #include "powerd.h"
 #include "spotify.h"
@@ -36,6 +37,9 @@ int main(int argc, char *argv[])
 
     Powerd powerd;
     view->rootContext()->setContextProperty("powerd", &powerd);
+
+    MDNS mdns;
+    view->rootContext()->setContextProperty("mdns", &mdns);
 
     Spotify spotify;
     view->rootContext()->setContextProperty("spotify", &spotify);

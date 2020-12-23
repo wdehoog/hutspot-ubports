@@ -27,7 +27,7 @@ import "pages"
 MainView {
     id: app
     
-    readonly property string version: "0.4.1"
+    readonly property string version: "0.5.0"
 
     readonly property string app_name: "hutspot"
     readonly property string app_version: version
@@ -318,6 +318,10 @@ MainView {
             spotify.refreshToken();
         }
         Spotify.tokenLostCallback = onTokenLost
+
+        // start discovery
+        //if(enable_connect_discovery.value)
+            //spConnect.startMDNSService()
     }
 
     property int tokenExpireTime: 0 // seconds from epoch
@@ -1037,20 +1041,81 @@ MainView {
 
     signal devicesChanged()
 
+    property bool logDiscovery: true
+
+    Connections { 
+        target: mdns
+        onServiceAdded: {
+            if(logDiscovery)console.log("onServiceAdded: " + JSON.stringify(serviceJSON,null,2))
+            var mdns = JSON.parse(serviceJSON)
+            connectDevices[mdns.name] = mdns
+        }
+        onServiceUpdated: {
+            if(logDiscovery)console.log("onServiceUpdated: " + JSON.stringify(serviceJSON,null,2))
+            for(var deviceName in connectDevices) {
+                var device = connectDevices[deviceName]
+                var mdns = JSON.parse(serviceJSON)
+                if(device.name === mdns.name) {
+                    connectDevices[mdns.name] = mdns
+                    devicesChanged()
+                    break
+                }
+            }
+        }
+        onServiceRemoved: {
+            if(logDiscovery)console.log("onServiceRemoved: " + name)
+            for(var deviceName in connectDevices) {
+                var device = connectDevices[deviceName]
+                if(device.name === name) {
+                    delete connectDevices[deviceName]
+                    // ToDo also delete from foundDevices
+                    devicesChanged()
+                    break
+                }
+            }
+        }
+        onServiceResolved: {
+            if(logDiscovery)console.log("onServiceResolved: " + name + " -> " + address)
+            for(var deviceName in connectDevices) {
+                var device = connectDevices[deviceName]
+                if(device.host === name) {
+                    device.ip = address
+                    Util.deviceInfoRequestMDNS(device, function(error, data) {
+                        if(data) {
+                            //console.log(JSON.stringify(data,null,2))
+                            data.deviceInfo = device
+                            var replaced = 0
+                            for(var i=0;i<foundDevices.length;i++) {
+                              if(foundDevices[i].remoteName === data.remoteName) {
+                                  foundDevices[i] = data
+                                  replaced = 1
+                              }
+                            }
+                            if(!replaced)
+                                foundDevices.push(data)
+                            devicesChanged()
+                        }
+                    })
+                    break
+                }
+            }
+        }
+    }
+
     onDevicesChanged: {        
         // for logging Librespot discovery
-        var ls = isLibrespotInDiscoveredList()
+        /*var ls = isLibrespotInDiscoveredList()
         if(ls !== null) {
-            if(logging_flags.discovery)console.log("onDevicesChanged: " + (ls!==null)?"Librespot is discovered":"not yet")
+            if(logDiscovery)console.log("onDevicesChanged: " + (ls!==null)?"Librespot is discovered":"not yet")
             if(!isLibrespotInDevicesList()) {
-                if(logging_flags.discovery)console.log("Librespot is not in the devices list")
+                if(logDiscovery)console.log("Librespot is not in the devices list")
                 // maybe the list needs to be updated
                 if(hasValidToken)
                     spotifyController.checkForNewDevices()
             } else {
-                if(logging_flags.discovery)console.log("Librespot is already in the devices list")
+                if(logDiscovery)console.log("Librespot is already in the devices list")
             }
-        }
+        }*/
         handleCurrentDevice()
     }
 
@@ -1060,7 +1125,7 @@ MainView {
         for(i=0;i<spotifyController.devices.count;i++) {
             var device = spotifyController.devices.get(i)
             if(device.name === settings.deviceName) {
-                if(logging_flags.discovery)console.log("onDevicesChanged found current: " + JSON.stringify(device))
+                if(logDiscovery)console.log("onDevicesChanged found current: " + JSON.stringify(device))
                 // Now we want to make sure it is our 'current' Spotify device.
                 // How do we know what Spotify thinks our current device is?
                 // According to the documentation it should be device.is_active
@@ -1080,7 +1145,7 @@ MainView {
                             console.log("Set device [" + settings.deviceName + "] as current")
                     })
                 } else {
-                    if(logging_flags.discovery) {
+                    if(logDiscovery) {
                         console.log("Device [" + settings.deviceName + "] already in playbackState.")
                         console.log("  id: " + settings.deviceId + ", pbs id: " + spotifyController.playbackState.device.id)
                     }
