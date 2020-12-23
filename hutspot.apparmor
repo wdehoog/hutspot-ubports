@@ -6,6 +6,8 @@
         "content_exchange_source",
         "content_exchange",
         "networking",
-        "webview"
+        "webview",
+        "hold_off_suspend",
+        "mpris2"
     ]
 }

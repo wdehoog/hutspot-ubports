@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-23 16:04+0000\n"
+"POT-Creation-Date: 2020-12-23 21:11+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,7 +47,7 @@ msgstr ""
 
 #: ../qml/components/CreatePlaylist.qml:34
 #: ../qml/components/PlaylistPicker.qml:36
-#: ../qml/components/ArtistPicker.qml:35 ../qml/Main.qml:940
+#: ../qml/components/ArtistPicker.qml:35 ../qml/Main.qml:942
 msgid "Cancel"
 msgstr ""
 
@@ -106,64 +106,64 @@ msgstr ""
 msgid "Select Artist"
 msgstr ""
 
-#: ../qml/Main.qml:202
+#: ../qml/Main.qml:204
 msgid ""
 "Playing page is already loaded. Go back to it and discard the pages on top?"
 msgstr ""
 
-#: ../qml/Main.qml:373
+#: ../qml/Main.qml:375
 msgid "Failed to Refresh Authorization Token"
 msgstr ""
 
-#: ../qml/Main.qml:446
+#: ../qml/Main.qml:448
 msgid "Edit Playlist Details"
 msgstr ""
 
-#: ../qml/Main.qml:473
+#: ../qml/Main.qml:475
 msgid "Select a Playlist"
 msgstr ""
 
-#: ../qml/Main.qml:495
+#: ../qml/Main.qml:497
 msgid "Please confirm removing<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:643
+#: ../qml/Main.qml:645
 msgid "Please confirm to unfollow playlist:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:669
+#: ../qml/Main.qml:671
 msgid "Please confirm to unfollow artist:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:700
+#: ../qml/Main.qml:702
 msgid "Please confirm to un-save album:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:726
+#: ../qml/Main.qml:728
 msgid "Please confirm to un-save track:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:752
+#: ../qml/Main.qml:754
 msgid "Please confirm to un-save Show:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:865
+#: ../qml/Main.qml:867
 msgid "View an Artist"
 msgstr ""
 
-#: ../qml/Main.qml:889 ../qml/Main.qml:949
+#: ../qml/Main.qml:891 ../qml/Main.qml:951
 msgid "Ok"
 msgstr ""
 
-#: ../qml/Main.qml:905
+#: ../qml/Main.qml:907
 msgid "Error"
 msgstr ""
 
-#: ../qml/Main.qml:967
+#: ../qml/Main.qml:969
 msgid "Confirm"
 msgstr ""
 
-#: ../qml/Main.qml:987
+#: ../qml/Main.qml:989
 msgid "Failed to transfer to"
 msgstr ""
 
@@ -335,23 +335,31 @@ msgstr ""
 msgid "Set as Current"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:180
+#: ../qml/pages/Devices.qml:73
+msgid "Connect using Athentication Blob"
+msgstr ""
+
+#: ../qml/pages/Devices.qml:83
+msgid "Failed to connect to "
+msgstr ""
+
+#: ../qml/pages/Devices.qml:178
 msgid "Unknown Name"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:198
+#: ../qml/pages/Devices.qml:196
 msgid "active"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:198 ../qml/pages/Devices.qml:205
+#: ../qml/pages/Devices.qml:196 ../qml/pages/Devices.qml:203
 msgid "inactive"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:201
+#: ../qml/pages/Devices.qml:199
 msgid "restricted"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:201
+#: ../qml/pages/Devices.qml:199
 msgid "unrestricted"
 msgstr ""
 

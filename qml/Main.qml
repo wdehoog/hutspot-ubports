@@ -40,6 +40,8 @@ MainView {
     property alias deviceId: settings.deviceId
     property alias deviceName: settings.deviceName
 
+    property alias librespot: librespot
+
     //
     // UI stuff
     //
@@ -1034,6 +1036,10 @@ MainView {
     property alias spotifyDataCache: spotifyDataCache
     SpotifyDataCache {
         id: spotifyDataCache
+    }
+
+    Librespot {
+        id: librespot
     }
 
     property var foundDevices: []     // the device info queried by getInfo

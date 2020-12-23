@@ -58,6 +58,7 @@ Page {
             actions: ActionList {
                 Action {
                     text: i18n.tr("Set as Current")
+                    enabled: sp === 1        
                     onTriggered: {
                         if(spotify) {
                             var page = devicesPage
@@ -66,6 +67,22 @@ Page {
                                     page.refreshDevices()
                             })
                         }
+                    }
+                }
+                Action {
+                    text: i18n.tr("Connect using Athentication Blob")
+                    enabled: sp === 0 && app.librespot.hasLibreSpotCredentials()
+                    visible: enabled
+                    onTriggered: {
+                        var name = app.foundDevices[deviceIndex].remoteName
+                        _toBeAddedName = name
+                        app.librespot.addUser(app.foundDevices[deviceIndex], function(error, data) {
+                            if(data) {
+                                waitForInSpotifyList.count = 5
+                            } else {
+                                app.showErrorMessage(error, i18n.tr("Failed to connect to " + name))
+                            }
+                        })
                     }
                 }
             }
@@ -79,25 +96,6 @@ Page {
         }
     }
 
-                /*menu: contextMenu
-
-                        MenuItem {
-                            enabled: sp === 0 && app.librespot.hasLibreSpotCredentials()
-                            text: i18n.tr("Connect using Authorization Blob")
-                            onClicked: {                            
-                                var name = app.foundDevices[deviceIndex].remoteName
-                                _toBeAddedName = name
-                                app.librespot.addUser(app.foundDevices[deviceIndex], function(error, data) {
-                                    if(data) {
-                                        waitForInSpotifyList.count = 5
-                                    } else {
-                                        app.showErrorMessage(error, i18n.tr("Failed to connect to " + name))
-                                    }
-                                })
-                            }
-                        }
-                    }
-                }*/
     ListView {
         id: listView
         anchors.fill: parent

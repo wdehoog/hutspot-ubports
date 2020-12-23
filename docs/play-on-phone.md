@@ -54,4 +54,26 @@ I have put my spotify credentials in the config file. This is not mandatory. The
 ## Other players
 You could also try [Librespot](https://github.com/librespot-org/librespot) or [Raspotify](https://github.com/dtcooper/raspotify) (Librespot build for the RaspberryPI).
 
-I tried [Librespot-java](https://github.com/librespot-org/librespot-java) using jre/jkd from Oracle and OpenJDK but this makes the my phone reboot instantly.
+### Raspotify
+For raspotify I tested version 0.15.0 and started it from the console with:
+```
+librespot -n Phablet --device-type smartphone -b 320 -u <yourusername> --enable-volume-normalisation
+```
+you will be prompted for your password.
+
+### Librespot
+Librespot can save the credentials and reuse them later. For example to create them:
+
+```
+librespot -n Phablet --cache ~/.cache/hutspot.wdehoog/hutspot.wdehoog/ -u <yourusername>
+```
+
+you will be prompted for your password. The credentials will be saved in the specified cache directory in a file called ``credentials.json``.
+
+When launching Librespot and specifying the same cache directory the credentials will be loaded:
+
+```
+librespot -n Phablet --device-type smartphone -b 320 --backend alsa --device pulse --cache ~/.cache/hutspot.wdehoog/hutspot.wdehoog/
+```
+
+I also tried [Librespot-java](https://github.com/librespot-org/librespot-java) using jre/jkd from Oracle and OpenJDK but this makes the my phone reboot instantly.
