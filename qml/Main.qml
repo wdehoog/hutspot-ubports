@@ -320,8 +320,8 @@ MainView {
         Spotify.tokenLostCallback = onTokenLost
 
         // start discovery
-        //if(enable_connect_discovery.value)
-            //spConnect.startMDNSService()
+        if(settings.connectDiscoveryEnabled)
+            spConnect.startMDNSService()
     }
 
     property int tokenExpireTime: 0 // seconds from epoch
@@ -1041,7 +1041,7 @@ MainView {
 
     signal devicesChanged()
 
-    property bool logDiscovery: true
+    property bool logDiscovery: settings.logDiscoveryEnabled
 
     Connections { 
         target: mdns
@@ -1245,5 +1245,7 @@ MainView {
         property string deviceName: ""
         property int deviceVolume: 0
 
+        property bool connectDiscoveryEnabled: true
+        property bool logDiscoveryEnabled: true
     }
 }

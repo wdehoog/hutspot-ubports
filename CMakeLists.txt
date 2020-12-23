@@ -66,6 +66,8 @@ target_link_libraries(${PROJECT_NAME}
   Qt5::Widgets
 
   qmdnsengine
+  ssl
+  crypto
 )
 
 # Translations

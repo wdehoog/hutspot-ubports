@@ -8,6 +8,7 @@
 //#include <QTranslator>
 //#include <QDebug>
 
+#include "connect/spconnect.h"
 #include "mdns.h"
 #include "qdeclarativeprocess.h"
 #include "powerd.h"
@@ -40,6 +41,9 @@ int main(int argc, char *argv[])
 
     MDNS mdns;
     view->rootContext()->setContextProperty("mdns", &mdns);
+
+    SPConnect spConnect;
+    view->rootContext()->setContextProperty("spConnect", &spConnect);
 
     Spotify spotify;
     view->rootContext()->setContextProperty("spotify", &spotify);
