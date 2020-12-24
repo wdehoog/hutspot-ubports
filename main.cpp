@@ -15,6 +15,7 @@
 #include "spotify.h"
 #include "systemutil.h"
 
+
 int main(int argc, char *argv[])
 {
     QGuiApplication *app = new QGuiApplication(argc, (char**)argv);

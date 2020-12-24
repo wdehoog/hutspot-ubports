@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-23 21:11+0000\n"
+"POT-Creation-Date: 2020-12-24 08:25+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,7 +46,7 @@ msgid "Create Playlist"
 msgstr ""
 
 #: ../qml/components/CreatePlaylist.qml:34
-#: ../qml/components/PlaylistPicker.qml:36
+#: ../qml/components/PlaylistPicker.qml:36 ../qml/components/Librespot.qml:213
 #: ../qml/components/ArtistPicker.qml:35 ../qml/Main.qml:942
 msgid "Cancel"
 msgstr ""
@@ -88,6 +88,26 @@ msgstr ""
 
 #: ../qml/components/PlaylistPicker.qml:31
 msgid "Select Playlist"
+msgstr ""
+
+#: ../qml/components/Librespot.qml:145
+msgid "Failed to register credentials for Librespot"
+msgstr ""
+
+#: ../qml/components/Librespot.qml:147
+msgid "Registered credentials for Librespot"
+msgstr ""
+
+#: ../qml/components/Librespot.qml:188
+msgid "User Name"
+msgstr ""
+
+#: ../qml/components/Librespot.qml:194
+msgid "Password"
+msgstr ""
+
+#: ../qml/components/Librespot.qml:203 ../qml/Main.qml:891 ../qml/Main.qml:951
+msgid "Ok"
 msgstr ""
 
 #: ../qml/components/SearchResultContextMenu.qml:24
@@ -149,10 +169,6 @@ msgstr ""
 
 #: ../qml/Main.qml:867
 msgid "View an Artist"
-msgstr ""
-
-#: ../qml/Main.qml:891 ../qml/Main.qml:951
-msgid "Ok"
 msgstr ""
 
 #: ../qml/Main.qml:907
@@ -331,35 +347,39 @@ msgstr ""
 msgid "Login"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:60
+#: ../qml/pages/Devices.qml:44
+msgid "Register"
+msgstr ""
+
+#: ../qml/pages/Devices.qml:66
 msgid "Set as Current"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:73
+#: ../qml/pages/Devices.qml:79
 msgid "Connect using Athentication Blob"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:83
+#: ../qml/pages/Devices.qml:89
 msgid "Failed to connect to "
 msgstr ""
 
-#: ../qml/pages/Devices.qml:178
+#: ../qml/pages/Devices.qml:184
 msgid "Unknown Name"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:196
+#: ../qml/pages/Devices.qml:202
 msgid "active"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:196 ../qml/pages/Devices.qml:203
+#: ../qml/pages/Devices.qml:202 ../qml/pages/Devices.qml:209
 msgid "inactive"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:199
+#: ../qml/pages/Devices.qml:205
 msgid "restricted"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:199
+#: ../qml/pages/Devices.qml:205
 msgid "unrestricted"
 msgstr ""
 

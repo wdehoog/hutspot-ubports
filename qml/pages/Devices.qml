@@ -36,8 +36,14 @@ Page {
             },*/
             Action {
                 text: i18n.tr("Login")
-                iconName: "stock_key"
+                iconSource: Qt.resolvedUrl("../resources/spotify-logo.svg")
+                //iconName: "stock_key"
                 onTriggered: spotify.doO2Auth(Spotify._scope, app.settings.authUsingBrowser)
+            },
+            Action {
+                text: i18n.tr("Register")
+                iconName: "stock_key"
+                onTriggered: app.librespot.registerCredentials()
             }
                    //,
             /*Action {

@@ -68,7 +68,7 @@ Librespot can save the credentials and reuse them later. For example to create t
 librespot -n Phablet --cache ~/.cache/hutspot.wdehoog/hutspot.wdehoog/ -u <yourusername>
 ```
 
-you will be prompted for your password. The credentials will be saved in the specified cache directory in a file called ``credentials.json``.
+you will be prompted for your password. The credentials will be saved in the specified cache directory in a file called ``credentials.json``. Note: if this directory is accessible by ``hutspot`` it can use the credentials to register itself with other players.
 
 When launching Librespot and specifying the same cache directory the credentials will be loaded:
 
