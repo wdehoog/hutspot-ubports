@@ -70,6 +70,8 @@ MainView {
     // UT stuff
     readonly property var homeDirectory: Util.urlToPath(Platform.StandardPaths.writableLocation(Platform.StandardPaths.HomeLocation).toString())
     readonly property var configDirectory: Util.urlToPath(Platform.StandardPaths.writableLocation(Platform.StandardPaths.AppConfigLocation).toString())
+    readonly property var dataDirectory: Util.urlToPath(Platform.StandardPaths.writableLocation(Platform.StandardPaths.AppDataLocation).toString())
+    readonly property var cacheDirectory: Util.urlToPath(Platform.StandardPaths.writableLocation(Platform.StandardPaths.CacheLocation).toString())
 
     //
 
@@ -299,9 +301,17 @@ MainView {
         console.log("app_id_dbus    : " + app_id_dbus)
         console.log("homeDirectory  : " + homeDirectory)
         console.log("configDirectory: " + configDirectory)
+        console.log("dataDirectory  : " + dataDirectory)
+        console.log("cacheDirectory : " + cacheDirectory)
         pageStack.push(Qt.resolvedUrl("pages/Menu.qml"))
         history = settings.history
-        startSpotify()
+        startSpotify() 
+        //console.log(Platform.StandardPaths.writableLocation(Platform.StandardPaths.AppConfigLocation))
+        //console.log(Platform.StandardPaths.writableLocation(Platform.StandardPaths.ConfigLocation))
+        //console.log(Platform.StandardPaths.writableLocation(Platform.StandardPaths.CacheLocation))
+        //console.log(Platform.StandardPaths.writableLocation(Platform.StandardPaths.DataLocation))
+        //console.log(Platform.StandardPaths.writableLocation(Platform.StandardPaths.AppDataLocation))
+        //console.log(Platform.StandardPaths.writableLocation(Platform.StandardPaths.AppLocalDataLocation))
     }
 
     function onTokenLost() {

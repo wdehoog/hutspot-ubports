@@ -19,7 +19,7 @@ import "../Util.js" as Util
 Item {
 
     //
-    // start/stop Librespot
+    // start/stop Librespot using process
     // 
 
     function launchLibrespot() {
@@ -99,6 +99,87 @@ Item {
     }
 
     //
+    // start/stop Librespot using upstart and DBus
+    //
+
+    DBusInterface {
+        id: upstartManager
+
+        property bool hasLibrespotService: false
+        property bool librespotServiceStarted: false
+        property string job: "librespot"
+
+        bus: DBus.SessionBus
+        service: "com.ubuntu.Upstart"
+
+
+        function startUnit(unit) {
+            operateUnit("Start")
+        }
+
+        function restartUnit(unit) {
+            operateUnit("Restart")
+        }
+
+        function stopUnit(unit) {
+            operateUnit("Stop")
+        }
+
+        function operateUnit(operation) {
+            iface = "com.ubuntu.Upstart0_6.Job"
+            path = "/com/ubuntu/Upstart/jobs/" + job
+            typedCall(operation,
+                      [{"type": "as", "value": ['']},
+                       {"type": "b", "value": true}],
+                      function(job) {
+                          console.log("upstartManager." + operation + ": " + job)
+                          jobStatus()
+                      },
+                      function() {
+                          console.log("upstartManager." + operation + " failed")
+                          jobStatus()
+                      })
+        }
+
+        function hasJob() {
+            iface = "com.ubuntu.Upstart0_6"
+            path = "/com/ubuntu/Upstart"
+            typedCall("GetAllJobs", [],
+                      function(response) {
+                          hasLibrespotService = response.indexOf("/com/ubuntu/Upstart/jobs/librespot") > -1
+                          console.log("upstartManager hasLibrespotService: " + hasLibrespotService)
+                      },
+                      function() {
+                          console.log("upstartManager GetAllJobs failed")
+                      })
+        }
+
+        function jobStatus() {
+            iface = "org.freedesktop.DBus.Properties"
+            path = "/com/ubuntu/Upstart/jobs/" + job + "/_"
+            typedCall("GetAll", 
+                      [{"type":"s", "value": ""}],
+                      function(response) {
+                          //console.log(Util.dumpObject(response))
+                          librespotServiceStarted = response.state == "running"
+                          console.log("upstartManager librespotServiceStarted: " + librespotServiceStarted)
+                      },
+                      function() {
+                          console.log("upstartManager GetAll failed")
+                      })
+        }
+
+        onHasLibrespotServiceChanged: {
+            if(hasLibrespotService)
+                jobStatus()
+        }
+
+        Component.onCompleted: {
+            hasJob()
+        }
+    }
+
+    //
     // Spotify Connect
     //
 
@@ -112,7 +193,7 @@ Item {
 
     function loadLibrespotCredentials() {
         var xhr = new XMLHttpRequest;
-        xhr.open("GET", app.configDirectory + "/credentials.json");
+        xhr.open("GET", app.cacheDirectory + "/credentials.json");
         xhr.onreadystatechange = function() {
             if (xhr.readyState === XMLHttpRequest.DONE) {
                 var response = xhr.responseText;
