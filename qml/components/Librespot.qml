@@ -22,7 +22,7 @@ Item {
     // start/stop Librespot using process
     // 
 
-    function launchLibrespot() {
+    /*function toggleLibrespot() {
         if(libreSpotProcess.state == Processes.NotRunning) {
             app.showConfirmDialog(i18n.tr("Start Librespot?"),
                  function() { _launchLibrespot(undefined) })
@@ -50,10 +50,6 @@ Item {
     function _launchLibrespot(callback) {
         var command = app.homeDirectory + "/bin/librespot"
         var args = []
-        /*args.push("--cache")
-        args.push(app.configDirectory)
-        args.push("--name")
-        args.push("Phablet")*/
         libreSpotProcess.callback = callback
         console.log(command)
         libreSpotProcess.start(command, args)
@@ -96,17 +92,18 @@ Item {
                 callback(null, libreSpotProcess.exitCode)
             callback = undefined
         }
-    }
+    }*/
 
     //
     // start/stop Librespot using upstart and DBus
     //
 
+    property bool hasLibrespotService: false
+    property bool isLibrespotServiceStarted: false
+
     DBusInterface {
         id: upstartManager
 
-        property bool hasLibrespotService: false
-        property bool librespotServiceStarted: false
         property string job: "librespot"
 
         bus: DBus.SessionBus
@@ -161,21 +158,35 @@ Item {
                       [{"type":"s", "value": ""}],
                       function(response) {
                           //console.log(Util.dumpObject(response))
-                          librespotServiceStarted = response.state == "running"
-                          console.log("upstartManager librespotServiceStarted: " + librespotServiceStarted)
+                          isLibrespotServiceStarted = response.state == "running"
+                          console.log("upstartManager isLibrespotServiceStarted: " + isLibrespotServiceStarted)
                       },
                       function() {
                           console.log("upstartManager GetAll failed")
                       })
         }
 
-        onHasLibrespotServiceChanged: {
-            if(hasLibrespotService)
-                jobStatus()
-        }
-
         Component.onCompleted: {
             hasJob()
+        }
+    }
+
+    onHasLibrespotServiceChanged: {
+        if(hasLibrespotService)
+            upstartManager.jobStatus()
+    }
+
+    function toggleLibrespot() {
+        if(isLibrespotServiceStarted) {
+            app.showConfirmDialog(i18n.tr("Stop Librespot?"),
+                 function() { 
+                     upstartManager.stopUnit()
+                 })
+        } else if(libreSpotProcess.state == Processes.Running) {
+            app.showConfirmDialog(i18n.tr("Start Librespot?"),
+                 function() {
+                     upstartManager.startUnit()
+                 })
         }
     }
 

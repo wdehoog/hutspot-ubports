@@ -35,9 +35,12 @@ Page {
                 onTriggered: app.controller.checkForNewDevices()
             },*/
             Action {
+                enabled: app.librespot.hasLibrespotService
                 text: i18n.tr("Launch Librespot")
-                iconSource: Qt.resolvedUrl("../resources/librespot-icon.svg")
-                onTriggered: app.librespot.launchLibrespot()
+                iconSource: Qt.resolvedUrl(app.librespot.isLibrespotServiceStarted
+                    ? "../resources/librespot-icon-running.svg"
+                    : "../resources/librespot-icon.svg")
+                onTriggered: app.librespot.toggleLibrespot()
             },
             Action {
                 text: i18n.tr("Register Librespot")

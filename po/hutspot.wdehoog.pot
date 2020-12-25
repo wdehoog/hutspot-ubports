@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-25 12:23+0000\n"
+"POT-Creation-Date: 2020-12-25 18:27+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,7 +46,7 @@ msgid "Create Playlist"
 msgstr ""
 
 #: ../qml/components/CreatePlaylist.qml:34
-#: ../qml/components/PlaylistPicker.qml:36 ../qml/components/Librespot.qml:372
+#: ../qml/components/PlaylistPicker.qml:36 ../qml/components/Librespot.qml:383
 #: ../qml/components/ArtistPicker.qml:35 ../qml/Main.qml:960
 msgid "Cancel"
 msgstr ""
@@ -90,31 +90,31 @@ msgstr ""
 msgid "Select Playlist"
 msgstr ""
 
-#: ../qml/components/Librespot.qml:27
-msgid "Start Librespot?"
-msgstr ""
-
-#: ../qml/components/Librespot.qml:30
+#: ../qml/components/Librespot.qml:181
 msgid "Stop Librespot?"
 msgstr ""
 
-#: ../qml/components/Librespot.qml:304
+#: ../qml/components/Librespot.qml:186
+msgid "Start Librespot?"
+msgstr ""
+
+#: ../qml/components/Librespot.qml:315
 msgid "Failed to register credentials for Librespot"
 msgstr ""
 
-#: ../qml/components/Librespot.qml:306
+#: ../qml/components/Librespot.qml:317
 msgid "Registered credentials for Librespot"
 msgstr ""
 
-#: ../qml/components/Librespot.qml:347
+#: ../qml/components/Librespot.qml:358
 msgid "User Name"
 msgstr ""
 
-#: ../qml/components/Librespot.qml:353
+#: ../qml/components/Librespot.qml:364
 msgid "Password"
 msgstr ""
 
-#: ../qml/components/Librespot.qml:362 ../qml/Main.qml:908 ../qml/Main.qml:969
+#: ../qml/components/Librespot.qml:373 ../qml/Main.qml:908 ../qml/Main.qml:969
 msgid "Ok"
 msgstr ""
 
@@ -351,47 +351,47 @@ msgstr ""
 msgid "Devices"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:38
+#: ../qml/pages/Devices.qml:39
 msgid "Launch Librespot"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:43
+#: ../qml/pages/Devices.qml:46
 msgid "Register Librespot"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:48
+#: ../qml/pages/Devices.qml:51
 msgid "Login at Spotify"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:70
+#: ../qml/pages/Devices.qml:73
 msgid "Set as Current"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:83
+#: ../qml/pages/Devices.qml:86
 msgid "Connect using Athentication Blob"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:93
+#: ../qml/pages/Devices.qml:96
 msgid "Failed to connect to "
 msgstr ""
 
-#: ../qml/pages/Devices.qml:188
+#: ../qml/pages/Devices.qml:191
 msgid "Unknown Name"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:206
+#: ../qml/pages/Devices.qml:209
 msgid "active"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:206 ../qml/pages/Devices.qml:213
+#: ../qml/pages/Devices.qml:209 ../qml/pages/Devices.qml:216
 msgid "inactive"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:209
+#: ../qml/pages/Devices.qml:212
 msgid "restricted"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:209
+#: ../qml/pages/Devices.qml:212
 msgid "unrestricted"
 msgstr ""
 
