@@ -10,7 +10,7 @@ import Ubuntu.Components.Popups 1.3
 import Ubuntu.Components.Themes 1.3
 
 
-//import Nemo.DBus 2.0
+import Nemo.DBus 2.0
 import org.hildon.components 1.0
 import SystemUtil 1.0
 

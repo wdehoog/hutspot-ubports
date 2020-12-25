@@ -11,6 +11,9 @@
             "\"ARCH_TRIPLET=$ARCH_TRIPLET\""
         ]
      },
+     "nemo-qml-plugin-dbus": {
+        "builder": "qmake"
+     },
      "qmdnsengine": {
         "builder": "cmake"
      }
@@ -20,7 +23,8 @@
       "$qtmpris_LIB_INSTALL_DIR/usr/lib/$ARCH_TRIPLET/*",
       "$qtmpris_LIB_INSTALL_DIR/usr/lib/$ARCH_TRIPLET/qt5/mkspecs/features/*",
       "$qtmpris_LIB_INSTALL_DIR/usr/lib/$ARCH_TRIPLET/pkgconfig/*",
-      "$qtmpris_LIB_INSTALL_DIR/usr/lib/$ARCH_TRIPLET/org/nemomobile/mpris/*",
-      "$qmdnsengine_LIB_INSTALL_DIR/lib/*"
+      "$qmdnsengine_LIB_INSTALL_DIR/lib/*",
+      "$nemo-qml-plugin-dbus_LIB_INSTALL_DIR/usr/lib/*",
+      "$nemo-qml-plugin-dbus_LIB_INSTALL_DIR/usr/lib/$ARCH_TRIPLET/qt5/qml/*"
    ]
 }
