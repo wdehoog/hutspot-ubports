@@ -35,15 +35,19 @@ Page {
                 onTriggered: app.controller.checkForNewDevices()
             },*/
             Action {
-                text: i18n.tr("Login")
-                iconSource: Qt.resolvedUrl("../resources/spotify-logo.svg")
-                //iconName: "stock_key"
-                onTriggered: spotify.doO2Auth(Spotify._scope, app.settings.authUsingBrowser)
+                text: i18n.tr("Launch Librespot")
+                iconSource: Qt.resolvedUrl("../resources/librespot-icon.svg")
+                onTriggered: app.librespot.launchLibrespot()
             },
             Action {
-                text: i18n.tr("Register")
+                text: i18n.tr("Register Librespot")
                 iconName: "stock_key"
                 onTriggered: app.librespot.registerCredentials()
+            },
+            Action {
+                text: i18n.tr("Login at Spotify")
+                iconSource: Qt.resolvedUrl("../resources/spotify-logo.svg")
+                onTriggered: spotify.doO2Auth(Spotify._scope, app.settings.authUsingBrowser)
             }
                    //,
             /*Action {
@@ -64,7 +68,7 @@ Page {
             actions: ActionList {
                 Action {
                     text: i18n.tr("Set as Current")
-                    enabled: sp === 1        
+                    enabled: _model.sp === 1        
                     onTriggered: {
                         if(spotify) {
                             var page = devicesPage
@@ -77,7 +81,7 @@ Page {
                 }
                 Action {
                     text: i18n.tr("Connect using Athentication Blob")
-                    enabled: sp === 0 && app.librespot.hasLibreSpotCredentials()
+                    enabled: _model.sp === 0 && app.librespot.hasLibreSpotCredentials()
                     visible: enabled
                     onTriggered: {
                         var name = app.foundDevices[deviceIndex].remoteName

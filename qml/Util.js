@@ -59,6 +59,16 @@ function getAddedAtText(addedAt) {
     return addedAt.split('T')[0]
 }
 
+function urlToPath(urlString) {
+    var s
+    if (urlString.startsWith("file:///")) {
+        s = urlString.substring(7)
+    } else {
+        s = urlString
+    }
+    return decodeURIComponent(s);
+}
+
 function deviceAddUserRequest(device, userData, callback) {
     var req = new XMLHttpRequest();
     var url = "http://" + device.ip + ":" + device.port;

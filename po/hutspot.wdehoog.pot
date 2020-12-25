@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-24 08:25+0000\n"
+"POT-Creation-Date: 2020-12-24 13:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,8 +46,8 @@ msgid "Create Playlist"
 msgstr ""
 
 #: ../qml/components/CreatePlaylist.qml:34
-#: ../qml/components/PlaylistPicker.qml:36 ../qml/components/Librespot.qml:213
-#: ../qml/components/ArtistPicker.qml:35 ../qml/Main.qml:942
+#: ../qml/components/PlaylistPicker.qml:36 ../qml/components/Librespot.qml:291
+#: ../qml/components/ArtistPicker.qml:35 ../qml/Main.qml:950
 msgid "Cancel"
 msgstr ""
 
@@ -90,23 +90,31 @@ msgstr ""
 msgid "Select Playlist"
 msgstr ""
 
-#: ../qml/components/Librespot.qml:145
+#: ../qml/components/Librespot.qml:27
+msgid "Start Librespot?"
+msgstr ""
+
+#: ../qml/components/Librespot.qml:30
+msgid "Stop Librespot?"
+msgstr ""
+
+#: ../qml/components/Librespot.qml:223
 msgid "Failed to register credentials for Librespot"
 msgstr ""
 
-#: ../qml/components/Librespot.qml:147
+#: ../qml/components/Librespot.qml:225
 msgid "Registered credentials for Librespot"
 msgstr ""
 
-#: ../qml/components/Librespot.qml:188
+#: ../qml/components/Librespot.qml:266
 msgid "User Name"
 msgstr ""
 
-#: ../qml/components/Librespot.qml:194
+#: ../qml/components/Librespot.qml:272
 msgid "Password"
 msgstr ""
 
-#: ../qml/components/Librespot.qml:203 ../qml/Main.qml:891 ../qml/Main.qml:951
+#: ../qml/components/Librespot.qml:281 ../qml/Main.qml:898 ../qml/Main.qml:959
 msgid "Ok"
 msgstr ""
 
@@ -126,60 +134,60 @@ msgstr ""
 msgid "Select Artist"
 msgstr ""
 
-#: ../qml/Main.qml:204
+#: ../qml/Main.qml:209
 msgid ""
 "Playing page is already loaded. Go back to it and discard the pages on top?"
 msgstr ""
 
-#: ../qml/Main.qml:375
+#: ../qml/Main.qml:382
 msgid "Failed to Refresh Authorization Token"
 msgstr ""
 
-#: ../qml/Main.qml:448
+#: ../qml/Main.qml:455
 msgid "Edit Playlist Details"
 msgstr ""
 
-#: ../qml/Main.qml:475
+#: ../qml/Main.qml:482
 msgid "Select a Playlist"
 msgstr ""
 
-#: ../qml/Main.qml:497
+#: ../qml/Main.qml:504
 msgid "Please confirm removing<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:645
+#: ../qml/Main.qml:652
 msgid "Please confirm to unfollow playlist:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:671
+#: ../qml/Main.qml:678
 msgid "Please confirm to unfollow artist:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:702
+#: ../qml/Main.qml:709
 msgid "Please confirm to un-save album:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:728
+#: ../qml/Main.qml:735
 msgid "Please confirm to un-save track:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:754
+#: ../qml/Main.qml:761
 msgid "Please confirm to un-save Show:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:867
+#: ../qml/Main.qml:874
 msgid "View an Artist"
 msgstr ""
 
-#: ../qml/Main.qml:907
+#: ../qml/Main.qml:914
 msgid "Error"
 msgstr ""
 
-#: ../qml/Main.qml:969
+#: ../qml/Main.qml:977
 msgid "Confirm"
 msgstr ""
 
-#: ../qml/Main.qml:989
+#: ../qml/Main.qml:997
 msgid "Failed to transfer to"
 msgstr ""
 
@@ -344,42 +352,46 @@ msgid "Devices"
 msgstr ""
 
 #: ../qml/pages/Devices.qml:38
-msgid "Login"
+msgid "Launch Librespot"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:44
-msgid "Register"
+#: ../qml/pages/Devices.qml:43
+msgid "Register Librespot"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:66
+#: ../qml/pages/Devices.qml:48
+msgid "Login at Spotify"
+msgstr ""
+
+#: ../qml/pages/Devices.qml:70
 msgid "Set as Current"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:79
+#: ../qml/pages/Devices.qml:83
 msgid "Connect using Athentication Blob"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:89
+#: ../qml/pages/Devices.qml:93
 msgid "Failed to connect to "
 msgstr ""
 
-#: ../qml/pages/Devices.qml:184
+#: ../qml/pages/Devices.qml:188
 msgid "Unknown Name"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:202
+#: ../qml/pages/Devices.qml:206
 msgid "active"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:202 ../qml/pages/Devices.qml:209
+#: ../qml/pages/Devices.qml:206 ../qml/pages/Devices.qml:213
 msgid "inactive"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:205
+#: ../qml/pages/Devices.qml:209
 msgid "restricted"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:205
+#: ../qml/pages/Devices.qml:209
 msgid "unrestricted"
 msgstr ""
 

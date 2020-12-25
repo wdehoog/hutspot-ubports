@@ -12,6 +12,7 @@ import Ubuntu.Components.Themes 1.3
 //import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
 import Qt.labs.settings 1.0 as QLS
+import Qt.labs.platform 1.0 as Platform
 import QtWebEngine 1.7
 
 import org.hildon.components 1.0
@@ -65,6 +66,10 @@ MainView {
     property color popupBackgroundColor: "#111111"
     property double popupBackgroundOpacity: 0.1
     property double popupRadius: units.dp(8)
+
+    // UT stuff
+    readonly property var homeDirectory: Util.urlToPath(Platform.StandardPaths.writableLocation(Platform.StandardPaths.HomeLocation).toString())
+    readonly property var configDirectory: Util.urlToPath(Platform.StandardPaths.writableLocation(Platform.StandardPaths.AppConfigLocation).toString())
 
     //
 
@@ -290,8 +295,10 @@ MainView {
     }
 
     Component.onCompleted: {
-        console.log("app_id     : " + app_id)
-        console.log("app_id_dbus: " + app_id_dbus)
+        console.log("app_id         : " + app_id)
+        console.log("app_id_dbus    : " + app_id_dbus)
+        console.log("homeDirectory  : " + homeDirectory)
+        console.log("configDirectory: " + configDirectory)
         pageStack.push(Qt.resolvedUrl("pages/Menu.qml"))
         history = settings.history
         startSpotify()
@@ -932,6 +939,7 @@ MainView {
             _confirmRejectedCallback = null
         }
     }
+    property bool _dialogCancelButtonVisible: true
     Component {
         id: confirmDialog
         Dialog {

@@ -9,7 +9,6 @@ import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import Ubuntu.Components.Themes 1.3
 
-import Qt.labs.platform 1.0 as Platform
 
 //import Nemo.DBus 2.0
 import org.hildon.components 1.0
@@ -19,6 +18,85 @@ import "../Util.js" as Util
 
 Item {
 
+    //
+    // start/stop Librespot
+    // 
+
+    function launchLibrespot() {
+        if(libreSpotProcess.state == Processes.NotRunning) {
+            app.showConfirmDialog(i18n.tr("Start Librespot?"),
+                 function() { _launchLibrespot(undefined) })
+        } else if(libreSpotProcess.state == Processes.Running) {
+            app.showConfirmDialog(i18n.tr("Stop Librespot?"),
+                 function() { 
+                     SystemUtils.pkill(libreSpotProcess.pid, SystemUtils.SIGINT)
+                 })
+        }
+    }
+
+    function stopLibrespot() {
+        if(libreSpotProcess.state != Processes.Running)
+            return
+        SystemUtils.pkill(libreSpotProcess.pid, SystemUtils.SIGINT)
+    }
+
+    function startLibrespot() {
+        if(libreSpotProcess.state == Processes.Running)
+            return
+        launchLibrespot(undefined)
+    }
+
+
+    function _launchLibrespot(callback) {
+        var command = app.homeDirectory + "/bin/librespot"
+        var args = []
+        /*args.push("--cache")
+        args.push(app.configDirectory)
+        args.push("--name")
+        args.push("Phablet")*/
+        libreSpotProcess.callback = callback
+        console.log(command)
+        libreSpotProcess.start(command, args)
+    }
+
+    Process {
+        id: libreSpotProcess
+
+        property var callback: undefined
+
+        workingDirectory: app.homeDirectory
+
+        onExitCodeChanged: {
+            console.log("onExitCodeChanged: " + libreSpotProcess.exitCode)
+        }
+
+        onStateChanged: {
+            console.log("onStateChanged: " + libreSpotProcess.state)
+        }
+
+        onProcessFinished: {
+            console.log("onProcessFinished: " + libreSpotProcess.error)
+        }
+
+        onError: {
+            if(callback !== undefined)
+                callback(libreSpotProcess.error, libreSpotProcess.exitCode, undefined)
+            console.log("Librespot Process.Error: " + libreSpotProcess.error)
+            callback = undefined
+        }
+
+        onFinished: {
+            //var stdout = libreSpotProcess.readAllStandardOutput()
+            //var stderr = libreSpotProcess.readAllStandardError()
+            console.log("Librespot Process.Finished: " + libreSpotProcess.exitStatus + ", code: " + process.exitCode)
+            //console.log("[stdout]:" + stdout)
+            //console.log("[stderr]:" + stderr)
+
+            if(callback !== undefined)
+                callback(null, libreSpotProcess.exitCode)
+            callback = undefined
+        }
+    }
 
     //
     // Spotify Connect
@@ -34,7 +112,7 @@ Item {
 
     function loadLibrespotCredentials() {
         var xhr = new XMLHttpRequest;
-        xhr.open("GET", Platform.StandardPaths.AppConfigLocation + "/credentials.json");
+        xhr.open("GET", app.configDirectory + "/credentials.json");
         xhr.onreadystatechange = function() {
             if (xhr.readyState === XMLHttpRequest.DONE) {
                 var response = xhr.responseText;
@@ -93,10 +171,10 @@ Item {
     }
 
     function addCredentials(username, password, callback) {
-        var command = Platform.StandardPaths.HomeLocation + "/bin/librespot"
+        var command = app.homeDirectory + "/bin/librespot"
         var args = []
         args.push("--cache")
-        args.push(Platform.StandardPaths.AppConfigLocation)
+        args.push(app.configDirectory)
         args.push("--name")
         args.push("librespot")
         args.push("--username")
@@ -225,7 +303,7 @@ Item {
 
         property var callback: undefined
 
-        workingDirectory: Platform.StandardPaths.HomeLocation
+        workingDirectory: app.homeDirectory
 
         onExitCodeChanged: {
             console.log("onExitCodeChanged: " + process.exitCode)
