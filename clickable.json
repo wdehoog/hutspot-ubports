@@ -14,17 +14,17 @@
      "qtmpris": {
         "builder": "qmake",
         "build_args": [
-            "\"ARCH_TRIPLET=$ARCH_TRIPLET\""
+            "\"ARCH_TRIPLET=${ARCH_TRIPLET}\""
         ]
      }
    },
    "install_lib": [
-      "$qtdbusextended_LIB_INSTALL_DIR/usr/lib/$ARCH_TRIPLET/*",
-      "$qtmpris_LIB_INSTALL_DIR/usr/lib/$ARCH_TRIPLET/*",
-      "$qtmpris_LIB_INSTALL_DIR/usr/lib/$ARCH_TRIPLET/qt5/mkspecs/features/*",
-      "$qtmpris_LIB_INSTALL_DIR/usr/lib/$ARCH_TRIPLET/pkgconfig/*",
-      "$qmdnsengine_LIB_INSTALL_DIR/lib/*",
-      "$nemo-qml-plugin-dbus_LIB_INSTALL_DIR/usr/lib/*",
-      "$nemo-qml-plugin-dbus_LIB_INSTALL_DIR/usr/lib/$ARCH_TRIPLET/qt5/qml/*"
+      "${qtdbusextended_LIB_INSTALL_DIR}/usr/lib/${ARCH_TRIPLET}/*",
+      "${qtmpris_LIB_INSTALL_DIR}/usr/lib/${ARCH_TRIPLET}/*",
+      "${qtmpris_LIB_INSTALL_DIR}/usr/lib/${ARCH_TRIPLET}/qt5/mkspecs/features/*",
+      "${qtmpris_LIB_INSTALL_DIR}/usr/lib/${ARCH_TRIPLET}/pkgconfig/*",
+      "${qmdnsengine_LIB_INSTALL_DIR}/lib/*",
+      "${nemo-qml-plugin-dbus_LIB_INSTALL_DIR}/usr/lib/*",
+      "${nemo-qml-plugin-dbus_LIB_INSTALL_DIR}/usr/lib/${ARCH_TRIPLET}/qt5/qml/*"
    ]
 }

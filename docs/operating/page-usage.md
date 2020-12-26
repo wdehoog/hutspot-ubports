@@ -167,6 +167,7 @@ layout: default
 ### Devices Page
  * Button on page header provide
    * (Re)Login at Spotify. Should not be necessary.
+   * Start/Stop Librespot player
  * Click on a Device provides:
    * Set as Current
  * Context Menu on a Device provides:

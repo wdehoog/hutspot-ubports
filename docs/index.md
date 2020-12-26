@@ -17,6 +17,7 @@ Main features:
  * Create and Edit Playlists
  * Keep track of visited Albums, Artists and Playlists 
  * Can be used by controls from indicator panel
+ * Start/Stop Librespot if available (see [play-on-phone](play-on-phone))
 
 It does not support saving tracks nor offline playing
 
@@ -32,8 +33,8 @@ If you want to run it as a confined app you need to add some policy groups to yo
 ## Developing
 You can build it with [clickable](http://clickable.bhdouglass.com/en/latest/).
 
-Hutspot uses two libraries [qtdbusextended](https://github.com/nemomobile/qtdbusextended) and [qtmpris](https://git.merproject.org/mer-core/qtmpris). Their sources are currently included in the git repo. Building these libraries required some ugly stuff in two .pro files from qtmpris.
-Currently they are in the arm-linux-gnueabihf mode. If you want to build the x86_64-linux-gnu or another version you will need to adapt them.
+Hutspot uses some libraries [qtdbusextended](https://github.com/nemomobile/qtdbusextended) and [qtmpris](https://git.merproject.org/mer-core/qtmpris), [qmdnsengine](https://github.com/nitroshare/qmdnsengine) and [nemo-qml-plugin-dbus](https://git.sailfishos.org/mer-core/nemo-qml-plugin-dbus). Their sources are currently included in the git repo. Building these libraries required some ugly stuff in two .pro files from qtmpris.
+
 
 ### Thanks
  * Spotify for the [web api](https://developer.spotify.com/documentation/web-api/)
@@ -41,6 +42,8 @@ Currently they are in the arm-linux-gnueabihf mode. If you want to build the x86
  * pipacs for [O2](https://github.com/pipacs/o2)
  * librespot-org for [Librespot](https://github.com/librespot-org/librespot)
  * Maciej Janiszewski: co-author of Hutspot for SailfishOS
+ * Whoever made: nemo-qml-plugin-dbus, qtmpris and qtdbusextended
+ * nitroshare: qmdnsengine
 
 ### License
 O2 and spotify-web-api-js have their own license. For Hutspot it is MIT. Some parts are LGPL and/or BSD.
