@@ -42,11 +42,11 @@ Page {
                     : "../resources/librespot-icon.svg")
                 onTriggered: app.librespot.toggleLibrespot()
             },
-            Action {
+            /*Action {
                 text: i18n.tr("Register Librespot")
                 iconName: "stock_key"
                 onTriggered: app.librespot.registerCredentials()
-            },
+            },*/
             Action {
                 text: i18n.tr("Login at Spotify")
                 iconSource: Qt.resolvedUrl("../resources/spotify-logo.svg")
