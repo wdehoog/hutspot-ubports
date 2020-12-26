@@ -5,17 +5,17 @@
      "qtdbusextended": {
         "builder": "qmake"
      },
-     "qtmpris": {
-        "builder": "qmake",
-        "build_args": [
-            "\"ARCH_TRIPLET=$ARCH_TRIPLET\""
-        ]
-     },
      "nemo-qml-plugin-dbus": {
         "builder": "qmake"
      },
      "qmdnsengine": {
         "builder": "cmake"
+     },
+     "qtmpris": {
+        "builder": "qmake",
+        "build_args": [
+            "\"ARCH_TRIPLET=$ARCH_TRIPLET\""
+        ]
      }
    },
    "install_lib": [
