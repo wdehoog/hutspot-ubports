@@ -100,11 +100,11 @@ Item {
 
     property bool hasLibrespotService: false
     property bool isLibrespotServiceStarted: false
+    property string playerJob: "librespot"
 
     DBusInterface {
         id: upstartManager
 
-        property string job: "librespot"
 
         bus: DBus.SessionBus
         service: "com.ubuntu.Upstart"
@@ -124,17 +124,16 @@ Item {
 
         function operateUnit(operation) {
             iface = "com.ubuntu.Upstart0_6.Job"
-            path = "/com/ubuntu/Upstart/jobs/" + job
+            path = "/com/ubuntu/Upstart/jobs/" + playerJob
             typedCall(operation,
-                      [{"type": "as", "value": ['']},
-                       {"type": "b", "value": true}],
+                      [{"type": "as", "value": []},
+                       {"type": "b", "value": "true"}],
                       function(job) {
-                          console.log("upstartManager." + operation + ": " + job)
-                          jobStatus()
+                          console.log("upstartManager." + operation + ": " + playerJob)
                       },
-                      function() {
-                          console.log("upstartManager." + operation + " failed")
-                          jobStatus()
+                      function(error) {
+                          console.log("upstartManager." + operation + " failed\n  " + error)
+                          updateJobInfo()
                       })
         }
 
@@ -153,7 +152,7 @@ Item {
 
         function jobStatus() {
             iface = "org.freedesktop.DBus.Properties"
-            path = "/com/ubuntu/Upstart/jobs/" + job + "/_"
+            path = "/com/ubuntu/Upstart/jobs/" + playerJob + "/_"
             typedCall("GetAll", 
                       [{"type":"s", "value": ""}],
                       function(response) {
@@ -166,8 +165,40 @@ Item {
                       })
         }
 
+        function updateJobInfo() {
+            hasJob()
+            if(hasLibrespotService)
+              jobStatus()
+        }
+
         Component.onCompleted: {
             hasJob()
+        }
+    }
+
+    DBusInterface {
+        id: upstartListener
+
+        bus: DBus.SessionBus
+        service: "com.ubuntu.Upstart"
+        path: "/com/ubuntu/Upstart/jobs/" + playerJob
+        iface: "com.ubuntu.Upstart0_6.Job"
+        signalsEnabled: true
+
+        property string jobString: "/com/ubuntu/Upstart/jobs/" + playerJob + "/_"
+
+        signal instanceAdded(var instance)
+        onInstanceAdded: {
+            console.log("onInstanceAdded: " + instance)
+            if(instance == jobString)
+                isLibrespotServiceStarted = true
+        }
+
+        signal instanceRemoved(var instance)
+        onInstanceRemoved: {
+            console.log("onInstanceRemoved: " + instance)
+            if(instance == jobString)
+                isLibrespotServiceStarted = false
         }
     }
 
@@ -182,7 +213,7 @@ Item {
                  function() { 
                      upstartManager.stopUnit()
                  })
-        } else if(libreSpotProcess.state == Processes.Running) {
+        } else { 
             app.showConfirmDialog(i18n.tr("Start Librespot?"),
                  function() {
                      upstartManager.startUnit()
@@ -266,7 +297,7 @@ Item {
         var command = app.homeDirectory + "/bin/librespot"
         var args = []
         args.push("--cache")
-        args.push(app.configDirectory)
+        args.push(app.cacheDirectory)
         args.push("--name")
         args.push("librespot")
         args.push("--username")
