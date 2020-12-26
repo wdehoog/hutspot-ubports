@@ -6,7 +6,9 @@ before_install:
 - sudo apt-get -y install clickable
 
 script:
-- clickable clean build-libs build
+- clickable clean
+- clickable build-libs qtdbusextended nemo-qml-plugin-dbus qtmpris qmdnsengine
+- clickable build
 
 deploy:
   provider: releases
