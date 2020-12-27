@@ -21,3 +21,6 @@ artist:shosta* album:symph*
 ```
 
 For more information on query possibilities and syntax see the [Spotify Web-API Reference](https://developer.spotify.com/documentation/web-api/reference/search/search/).
+
+### Manage Search History
+The button on the page header opens a new page with the Query History list. Swiping an item to the right will show a button which allows to delete the item. The button on the page header allows to delete all items.  

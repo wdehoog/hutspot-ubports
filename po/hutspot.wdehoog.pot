@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-27 21:06+0000\n"
+"POT-Creation-Date: 2020-12-27 23:56+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,7 +23,7 @@ msgid "Play"
 msgstr ""
 
 #: ../qml/components/AlbumTrackContextMenu.qml:30
-#: ../qml/components/SearchResultContextMenu.qml:30
+#: ../qml/components/SearchResultContextMenu.qml:32
 #: ../qml/pages/Playing.qml:104
 msgid "View Album"
 msgstr ""
@@ -33,7 +33,7 @@ msgid "View Artist"
 msgstr ""
 
 #: ../qml/components/AlbumTrackContextMenu.qml:58
-#: ../qml/components/SearchResultContextMenu.qml:36
+#: ../qml/components/SearchResultContextMenu.qml:44
 msgid "Add to Playlist"
 msgstr ""
 
@@ -47,7 +47,7 @@ msgstr ""
 
 #: ../qml/components/CreatePlaylist.qml:34
 #: ../qml/components/PlaylistPicker.qml:36 ../qml/components/Librespot.qml:414
-#: ../qml/components/ArtistPicker.qml:35 ../qml/Main.qml:960
+#: ../qml/components/ArtistPicker.qml:35 ../qml/Main.qml:978
 msgid "Cancel"
 msgstr ""
 
@@ -74,7 +74,7 @@ msgid "Description (optional)"
 msgstr ""
 
 #: ../qml/components/SearchQueryMaintenance.qml:27
-msgid "Search Queryies"
+msgid "Search Query History"
 msgstr ""
 
 #: ../qml/components/SearchQueryMaintenance.qml:32 ../qml/pages/History.qml:33
@@ -82,7 +82,7 @@ msgid "Clear"
 msgstr ""
 
 #: ../qml/components/SearchQueryMaintenance.qml:35
-msgid "Do you really want to clear all Search Queries?"
+msgid "Do you really want to delete all Search Queries?"
 msgstr ""
 
 #: ../qml/components/SearchQueryMaintenance.qml:66
@@ -130,7 +130,7 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-#: ../qml/components/Librespot.qml:404 ../qml/Main.qml:908 ../qml/Main.qml:969
+#: ../qml/components/Librespot.qml:404 ../qml/Main.qml:926 ../qml/Main.qml:987
 msgid "Ok"
 msgstr ""
 
@@ -138,11 +138,15 @@ msgstr ""
 msgid "View"
 msgstr ""
 
-#: ../qml/components/SearchResultContextMenu.qml:43
+#: ../qml/components/SearchResultContextMenu.qml:38
+msgid "View Show"
+msgstr ""
+
+#: ../qml/components/SearchResultContextMenu.qml:51
 msgid "Remove from Playlist"
 msgstr ""
 
-#: ../qml/components/SearchResultContextMenu.qml:54
+#: ../qml/components/SearchResultContextMenu.qml:60
 msgid "Add to another Playlist"
 msgstr ""
 
@@ -191,19 +195,19 @@ msgstr ""
 msgid "Please confirm to un-save Show:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:884
+#: ../qml/Main.qml:902
 msgid "View an Artist"
 msgstr ""
 
-#: ../qml/Main.qml:924
+#: ../qml/Main.qml:942
 msgid "Error"
 msgstr ""
 
-#: ../qml/Main.qml:987
+#: ../qml/Main.qml:1005
 msgid "Confirm"
 msgstr ""
 
-#: ../qml/Main.qml:1007
+#: ../qml/Main.qml:1025
 msgid "Failed to transfer to"
 msgstr ""
 
@@ -416,7 +420,7 @@ msgid "Queries Maintenance"
 msgstr ""
 
 #: ../qml/pages/Search.qml:160
-msgid "Filter"
+msgid "Add Filter"
 msgstr ""
 
 #: ../qml/pages/Search.qml:173
@@ -439,31 +443,31 @@ msgstr ""
 msgid "year:"
 msgstr ""
 
-#: ../qml/pages/Search.qml:210
+#: ../qml/pages/Search.qml:212
 msgid "In"
 msgstr ""
 
-#: ../qml/pages/Search.qml:229
+#: ../qml/pages/Search.qml:231
 msgid "Albums"
 msgstr ""
 
-#: ../qml/pages/Search.qml:230
+#: ../qml/pages/Search.qml:232
 msgid "Artists"
 msgstr ""
 
-#: ../qml/pages/Search.qml:231 ../qml/pages/Library.qml:23
+#: ../qml/pages/Search.qml:233 ../qml/pages/Library.qml:23
 msgid "Playlists"
 msgstr ""
 
-#: ../qml/pages/Search.qml:232
+#: ../qml/pages/Search.qml:234
 msgid "Tracks"
 msgstr ""
 
-#: ../qml/pages/Search.qml:233
+#: ../qml/pages/Search.qml:235
 msgid "Episodes"
 msgstr ""
 
-#: ../qml/pages/Search.qml:234
+#: ../qml/pages/Search.qml:236
 msgid "Shows"
 msgstr ""
 

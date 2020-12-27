@@ -94,7 +94,7 @@ Page {
                     }*/
                     QtQc.ComboBox {
                         id: searchCombo
-                        width: parent.width - parent.spacing //- tlabel.width 
+                        width: parent.width //- parent.spacing - tlabel.width 
                         height: pHeader.height * 0.9
                         indicator.width: height
                         background: Rectangle {
@@ -154,10 +154,10 @@ Page {
                     height: childrenRect.height
                     QtQc.ComboBox {
                         id: filterCombo
-                        width: parent.width - parent.spacing - notButton.width - orButton.width
+                        width: parent.width - 2*parent.spacing - notButton.width - orButton.width
                         height: pHeader.height * 0.9
                         indicator.width: height
-                        displayText: i18n.tr("Filter")
+                        displayText: i18n.tr("Add Filter")
                         background: Rectangle {
                             color: app.normalBackgroundColor
                             border.width: 1
@@ -184,6 +184,7 @@ Page {
                     Button {
                         id: notButton
                         height: pHeader.height * 0.9
+                        width: units.gu(7)
                         color: app.normalBackgroundColor
                         text: "NOT"
                         onClicked: {
@@ -193,6 +194,7 @@ Page {
                     Button {
                         id: orButton
                         height: pHeader.height * 0.9
+                        width: units.gu(7)
                         color: app.normalBackgroundColor
                         text: "OR"
                         onClicked: {

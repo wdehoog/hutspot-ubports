@@ -375,6 +375,7 @@ Item {
         })
     }
 
+    // ToDo: remove position?
     function playTrackInContext(track, context, position) {
         // does not work for some tracks.
         if (playbackState.device) {
@@ -396,6 +397,33 @@ Item {
             // TODO: handle that
             app.showErrorMessage(error, qsTr("No device selected"))
         }
+    }
+
+    function playEpisodeInContext(episode) {
+        if(!playbackState.device) {
+            app.showErrorMessage(error, qsTr("No device selected"))
+            return
+        }
+        // get the full Episode object  
+        Spotify.getEpisode(episode.id, {}, function(error, data) {
+            if(data) {
+                //console.log(JSON.stringify(data))
+                Spotify.play({
+                    "device_id": getDeviceId(),
+                    "context_uri": data.show.uri,
+                    "offset": {"uri": data.uri}
+                }, function (error, data) {
+                    if (!error) {
+                        playbackState.item = data
+                        refreshPlaybackState();
+                    } else {
+                        app.showErrorMessage(error, qsTr("Play Failed"))
+                    }
+                })
+            } else {
+                app.showErrorMessage(error, qsTr("Failed to fetch Episode"))
+            }
+        })
     }
 
     function getDeviceId() {

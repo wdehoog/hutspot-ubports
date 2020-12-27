@@ -1472,6 +1472,13 @@ function getShow(showId, options, callback) {
   return _checkParamsAndPerformRequest(requestData, options, callback);
 };
 
+function getEpisode(episodeId, options, callback) {
+  var requestData = {
+    url: _baseUri + '/episodes/' + episodeId
+  };
+  return _checkParamsAndPerformRequest(requestData, options, callback);
+};
+
 /**
  * Transfer playback to a new device and determine if it should start playing.
  * See [Transfer a User’s Playback](https://developer.spotify.com/web-api/transfer-a-users-playback/) on

@@ -614,10 +614,10 @@ MainView {
             var track = getTrack(data, i)
             //console.log(track.id)
             var item = {type: Spotify.ItemType.Track,
-                          name: track.name,
-                          item: track,
-                          following: false,
-                          saved: false}
+                        name: track.name,
+                        item: track,
+                        following: false,
+                        saved: false}
             if(getExtraProperties) {
                 var extra = getExtraProperties(data, i)
                 for(var attrname in extra)
@@ -874,6 +874,24 @@ MainView {
         Spotify.getObject(album.href, function(error, data) {
             if(data)
                 app.pushPage(Util.HutspotPage.Album, {album: data}, fromPlaying)
+        })
+    }
+
+    function loadShowForEpisode(episode, fromPlaying) {
+        // first get full episode object
+        Spotify.getObject(episode.href, function(error, data) {
+            if(data) {
+                // then get full show object
+                Spotify.getObject(data.show.href, function(error, data) {
+                    if(data) {
+                        app.pushPage(Util.HutspotPage.Show, {show: data}, fromPlaying)
+                    } else {
+                        app.showErrorMessage(error, qsTr("Failed to fetch Show"))
+                    }
+                })
+            } else {
+                app.showErrorMessage(error, qsTr("Failed to fetch Episode"))
+            }
         })
     }
 
