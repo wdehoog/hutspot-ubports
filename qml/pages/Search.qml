@@ -50,6 +50,18 @@ Page {
         id: pHeader
         title: i18n.tr("Search") + " (" + searchModel.count + "/" + cursorHelper.total + ")"
         flickable: listView
+        trailingActionBar.actions: [
+            Action {
+                iconName: "view-list-symbolic"
+                text: i18n.tr("Queries Maintenance")
+                onTriggered: {
+                    pageStack.push(Qt.resolvedUrl("../components/SearchQueryMaintenance.qml"),
+                                      { label: i18n.tr("Queries Maintenance")} )
+
+                    reloadSearchHistoryModel()
+                }
+            }
+        ]
     }
 
     SearchResultContextMenu {

@@ -121,6 +121,7 @@ layout: default
  * Click on Playlist item to select it
 
 ### Search Page
+ * Item List button on the page header opens Query History Maintenance page
  * Search Text contains your query. It is a combobox with a list of your last searches.
  * Use select box to choose the category to search in
    * Albums
@@ -146,6 +147,10 @@ layout: default
  * Context Menu of a Track provides: 
    * Play
    * Add to Playlist
+
+### Search Query History Maintennce Page
+ * Trash bin button on the page header allows to clear the Query History
+ * Swipe a Query item to the right to show the delete item button 
 
 ### History Page
  * Button on header:

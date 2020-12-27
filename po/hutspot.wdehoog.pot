@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-27 11:03+0000\n"
+"POT-Creation-Date: 2020-12-27 21:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -71,6 +71,22 @@ msgstr ""
 
 #: ../qml/components/CreatePlaylist.qml:102
 msgid "Description (optional)"
+msgstr ""
+
+#: ../qml/components/SearchQueryMaintenance.qml:27
+msgid "Search Queryies"
+msgstr ""
+
+#: ../qml/components/SearchQueryMaintenance.qml:32 ../qml/pages/History.qml:33
+msgid "Clear"
+msgstr ""
+
+#: ../qml/components/SearchQueryMaintenance.qml:35
+msgid "Do you really want to clear all Search Queries?"
+msgstr ""
+
+#: ../qml/components/SearchQueryMaintenance.qml:66
+msgid "Delete"
 msgstr ""
 
 #: ../qml/components/SearchResultListItem.qml:216 ../qml/pages/Playing.qml:577
@@ -395,55 +411,59 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: ../qml/pages/Search.qml:147
-msgid "Filter"
+#: ../qml/pages/Search.qml:56 ../qml/pages/Search.qml:59
+msgid "Queries Maintenance"
 msgstr ""
 
 #: ../qml/pages/Search.qml:160
+msgid "Filter"
+msgstr ""
+
+#: ../qml/pages/Search.qml:173
 msgid "album:"
 msgstr ""
 
-#: ../qml/pages/Search.qml:161
+#: ../qml/pages/Search.qml:174
 msgid "artist:"
 msgstr ""
 
-#: ../qml/pages/Search.qml:162
+#: ../qml/pages/Search.qml:175
 msgid "genre:"
 msgstr ""
 
-#: ../qml/pages/Search.qml:163
+#: ../qml/pages/Search.qml:176
 msgid "track:"
 msgstr ""
 
-#: ../qml/pages/Search.qml:164
+#: ../qml/pages/Search.qml:177
 msgid "year:"
 msgstr ""
 
-#: ../qml/pages/Search.qml:197
+#: ../qml/pages/Search.qml:210
 msgid "In"
 msgstr ""
 
-#: ../qml/pages/Search.qml:216
+#: ../qml/pages/Search.qml:229
 msgid "Albums"
 msgstr ""
 
-#: ../qml/pages/Search.qml:217
+#: ../qml/pages/Search.qml:230
 msgid "Artists"
 msgstr ""
 
-#: ../qml/pages/Search.qml:218 ../qml/pages/Library.qml:23
+#: ../qml/pages/Search.qml:231 ../qml/pages/Library.qml:23
 msgid "Playlists"
 msgstr ""
 
-#: ../qml/pages/Search.qml:219
+#: ../qml/pages/Search.qml:232
 msgid "Tracks"
 msgstr ""
 
-#: ../qml/pages/Search.qml:220
+#: ../qml/pages/Search.qml:233
 msgid "Episodes"
 msgstr ""
 
-#: ../qml/pages/Search.qml:221
+#: ../qml/pages/Search.qml:234
 msgid "Shows"
 msgstr ""
 
@@ -477,10 +497,6 @@ msgstr ""
 
 #: ../qml/pages/History.qml:28 ../qml/pages/Menu.qml:85
 msgid "History"
-msgstr ""
-
-#: ../qml/pages/History.qml:33
-msgid "Clear"
 msgstr ""
 
 #: ../qml/pages/History.qml:35
