@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2018 Willem-Jan de Hoog
+ * Copyright (C) 2020 Willem-Jan de Hoog
  *
  * License: MIT
  */
@@ -75,14 +75,14 @@ Page {
                     width: parent.width
                     spacing: app.paddingMedium
                     height: childrenRect.height 
-                    Text { 
+                    /*Text { 
                         id: tlabel
                         anchors.verticalCenter: parent.verticalCenter
                         text: i18n.tr("Search") 
-                    }
+                    }*/
                     QtQc.ComboBox {
                         id: searchCombo
-                        width: parent.width - tlabel.width - parent.spacing
+                        width: parent.width - parent.spacing //- tlabel.width 
                         height: pHeader.height * 0.9
                         indicator.width: height
                         background: Rectangle {
@@ -102,9 +102,10 @@ Page {
                             searchString = editText.toLowerCase().trim()
                             refresh()
                             app.settings.searchHistory = 
-                                Util.updateSearchHistory(editText,
-                                                         app.settings.searchHistory,
-                                                         app.settings.searchHistoryMaxSize)                         
+                                updateSearchHistory(
+                                    editText,
+                                    app.settings.searchHistory,
+                                    app.settings.searchHistoryMaxSize)                         
                             reloadSearchHistoryModel()
                         }
                         onActivated: {
@@ -112,6 +113,77 @@ Page {
                             editText = selectedText
                             accepted()
                             editText = selectedText // why is this needed?
+                        }
+                        function insert(txt) {
+                            /*var newContent
+                            var newIndex
+                            if(cursorIndex == -1) {
+                                newContent = editText + " " + txt
+                                newIndex = newContent.length
+                            } else {
+                                newContent = editText.substr(0, cursorIndex)
+                                newContent += " " + txt
+                                newIndex = newContent.length
+                                var rest = editText.substr(cursorIndex)
+                                if(rest.length > 0)
+                                    newContent += " " + rest
+                            }
+                            editText = newContent
+                            cursorIndex = newIndex
+                            */
+                            editText = editText + " " + txt
+                        }
+                    }
+                }
+                Row {
+                    width: parent.width
+                    spacing: app.paddingMedium
+                    height: childrenRect.height
+                    QtQc.ComboBox {
+                        id: filterCombo
+                        width: parent.width - parent.spacing - notButton.width - orButton.width
+                        height: pHeader.height * 0.9
+                        indicator.width: height
+                        displayText: i18n.tr("Filter")
+                        background: Rectangle {
+                            color: app.normalBackgroundColor
+                            border.width: 1
+                            border.color: "grey"
+                            radius: 7
+                        }
+                        delegate: QtQc.ItemDelegate {
+                            width: filterCombo.width
+                            height: filterCombo.height
+                            text: modelData
+                        }
+                        model: [ 
+                            i18n.tr("album:"), 
+                            i18n.tr("artist:"), 
+                            i18n.tr("genre:"), 
+                            i18n.tr("track:"), 
+                            i18n.tr("year:") 
+                        ]
+                        onActivated: {
+                          searchCombo.insert(model[index])
+                        }
+                        Component.onCompleted: currentIndex = app.settings.currentItemClassSearch
+                    }
+                    Button {
+                        id: notButton
+                        height: pHeader.height * 0.9
+                        color: app.normalBackgroundColor
+                        text: "NOT"
+                        onClicked: {
+                          searchCombo.insert("NOT")
+                        }
+                    }
+                    Button {
+                        id: orButton
+                        height: pHeader.height * 0.9
+                        color: app.normalBackgroundColor
+                        text: "OR"
+                        onClicked: {
+                          searchCombo.insert("OR")
                         }
                     }
                 }
@@ -280,7 +352,7 @@ Page {
         var options = {offset: searchModel.count, limit: cursorHelper.limit}
         if(app.settings.queryForMarket)
             options.market = "from_token"
-        Spotify.search(Util.processSearchString(searchString), types, options, function(error, data) {
+        Spotify.search(processSearchString(searchString), types, options, function(error, data) {
             if(data) {
                 var artistIds = []
                 try {
@@ -369,6 +441,57 @@ Page {
             showBusy = false
             _loading = false
         })
+    }
+
+    function processSearchString(searchString) {
+        // if no wildcard present and no dash and no quote
+        // and no field filter
+        // we add a wildcard at the end
+        var canAdd = true
+        var symbols = "*-'\""
+        for(var i=0;i<symbols.length;i++) {
+            var pos = searchString.indexOf(symbols[i])
+            if(pos >= 0) {
+                canAdd = false
+                break
+            }
+        }
+        if(searchString.indexOf("album:") > -1)
+            canAdd = false
+        if(searchString.indexOf("artist:") > -1)
+            canAdd = false
+        if(searchString.indexOf("genre:") > -1)
+            canAdd = false
+        if(searchString.indexOf("track:") > -1)
+            canAdd = false
+        if(searchString.indexOf("year:") > -1)
+            canAdd = false
+
+        if(canAdd)
+            searchString = searchString + '*'
+        return searchString
+    }
+
+    function updateSearchHistory(searchString, search_history, maxSize) {
+        if(!searchString || searchString.length === 0)
+            return
+
+        var sh = JSON.parse(search_history)
+        var pos = sh.indexOf(searchString)
+        console.log("updateSearchHistory " + searchString + ": maxSize=" + maxSize + ", pos=" + pos)
+        if(pos > -1) {
+            // already in the list so reorder
+            for(var i=pos;i>0;i--)
+                sh[i] = sh[i-1]
+            sh[0] = searchString
+        } else
+            // a new item so insert at first position
+            sh.unshift(searchString)
+
+        while(sh.length > maxSize)
+            sh.pop()
+
+        return JSON.stringify(sh)
     }
 
     Connections {

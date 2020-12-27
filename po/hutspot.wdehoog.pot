@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-26 10:33+0000\n"
+"POT-Creation-Date: 2020-12-27 11:03+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -391,36 +391,59 @@ msgstr ""
 msgid "unrestricted"
 msgstr ""
 
-#: ../qml/pages/Search.qml:51 ../qml/pages/Search.qml:81
-#: ../qml/pages/Menu.qml:81
+#: ../qml/pages/Search.qml:51 ../qml/pages/Menu.qml:81
 msgid "Search"
 msgstr ""
 
-#: ../qml/pages/Search.qml:125
+#: ../qml/pages/Search.qml:147
+msgid "Filter"
+msgstr ""
+
+#: ../qml/pages/Search.qml:160
+msgid "album:"
+msgstr ""
+
+#: ../qml/pages/Search.qml:161
+msgid "artist:"
+msgstr ""
+
+#: ../qml/pages/Search.qml:162
+msgid "genre:"
+msgstr ""
+
+#: ../qml/pages/Search.qml:163
+msgid "track:"
+msgstr ""
+
+#: ../qml/pages/Search.qml:164
+msgid "year:"
+msgstr ""
+
+#: ../qml/pages/Search.qml:197
 msgid "In"
 msgstr ""
 
-#: ../qml/pages/Search.qml:144
+#: ../qml/pages/Search.qml:216
 msgid "Albums"
 msgstr ""
 
-#: ../qml/pages/Search.qml:145
+#: ../qml/pages/Search.qml:217
 msgid "Artists"
 msgstr ""
 
-#: ../qml/pages/Search.qml:146 ../qml/pages/Library.qml:23
+#: ../qml/pages/Search.qml:218 ../qml/pages/Library.qml:23
 msgid "Playlists"
 msgstr ""
 
-#: ../qml/pages/Search.qml:147
+#: ../qml/pages/Search.qml:219
 msgid "Tracks"
 msgstr ""
 
-#: ../qml/pages/Search.qml:148
+#: ../qml/pages/Search.qml:220
 msgid "Episodes"
 msgstr ""
 
-#: ../qml/pages/Search.qml:149
+#: ../qml/pages/Search.qml:221
 msgid "Shows"
 msgstr ""
 

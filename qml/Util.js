@@ -280,57 +280,6 @@ function parseSpotifyUri(uri) {
     return parsed
 }
 
-function updateSearchHistory(searchString, search_history, maxSize) {
-    if(!searchString || searchString.length === 0)
-        return
-
-    var sh = JSON.parse(search_history)
-    var pos = sh.indexOf(searchString)
-    console.log("updateSearchHistory " + searchString + ": maxSize=" + maxSize + ", pos=" + pos)
-    if(pos > -1) {
-        // already in the list so reorder
-        for(var i=pos;i>0;i--)
-            sh[i] = sh[i-1]
-        sh[0] = searchString
-    } else
-        // a new item
-        sh.unshift(searchString)
-
-    while(sh.length > maxSize)
-        sh.pop()
-
-    return JSON.stringify(sh)
-}
-
-function processSearchString(searchString) {
-    // if no wildcard present and no dash and no quote
-    // and no field filter
-    // we add a wildcard at the end
-    var canAdd = true
-    var symbols = "*-'\""
-    for(var i=0;i<symbols.length;i++) {
-        var pos = searchString.indexOf(symbols[i])
-        if(pos >= 0) {
-            canAdd = false
-            break
-        }
-    }
-    if(searchString.indexOf("album:") > -1)
-        canAdd = false
-    if(searchString.indexOf("artist:") > -1)
-        canAdd = false
-    if(searchString.indexOf("genre:") > -1)
-        canAdd = false
-    if(searchString.indexOf("track:") > -1)
-        canAdd = false
-    if(searchString.indexOf("year:") > -1)
-        canAdd = false
-
-    if(canAdd)
-        searchString = searchString + '*'
-    return searchString
-}
-
 function getFirstCharForSection(str) {
     var c = str[0]
     if (c >= '0' && c <= '9')
