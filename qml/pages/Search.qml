@@ -132,6 +132,7 @@ Page {
                             cursorIndex = newIndex
                             */
                             editText = editText + " " + txt
+                            focus = true
                         }
                     }
                 }
