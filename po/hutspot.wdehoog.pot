@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-28 12:51+0000\n"
+"POT-Creation-Date: 2020-12-28 16:01+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -52,7 +52,7 @@ msgid "Cancel"
 msgstr ""
 
 #: ../qml/components/CreatePlaylist.qml:41
-#: ../qml/components/PlaylistPicker.qml:52
+#: ../qml/components/PlaylistPicker.qml:43
 #: ../qml/components/ArtistPicker.qml:42
 msgid "Select"
 msgstr ""
@@ -103,7 +103,7 @@ msgid "externally hosted"
 msgstr ""
 
 #: ../qml/components/PlaylistPicker.qml:31
-msgid "Select Playlist"
+msgid "Select Playlist to Add To"
 msgstr ""
 
 #: ../qml/components/Librespot.qml:212

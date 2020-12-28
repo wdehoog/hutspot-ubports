@@ -28,22 +28,13 @@ Page {
         contents: Text {
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
-            text: i18n.tr("Select Playlist")
+            text: i18n.tr("Select Playlist to Add To")
         }
         leadingActionBar.actions: [
             Action {
                 iconName: "cancel"
                 text: i18n.tr("Cancel")
                 onTriggered: pageStack.pop()
-            },
-            Action {
-                iconName: "list-add"
-                text: qsTr("Create New Playlist")
-                onTriggered: app.createPlaylist(function(error, data) {
-                    if(data) {
-                        refresh()
-                    }
-                })
             }
         ]
         trailingActionBar.actions: [
@@ -55,6 +46,15 @@ Page {
                     accepted()
                     pageStack.pop()
                 }
+            },
+            Action {
+                iconName: "list-add"
+                text: qsTr("Create New Playlist")
+                onTriggered: app.createPlaylist(function(error, data) {
+                    if(data) {
+                        refresh()
+                    }
+                })
             }
         ]
         flickable: listView
