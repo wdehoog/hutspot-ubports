@@ -103,6 +103,11 @@ Page {
         }
     }
 
+    SearchResultContextMenu {
+        id: contextMenu
+        contextType: Util.SpotifyItemType.Show
+    }
+
     ListView {
         id: listView
         model: searchModel
@@ -121,6 +126,10 @@ Page {
             SearchResultListItem {
                 id: searchResultListItem
                 dataModel: model
+            }
+
+            onPressAndHold: {
+                contextMenu.open(model, listItem)
             }
 
             //onClicked: app.controller.playTrackInContext(item, show)

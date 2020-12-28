@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-28 16:01+0000\n"
+"POT-Creation-Date: 2020-12-28 17:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,10 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: ../qml/components/SpotifyController.qml:421
+msgid "There is a resume point available for this Epsidode: "
+msgstr ""
 
 #: ../qml/components/AlbumTrackContextMenu.qml:23
 #: ../qml/components/SearchResultContextMenu.qml:30
@@ -33,7 +37,7 @@ msgid "View Artist"
 msgstr ""
 
 #: ../qml/components/AlbumTrackContextMenu.qml:58
-#: ../qml/components/SearchResultContextMenu.qml:56
+#: ../qml/components/SearchResultContextMenu.qml:58
 msgid "Add to Playlist"
 msgstr ""
 
@@ -142,11 +146,11 @@ msgstr ""
 msgid "View Show"
 msgstr ""
 
-#: ../qml/components/SearchResultContextMenu.qml:63
+#: ../qml/components/SearchResultContextMenu.qml:65
 msgid "Remove from Playlist"
 msgstr ""
 
-#: ../qml/components/SearchResultContextMenu.qml:72
+#: ../qml/components/SearchResultContextMenu.qml:74
 msgid "Add to another Playlist"
 msgstr ""
 

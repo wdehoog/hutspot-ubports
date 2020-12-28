@@ -48,7 +48,9 @@ Item {
                 }
                 Action {
                     text: i18n.tr("View Show")
-                    enabled: model && (model.type === Util.SpotifyItemType.Episode)
+                    enabled: model
+                             && (model.type === Util.SpotifyItemType.Episode)
+                             && contextType !== Util.SpotifyItemType.Show
                     visible: enabled
                     onTriggered: app.loadShowForEpisode(model.item, false)
                 }

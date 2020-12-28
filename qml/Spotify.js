@@ -22,6 +22,7 @@ var scopes_array = [
   "user-read-private",
   "user-read-email",
   "user-modify-playback-state",
+  "user-read-playback-position",
   "user-read-playback-state",
   "user-read-currently-playing",
   "user-library-read",
