@@ -410,12 +410,27 @@ Item {
         // get the full Episode object  
         Spotify.getEpisode(episode.id, {}, function(error, data) {
             if(data) {
-                //console.log(JSON.stringify(data))
-                Spotify.play({
-                    "device_id": getDeviceId(),
-                    "context_uri": data.show.uri,
-                    "offset": {"uri": data.uri}
-                }, function (error, data) {
+                console.log(JSON.stringify(data))
+
+                var options = {}
+
+                // resume? fully_played, resume_position_ms
+                if(data.resume_point) {
+                    if(!data.resume_point.fully_played
+                       && data.resume_point.resume_position_ms > 0) {
+                        app.showConfirmDialog(i18n.tr("There is a resume point available for this Epsidode: " + Util.getDurationString(data.resume_point.resume_position_ms) + ". Do you want to use it?"),
+                            function() {
+                                options["position_ms"] = data.resume_point.resume_position_ms
+                            }
+                        )
+                    }
+                }
+
+                options["device_id"] = getDeviceId()
+                options["context_uri"] = data.show.uri
+                options["offset"] = {"uri": data.uri}
+
+                Spotify.play(options, function (error, data) {
                     if (!error) {
                         playbackState.item = data
                         refreshPlaybackState();
