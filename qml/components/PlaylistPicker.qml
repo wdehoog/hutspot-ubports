@@ -90,38 +90,9 @@ Page {
         }
  
         onAtYEndChanged: {
-            if(listView.atYEnd && searchModel.count > 0)
+            if(listView.atYEnd && model.count > 0)
                 append()
         }
-        /*section.property: "type"
-        section.delegate : Component {
-            id: sectionHeading
-            Item {
-                width: parent.width - 2*Theme.paddingMedium
-                x: Theme.paddingMedium
-                height: childrenRect.height
-
-                Text {
-                    width: parent.width
-                    text: label
-                    font.bold: true
-                    font.pixelSize: Theme.fontSizeMedium
-                    color: Theme.highlightColor
-                    horizontalAlignment: Text.AlignRight
-                }
-            }
-        }*/
-
-        /*PullDownMenu {
-            MenuItem {
-                text: qsTr("Create New Playlist")
-                onClicked: app.createPlaylist(function(error, data) {
-                    if(data) {
-                        refresh()
-                    }
-                })
-            }
-        }*/
     }
 
     Scrollbar {
