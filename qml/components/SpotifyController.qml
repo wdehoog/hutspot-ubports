@@ -377,8 +377,12 @@ Item {
 
     // ToDo: remove position?
     function playTrackInContext(track, context, position) {
-        // does not work for some tracks.
-        if (playbackState.device) {
+        if(!playbackState.device) {
+            app.showErrorMessage(error, qsTr("No device selected"))
+            return
+        }
+
+        app.ensureFullObject(track, function(obj) {
             Spotify.play({
                 "device_id": getDeviceId(),
                 "context_uri": context.uri,
@@ -393,10 +397,7 @@ Item {
                     app.showErrorMessage(error, qsTr("Play failed"))
                 }
             })
-        } else {
-            // TODO: handle that
-            app.showErrorMessage(error, qsTr("No device selected"))
-        }
+        })
     }
 
     function playEpisodeInContext(episode) {

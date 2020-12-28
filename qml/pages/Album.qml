@@ -111,7 +111,7 @@ Page {
         model: searchModel
 
         width: parent.width
-        height: parent.height 
+        height: parent.height
 
         header: headerComponent
 
@@ -161,6 +161,16 @@ Page {
         //showBusy = true
         searchModel.clear()
 
+        // make sure we have the full Album object
+        ensureFullObject(album, function(obj) {
+            // if album is not the full object then replace it
+            // onAlbumChanged will refresh
+            if(album !== obj) {
+                album = obj
+                return
+            }
+        })
+
         append()
 
         var artists = []
@@ -195,6 +205,7 @@ Page {
             if(data) {
                 try {
                     //console.log("number of AlbumTracks: " + data.items.length)
+                    //console.log(JSON.stringify(data))
                     cursorHelper.offset = data.offset
                     cursorHelper.total = data.total
                     app.loadTracksInModel(data, data.items.length, searchModel, function(data, i) {return data.items[i]})
