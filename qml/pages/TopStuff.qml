@@ -57,8 +57,6 @@ Page {
 
     SearchResultContextMenu {
         id: contextMenu
-        property var model
-        property var contextType: -1
     }
 
     ListView {
@@ -133,8 +131,7 @@ Page {
             }
 
             onPressAndHold: {
-                contextMenu.model = model
-                PopupUtils.open(contextMenu, listItem)
+                contextMenu.open(model, listItem)
             }
 
             onClicked: {

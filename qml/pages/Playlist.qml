@@ -54,8 +54,6 @@ Page {
     SearchResultContextMenu {
         id: contextMenu
         property int index
-        property var model
-        property var contextType
     }
 
     ListView {
@@ -134,9 +132,8 @@ Page {
 
             onPressAndHold: {
                 contextMenu.index = index
-                contextMenu.model = model
                 contextMenu.contextType = Util.SpotifyItemType.Playlist
-                PopupUtils.open(contextMenu, listItem)
+                contextMenu.open(model, listItem)
             }
 
             onClicked: app.pushPage(Util.HutspotPage.Album, {album: item.album})

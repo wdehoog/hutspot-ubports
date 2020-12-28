@@ -73,7 +73,6 @@ Page {
 
     SearchResultContextMenu {
         id: contextMenu
-        property var model
     }
 
     ListView {
@@ -152,8 +151,7 @@ Page {
             }
 
             onPressAndHold: {
-                contextMenu.model = model
-                PopupUtils.open(contextMenu, listItem)
+                contextMenu.open(model, listItem)
             }
 
             onClicked: {
@@ -257,6 +255,7 @@ Page {
         relatedArtists = undefined
         append()
         app.notifyHistoryUri(currentArtist.uri)
+        //loadAllAlbumsInfo()
     }
 
     property bool _loading: false
@@ -279,6 +278,7 @@ Page {
                                     function(error, data) {
                 if(data) {
                     //console.log("number of ArtistAlbums: " + data.items.length)
+                    //console.log(JSON.stringify(data))
                     artistAlbums = data
                     cursorHelper.offset = data.offset
                     cursorHelper.total = data.total
@@ -308,6 +308,39 @@ Page {
         }
     }
 
+    property var albumsInfo: []
+    function loadAllAlbumsInfo() {
+        if(albumsInfo.length > 0)
+            albumsInfo = []
+        _loadAlbumsInfo(0)
+    }
+
+    function _loadAlbumsInfo(offset) {
+        var options = {}
+        if(app.settings.queryForMarket)
+            options.market = "from_token"
+        options.offset = offset
+        options.limit = 50
+        Spotify.getArtistAlbums(currentArtist.id, options, function(error, data) {
+            if(data) {
+                //console.log(JSON.stringify(data))
+                for(var i=0;i<data.items.length;i++)
+                    albumsInfo[i+offset] =
+                        {id: data.items[i].id,
+                         name: data.items[i].name,
+                         release_data: data.items[i].release_date ? data.items[i].release_date : "",
+                         uri: data.items[i].uri}
+                var nextOffset = data.offset+data.items.length
+                if(nextOffset < data.total)
+                    _loadAlbumsInfo(nextOffset)
+                else
+                   console.log(JSON.stringify(albumsInfo))
+            } else {
+                console.log("No Data for getArtistAlbums")
+            }
+        })
+    }
+    
     Connections {
         target: app
         onFavoriteEvent: {

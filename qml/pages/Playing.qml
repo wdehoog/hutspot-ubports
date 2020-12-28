@@ -154,8 +154,6 @@ Page {
 
     SearchResultContextMenu {
         id: searchResultContextMenu
-        property var model
-        property var context
     }
 
     AlbumTrackContextMenu {
@@ -305,8 +303,7 @@ Page {
             onPressAndHold: {
                 //console.log("contextType: " + contextType + " => " + JSON.stringify(app.controller.playbackState.context))
                 if(contextType > 0) {
-                    searchResultContextMenu.model = model
-                    PopupUtils.open(searchResultContextMenu, listItem)
+                    searchResultContextMenu.open(model, listItem)
                 } else {
                     albumTrackContextMenu.model = model
                     albumTrackContextMenu.context = app.controller.playbackState.context
