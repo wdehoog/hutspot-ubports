@@ -1,5 +1,5 @@
 /**
- * Hutspot. 
+ * Hutspot.
  * Copyright (C) 2020 Willem-Jan de Hoog
  *
  * License: MIT
@@ -27,7 +27,7 @@ import "pages"
 
 MainView {
     id: app
-    
+
     readonly property string version: "0.5.0"
 
     readonly property string app_name: "hutspot"
@@ -81,7 +81,7 @@ MainView {
 
     width: units.gu(45)
     height: units.gu(75)
-    
+
     PageStack {
         id: pageStack
         //anchors.fill: parent
@@ -106,8 +106,8 @@ MainView {
         }
         width: parent.width - 2*paddingSmall
         x: paddingSmall
-        allowGoPlayingPage: pageStack.currentPage.hasOwnProperty("fromPlaying") 
-                            ? !pageStack.currentPage.fromPlaying 
+        allowGoPlayingPage: pageStack.currentPage.hasOwnProperty("fromPlaying")
+                            ? !pageStack.currentPage.fromPlaying
                             : true
         showHomeButton: pageStack.currentPage.objectName !== "MenuPage"
     }
@@ -291,7 +291,7 @@ MainView {
     }
 
     function goHome() {
-        while(pageStack.currentPage.objectName !== "MenuPage") 
+        while(pageStack.currentPage.objectName !== "MenuPage")
             pageStack.pop()
         _playingPageOnPageStack = false
     }
@@ -305,7 +305,7 @@ MainView {
         console.log("cacheDirectory : " + cacheDirectory)
         pageStack.push(Qt.resolvedUrl("pages/Menu.qml"))
         history = settings.history
-        startSpotify() 
+        startSpotify()
         //console.log(Platform.StandardPaths.writableLocation(Platform.StandardPaths.AppConfigLocation))
         //console.log(Platform.StandardPaths.writableLocation(Platform.StandardPaths.ConfigLocation))
         //console.log(Platform.StandardPaths.writableLocation(Platform.StandardPaths.CacheLocation))
@@ -398,7 +398,7 @@ MainView {
         onOpenBrowser: {
            console.log("spotify.onOpenBrowser: " + url)
            // Morph.Web crashes but Morph the browser works
-           if(settings.authUsingBrowser) { 
+           if(settings.authUsingBrowser) {
                Qt.openUrlExternally(url)
            } else {
                pageStack.push(Qt.resolvedUrl("pages/WebAuth.qml"), {authURL: url })
@@ -524,7 +524,7 @@ MainView {
                     console.log("removeTracksFromPlaylist error:" + JSON.stringify(error))
                 if(callback)
                     callback(error, data)
-                if(data) {    
+                if(data) {
                     var ev = new Util.PlayListEvent(Util.PlaylistEventType.RemovedTrack,
                                                     playlist.id, data.snapshot_id)
                     ev.trackId = track.id
@@ -870,29 +870,73 @@ MainView {
     }
 
     function loadAlbum(album, fromPlaying) {
-        // can be a simple album or context only so get the complete one
-        Spotify.getObject(album.href, function(error, data) {
-            if(data)
-                app.pushPage(Util.HutspotPage.Album, {album: data}, fromPlaying)
-        })
+        ensureFullObject(album, function(obj) {
+           app.pushPage(Util.HutspotPage.Album, {album: obj}, fromPlaying)
+           })
     }
 
     function loadShowForEpisode(episode, fromPlaying) {
-        // first get full episode object
-        Spotify.getObject(episode.href, function(error, data) {
+        ensureFullObject(episode, function(obj) {
+            // then get full Show object
+            Spotify.getObject(obj.show.href, function(error, data) {
+                if(data) {
+                    app.pushPage(Util.HutspotPage.Show, {show: data}, fromPlaying)
+                } else {
+                    app.showErrorMessage(error, i18n.tr("Failed to fetch Show"))
+                }
+            })
+        })
+    }
+
+    function ensureFullObject(obj, callback) {
+        // return obj if it is already a full object
+        switch(obj.type) {
+          case "album":
+            if(obj.hasOwnProperty('tracks')) {
+              callback(obj)
+              return
+            }
+            break
+          case "artist":
+            if(obj.hasOwnProperty('followers')) {
+              callback(obj)
+              return
+            }
+            break
+          case "episode":
+            if(obj.hasOwnProperty('show')) {
+              callback(obj)
+              return
+            }
+            break
+          case "playlist":
+            if(obj.hasOwnProperty('followers')) {
+              callback(obj)
+              return
+            }
+            break
+          case "track":
+            if(obj.hasOwnProperty('album')) {
+              callback(obj)
+              return
+            }
+            break
+          case "show":
+            if(obj.hasOwnProperty('episodes')) {
+              callback(obj)
+              return
+            }
+            break
+        }
+        // fetch the full object
+        Spotify.getObject(obj.href, function(error, data) {
             if(data) {
-                // then get full show object
-                Spotify.getObject(data.show.href, function(error, data) {
-                    if(data) {
-                        app.pushPage(Util.HutspotPage.Show, {show: data}, fromPlaying)
-                    } else {
-                        app.showErrorMessage(error, qsTr("Failed to fetch Show"))
-                    }
-                })
+                callback(data)
             } else {
-                app.showErrorMessage(error, qsTr("Failed to fetch Episode"))
+                app.showErrorMessage(error, i18n.tr("Failed to fetch full " + obj.type))
             }
         })
+        return obj
     }
 
     function loadArtist(artists, fromPlaying) {
@@ -922,10 +966,10 @@ MainView {
             id: dialogue
             title: _dialogTitle
             text: _dialogText
-            Button { 
+            Button {
                 text: i18n.tr("Ok")
                 color: theme.palette.normal.positive
-                onClicked: PopupUtils.close(dialogue) 
+                onClicked: PopupUtils.close(dialogue)
             }
         }
     }
@@ -946,7 +990,7 @@ MainView {
 
     function showMessageDialog(title, text) {
         _dialogTitle = title
-        _dialogText = text      
+        _dialogText = text
         PopupUtils.open(msgDialog)
     }
 
@@ -980,15 +1024,15 @@ MainView {
                 visible: _dialogCancelButtonVisible
                 onClicked: {
                   PopupUtils.close(dialogue)
-                  confirmRejected()  
+                  confirmRejected()
                 }
             }
-            Button { 
+            Button {
                 text: i18n.tr("Ok")
                 color: theme.palette.normal.positive
                 onClicked: {
                   PopupUtils.close(dialogue)
-                  confirmAccepted()  
+                  confirmAccepted()
                 }
             }
         }
@@ -1002,8 +1046,8 @@ MainView {
             _confirmAcceptedCallback = acceptCallback
         if(arguments.length >= 3 && arguments[2] !== null)
             _confirmRejectedCallback = arguments[2]
-        _dialogTitle = i18n.tr("Confirm")      
-        _dialogText = text      
+        _dialogTitle = i18n.tr("Confirm")
+        _dialogText = text
         PopupUtils.open(confirmDialog)
     }
 
@@ -1085,7 +1129,7 @@ MainView {
 
     property bool logDiscovery: settings.logDiscoveryEnabled
 
-    Connections { 
+    Connections {
         target: mdns
         onServiceAdded: {
             if(logDiscovery)console.log("onServiceAdded: " + JSON.stringify(serviceJSON,null,2))
@@ -1144,7 +1188,7 @@ MainView {
         }
     }
 
-    onDevicesChanged: {        
+    onDevicesChanged: {
         // for logging Librespot discovery
         /*var ls = isLibrespotInDiscoveredList()
         if(ls !== null) {
@@ -1215,7 +1259,7 @@ MainView {
 
             if(controller.playbackState.is_playing) {
               // cancel pending quit
-              if(delayTimer.running) 
+              if(delayTimer.running)
                  delayTimer.running = false
               if(!powerd.hasSysStateActive()) {
                   powerd.requestSysStateActive("hutspot")
@@ -1246,9 +1290,9 @@ MainView {
     }
 
     //
-    // handle exit/close. 
-    // ToDo: onDestruction is never called which is not a 
-    //       big roblem since powerd will remove the cooking      
+    // handle exit/close.
+    // ToDo: onDestruction is never called which is not a
+    //       big roblem since powerd will remove the cooking
     //       when we disappear from the DBus.
     //
     StateSaver.properties: "title"
