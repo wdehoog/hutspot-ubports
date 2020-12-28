@@ -348,15 +348,17 @@ Item {
     }
 
     function playTrack(track) {
-        Spotify.play({
-            'device_id': getDeviceId(),
-            'uris': [track.uri]
-        }, function(error, data) {
-            if(!error) {
-                playbackState.item = track
-                refreshPlaybackState()
-            } else
-                app.showErrorMessage(error, qsTr("Play Failed"))
+        ensureFullObject(track, function(obj) {
+            Spotify.play({
+                'device_id': getDeviceId(),
+                'uris': [obj.uri]
+            }, function(error, data) {
+                if(!error) {
+                    playbackState.item = obj
+                    refreshPlaybackState()
+                } else
+                    app.showErrorMessage(error, qsTr("Play Failed"))
+            })
         })
     }
 
