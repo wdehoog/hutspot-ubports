@@ -128,7 +128,7 @@ Page {
                     maximumLength: 4
                     validator: IntValidator{bottom: 1; top: 500;}
                     text: app.settings.searchHistoryMaxSize
-                    onAccepted: app.settings.searchHistoryMaxSize = parseInt(text)
+                    onTextChanged: app.settings.searchHistoryMaxSize = parseInt(text)
                 }
             }
 
@@ -150,7 +150,7 @@ Page {
                     maximumLength: 4
                     validator: IntValidator{bottom: 1; top: 5000;}
                     text: app.settings.searchLimit
-                    onAccepted: app.settings.searchLimit = parseInt(text)
+                    onTextChanged: app.settings.searchLimit = parseInt(text)
                 }
             }
 
