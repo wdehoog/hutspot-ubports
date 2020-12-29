@@ -276,6 +276,8 @@ function parseSpotifyUri(uri) {
         else if(startsWith(typeStr, "playlist:")
                 || startsWith(typeStr, "user:"))
             parsed.type = SpotifyItemType.Playlist
+        else if(startsWith(typeStr, "show:"))
+            parsed.type = SpotifyItemType.Show
     }
     parsed.id = uri.slice(uri.lastIndexOf(":")+1)
     return parsed

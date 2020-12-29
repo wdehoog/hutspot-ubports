@@ -71,12 +71,12 @@ Page {
                 secondLabelText: show.publisher
                 thirdLabelText: {
                     var s = ""
-                    if(app.controller.playbackState.context.total_episodes)
-                        s += app.controller.playbackState.context.total_episodes + " " + i18n.tr("episodes")
-                    s += ", " + i18n.tr("by") + " " + app.controller.playbackState.context.publisher
-                    if(app.controller.playbackState.context.explicit)
+                    if(show.total_episodes)
+                        s += show.total_episodes + " " + i18n.tr("episodes")
+                    s += ", " + i18n.tr("by") + " " + show.publisher
+                    if(show.explicit)
                         s += ", " +  i18n.tr("explicit")
-                    s += ", " + Util.createItemsString(app.controller.playbackState.context.languages, "")
+                    s += ", " + Util.createItemsString(show.languages, "")
                     return s
                 }
                 onFirstLabelClicked: secondLabelClicked()
@@ -88,11 +88,11 @@ Page {
                 })
             }
 
-            /*Separator {
+            Rectangle {
                 width: parent.width
-                color: Theme.primaryColor
-            }*/
-
+                height: app.paddingMedium
+                opacity: 0
+            }
         }
     }
 

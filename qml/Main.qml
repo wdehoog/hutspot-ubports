@@ -66,6 +66,8 @@ MainView {
     property color popupBackgroundColor: normalBackgroundColor // "#111111"
     property double popupBackgroundOpacity: 0 //0.1
     property double popupRadius: units.dp(8)
+    property color popupBorderColor: "black"
+    property int popupBorderWidth: 4 // does not seem to work
 
     // UT stuff
     readonly property var homeDirectory: Util.urlToPath(Platform.StandardPaths.writableLocation(Platform.StandardPaths.HomeLocation).toString())
@@ -1354,6 +1356,6 @@ MainView {
         property int deviceVolume: 0
 
         property bool connectDiscoveryEnabled: true
-        property bool logDiscoveryEnabled: true
+        property bool logDiscoveryEnabled: false
     }
 }

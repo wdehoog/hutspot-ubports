@@ -67,7 +67,6 @@ Rectangle {
 
                 Column {
                     id: col2
-                    spacing: app.paddingSmall
                     width: parent.width - favorite.width
                     Text {
                         id: meta1Label

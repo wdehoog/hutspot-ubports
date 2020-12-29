@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-29 15:25+0000\n"
+"POT-Creation-Date: 2020-12-29 22:07+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,7 +51,7 @@ msgstr ""
 
 #: ../qml/components/CreatePlaylist.qml:34
 #: ../qml/components/PlaylistPicker.qml:36 ../qml/components/Librespot.qml:414
-#: ../qml/components/ArtistPicker.qml:35 ../qml/Main.qml:1044
+#: ../qml/components/ArtistPicker.qml:35 ../qml/Main.qml:1046
 msgid "Cancel"
 msgstr ""
 
@@ -93,17 +93,17 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: ../qml/components/SearchResultListItem.qml:216 ../qml/pages/Playing.qml:594
+#: ../qml/components/SearchResultListItem.qml:215 ../qml/pages/Playing.qml:594
 #: ../qml/pages/Playing.qml:600
 msgid "followers"
 msgstr ""
 
-#: ../qml/components/SearchResultListItem.qml:241 ../qml/pages/Playing.qml:611
+#: ../qml/components/SearchResultListItem.qml:240 ../qml/pages/Playing.qml:611
 #: ../qml/pages/Show.qml:78
 msgid "explicit"
 msgstr ""
 
-#: ../qml/components/SearchResultListItem.qml:243
+#: ../qml/components/SearchResultListItem.qml:242
 msgid "externally hosted"
 msgstr ""
 
@@ -135,7 +135,7 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-#: ../qml/components/Librespot.qml:404 ../qml/Main.qml:992 ../qml/Main.qml:1053
+#: ../qml/components/Librespot.qml:404 ../qml/Main.qml:994 ../qml/Main.qml:1055
 msgid "Ok"
 msgstr ""
 
@@ -160,68 +160,68 @@ msgstr ""
 msgid "Select Artist"
 msgstr ""
 
-#: ../qml/Main.qml:211
+#: ../qml/Main.qml:213
 msgid ""
 "Playing page is already loaded. Go back to it and discard the pages on top?"
 msgstr ""
 
-#: ../qml/Main.qml:392
+#: ../qml/Main.qml:394
 msgid "Failed to Refresh Authorization Token"
 msgstr ""
 
-#: ../qml/Main.qml:465
+#: ../qml/Main.qml:467
 msgid "Edit Playlist Details"
 msgstr ""
 
-#: ../qml/Main.qml:492
+#: ../qml/Main.qml:494
 msgid "Select a Playlist"
 msgstr ""
 
-#: ../qml/Main.qml:514
+#: ../qml/Main.qml:516
 msgid "Please confirm removing<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:662
+#: ../qml/Main.qml:664
 msgid "Please confirm to unfollow playlist:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:688
+#: ../qml/Main.qml:690
 msgid "Please confirm to unfollow artist:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:719
+#: ../qml/Main.qml:721
 msgid "Please confirm to un-save album:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:750
+#: ../qml/Main.qml:752
 msgid "Please confirm to un-save show:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:776
+#: ../qml/Main.qml:778
 msgid "Please confirm to un-save track:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:890
+#: ../qml/Main.qml:892
 msgid "Failed to fetch Show"
 msgstr ""
 
-#: ../qml/Main.qml:958
+#: ../qml/Main.qml:960
 msgid "Failed to fetch full "
 msgstr ""
 
-#: ../qml/Main.qml:968
+#: ../qml/Main.qml:970
 msgid "View an Artist"
 msgstr ""
 
-#: ../qml/Main.qml:1008
+#: ../qml/Main.qml:1010
 msgid "Error"
 msgstr ""
 
-#: ../qml/Main.qml:1071
+#: ../qml/Main.qml:1073
 msgid "Confirm"
 msgstr ""
 
-#: ../qml/Main.qml:1091
+#: ../qml/Main.qml:1093
 msgid "Failed to transfer to"
 msgstr ""
 

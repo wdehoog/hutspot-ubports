@@ -42,59 +42,65 @@ Page {
 
     Component {
         id: headerComponent
-    Column {
+        Column {
 
-        width: parent.width - 2*app.paddingMedium
-        x: app.paddingMedium
-        anchors.bottomMargin: app.paddingLarge
-        spacing: app.paddingLarge
+            width: parent.width - 2*app.paddingMedium
+            x: app.paddingMedium
+            anchors.bottomMargin: app.paddingLarge
+            spacing: app.paddingLarge
 
-        Image {
-            id: imageItem
-            source:  (album && album.images)
-                     ? album.images[0].url : defaultImageSource
-            width: parent.width * 0.75
-            height: width
-            fillMode: Image.PreserveAspectFit
-            anchors.horizontalCenter: parent.horizontalCenter
-            onPaintedHeightChanged: height = Math.min(parent.width, paintedHeight)
-            MouseArea {
-                 anchors.fill: parent
-                 onClicked: app.controller.playContext(album)
+            Image {
+                id: imageItem
+                source:  (album && album.images)
+                         ? album.images[0].url : defaultImageSource
+                width: parent.width * 0.75
+                height: width
+                fillMode: Image.PreserveAspectFit
+                anchors.horizontalCenter: parent.horizontalCenter
+                onPaintedHeightChanged: height = Math.min(parent.width, paintedHeight)
+                MouseArea {
+                     anchors.fill: parent
+                     onClicked: app.controller.playContext(album)
+                }
+            }
+
+            MetaInfoPanel {
+                id: metaLabels
+                width: parent.width
+                firstLabelText: album.name
+                secondLabelText: Util.createItemsString(album.artists, i18n.tr("no artist known"))
+                thirdLabelText: {
+                    var s = ""
+                    var n = searchModel.count
+                    if(album.tracks)
+                        n = album.tracks.total
+                    else if(album.total_tracks)
+                        n = album.total_tracks
+                    if(n > 1)
+                        s += n + " " + i18n.tr("tracks")
+                    else if(n === 1)
+                        s += 1 + " " + i18n.tr("track")
+                    if(album.release_date && album.release_date.length > 0)
+                        s += ", " + Util.getYearFromReleaseDate(album.release_date)
+                    if(album.genres && album.genres.length > 0)
+                        s += ", " + Util.createItemsString(album.genres, "")
+                    return s
+                }
+                onFirstLabelClicked: secondLabelClicked()
+                onSecondLabelClicked: app.loadArtist(album.artists)
+                onThirdLabelClicked: secondLabelClicked()
+                isFavorite: isAlbumSaved
+                onToggleFavorite: app.toggleSavedAlbum(album, isAlbumSaved, function(saved) {
+                    isAlbumSaved = saved
+                })
+            }
+
+            Rectangle {
+                width: parent.width
+                height: app.paddingMedium
+                opacity: 0
             }
         }
-
-        MetaInfoPanel {
-            id: metaLabels
-            width: parent.width
-            firstLabelText: album.name
-            secondLabelText: Util.createItemsString(album.artists, i18n.tr("no artist known"))
-            thirdLabelText: {
-                var s = ""
-                var n = searchModel.count
-                if(album.tracks)
-                    n = album.tracks.total
-                else if(album.total_tracks)
-                    n = album.total_tracks
-                if(n > 1)
-                    s += n + " " + i18n.tr("tracks")
-                else if(n === 1)
-                    s += 1 + " " + i18n.tr("track")
-                if(album.release_date && album.release_date.length > 0)
-                    s += ", " + Util.getYearFromReleaseDate(album.release_date)
-                if(album.genres && album.genres.length > 0)
-                    s += ", " + Util.createItemsString(album.genres, "")
-                return s
-            }
-            onFirstLabelClicked: secondLabelClicked()
-            onSecondLabelClicked: app.loadArtist(album.artists)
-            onThirdLabelClicked: secondLabelClicked()
-            isFavorite: isAlbumSaved
-            onToggleFavorite: app.toggleSavedAlbum(album, isAlbumSaved, function(saved) {
-                isAlbumSaved = saved
-            })
-        }
-    }
     }
 
     AlbumTrackContextMenu {

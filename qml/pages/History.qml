@@ -29,7 +29,7 @@ Page {
         flickable: listView
         trailingActionBar.actions: [
             Action {
-                iconName: "edit-clear"
+                iconName: "delete"
                 text: i18n.tr("Clear")
                 onTriggered: {
                     app.showConfirmDialog(i18n.tr("Clear History?"), function() {
@@ -73,14 +73,17 @@ Page {
 
             onClicked: {
                 switch(type) {
-                case 0:
+                case Util.SpotifyItemType.Album:
                     app.pushPage(Util.HutspotPage.Album, {album: item})
                     break;
-                case 1:
+                case Util.SpotifyItemType.Artist:
                     app.pushPage(Util.HutspotPage.Artist, {currentArtist: item})
                     break;
-                case 2:
+                case Util.SpotifyItemType.Playlist:
                     app.pushPage(Util.HutspotPage.Playlist, {playlist: item})
+                    break;
+                case Util.SpotifyItemType.Show:
+                    app.pushPage(Util.HutspotPage.Show, {show: item})
                     break;
                 }
             }
@@ -120,25 +123,32 @@ Page {
                 if(parsed[p].id === retrieved[i].data.id) {
                     switch(retrieved[i].type) {
                     case Util.SpotifyItemType.Album:
-                        searchModel.append({type: 0,
+                        searchModel.append({type: Util.SpotifyItemType.Album,
                                             name: retrieved[i].data.name,
                                             item: retrieved[i].data,
                                             following: false,
                                             saved: app.spotifyDataCache.isAlbumSaved(retrieved[i].data.id)})
                         break
                     case Util.SpotifyItemType.Artist:
-                        searchModel.append({type: 1,
+                        searchModel.append({type: Util.SpotifyItemType.Artist,
                                             name: retrieved[i].data.name,
                                             item: retrieved[i].data,
                                             following: app.spotifyDataCache.isArtistFollowed(retrieved[i].data.id),
                                             saved: false})
                         break
                     case Util.SpotifyItemType.Playlist:
-                        searchModel.append({type: 2,
+                        searchModel.append({type: Util.SpotifyItemType.Playlist,
                                             name: retrieved[i].data.name,
                                             item: retrieved[i].data,
                                             following: app.spotifyDataCache.isPlaylistFollowed(retrieved[i].data.id),
                                             saved: false})
+                        break
+                    case Util.SpotifyItemType.Show:
+                        searchModel.append({type: Util.SpotifyItemType.Show,
+                                            name: retrieved[i].data.name,
+                                            item: retrieved[i].data,
+                                            following: false,
+                                            saved: app.spotifyDataCache.isShowSaved(retrieved[i].data.id)})
                         break
                     }
                     break
@@ -162,6 +172,7 @@ Page {
     property int numberToRetrieve: 0
 
     function refresh() {
+        //console.log("refresh: " + JSON.stringify(app.history))
         var i;
         showBusy = true
         retrieved = []
@@ -178,6 +189,7 @@ Page {
     }
 
     function _refresh(count) {
+        //console.log("_refresh: " + count)
         if(count > app.history.length)
             count = app.history.length
         numberToRetrieve = count
@@ -185,11 +197,15 @@ Page {
         // group the requests
         var qalbums = []
         var qartists = []
+        var qshows = []
         for(var i=0;i<count;i++) {
             var p = Util.parseSpotifyUri(app.history[i])
             parsed[i] = p
-            if(p.type === undefined)
+
+            if(p.type === undefined) {
+                numberToRetrieve--
                 continue
+            }
 
             switch(p.type) {
             case Util.SpotifyItemType.Album:
@@ -213,12 +229,18 @@ Page {
                     checkReload(1)
                 })
                 break
+            case Util.SpotifyItemType.Show:
+                qshows.push(p.id)
+                // Spotify allows 50 max. our max as well
+                break
             }
         }
         if(qalbums.length > 0)
             getAlbums(qalbums)
         if(qartists.length > 0)
             getArtists(qartists)
+        if(qshows.length > 0)
+            getShows(qshows)
     }
 
     function getAlbums(albumIds) {
@@ -229,7 +251,7 @@ Page {
         Spotify.getAlbums(albumIds, options, function(error, data) {
             if(data) {
                 for(var i=0;i<albumIds.length;i++)
-                    retrieved.push({type: 0, data: data.albums[i]})
+                    retrieved.push({type: Util.SpotifyItemType.Album, data: data.albums[i]})
             } else
                 console.log("No Data for getAlbums")
             checkReload(albumIds.length)
@@ -240,10 +262,21 @@ Page {
         Spotify.getArtists(artistIds, function(error, data) {
             if(data) {
                 for(var i=0;i<artistIds.length;i++)
-                    retrieved.push({type: 1, data: data.artists[i]})
+                    retrieved.push({type: Util.SpotifyItemType.Artist, data: data.artists[i]})
             } else
                 console.log("No Data for getArtists")
             checkReload(artistIds.length)
+        })
+    }
+
+    function getShows(showIds) {
+        Spotify.getShows(showIds, function(error, data) {
+            if(data) {
+                for(var i=0;i<showIds.length;i++)
+                    retrieved.push({type: Util.SpotifyItemType.Show, data: data.shows[i]})
+            } else
+                console.log("No Data for getShows")
+            checkReload(showIds.length)
         })
     }
 
@@ -264,6 +297,7 @@ Page {
     }
 
     Component.onCompleted: {
+        console.log("HistoryPage onCompleted")
         if(app.hasValidToken)
             refresh()
     }

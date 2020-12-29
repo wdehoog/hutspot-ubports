@@ -34,7 +34,7 @@ Item {
                 }
                 Action {
                     text: i18n.tr("View")
-                    enabled: model 
+                    enabled: model
                              && (model.type !== Util.SpotifyItemType.Track)
                              && (model.type !== Util.SpotifyItemType.Episode)
                     visible: enabled
@@ -130,11 +130,17 @@ Item {
 
             Rectangle {
                 anchors.fill: parent
+                //x: parent.x - app.popupBorderWidth/2
+                //y: x
+                //width: parent.width + app.popupBorderWidth*2
+                //height: parent.height + app.popupBorderWidth*2
+                border.color: app.popupBorderColor
+                border.width: app.popupBorderWidth
                 color: app.popupBackgroundColor
                 opacity: app.popupBackgroundOpacity
                 radius: app.popupRadius
                 z: -1
             }
-        }  
+        }
     }
 }

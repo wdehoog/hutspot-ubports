@@ -1473,6 +1473,14 @@ function getShow(showId, options, callback) {
   return _checkParamsAndPerformRequest(requestData, options, callback);
 };
 
+function getShows(showIds, options, callback) {
+  var requestData = {
+    url: _baseUri + '/shows/',
+    params: { ids: showIds.join(',') }
+  };
+  return _checkParamsAndPerformRequest(requestData, options, callback);
+};
+
 function getEpisode(episodeId, options, callback) {
   var requestData = {
     url: _baseUri + '/episodes/' + episodeId

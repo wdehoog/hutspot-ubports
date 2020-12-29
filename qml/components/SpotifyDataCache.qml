@@ -19,6 +19,7 @@ Item {
     property var _followedArtistsId: new BSALib.BSArray()   //  key is id, stores uri
     property var _savedAlbumsId: new BSALib.BSArray()   //  key is id, stores uri
     property var _savedTracksId: new BSALib.BSArray()   //  key is id, stores uri, only for tracks not in a saved album
+    property var _savedShowsId: new BSALib.BSArray()   //  key is id, stores uri
 
     function isPlaylistFollowed(id) {
         return _followedPlaylistsId.find(id) !== null
@@ -30,6 +31,10 @@ Item {
 
     function isAlbumSaved(id) {
         return _savedAlbumsId.find(id) !== null
+    }
+
+    function isShowSaved(id) {
+        return _savedShowsId.find(id) !== null
     }
 
     // Followed Playlists
@@ -105,6 +110,31 @@ Item {
                 else {
                     app.doBeforeStart.notifyHappend(app.doBeforeStart.savedAlbumsMask)
                     console.log("Loaded info of " + _savedAlbumsId.items.length + " saved albums")
+                }
+            }
+        })
+    }
+
+    // Saved Shows
+    function loadSavedShows() {
+        _savedShowsId = new BSALib.BSArray()
+        _loadSavedShows(0)
+    }
+
+    function _loadSavedShows(offset) {
+        Spotify.getMySavedShows({offset: offset, limit: 50}, function(error, data) {
+            var i
+            if(data && data.items) {
+                for(i=0;i<data.items.length;i++) {
+                    _savedShowsId.insert(
+                        data.items[i].show.id, data.items[i].show.uri)
+                }
+                var nextOffset = data.offset+data.items.length
+                if(nextOffset < data.total)
+                    _loadSavedShows(nextOffset)
+                else {
+                    app.doBeforeStart.notifyHappend(app.doBeforeStart.savedShowsMask)
+                    console.log("Loaded info of " + _savedShowsId.items.length + " saved shows")
                 }
             }
         })
