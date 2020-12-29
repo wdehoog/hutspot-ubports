@@ -63,8 +63,8 @@ MainView {
     property var fontPrimaryWeight: Font.Light
     property var fontHighlightWeight: Font.Bold
 
-    property color popupBackgroundColor: "#111111"
-    property double popupBackgroundOpacity: 0.1
+    property color popupBackgroundColor: normalBackgroundColor // "#111111"
+    property double popupBackgroundOpacity: 0 //0.1
     property double popupRadius: units.dp(8)
 
     // UT stuff
@@ -724,6 +724,37 @@ MainView {
             _unSaveAlbum(album, callback)
     }
 
+    function saveShow(show, callback) {
+        var id
+        if(show.hasOwnProperty("id"))
+            id = show.id
+        else
+            id = Util.parseSpotifyUri(show.uri).id
+        Spotify.addToMySavedShows([id], function(error, data) {
+            callback(error, data)
+            var event = new Util.FavoriteEvent(Util.SpotifyItemType.Show, show.id, show.uri, true)
+            favoriteEvent(event)
+        })
+    }
+
+    function _unSaveShow(show, callback) {
+        Spotify.removeFromMySavedShows([show.id], function(error, data) {
+            callback(error, data)
+            var event = new Util.FavoriteEvent(Util.SpotifyItemType.Show, show.id, show.uri, false)
+            favoriteEvent(event)
+        })
+    }
+
+    function unSaveShow(show, callback) {
+        if(settings.confirmUnFollowSave) {
+            app.showConfirmDialog(i18n.tr("Please confirm to un-save show:<br><br><b>" + show.name + "</b>"),
+                                  function() {
+                _unSaveShow(show, callback)
+            })
+        } else
+            _unSaveShow(show, callback)
+    }
+
     function saveTrack(track, callback) {
         Spotify.addToMySavedTracks([track.id], function(error, data) {
             callback(error, data)
@@ -748,32 +779,6 @@ MainView {
             })
         } else
             _unSaveTrack(track, callback)
-    }
-
-    function saveShow(show, callback) {
-        Spotify.addToMySavedShows([show.id], function(error, data) {
-            callback(error, data)
-            var event = new Util.FavoriteEvent(Util.SpotifyItemType.Show, show.id, show.uri, true)
-            favoriteEvent(event)
-        })
-    }
-
-    function _unSaveShow(show, callback) {
-        Spotify.removeFromMySavedShow([show.id], function(error, data) {
-            callback(error, data)
-            var event = new Util.FavoriteEvent(Util.SpotifyItemType.Show, show.id, show.uri, false)
-            favoriteEvent(event)
-        })
-    }
-
-    function unSaveShow(track, callback) {
-        if(settings.confirmUnFollowSave) {
-            app.showConfirmDialog(i18n.tr("Please confirm to un-save Show:<br><br><b>" + show.name + "</b>"),
-                                  function() {
-                _unSaveShow(track, callback)
-            })
-        } else
-            _unSaveShow(track, callback)
     }
 
     function toggleSavedTrack(model) {
@@ -886,6 +891,23 @@ MainView {
                 }
             })
         })
+    }
+
+    function getContext(obj, callback) {
+        switch(obj.type) {
+          case "track":
+              // default to album
+              ensureFullObject(obj.album, function(fullObj) {
+                  callback(fullObj)})
+              break
+          case "episode":
+              ensureFullObject(obj.show, function(fullObj) {
+                  callback(fullObj)})
+              break
+          default:
+            // the rest are context themselves
+            callback(null)
+        }
     }
 
     function ensureFullObject(obj, callback) {

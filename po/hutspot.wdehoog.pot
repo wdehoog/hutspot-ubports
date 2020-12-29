@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-28 17:04+0000\n"
+"POT-Creation-Date: 2020-12-29 15:25+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../qml/components/SpotifyController.qml:421
+#: ../qml/components/SpotifyController.qml:418
 msgid "There is a resume point available for this Epsidode: "
 msgstr ""
 
@@ -28,11 +28,11 @@ msgstr ""
 
 #: ../qml/components/AlbumTrackContextMenu.qml:30
 #: ../qml/components/SearchResultContextMenu.qml:44
-#: ../qml/pages/Playing.qml:104
+#: ../qml/pages/Playing.qml:109
 msgid "View Album"
 msgstr ""
 
-#: ../qml/components/AlbumTrackContextMenu.qml:39 ../qml/pages/Playing.qml:119
+#: ../qml/components/AlbumTrackContextMenu.qml:39 ../qml/pages/Playing.qml:124
 msgid "View Artist"
 msgstr ""
 
@@ -51,7 +51,7 @@ msgstr ""
 
 #: ../qml/components/CreatePlaylist.qml:34
 #: ../qml/components/PlaylistPicker.qml:36 ../qml/components/Librespot.qml:414
-#: ../qml/components/ArtistPicker.qml:35 ../qml/Main.qml:1022
+#: ../qml/components/ArtistPicker.qml:35 ../qml/Main.qml:1044
 msgid "Cancel"
 msgstr ""
 
@@ -93,12 +93,13 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: ../qml/components/SearchResultListItem.qml:216 ../qml/pages/Playing.qml:574
-#: ../qml/pages/Playing.qml:580
+#: ../qml/components/SearchResultListItem.qml:216 ../qml/pages/Playing.qml:594
+#: ../qml/pages/Playing.qml:600
 msgid "followers"
 msgstr ""
 
-#: ../qml/components/SearchResultListItem.qml:241
+#: ../qml/components/SearchResultListItem.qml:241 ../qml/pages/Playing.qml:611
+#: ../qml/pages/Show.qml:78
 msgid "explicit"
 msgstr ""
 
@@ -134,7 +135,7 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-#: ../qml/components/Librespot.qml:404 ../qml/Main.qml:970 ../qml/Main.qml:1031
+#: ../qml/components/Librespot.qml:404 ../qml/Main.qml:992 ../qml/Main.qml:1053
 msgid "Ok"
 msgstr ""
 
@@ -143,6 +144,7 @@ msgid "View"
 msgstr ""
 
 #: ../qml/components/SearchResultContextMenu.qml:50
+#: ../qml/pages/Playing.qml:150
 msgid "View Show"
 msgstr ""
 
@@ -191,35 +193,35 @@ msgstr ""
 msgid "Please confirm to un-save album:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:745
+#: ../qml/Main.qml:750
+msgid "Please confirm to un-save show:<br><br><b>"
+msgstr ""
+
+#: ../qml/Main.qml:776
 msgid "Please confirm to un-save track:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:771
-msgid "Please confirm to un-save Show:<br><br><b>"
-msgstr ""
-
-#: ../qml/Main.qml:885
+#: ../qml/Main.qml:890
 msgid "Failed to fetch Show"
 msgstr ""
 
-#: ../qml/Main.qml:936
+#: ../qml/Main.qml:958
 msgid "Failed to fetch full "
 msgstr ""
 
-#: ../qml/Main.qml:946
+#: ../qml/Main.qml:968
 msgid "View an Artist"
 msgstr ""
 
-#: ../qml/Main.qml:986
+#: ../qml/Main.qml:1008
 msgid "Error"
 msgstr ""
 
-#: ../qml/Main.qml:1049
+#: ../qml/Main.qml:1071
 msgid "Confirm"
 msgstr ""
 
-#: ../qml/Main.qml:1069
+#: ../qml/Main.qml:1091
 msgid "Failed to transfer to"
 msgstr ""
 
@@ -269,42 +271,47 @@ msgstr ""
 msgid "Back"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:137
+#: ../qml/pages/Playing.qml:142
 msgid "View Playlist"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:502
+#: ../qml/pages/Playing.qml:515
 msgid "no current device"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:537 ../qml/pages/Playing.qml:556
+#: ../qml/pages/Playing.qml:554 ../qml/pages/Playing.qml:574
 #: ../qml/pages/Album.qml:71
 msgid "no artist known"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:540
+#: ../qml/pages/Playing.qml:557
 msgid "no genre known"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:564 ../qml/pages/Playing.qml:577
+#: ../qml/pages/Playing.qml:584 ../qml/pages/Playing.qml:597
 #: ../qml/pages/Album.qml:80
 msgid "tracks"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:566 ../qml/pages/Album.qml:82
+#: ../qml/pages/Playing.qml:586 ../qml/pages/Album.qml:82
 msgid "track"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:578
+#: ../qml/pages/Playing.qml:598 ../qml/pages/Playing.qml:609
+#: ../qml/pages/Show.qml:76
 msgid "by"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:582
+#: ../qml/pages/Playing.qml:602
 msgid "public"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:584
+#: ../qml/pages/Playing.qml:604
 msgid "collaborative"
+msgstr ""
+
+#: ../qml/pages/Playing.qml:608 ../qml/pages/Show.qml:75
+msgid "episodes"
 msgstr ""
 
 #: ../qml/pages/Playlist.qml:39

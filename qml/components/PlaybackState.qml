@@ -58,7 +58,7 @@ Item {
     onItemChanged: updateMetaData()
 
     function updateMetaData() {
-        //console.log("updateMetaData")
+        //console.log("updateMetaData: " + JSON.stringify(item))
         var metadata = {}
 
         if(item == null) {
@@ -66,11 +66,14 @@ Item {
             artistsString = ""
             mprisPlayer.metadata = metadata
         } else {
-            //console.log("onItemChanged")
             artistsString = Util.createItemsString(item.artists, qsTr("no artist known"))
+
             if (item.album && item.album.images && item.album.images.length > 0)
-                coverArtUrl = item.album.images[0].url;
-            else coverArtUrl = "";
+                coverArtUrl = item.album.images[0].url
+            else if (item.images && item.images.length > 0)
+                coverArtUrl = item.images[0].url
+            else 
+                coverArtUrl = ""
 
             // Album, ArtUrl, Artist, AlbumArtist, Composer, Length, TrackNumber, Title
             metadata[Mpris.metadataToString(Mpris.Title)] = item.name
@@ -100,7 +103,6 @@ Item {
     property string repeat_state: "off"
     property bool shuffle_state: false
     property var context: undefined
-    property var contextDetails: undefined
     property int timestamp: 0
     property int progress_ms: 0
     property bool is_playing: false
@@ -117,11 +119,15 @@ Item {
         device = state.device
         repeat_state = state.repeat_state
         shuffle_state = state.shuffle_state
-        context = state.context
         timestamp = state.timestamp
         progress_ms = state.progress_ms
         is_playing = state.is_playing
-        item = state.item
+        //if(!is_playing || state.item !== null)
+        if(state.item !== null)
+            item = state.item
+        //if(!is_playing || state.context !== null)
+        if(state.context !== null)
+            context = state.context
     }
 
     function notifyNoState(status) {

@@ -21,8 +21,9 @@ function getDurationString(d) {
 }
 
 function createItemsString(items, noneString) {
-    if(items.length === 0)
+    if(!items || items.length === 0)
         return noneString
+
     var i
     var sb = new Classes.StringBuilder()
     for(i=0;i<items.length;i++) {

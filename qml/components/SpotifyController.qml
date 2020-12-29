@@ -1,6 +1,7 @@
 /**
  * Hutspot. 
  * Copyright (C) 2018 Maciej Janiszewski
+ * Copyright (C) 2020 Willem-Jan de Hoog
  *
  * License: MIT
  */
@@ -22,9 +23,9 @@ Item {
             return defaultValue
         }
 
-        if (playbackState.contextDetails)
-            if (playbackState.contextDetails.images)
-                return playbackState.contextDetails.images[0].url
+        if (playbackState.context)
+            if (playbackState.context.images)
+                return playbackState.context.images[0].url
         return defaultValue;
     }
 
@@ -321,45 +322,30 @@ Item {
                     switch (data.context.type) {
                         case 'album':
                             Spotify.getAlbum(cid, {}, function(error, data) {
-                                playbackState.contextDetails = data
+                                playbackState.context = data
                             })
                             break
                         case 'artist':
                             Spotify.getArtist(cid, {}, function(error, data) {
-                                playbackState.contextDetails = data
+                                playbackState.context = data
                             })
                             break
                         case 'playlist':
                             Spotify.getPlaylist(cid, {}, function(error, data) {
-                                playbackState.contextDetails = data
+                                playbackState.context = data
                             })
                             break
                         default:
-                            playbackState.contextDetails = null
+                            playbackState.context = null
                     }
                 } else {
                     // ToDo why is this?
                     // Disabled since we lose ifo on what is being played
-                    //playbackState.contextDetails = undefined
+                    //playbackState.context = undefined
                 }
             }
         })
         //reloadDevices() Why is this here? The info is not used.
-    }
-
-    function playTrack(track) {
-        ensureFullObject(track, function(obj) {
-            Spotify.play({
-                'device_id': getDeviceId(),
-                'uris': [obj.uri]
-            }, function(error, data) {
-                if(!error) {
-                    playbackState.item = obj
-                    refreshPlaybackState()
-                } else
-                    app.showErrorMessage(error, qsTr("Play Failed"))
-            })
-        })
     }
 
     function playContext(context) {
@@ -385,18 +371,28 @@ Item {
         }
 
         app.ensureFullObject(track, function(obj) {
-            Spotify.play({
-                "device_id": getDeviceId(),
-                "context_uri": context.uri,
-                //"offset": {"position": position}
-                "offset": {"uri": track.linked_from
-                                  ? track.linked_from.uri : track.uri}
-            }, function (error, data) {
+            var options
+            if(context)
+                options = {
+                    "device_id": getDeviceId(),
+                    "context_uri": context.uri,
+                    //"offset": {"position": position}
+                    "offset": {"uri": obj.linked_from
+                                      ? obj.linked_from.uri : track.uri}}
+            else
+                options = {
+                    'device_id': getDeviceId(),
+                    'uris': [obj.uri]}
+
+            Spotify.play(options, function (error, data) {
                 if (!error) {
-                    playbackState.item = track
-                    refreshPlaybackState();
+                    playbackState.item = obj
+                    if(!context)
+                        app.getContext(obj, function(ctx) {
+                            playbackState.context = ctx})
+                    refreshPlaybackState()
                 } else {
-                    app.showErrorMessage(error, qsTr("Play failed"))
+                    app.showErrorMessage(error, qsTr("Play failed: " + error))
                 }
             })
         })
@@ -410,30 +406,35 @@ Item {
         // get the full Episode object  
         Spotify.getEpisode(episode.id, {}, function(error, data) {
             if(data) {
-                console.log(JSON.stringify(data))
+                //console.log("episode: " + JSON.stringify(data))
 
+                var episode = data
                 var options = {}
 
                 // resume? fully_played, resume_position_ms
-                if(data.resume_point) {
-                    if(!data.resume_point.fully_played
-                       && data.resume_point.resume_position_ms > 0) {
-                        app.showConfirmDialog(i18n.tr("There is a resume point available for this Epsidode: " + Util.getDurationString(data.resume_point.resume_position_ms) + ". Do you want to use it?"),
+                if(episode.resume_point) {
+                    if(!episode.resume_point.fully_played
+                       && episode.resume_point.resume_position_ms > 0) {
+                        app.showConfirmDialog(i18n.tr("There is a resume point available for this Epsidode: " + Util.getDurationString(episode.resume_point.resume_position_ms) + ". Do you want to use it?"),
                             function() {
-                                options["position_ms"] = data.resume_point.resume_position_ms
+                                options["position_ms"] = episode.resume_point.resume_position_ms
                             }
                         )
                     }
                 }
 
                 options["device_id"] = getDeviceId()
-                options["context_uri"] = data.show.uri
-                options["offset"] = {"uri": data.uri}
+                options["context_uri"] = episode.show.uri
+                options["offset"] = {"uri": episode.uri}
 
                 Spotify.play(options, function (error, data) {
                     if (!error) {
-                        playbackState.item = data
-                        refreshPlaybackState();
+                        playbackState.item = episode
+                        ensureFullObject(episode.show, function(obj) {
+                            //console.log("show: " + JSON.stringify(obj))
+                            playbackState.context = obj
+                            refreshPlaybackState()
+                        })
                     } else {
                         app.showErrorMessage(error, qsTr("Play Failed"))
                     }

@@ -66,12 +66,14 @@ Page {
     property bool _viewAlbumEnabled: false
     property bool _viewArtistEnabled: false
     property bool _viewPlaylistEnabled: false
+    property bool _viewShowEnabled: false
     //property bool viewTrackEnabled: false
 
     function updateContextMenu() {
         _viewAlbumEnabled = false
         _viewArtistEnabled = false
         _viewPlaylistEnabled = false
+        _viewShowEnabled = false
         //viewTrackEnabled = false
 
         switch(getContextType()) {
@@ -84,6 +86,9 @@ Page {
             break
         case Spotify.ItemType.Playlist:
             _viewPlaylistEnabled = true
+            break
+        case Spotify.ItemType.Show:
+            _viewShowEnabled = true
             break
         case Spotify.ItemType.Track:
             _viewAlbumEnabled = true
@@ -121,10 +126,10 @@ Page {
                     onTriggered: {
                         switch(getContextType()) {
                         case Spotify.ItemType.Album:
-                            app.loadArtist(app.controller.playbackState.contextDetails.artists, true)
+                            app.loadArtist(app.controller.playbackState.context.artists, true)
                             break
                         case Spotify.ItemType.Artist:
-                            app.pushPage(Util.HutspotPage.Artist, {currentArtist: app.controller.playbackState.contextDetails}, true)
+                            app.pushPage(Util.HutspotPage.Artist, {currentArtist: app.controller.playbackState.context}, true)
                             break
                         case Spotify.ItemType.Track:
                             app.loadArtist(app.controller.playbackState.item.artists, true)
@@ -138,6 +143,14 @@ Page {
                     visible: _viewPlaylistEnabled
                     onTriggered: {
                         app.pushPage(Util.HutspotPage.Playlist, {playlist: app.controller.playbackState.context}, true)
+                    }
+                }
+                Action {
+                    id: viewShow
+                    text: i18n.tr("View Show")
+                    visible: _viewShowEnabled
+                    onTriggered: {
+                        app.pushPage(Util.HutspotPage.Show, {show: app.controller.playbackState.context}, true)
                     }
                 }
             }
@@ -514,7 +527,7 @@ Page {
             return app.controller.playbackState.item ? app.controller.playbackState.item.name : ""
         if(app.controller.playbackState.context === null)
             return s
-        return app.controller.playbackState.contextDetails.name
+        return app.controller.playbackState.context.name
     }
 
     function getSecondLabelText() {
@@ -527,6 +540,10 @@ Page {
                 s += app.controller.playbackState.item.album.name
                 if (app.controller.playbackState.item.album.release_date)
                     s += ", " + Util.getYearFromReleaseDate(app.controller.playbackState.item.album.release_date)
+            } else if(app.controller.playbackState.item && app.controller.playbackState.item.show) {
+                s += app.controller.playbackState.item.show.name
+                //if (app.controller.playbackState.item.show.copyrights)
+                //    s += ", " + app.controller.playbackState.item.show.copyrights
             }
             return s
         }
@@ -534,13 +551,14 @@ Page {
             return s
         switch(app.controller.playbackState.context.type) {
         case 'album':
-            s += Util.createItemsString(app.controller.playbackState.contextDetails.artists, i18n.tr("no artist known"))
+            s += Util.createItemsString(app.controller.playbackState.context.artists, i18n.tr("no artist known"))
             break
         case 'artist':
-            s += Util.createItemsString(app.controller.playbackState.contextDetails.genres, i18n.tr("no genre known"))
+            s += Util.createItemsString(app.controller.playbackState.context.genres, i18n.tr("no genre known"))
             break
         case 'playlist':
-            s+= app.controller.playbackState.contextDetails.description
+        case 'show':
+            s+= app.controller.playbackState.context.description
             break
         }
         return s
@@ -554,34 +572,44 @@ Page {
             // no context (a single track?)
             if(app.controller.playbackState.item && app.controller.playbackState.item.artists)
                 s += Util.createItemsString(app.controller.playbackState.item.artists, i18n.tr("no artist known"))
+            else if(app.controller.playbackState.item && app.controller.playbackState.item.show)
+                s += app.controller.playbackState.item.show.publisher
             return s
         }
-        if(!app.controller.playbackState.contextDetails)
+        if(!app.controller.playbackState.context)
             return
         switch(app.controller.playbackState.context.type) {
         case 'album':
-            if(app.controller.playbackState.contextDetails.tracks)
-                s += app.controller.playbackState.contextDetails.tracks.total + " " + i18n.tr("tracks")
-            else if(app.controller.playbackState.contextDetails.album_type === "single")
+            if(app.controller.playbackState.context.tracks)
+                s += app.controller.playbackState.context.tracks.total + " " + i18n.tr("tracks")
+            else if(app.controller.playbackState.context.album_type === "single")
                 s += "1 " + i18n.tr("track")
-            if (app.controller.playbackState.contextDetails.release_date)
-                s += ", " + Util.getYearFromReleaseDate(app.controller.playbackState.contextDetails.release_date)
-            if(app.controller.playbackState.contextDetails.genres && app.controller.playbackState.contextDetails.genres.lenght > 0)
-                s += ", " + Util.createItemsString(app.controller.playbackState.contextDetails.genres, "")
+            if (app.controller.playbackState.context.release_date)
+                s += ", " + Util.getYearFromReleaseDate(app.controller.playbackState.context.release_date)
+            if(app.controller.playbackState.context.genres && app.controller.playbackState.context.genres.lenght > 0)
+                s += ", " + Util.createItemsString(app.controller.playbackState.context.genres, "")
             break
         case 'artist':
-            if(app.controller.playbackState.contextDetails.followers && app.controller.playbackState.contextDetails.followers.total > 0)
-                s += Util.abbreviateNumber(app.controller.playbackState.contextDetails.followers.total) + " " + i18n.tr("followers")
+            if(app.controller.playbackState.context.followers && app.controller.playbackState.context.followers.total > 0)
+                s += Util.abbreviateNumber(app.controller.playbackState.context.followers.total) + " " + i18n.tr("followers")
             break
         case 'playlist':
-            s += app.controller.playbackState.contextDetails.tracks.total + " " + i18n.tr("tracks")
-            s += ", " + i18n.tr("by") + " " + app.controller.playbackState.contextDetails.owner.display_name
-            if(app.controller.playbackState.contextDetails.followers && app.controller.playbackState.contextDetails.followers.total > 0)
-                s += ", " + Util.abbreviateNumber(app.controller.playbackState.contextDetails.followers.total) + " " + i18n.tr("followers")
+            s += app.controller.playbackState.context.tracks.total + " " + i18n.tr("tracks")
+            s += ", " + i18n.tr("by") + " " + app.controller.playbackState.context.owner.display_name
+            if(app.controller.playbackState.context.followers && app.controller.playbackState.context.followers.total > 0)
+                s += ", " + Util.abbreviateNumber(app.controller.playbackState.context.followers.total) + " " + i18n.tr("followers")
             if(app.controller.playbackState.context["public"])
                 s += ", " +  i18n.tr("public")
-            if(app.controller.playbackState.contextDetails.collaborative)
+            if(app.controller.playbackState.context.collaborative)
                 s += ", " +  i18n.tr("collaborative")
+            break
+        case 'show':
+            if(app.controller.playbackState.context.total_episodes)
+                s += app.controller.playbackState.context.total_episodes + " " + i18n.tr("episodes")
+            s += ", " + i18n.tr("by") + " " + app.controller.playbackState.context.publisher
+            if(app.controller.playbackState.context.explicit)
+                s += ", " +  i18n.tr("explicit")
+            s += ", " + Util.createItemsString(app.controller.playbackState.context.languages, "")
             break
         }
         return s
@@ -614,6 +642,8 @@ Page {
                 return Spotify.ItemType.Artist
             case 'playlist':
                 return Spotify.ItemType.Playlist
+            case 'show':
+                return Spotify.ItemType.Show
             }
         return Spotify.ItemType.Track
     }
@@ -724,6 +754,9 @@ Page {
                     loadPlaylistTracks(app.id, currentId)
                     loadPlaylistTrackInfo()
                     break
+                case 'show':
+                    contextType = Util.SpotifyItemType.Show
+                    break;
                 default:
                     contextType = -1
                     break
@@ -737,10 +770,10 @@ Page {
     Connections {
         target: app.controller.playbackState
 
-        onContextDetailsChanged: {
-            if(_debug)console.log("Playing.onContextDetailsChanged: " + currentId)
-            if(app.controller.playbackState.contextDetails)
-                currentId = app.controller.playbackState.contextDetails.id
+        onContextChanged: {
+            if(_debug)console.log("Playing.onContextChanged: " + currentId)
+            if(app.controller.playbackState.context)
+                currentId = app.controller.playbackState.context.id
             else
                 currentId = ""
         }
@@ -749,8 +782,8 @@ Page {
             if(_debug)console.log("Playing.onItemChanged  currentId: " +currentId + ", currentTrackId: " + currentTrackId + ", currentIndex: " + currentIndex)
 
             // do we have an id?
-            if(currentId == "" && app.controller.playbackState.contextDetails)
-                currentId = app.controller.playbackState.contextDetails.id
+            if(currentId == "" && app.controller.playbackState.context)
+                currentId = app.controller.playbackState.context.id
                 
             if(currentTrackId === app.controller.playbackState.item.id) {
                 if(currentIndex === -1) // we can still miss it
@@ -770,8 +803,9 @@ Page {
                         pageHeaderDescription = app.controller.playbackState.artistsString
                         break
                     case 'playlist':
-                        if(app.controller.playbackState.contextDetails)
-                            pageHeaderDescription = app.controller.playbackState.contextDetails.name
+                    case 'show':
+                        if(app.controller.playbackState.context)
+                            pageHeaderDescription = app.controller.playbackState.context.name
                         break
                     default:
                         pageHeaderDescription = ""
@@ -917,22 +951,27 @@ Page {
 
     function toggleSavedFollowed() {
         if(!app.controller.playbackState.context
-           || !app.controller.playbackState.contextDetails)
+           || !app.controller.playbackState.context)
             return
         switch(app.controller.playbackState.context.type) {
         case 'album':
-            app.toggleSavedAlbum(app.controller.playbackState.contextDetails, isContextFavorite, function(saved) {
+            app.toggleSavedAlbum(app.controller.playbackState.context, isContextFavorite, function(saved) {
                 isContextFavorite = saved
             })
             break
         case 'artist':
-            app.toggleFollowArtist(app.controller.playbackState.contextDetails, isContextFavorite, function(followed) {
+            app.toggleFollowArtist(app.controller.playbackState.context, isContextFavorite, function(followed) {
                 isContextFavorite = followed
             })
             break
         case 'playlist':
-            app.toggleFollowPlaylist(app.controller.playbackState.contextDetails, isContextFavorite, function(followed) {
+            app.toggleFollowPlaylist(app.controller.playbackState.context, isContextFavorite, function(followed) {
                 isContextFavorite = followed
+            })
+            break
+        case 'show':
+            app.toggleSavedShow(app.controller.playbackState.context, isContextFavorite, function(saved) {
+                isContextFavorite = saved
             })
             break
         default: // track?
@@ -980,7 +1019,7 @@ Page {
 
         onPlaylistEvent: {
             if(getContextType() !== Spotify.ItemType.Playlist
-               || app.controller.playbackState.contextDetails.id !== event.playlistId)
+               || app.controller.playbackState.context.id !== event.playlistId)
                 return
 
             // When a playlist is modified while being played the modifications
@@ -1001,7 +1040,7 @@ Page {
                     waitForEndOfSnapshot = true
                     waitForEndSnapshotData.uri = event.uri
                     waitForEndSnapshotData.snapshotId = event.snapshotId
-                    waitForEndSnapshotData.index = app.controller.playbackState.contextDetails.tracks.total // not used
+                    waitForEndSnapshotData.index = app.controller.playbackState.context.tracks.total // not used
                     waitForEndSnapshotData.trackUri = event.trackUri
                 } else {
                     currentSnapshotId = event.snapshotId
@@ -1016,7 +1055,7 @@ Page {
                 if(app.controller.playbackState.is_playing)
                     app.controller.pause(function(error, data) {
                         currentId = "" // trigger reload)
-                        app.controller.playContext({uri: app.controller.playbackState.contextDetails.uri})
+                        app.controller.playContext({uri: app.controller.playbackState.context.uri})
                     })
                 else {
                     loadPlaylistTracks(app.id, currentId)
@@ -1038,7 +1077,7 @@ Page {
         // do we have an id?
         if(currentId == "" 
            && app.controller.playbackState 
-           && app.controller.playbackState.contextDetails)
-            currentId = app.controller.playbackState.contextDetails.id
+           && app.controller.playbackState.context)
+            currentId = app.controller.playbackState.context.id
     }
 }

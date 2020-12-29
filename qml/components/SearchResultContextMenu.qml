@@ -95,13 +95,13 @@ Item {
                 case Util.SpotifyItemType.Track:
                     switch(contextType) {
                     case Util.SpotifyItemType.Album:
-                        app.controller.playTrackInContext(model.item, model.item.album, -1)
+                        app.controller.playTrackInContext(model.item, model.item.album)
                         break
                     case Util.SpotifyItemType.Playlist:
-                        app.controller.playTrackInContext(model.item, model.item.playlist, -1)
+                        app.controller.playTrackInContext(model.item, model.item.playlist)
                         break
                     default:
-                        app.controller.playTrack(model.item)
+                        app.controller.playTrackInContext(model.item)
                         break
                     }
                     break;

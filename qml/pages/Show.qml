@@ -60,7 +60,7 @@ Page {
                 onPaintedHeightChanged: height = Math.min(parent.width, paintedHeight)
                 MouseArea {
                      anchors.fill: parent
-                     onClicked: app.controller.playContext(show)
+                     //onClicked: app.controller.playContext(show)
                 }
             }
 
@@ -71,19 +71,12 @@ Page {
                 secondLabelText: show.publisher
                 thirdLabelText: {
                     var s = ""
-                    /*var n = searchModel.count
-                    if(album.tracks)
-                        n = album.tracks.total
-                    else if(album.total_tracks)
-                        n = album.total_tracks
-                    if(n > 1)
-                        s += n + " " + qsTr("tracks")
-                    else if(n === 1)
-                        s += 1 + " " + qsTr("track")
-                    if(album.release_date && album.release_date.length > 0)
-                        s += ", " + Util.getYearFromReleaseDate(album.release_date)
-                    if(album.genres && album.genres.length > 0)
-                        s += ", " + Util.createItemsString(album.genres, "")*/
+                    if(app.controller.playbackState.context.total_episodes)
+                        s += app.controller.playbackState.context.total_episodes + " " + i18n.tr("episodes")
+                    s += ", " + i18n.tr("by") + " " + app.controller.playbackState.context.publisher
+                    if(app.controller.playbackState.context.explicit)
+                        s += ", " +  i18n.tr("explicit")
+                    s += ", " + Util.createItemsString(app.controller.playbackState.context.languages, "")
                     return s
                 }
                 onFirstLabelClicked: secondLabelClicked()
