@@ -311,6 +311,7 @@ Item {
                 return
             }
 
+            //console.log("PBS e:" + JSON.stringify(error) + ", d:" + JSON.stringify(data))
             if(!error && !data) {
                 // status: 200 for no device, 204 for not playing or private session
                 playbackState.notifyNoState(status)
@@ -318,26 +319,9 @@ Item {
             } else if (data) {
                 playbackState.importState(data)
                 if (data.context && data.context.uri !== oldContextId) {
-                    var cid = Util.getIdFromURI(playbackState.context.uri)
-                    switch (data.context.type) {
-                        case 'album':
-                            Spotify.getAlbum(cid, {}, function(error, data) {
-                                playbackState.context = data
-                            })
-                            break
-                        case 'artist':
-                            Spotify.getArtist(cid, {}, function(error, data) {
-                                playbackState.context = data
-                            })
-                            break
-                        case 'playlist':
-                            Spotify.getPlaylist(cid, {}, function(error, data) {
-                                playbackState.context = data
-                            })
-                            break
-                        default:
-                            playbackState.context = null
-                    }
+                    ensureFullObject(data.context, function(obj) {
+                        playbackState.context = obj
+                    })
                 } else {
                     // ToDo why is this?
                     // Disabled since we lose ifo on what is being played
@@ -349,17 +333,24 @@ Item {
     }
 
     function playContext(context) {
-        var options = {
-            'device_id': getDeviceId(),
-            'context_uri': context.uri
+        if(!playbackState.device) {
+            app.showErrorMessage(error, qsTr("No device selected"))
+            return
         }
-        var uri = context.uri
-        Spotify.play(options, function(error, data) {
-            if (!error) {
-              refreshPlaybackState()
-              app.notifyHistoryUri(uri)
-            } else
-                app.showErrorMessage(error, qsTr("Play Failed"))
+        app.ensureFullObject(context, function(obj) {
+            var options = {
+                'device_id': getDeviceId(),
+                'context_uri': obj.uri
+            }
+            Spotify.play(options, function(error, data) {
+                if(!error) {
+                    playbackState.item = null
+                    playbackState.context = obj
+                    refreshPlaybackState()
+                    app.notifyHistoryUri(obj.uri)
+                } else
+                    app.showErrorMessage(error, qsTr("Play Failed"))
+            })
         })
     }
 

@@ -122,12 +122,18 @@ Item {
         timestamp = state.timestamp
         progress_ms = state.progress_ms
         is_playing = state.is_playing
+
         //if(!is_playing || state.item !== null)
-        if(state.item !== null)
-            item = state.item
+        if(state.item !== null) {
+            if(!item || state.item.uri !== item.uri)
+                item = state.item
+        }
+
         //if(!is_playing || state.context !== null)
-        if(state.context !== null)
-            context = state.context
+        if(state.context !== null) {
+            if(!context || state.context.uri !== context.uri)
+                context = state.context
+        }
     }
 
     function notifyNoState(status) {

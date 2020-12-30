@@ -11,8 +11,8 @@ Item {
 
     property string defaultImageSource : "image://theme/stock_music"
 
-    property bool allowGoPlayingPage: true 
-    property bool showHomeButton: true 
+    property bool allowGoPlayingPage: true
+    property bool showHomeButton: true
 
     width: parent.width
     height: app.itemSizeLarge
@@ -21,7 +21,7 @@ Item {
         width: parent.width
         height: parent.height
 
-        Rectangle { 
+        Rectangle {
             width: parent.width
             height: 1
             color: "grey"
@@ -29,7 +29,9 @@ Item {
 
         Rectangle {
             color: "darkgrey"
-            width: app.controller.playbackState ? (parent.width * (app.controller.playbackState.progress_ms / app.controller.playbackState.item.duration_ms)) : 0
+            width: app.controller.playbackState.item
+              ? (parent.width * (app.controller.playbackState.progress_ms / app.controller.playbackState.item.duration_ms))
+              : 0
             height: app.paddingSmall
         }
 

@@ -115,7 +115,7 @@ Page {
     }
 
     function reload() {
-        console.log("reload")
+        //console.log("reload")
         searchModel.clear()
 
         for(var p=0;p<parsed.length;p++) {
@@ -297,7 +297,7 @@ Page {
     }
 
     Component.onCompleted: {
-        console.log("HistoryPage onCompleted")
+        //console.log("HistoryPage onCompleted")
         if(app.hasValidToken)
             refresh()
     }
