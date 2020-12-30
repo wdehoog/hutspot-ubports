@@ -50,7 +50,7 @@ ActionSelectionPopover {
             color: "black"
             z: -1
         }
-        onTriggered: popover.hide()
+        onTriggered: actionSelectionPopover.hide()
         height: visible ? implicitHeight : 0
     }
 }
