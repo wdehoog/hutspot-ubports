@@ -64,6 +64,7 @@ Page {
             SearchResultListItem {
                 id: searchResultListItem
                 dataModel: model
+                firstLine: app.getSpotifyItemTypeString(dataModel.type) + ": " + _firstLine
                 onToggleFavorite: app.handleToggleFavorite(model)
             }
 

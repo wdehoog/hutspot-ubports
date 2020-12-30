@@ -1739,9 +1739,12 @@ function setAccessToken(accessToken) {
   _accessToken = accessToken;
 };
 
+// ToDo: remove?
 var ItemType = {
     Album: 0,
     Artist: 1,
     Playlist: 2,
-    Track: 3
+    Track: 3,
+    Episode: 4,
+    Show: 5
 }

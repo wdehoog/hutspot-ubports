@@ -979,6 +979,17 @@ MainView {
         }
     }
 
+    function getSpotifyItemTypeString(sit) {
+      switch(sit) {
+        case Util.SpotifyItemType.Album: return i18n.tr("album")
+        case Util.SpotifyItemType.Artist: return i18n.tr("artist")
+        case Util.SpotifyItemType.Playlist: return i18n.tr("album")
+        case Util.SpotifyItemType.Track: return i18n.tr("track")
+        case Util.SpotifyItemType.Episode: return i18n.tr("episode")
+        case Util.SpotifyItemType.Show: return i18n.tr("show")
+        default: return i18n.tr("unknown type")                      }
+    }
+
     //
     // Dialogs
     //

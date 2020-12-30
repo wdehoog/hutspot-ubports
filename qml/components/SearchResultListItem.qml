@@ -18,7 +18,10 @@ Rectangle {
     property var dataModel
     property bool isCurrentItem: currentIndex === dataModel.index
 
-    // not used, same as in AlbumTrackListItem so Loader can be used
+    property string firstLine: _firstLine
+    property string _firstLine: dataModel.name ? dataModel.name : qsTr("No Name")
+
+    // these are not used but exist in AlbumTrackListItem so a Loader can be used
     property var isFavorite
     property bool saved
     property int contextType: -1
@@ -52,13 +55,12 @@ Rectangle {
             width: parent.width - image.width - 2 * app.paddingMedium
 
             Text {
-                id: nameLabel
                 //color: currentIndex === dataModel.index ? Theme.highlightColor : Theme.primaryColor
                 textFormat: Text.StyledText
                 font.weight: isCurrentItem ? app.fontHighlightWeight : app.fontPrimaryWeight
                 //truncationMode: TruncationMode.Fade
                 width: parent.width
-                text: dataModel.name ? dataModel.name : qsTr("No Name")
+                text: firstLine
             }
 
             Row {
@@ -69,7 +71,6 @@ Rectangle {
                     id: col2
                     width: parent.width - favorite.width
                     Text {
-                        id: meta1Label
                         width: parent.width
                         font.weight: isCurrentItem ? app.fontHighlightWeight : app.fontPrimaryWeight
                         //color: currentIndex === dataModel.index ? Theme.highlightColor : Theme.primaryColor
@@ -81,7 +82,6 @@ Rectangle {
                     }
 
                     Text {
-                        id: meta2Label
                         width: parent.width
                         font.weight: isCurrentItem ? app.fontHighlightWeight : app.fontPrimaryWeight
                         //color: currentIndex === dataModel.index ? Theme.secondaryHighlightColor : Theme.secondaryColor
