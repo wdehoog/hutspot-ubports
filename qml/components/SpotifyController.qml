@@ -30,7 +30,7 @@ Item {
     }
 
     property bool _hasActiveDevice: false
-    property bool hasCurrentDevice: playbackState.is_playing || _hasActiveDevice
+    property bool hasCurrentDevice: playbackState.device.is_active || _hasActiveDevice
     onHasCurrentDeviceChanged: console.log("hasCurrentDevice: " + hasCurrentDevice)
 
     property alias playbackState: playbackState

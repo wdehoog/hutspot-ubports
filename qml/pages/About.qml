@@ -87,7 +87,7 @@ Page {
                         anchors.horizontalCenter: parent.horizontalCenter
                         //font.pixelSize: Theme.fontSizeExtraSmall
                         //: I doubt this needs to be translated
-                        text: i18n.tr("Copyright (C) 2019")
+                        text: i18n.tr("Copyright (C) 2020")
                         width: parent.width
                     }
                     Text {
@@ -166,7 +166,9 @@ Page {
 Spotify: web api
 librespot-org: Librespot
 JMPerez: spotify-web-api-js
-pipacs: O2"
+pipacs: O2
+Whoever made: nemo-qml-plugin-dbus, qtmpris and qtdbusextended
+nitroshare: qmdnsengine"
 
             }
         }

@@ -380,6 +380,8 @@ MainView {
             updateValidToken(spotify.getExpires())
             //app.connectionText = i18n.tr("Connected")
             loadUser()
+            controller.checkForNewDevices()
+            controller.refreshPlaybackState();
             loadFirstPage()
             // ToDo: maybe call spotify.refreshToken() so after 1st login pages show data
         }
@@ -450,7 +452,6 @@ MainView {
                 console.log("No Data for getMe")
             }
         })
-        controller.refreshPlaybackState();
     }
 
     function getPlaylist(playlistId, callback) {
@@ -1086,23 +1087,27 @@ MainView {
         PopupUtils.open(confirmDialog)
     }
 
-    function setDevice(id, name, callback) {
-        var newId = id
-        var newName = name
-        Spotify.transferMyPlayback([id],{}, function(error, data) {
+    function setDevice(id, name) {
+        Spotify.transferMyPlayback([id], {}, function(error, data) {
             if(!error) {
                 controller.refreshPlaybackState()
-                settings.deviceId = newId
-                if(settings.deviceName == newName) {
-                    // restore volume
-                    console.log("restore volume: " + settings.deviceVolume)
-                    controller.setVolume(settings.deviceVolume)
-                } else
-                    settings.deviceName = newName
-                callback(null, data)
             } else
-                showErrorMessage(error, i18n.tr("Failed to transfer to") + " " + settings.deviceName)
+                showErrorMessage(error, i18n.tr("Failed to transfer to") + " " + name)
         })
+    }
+
+    Connections {
+        target: spotifyController.playbackState
+
+        onPlaybackDeviceChanged: {
+            settings.deviceId = id
+            if(settings.deviceName == name) {
+                // restore volume
+                console.log("restore volume: " + settings.deviceVolume)
+                controller.setVolume(settings.deviceVolume)
+            } else
+                settings.deviceName = name
+        }
     }
 
     /**
@@ -1258,13 +1263,7 @@ MainView {
                    && !spotifyController.playbackState.device.is_active) {
                     console.log("Will try to set device to [" + device.name + "] is_active=" + device.is_active + ", pbs.device.name=" + spotifyController.playbackState.device.name)
                     // device still needs to be selected
-                    setDevice(device.id, device.name, function(error, data){
-                        // no refresh since it might keep on recursing
-                        if(error)
-                            console.log("Failed to set device [" + settings.deviceName + "] as current: " + error)
-                        else
-                            console.log("Set device [" + settings.deviceName + "] as current")
-                    })
+                    setDevice(device.id, device.name)
                 } else {
                     if(logDiscovery) {
                         console.log("Device [" + settings.deviceName + "] already in playbackState.")
@@ -1283,6 +1282,15 @@ MainView {
     Connections {
         target: powerd
         onSysStateActiveChanged: console.log("onSysStateActiveChanged now: " + hasSysStateActive)
+    }
+
+    //
+    //
+    //
+
+    Connections {
+        target: spotifyController
+        onDevicesReloaded: handleCurrentDevice()
     }
 
     Connections {

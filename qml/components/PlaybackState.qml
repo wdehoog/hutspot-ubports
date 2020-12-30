@@ -91,15 +91,19 @@ Item {
     property string artistsString: ""
     property string coverArtUrl: ""
 
-    property var device: {
+    signal playbackDeviceChanged(string id, string name)
+
+    property var device: no_device  
+    property var no_device: {
         "id": "-1",
         "is_active": false,
         "is_private_session": false,
         "is_restricted": false,
         "type": "Nothing",
-        "name": "No device",
-        "volume_percent": 100
+        "name": "No Device",
+        "volume_percent": 0
     }
+
     property string repeat_state: "off"
     property bool shuffle_state: false
     property var context: undefined
@@ -116,7 +120,13 @@ Item {
 
     function importState(state) {
         //console.log("importState: " + JSON.stringify(state))
-        device = state.device
+
+        var oldDeviceName = device.name
+        if(state.device)
+            device = state.device
+        else
+            device = no_device
+
         repeat_state = state.repeat_state
         shuffle_state = state.shuffle_state
         timestamp = state.timestamp
@@ -134,6 +144,9 @@ Item {
             if(!context || state.context.uri !== context.uri)
                 context = state.context
         }
+
+        if(oldDeviceName != device.name)
+          playbackDeviceChanged(device.id, deviceName)
     }
 
     function notifyNoState(status) {
