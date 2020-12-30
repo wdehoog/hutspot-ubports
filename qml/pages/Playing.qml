@@ -100,14 +100,15 @@ Page {
     Component {
         id: contextMenu
 
-        ActionSelectionPopover {
-            id: pop
+        ContextMenuPopover {
 
             actions: ActionList {
                 Action {
-                    id: viewAlbum
+                    id: a
+                    property int idx: enabled ? 0 : -1
                     text: i18n.tr("View Album")
-                    visible: _viewAlbumEnabled
+                    visible: enabled
+                    enabled: _viewAlbumEnabled
                     onTriggered: {
                         switch(getContextType()) {
                         case Spotify.ItemType.Album:
@@ -120,9 +121,11 @@ Page {
                     }
                 }
                 Action {
-                    id: viewArtist
+                    id: b
+                    property int idx: enabled ? (a.idx + 1) : a.idx
                     text: i18n.tr("View Artist")
-                    visible: _viewArtistEnabled
+                    visible: enabled
+                    enabled: _viewArtistEnabled
                     onTriggered: {
                         switch(getContextType()) {
                         case Spotify.ItemType.Album:
@@ -138,17 +141,21 @@ Page {
                     }
                 }
                 Action {
-                    id: viewPlaylist
+                    id: c
+                    property int idx: enabled ? (b.idx + 1) : b.idx
                     text: i18n.tr("View Playlist")
-                    visible: _viewPlaylistEnabled
+                    visible: enabled
+                    enabled: _viewPlaylistEnabled
                     onTriggered: {
                         app.pushPage(Util.HutspotPage.Playlist, {playlist: app.controller.playbackState.context}, true)
                     }
                 }
                 Action {
-                    id: viewShow
+                    id: d
+                    property int idx: enabled ? (c.idx + 1) : c.idx
                     text: i18n.tr("View Show")
-                    visible: _viewShowEnabled
+                    visible: enabled
+                    enabled: _viewShowEnabled
                     onTriggered: {
                         app.pushPage(Util.HutspotPage.Show, {show: app.controller.playbackState.context}, true)
                     }

@@ -20,19 +20,21 @@ Item {
     Component {
         id: popup
 
-        ActionSelectionPopover {
-            id: actionSelectionPopover
-
-            //property var model: null
+        ContextMenuPopover {
+            id: contextMenu
 
             actions: ActionList {
                 Action {
+                    id: a
+                    property int idx: enabled ? 0 : -1
                     text: i18n.tr("Play")
                     enabled: model && (model.type !== Util.SpotifyItemType.Track || Util.isTrackPlayable(model.item))
                     visible: enabled
                     onTriggered: handlePlayClicked()
                 }
                 Action {
+                    id: b
+                    property int idx: enabled ? (a.idx + 1) : a.idx
                     text: i18n.tr("View")
                     enabled: model
                              && (model.type !== Util.SpotifyItemType.Track)
@@ -41,12 +43,16 @@ Item {
                     onTriggered: handleViewClicked()
                 }
                 Action {
+                    id: c
+                    property int idx: enabled ? (b.idx + 1) : b.idx
                     text: i18n.tr("View Album")
                     enabled: model && (model.type === Util.SpotifyItemType.Track)
                     visible: enabled
                     onTriggered: app.loadAlbum(model.item.album, false)
                 }
                 Action {
+                    id: d
+                    property int idx: enabled ? (c.idx + 1) : c.idx
                     text: i18n.tr("View Show")
                     enabled: model
                              && (model.type === Util.SpotifyItemType.Episode)
@@ -55,6 +61,8 @@ Item {
                     onTriggered: app.loadShowForEpisode(model.item, false)
                 }
                 Action {
+                    id: e
+                    property int idx: enabled ? (d.idx + 1) : d.idx
                     text: i18n.tr("Add to Playlist")
                     enabled: model && (model.type === Util.SpotifyItemType.Track && Util.isTrackPlayable(model.item))
                              && contextType !== Util.SpotifyItemType.Playlist
@@ -62,6 +70,8 @@ Item {
                     onTriggered: app.addToPlaylist(model.item)
                 }
                 Action {
+                    id: f
+                    property int idx: enabled ? (e.idx + 1) : e.idx
                     text: i18n.tr("Remove from Playlist")
                     enabled: model && (model.type === Util.SpotifyItemType.Track && Util.isTrackPlayable(model.item))
                              && contextType === Util.SpotifyItemType.Playlist
@@ -71,6 +81,8 @@ Item {
                     }
                 }
                 Action {
+                    id: g
+                    property int idx: enabled ? (f.idx + 1) : f.idx
                     text: i18n.tr("Add to another Playlist")
                     enabled: model && (model.type === Util.SpotifyItemType.Track && Util.isTrackPlayable(model.item))
                              && contextType === Util.SpotifyItemType.Playlist
@@ -128,19 +140,6 @@ Item {
                 }
             }
 
-            Rectangle {
-                anchors.fill: parent
-                //x: parent.x - app.popupBorderWidth/2
-                //y: x
-                //width: parent.width + app.popupBorderWidth*2
-                //height: parent.height + app.popupBorderWidth*2
-                border.color: app.popupBorderColor
-                border.width: app.popupBorderWidth
-                color: app.popupBackgroundColor
-                opacity: app.popupBackgroundOpacity
-                radius: app.popupRadius
-                z: -1
-            }
         }
     }
 }

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-30 13:54+0000\n"
+"POT-Creation-Date: 2020-12-30 17:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,23 +21,23 @@ msgstr ""
 msgid "There is a resume point available for this Epsidode: "
 msgstr ""
 
-#: ../qml/components/AlbumTrackContextMenu.qml:23
+#: ../qml/components/AlbumTrackContextMenu.qml:25
 #: ../qml/components/SearchResultContextMenu.qml:30
 msgid "Play"
 msgstr ""
 
-#: ../qml/components/AlbumTrackContextMenu.qml:30
-#: ../qml/components/SearchResultContextMenu.qml:44
+#: ../qml/components/AlbumTrackContextMenu.qml:34
+#: ../qml/components/SearchResultContextMenu.qml:48
 #: ../qml/pages/Playing.qml:109
 msgid "View Album"
 msgstr ""
 
-#: ../qml/components/AlbumTrackContextMenu.qml:39 ../qml/pages/Playing.qml:124
+#: ../qml/components/AlbumTrackContextMenu.qml:45 ../qml/pages/Playing.qml:126
 msgid "View Artist"
 msgstr ""
 
-#: ../qml/components/AlbumTrackContextMenu.qml:58
-#: ../qml/components/SearchResultContextMenu.qml:58
+#: ../qml/components/AlbumTrackContextMenu.qml:66
+#: ../qml/components/SearchResultContextMenu.qml:66
 msgid "Add to Playlist"
 msgstr ""
 
@@ -93,12 +93,12 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: ../qml/components/SearchResultListItem.qml:215 ../qml/pages/Playing.qml:594
-#: ../qml/pages/Playing.qml:600
+#: ../qml/components/SearchResultListItem.qml:215 ../qml/pages/Playing.qml:601
+#: ../qml/pages/Playing.qml:607
 msgid "followers"
 msgstr ""
 
-#: ../qml/components/SearchResultListItem.qml:240 ../qml/pages/Playing.qml:611
+#: ../qml/components/SearchResultListItem.qml:240 ../qml/pages/Playing.qml:618
 #: ../qml/pages/Show.qml:78
 msgid "explicit"
 msgstr ""
@@ -140,20 +140,20 @@ msgstr ""
 msgid "Ok"
 msgstr ""
 
-#: ../qml/components/SearchResultContextMenu.qml:36
+#: ../qml/components/SearchResultContextMenu.qml:38
 msgid "View"
 msgstr ""
 
-#: ../qml/components/SearchResultContextMenu.qml:50
-#: ../qml/pages/Playing.qml:150
+#: ../qml/components/SearchResultContextMenu.qml:56
+#: ../qml/pages/Playing.qml:156
 msgid "View Show"
 msgstr ""
 
-#: ../qml/components/SearchResultContextMenu.qml:65
+#: ../qml/components/SearchResultContextMenu.qml:75
 msgid "Remove from Playlist"
 msgstr ""
 
-#: ../qml/components/SearchResultContextMenu.qml:74
+#: ../qml/components/SearchResultContextMenu.qml:86
 msgid "Add to another Playlist"
 msgstr ""
 
@@ -222,7 +222,7 @@ msgstr ""
 msgid "artist"
 msgstr ""
 
-#: ../qml/Main.qml:988 ../qml/pages/Playing.qml:586 ../qml/pages/Album.qml:82
+#: ../qml/Main.qml:988 ../qml/pages/Playing.qml:593 ../qml/pages/Album.qml:82
 msgid "track"
 msgstr ""
 
@@ -296,42 +296,42 @@ msgstr ""
 msgid "Back"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:142
+#: ../qml/pages/Playing.qml:146
 msgid "View Playlist"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:515
+#: ../qml/pages/Playing.qml:522
 msgid "no current device"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:554 ../qml/pages/Playing.qml:574
+#: ../qml/pages/Playing.qml:561 ../qml/pages/Playing.qml:581
 #: ../qml/pages/Album.qml:71
 msgid "no artist known"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:557
+#: ../qml/pages/Playing.qml:564
 msgid "no genre known"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:584 ../qml/pages/Playing.qml:597
+#: ../qml/pages/Playing.qml:591 ../qml/pages/Playing.qml:604
 #: ../qml/pages/Album.qml:80
 msgid "tracks"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:598 ../qml/pages/Playing.qml:609
+#: ../qml/pages/Playing.qml:605 ../qml/pages/Playing.qml:616
 #: ../qml/pages/Show.qml:76
 msgid "by"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:602
+#: ../qml/pages/Playing.qml:609
 msgid "public"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:604
+#: ../qml/pages/Playing.qml:611
 msgid "collaborative"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:608 ../qml/pages/Show.qml:75
+#: ../qml/pages/Playing.qml:615 ../qml/pages/Show.qml:75
 msgid "episodes"
 msgstr ""
 
@@ -423,31 +423,31 @@ msgstr ""
 msgid "Set as Current"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:86
+#: ../qml/pages/Devices.qml:89
 msgid "Connect using Athentication Blob"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:96
+#: ../qml/pages/Devices.qml:99
 msgid "Failed to connect to "
 msgstr ""
 
-#: ../qml/pages/Devices.qml:191
+#: ../qml/pages/Devices.qml:187
 msgid "Unknown Name"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:209
+#: ../qml/pages/Devices.qml:205
 msgid "active"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:209 ../qml/pages/Devices.qml:216
+#: ../qml/pages/Devices.qml:205 ../qml/pages/Devices.qml:212
 msgid "inactive"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:212
+#: ../qml/pages/Devices.qml:208
 msgid "restricted"
 msgstr ""
 
-#: ../qml/pages/Devices.qml:212
+#: ../qml/pages/Devices.qml:208
 msgid "unrestricted"
 msgstr ""
 

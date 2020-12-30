@@ -63,13 +63,13 @@ Page {
 
     Component {
         id: contextMenu
-        ActionSelectionPopover {
-            id: actionSelectionPopover
 
-            property var model
+        ContextMenuPopover {
 
             actions: ActionList {
                 Action {
+                    id: a
+                    property int idx: enabled ? 0 : -1
                     text: i18n.tr("Set as Current")
                     enabled: _model.sp === 1        
                     onTriggered: {
@@ -82,7 +82,10 @@ Page {
                         }
                     }
                 }
+
                 Action {
+                    id: b
+                    property int idx: enabled ? (a.idx + 1) : a.idx
                     text: i18n.tr("Connect using Athentication Blob")
                     enabled: _model.sp === 0 && app.librespot.hasLibreSpotCredentials()
                     visible: enabled
@@ -98,13 +101,6 @@ Page {
                         })
                     }
                 }
-            }
-            Rectangle {
-                anchors.fill: parent
-                color: app.popupBackgroundColor
-                opacity: app.popupBackgroundOpacity
-                radius: app.popupRadius
-                z: -1
             }
         }
     }
