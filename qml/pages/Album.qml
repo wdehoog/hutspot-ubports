@@ -38,6 +38,13 @@ Page {
         id: header
         title: i18n.tr("Album")
         flickable: listView
+        trailingActionBar.actions: [
+            Action {
+                text: i18n.tr("View Artist")
+                iconName: "stock_contact"
+                onTriggered: app.loadArtist(album.artists)
+            }
+        ]
     }
 
     Component {

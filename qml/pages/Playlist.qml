@@ -37,14 +37,15 @@ Page {
     header: PageHeader {
         id: header
         title: i18n.tr("Playlist")
-        leadingActionBar.actions: [
+        flickable: listView
+        trailingActionBar.actions: [
             Action {
-                iconName: "back"
-                text: "Back"
-                onTriggered: pageStack.pop()
+                text: i18n.tr("Edit Details")
+                iconName: "edit"
+                onTriggered: app.editPlaylistDetails(playlist)
+
             }
         ]
-        flickable: listView
     }
 
     ListModel {

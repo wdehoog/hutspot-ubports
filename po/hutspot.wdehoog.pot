@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-30 21:27+0000\n"
+"POT-Creation-Date: 2020-12-30 22:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,6 +33,7 @@ msgid "View Album"
 msgstr ""
 
 #: ../qml/components/AlbumTrackContextMenu.qml:45 ../qml/pages/Playing.qml:126
+#: ../qml/pages/Album.qml:43
 msgid "View Artist"
 msgstr ""
 
@@ -222,7 +223,7 @@ msgstr ""
 msgid "artist"
 msgstr ""
 
-#: ../qml/Main.qml:988 ../qml/pages/Playing.qml:593 ../qml/pages/Album.qml:82
+#: ../qml/Main.qml:988 ../qml/pages/Playing.qml:593 ../qml/pages/Album.qml:89
 msgid "track"
 msgstr ""
 
@@ -305,7 +306,7 @@ msgid "no current device"
 msgstr ""
 
 #: ../qml/pages/Playing.qml:561 ../qml/pages/Playing.qml:581
-#: ../qml/pages/Album.qml:71
+#: ../qml/pages/Album.qml:78
 msgid "no artist known"
 msgstr ""
 
@@ -314,7 +315,7 @@ msgid "no genre known"
 msgstr ""
 
 #: ../qml/pages/Playing.qml:591 ../qml/pages/Playing.qml:604
-#: ../qml/pages/Album.qml:80
+#: ../qml/pages/Album.qml:87
 msgid "tracks"
 msgstr ""
 
@@ -337,6 +338,10 @@ msgstr ""
 
 #: ../qml/pages/Playlist.qml:39
 msgid "Playlist"
+msgstr ""
+
+#: ../qml/pages/Playlist.qml:43
+msgid "Edit Details"
 msgstr ""
 
 #: ../qml/pages/Settings.qml:13 ../qml/pages/Menu.qml:44
