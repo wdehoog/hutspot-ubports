@@ -283,7 +283,9 @@ Page {
 
     Connections {
         target: app
+
         onHasValidTokenChanged: refresh()
+
         onFavoriteEvent: {
             switch(event.type) {
             case Util.SpotifyItemType.Album:
@@ -293,8 +295,13 @@ Page {
                 break
             }
         }
+    }
+
+    Connections {
+        target: app.spotifyDataCache
+
         // if this is the first page data might already be loaded before the data cache is ready
-        //onSpotifyDataCacheReady: Util.updateFollowingSaved(app.spotifyDataCache, searchModel)
+        onSpotifyDataCacheReady: Util.updateFollowingSaved(app.spotifyDataCache, searchModel)
     }
 
     Component.onCompleted: {

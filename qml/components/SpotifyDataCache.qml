@@ -14,6 +14,24 @@ import "../BSArray.js" as BSALib
 
 Item {
 
+    signal spotifyDataCacheReady()
+
+    readonly property int followedPlaylistsMask: 0x01
+    readonly property int followedArtistsMask: 0x02
+    readonly property int savedAlbumsMask: 0x04
+    readonly property int savedTracksMask: 0x08
+    readonly property int savedShowsMask: 0x10
+
+    readonly property int allDoneMask: 0x1F
+    property int happendMask: 0
+
+    function notifyHappend(mask) {
+        happendMask |= mask
+        if((happendMask & allDoneMask) === allDoneMask) {
+            spotifyDataCacheReady()
+        }
+    }
+
     property var _followedPlaylistsId: new BSALib.BSArray()   //  key is id, stores uri
     //property var _followedPlaylistsName: ({}) // key is name, stores id
     property var _followedArtistsId: new BSALib.BSArray()   //  key is id, stores uri
@@ -58,7 +76,7 @@ Item {
                 if(nextOffset < data.total)
                     _loadFollowedPlaylistsSet(nextOffset)
                 else {
-                    app.doBeforeStart.notifyHappend(app.doBeforeStart.followedPlaylistsMask)
+                    notifyHappend(followedPlaylistsMask)
                     console.log("Loaded info of " + _followedPlaylistsId.items.length + " followed playlists")
                 }
             }
@@ -83,7 +101,7 @@ Item {
                 if(nextOffset < data.artists.total)
                     _loadFollowedPlaylistsSet(nextOffset)
                 else {
-                    app.doBeforeStart.notifyHappend(app.doBeforeStart.followedArtistsMask)
+                    notifyHappend(followedArtistsMask)
                     console.log("Loaded info of " + _followedArtistsId.items.length + " followed artists")
                 }
             }
@@ -108,7 +126,7 @@ Item {
                 if(nextOffset < data.total)
                     _loadSavedAlbums(nextOffset)
                 else {
-                    app.doBeforeStart.notifyHappend(app.doBeforeStart.savedAlbumsMask)
+                    notifyHappend(savedAlbumsMask)
                     console.log("Loaded info of " + _savedAlbumsId.items.length + " saved albums")
                 }
             }
@@ -133,21 +151,22 @@ Item {
                 if(nextOffset < data.total)
                     _loadSavedShows(nextOffset)
                 else {
-                    app.doBeforeStart.notifyHappend(app.doBeforeStart.savedShowsMask)
+                    notifyHappend(savedShowsMask)
                     console.log("Loaded info of " + _savedShowsId.items.length + " saved shows")
                 }
             }
         })
     }
 
-    /*Connections {
+    Connections {
         target: app
 
-        onIdChanged: {
-            if(app.id !== "") {
+        onHasValidTokenChanged: {
+            if(app.hasValidToken) {
                 loadFollowedPlaylists()
                 loadFollowedArtists()
                 loadSavedAlbums()
+                loadSavedShows()
             }
         }
 
@@ -171,8 +190,14 @@ Item {
                 else
                     _followedPlaylistsId.remove(event.id)
                 break
+            case Util.SpotifyItemType.Show:
+                if(event.isFavorite)
+                    _savedShowsId.insert(event.id, event.uri)
+                else
+                    _savedShowsId.remove(event.id)
+                break
             }
         }
-    }*/
+    }
 
 }
