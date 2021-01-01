@@ -1,5 +1,5 @@
 /**
- * Hutspot. 
+ * Hutspot.
  * Copyright (C) 2018 Maciej Janiszewski
  * Copyright (C) 2020 Willem-Jan de Hoog
  *
@@ -43,9 +43,10 @@ Item {
     Timer {
         id: handleRendererInfo
         interval: 1000
-        onRunningChanged: if (running) refreshCount = 0
-        //running: playbackState.is_playing || Qt.application.active 
-        running: Qt.application.active 
+        onRunningChanged: if (running) refreshCount = 5 // refresh asap
+        running: true
+        //running: playbackState.is_playing || Qt.application.active
+        //running: Qt.application.active
         property int refreshCount: 0
         repeat: true
         onTriggered: {
@@ -69,6 +70,13 @@ Item {
             }
         }
     }
+
+    /*Connections {
+        target: Qt.application
+        onStateChanged:
+            if(Qt.application.state === Qt.ApplicationActive) {
+            }
+    }*/
 
     Connections {
         target: app
@@ -394,7 +402,7 @@ Item {
             app.showErrorMessage(error, qsTr("No device selected"))
             return
         }
-        // get the full Episode object  
+        // get the full Episode object
         Spotify.getEpisode(episode.id, {}, function(error, data) {
             if(data) {
                 //console.log("episode: " + JSON.stringify(data))

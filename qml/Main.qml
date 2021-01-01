@@ -446,7 +446,7 @@ MainView {
                     product = data.product
                     followers = data.followers.total
                 } catch (err) {
-                    console.log(err)
+                    console.log("loadUser: " + err)
                 }
             } else {
                 console.log("No Data for getMe")
@@ -1296,7 +1296,7 @@ MainView {
     Connections {
         target: controller.playbackState
         onIs_playingChanged: {
-            //console.log("onIs_playingChanged: " + controller.playbackState.is_playing)
+            console.log("onIs_playingChanged: " + controller.playbackState.is_playing)
             if(!settings.preventSuspendWhilePlaying)
                 return
 
@@ -1305,10 +1305,12 @@ MainView {
               if(delayTimer.running)
                  delayTimer.running = false
               if(!powerd.hasSysStateActive()) {
+                  console.log("will request powerd lock")
                   powerd.requestSysStateActive("hutspot")
               }
             } else {
               if(powerd.hasSysStateActive()) {
+                console.log("will release powerd lock")
                 delayedExec(function() {
                     powerd.clearSysStateActive()
                 }, 15000)
