@@ -1180,7 +1180,8 @@ MainView {
             //var i
             //for(i=0;i<rs.length;i++) // currently it is only 1 element
                 //recommendationSeeds.loadSeedsSaveData(rs[i])
-            recommendationSeeds.loadSeedsSaveData(rs)
+            if(rs.length > 0)
+                recommendationSeeds.loadSeedsSaveData(rs)
         }
     }
 

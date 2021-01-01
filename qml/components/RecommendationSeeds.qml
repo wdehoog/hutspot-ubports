@@ -14,7 +14,7 @@ Item {
 
     property alias seedModel: seedModel
 
-    property bool _signal: false
+    property bool _signal: true
 
     signal seedsChanged()
 
@@ -31,13 +31,13 @@ Item {
     function clearSlot(index) {
         var emptySeed = {type: -1, sid: "", name: "", image: "",}
         seedModel.set(index, emptySeed)
-        if(_signal)  seedsChanged()
+        if(_signal) seedsChanged()
     }
 
     function addSeed(seed) {
         seedModel.insert(0, seed)
         seedModel.remove(5, seedModel.count - 5)
-        if(_signal)  seedsChanged()
+        if(_signal) seedsChanged()
     }
 
     function getSeedTypeString(type) {
@@ -92,12 +92,13 @@ Item {
     }
 
     function loadSeedsSaveData(saveData) {
-        _signal = false
         console.log("loadSeedsSaveData: " + JSON.stringify(saveData))
+        _signal = false
         var i
         var savedSeeds = saveData[0].seeds
-        for(i=0;i<savedSeeds.length;i++) {
-            addSeed({type: savedSeeds[i].stype, sid: savedSeeds[i].sid, name: savedSeeds[i].sname, image: ""})
+        for(i=savedSeeds.length;i>0;i--) { // reverse order
+            var seed = savedSeeds[i-1]
+            addSeed({type: seed.stype, sid: seed.sid, name: seed.sname, image: ""})
         }
         _signal = true
     }
