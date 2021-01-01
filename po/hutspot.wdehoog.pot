@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-01 11:53+0000\n"
+"POT-Creation-Date: 2021-01-01 13:11+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -265,6 +265,12 @@ msgstr ""
 msgid "Failed to transfer to"
 msgstr ""
 
+#: ../qml/Main.qml:1345
+msgid ""
+"Hutspot wants to create playlist:<br><br><b>%1</b><br><br>which will be used "
+"to %2.<br><br>Is that Ok?"
+msgstr ""
+
 #: ../qml/pages/Recommended.qml:32 ../qml/pages/Menu.qml:73
 msgid "Recommended"
 msgstr ""
@@ -273,20 +279,30 @@ msgstr ""
 msgid "Add Genre"
 msgstr ""
 
-#: ../qml/pages/Recommended.qml:53
+#: ../qml/pages/Recommended.qml:41
+msgid "Import into Playlist"
+msgstr ""
+
+#: ../qml/pages/Recommended.qml:59
 msgid "Seeds"
 msgstr ""
 
-#: ../qml/pages/Recommended.qml:92
+#: ../qml/pages/Recommended.qml:98
 msgid "Empty Seed Slot"
 msgstr ""
 
-#: ../qml/pages/Recommended.qml:120
+#: ../qml/pages/Recommended.qml:126
 msgid "Recommendations"
 msgstr ""
 
-#: ../qml/pages/Recommended.qml:242
+#: ../qml/pages/Recommended.qml:248
 msgid "Select a Genre"
+msgstr ""
+
+#: ../qml/pages/Recommended.qml:260
+msgid ""
+"Do you want to replace the tracks in the Hutspot Recommendations playlist "
+"with these results?"
 msgstr ""
 
 #: ../qml/pages/TopStuff.qml:34

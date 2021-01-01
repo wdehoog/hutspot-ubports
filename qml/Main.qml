@@ -1299,6 +1299,95 @@ MainView {
     }
 
     //
+    // HutspotPlaylist util
+    //
+
+    function getPlaylistByName(playlistInfo, callback) {
+        _getPlaylistByName(playlistInfo, 0, 0, callback)
+    }
+
+    // get or create playlist
+    // states: 0 search for it
+    //         1 create playlist
+    function _getPlaylistByName(playlistInfo, state, searchOffset, callback) {
+        var i
+        switch(state) {
+
+        case 0: // search in user's playlists
+            Spotify.getUserPlaylists(id, {offset: searchOffset, limit: 50}, function(error, data) {
+                if(data && data.items) {
+                    for(i=0;i<data.items.length;i++) {
+                        if(data.items[i].name === playlistInfo.name) {
+                            var info = {
+                                id: data.items[i].id,
+                                uri: data.items[i].uri,
+                                snapshot_id: data.items[i].snapshot_id
+                            }
+                            callback(true, info)
+                            return
+                        }
+                    }
+                    // not found, are there more playlists to search in?
+                    if(data.next) {
+                        searchOffset = data.offset + data.limit
+                        _getPlaylistByName(playlistInfo, 0, searchOffset, callback)
+                    } else // or we have to create it
+                        _getPlaylistByName(playlistInfo, 1, -1, callback)
+                } else {
+                    callback(false)
+                    console.log("No Data while looking for Playlist " + playlistInfo.name)
+                }
+            })
+            break
+
+        case 1: // create it
+            app.showConfirmDialog(
+                i18n.tr("Hutspot wants to create playlist:<br><br><b>%1</b><br><br>which will be used to %2.<br><br>Is that Ok?")
+                    .arg(playlistInfo.name).arg(playlistInfo.usage),
+                function() {
+                    // create the playlist
+                    var options = {}
+                    options.name = playlistInfo.name
+                    options.description = playlistInfo.description
+                    Spotify.createPlaylist(id, options, function(error, data) {
+                        if(data && data.id) {
+                            var info = {
+                                id: data.id,
+                                uri: data.uri,
+                                snapshot_id: data.snapshot_id
+                            }
+                            callback(true, info)
+                        } else {
+                            console.log("No Data while creating Playlist " + playlistInfo.name)
+                            callback(false)
+                        }
+                    })
+                },
+                function() {
+                    callback(false)
+                }
+            )
+            break
+        }
+    }
+
+    function replaceTracksInHutspotPlaylist(playlistInfo, uris) {
+        getPlaylistByName(playlistInfo, function(success, info) {
+            if(success) {
+                app.replaceTracksInPlaylist(info.id, uris, function(error, data) {
+                    if(data) {
+                        //queuePlaylistSnapshotId = data.snapshot_id
+                        //ensureQueueIsPlaying('ReplacedAllTracks')
+                    }
+                })
+            } else {
+                showErrorMessage(undefined, qsTr("Failed to find Playlist " + playlistInfo.name))
+                console.log("replaceQueueWith: failed to find  Playlist " + playlistInfo.name)
+            }
+        })
+    }
+
+    //
     // Use powerd-cli to prevent the phone from suspending
     //
 

@@ -36,6 +36,12 @@ Page {
                 text: i18n.tr("Add Genre")
                 iconName: "stock_music"
                 onTriggered: selectGenreSeed()
+            },
+            Action {
+                text: i18n.tr("Import into Playlist")
+                iconName: "import"
+                enabled: searchModel.count > 0
+                onTriggered: importIntoPlaylist()
             }
         ]
     }
@@ -246,6 +252,23 @@ Page {
                 refresh()
             }
         })
+    }
+
+    function importIntoPlaylist() {
+        if(searchModel.count <= 0)
+            return
+        app.showConfirmDialog(i18n.tr("Do you want to replace the tracks in the Hutspot Recommendations playlist with these results?"),
+            function() {
+                var uris = [searchModel.count]
+                for(var i=0;i<searchModel.count;i++)
+                    uris[i] = searchModel.get(i).item.uri
+                var info = {}
+                info.name = "Recommendations [hutspot]"
+                info.description = "Playlist for Hutspot to store recommended tracks"
+                info.usage = "store recommended tracks"
+                app.replaceTracksInHutspotPlaylist(info, uris)
+            }
+        )
     }
 
     /*Connections {
