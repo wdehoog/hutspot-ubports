@@ -22,6 +22,8 @@ Page {
 
     property bool showBusy: false
     property int currentIndex: -1
+    //property bool useAttributes: false
+    property var attributes: null
 
     ListModel {
         id: searchModel
@@ -93,7 +95,7 @@ Page {
                             font.weight: app.fontPrimaryWeight
                             //truncationMode: TruncationMode.Fade
                             horizontalAlignment: type >= 0 ? Text.AlignLeft : Text.AlignHCenter
-                            text: type >= 0 
+                            text: type >= 0
                                   ? app.recommendationSeeds.getSeedTypeString(type) + ": " + name
                                   : i18n.tr("Empty Seed Slot")
                         }
@@ -109,6 +111,7 @@ Page {
                                 anchors.fill: parent
                                 onClicked: {
                                     app.recommendationSeeds.clearSlot(index)
+                                    refresh()
                                 }
                             }
                         }
@@ -116,11 +119,24 @@ Page {
                 }
             }
 
-            /*Rectangle {
+            Rectangle {
                 width: parent.width
-                height: app.paddingMedium
-                opacity: 0
-            }*/
+                height: app.dividerHeight
+                color: app.dividerColor
+            }
+
+            RecommendationAttributes {
+                id: recommendationAttributes
+                //onExpandAttributes: useAttributes = expandAttributes
+                Component.onCompleted: attributes = recommendationAttributes
+                onAttributeChanged: refresh()
+            }
+
+            Rectangle {
+                width: parent.width
+                height: app.dividerHeight
+                color: app.dividerColor
+            }
 
             Label {
                 text: i18n.tr("Recommendations")
@@ -224,6 +240,11 @@ Page {
         options.seed_artists = artists.join(',')
         options.seed_tracks = tracks.join(',')
         options.seed_genres = genres.join(',')
+
+        if(attributes.expandAttributes) { //useAttributes) {
+            console.log(JSON.stringify(attributes.getAttributeValues(options)))
+        }
+
         if(app.settings.queryForMarket)
             options.market = "from_token"
         //console.log(JSON.stringify(options))
@@ -266,7 +287,12 @@ Page {
                 info.name = "Recommendations [hutspot]"
                 info.description = "Playlist for Hutspot to store recommended tracks"
                 info.usage = "store recommended tracks"
-                app.replaceTracksInHutspotPlaylist(info, uris)
+                app.replaceTracksInHutspotPlaylist(info, uris, function() {
+                    app.showConfirmDialog(
+                        i18n.tr("Replacing tracks in succeeded. D you want to play %1?").arg(playlistInfo.name),
+                        function(info) { app.ensurePlaylistIsPlaying(info) }
+                    )
+                })
             }
         )
     }

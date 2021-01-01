@@ -69,6 +69,9 @@ MainView {
     property color popupBorderColor: "black"
     property int popupBorderWidth: 4 // does not seem to work
 
+    property int dividerHeight: 2
+    property color dividerColor: theme.palette.normal.base
+
     // UT stuff
     readonly property var homeDirectory: Util.urlToPath(Platform.StandardPaths.writableLocation(Platform.StandardPaths.HomeLocation).toString())
     readonly property var configDirectory: Util.urlToPath(Platform.StandardPaths.writableLocation(Platform.StandardPaths.AppConfigLocation).toString())
@@ -1371,20 +1374,35 @@ MainView {
         }
     }
 
-    function replaceTracksInHutspotPlaylist(playlistInfo, uris) {
+    function replaceTracksInHutspotPlaylist(playlistInfo, uris, callback) {
         getPlaylistByName(playlistInfo, function(success, info) {
             if(success) {
                 app.replaceTracksInPlaylist(info.id, uris, function(error, data) {
-                    if(data) {
-                        //queuePlaylistSnapshotId = data.snapshot_id
-                        //ensureQueueIsPlaying('ReplacedAllTracks')
-                    }
+                    if(data)
+                        callback(info)
                 })
             } else {
                 showErrorMessage(undefined, qsTr("Failed to find Playlist " + playlistInfo.name))
                 console.log("replaceQueueWith: failed to find  Playlist " + playlistInfo.name)
             }
         })
+    }
+
+    function ensurePlaylistIsPlaying(info) {
+        // if not yet playing it then start playing it
+        if(app.controller.playbackState.item.id !== info.id) {
+            app.controller.playContext({uri: info.uri})
+            return
+        }
+
+        // the playlist is loaded but is not being played
+        // check if correct snapshot is present
+        if(!app.controller.playbackState.is_playing) {
+          if(app.controller.playbackState.context.snapshot_id === info.snapshot_id)
+              app.controller.playPause()
+          else
+              app.controller.playContext({uri: info.uri})
+        }
     }
 
     //
