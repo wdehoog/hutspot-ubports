@@ -308,6 +308,7 @@ MainView {
         console.log("cacheDirectory : " + cacheDirectory)
         pageStack.push(Qt.resolvedUrl("pages/Menu.qml"))
         history = settings.history
+        initRecommendationSeeds()
         startSpotify()
         //console.log(Platform.StandardPaths.writableLocation(Platform.StandardPaths.AppConfigLocation))
         //console.log(Platform.StandardPaths.writableLocation(Platform.StandardPaths.ConfigLocation))
@@ -1166,6 +1167,21 @@ MainView {
     property alias recommendationSeeds: recommendationSeeds
     RecommendationSeeds {
         id: recommendationSeeds
+        onSeedsChanged: {
+            settings.recommendationSeeds = JSON.stringify(getSeedsSaveData())
+            console.log("save: " + settings.recommendationSeeds)
+        }
+    }
+
+    function initRecommendationSeeds() {
+        console.log("load: " + settings.recommendationSeeds)
+        var rs = JSON.parse(settings.recommendationSeeds)
+        if(Util.isArray(rs)) {
+            //var i
+            //for(i=0;i<rs.length;i++) // currently it is only 1 element
+                //recommendationSeeds.loadSeedsSaveData(rs[i])
+            recommendationSeeds.loadSeedsSaveData(rs)
+        }
     }
 
     property var foundDevices: []     // the device info queried by getInfo
@@ -1384,5 +1400,7 @@ MainView {
 
         property bool connectDiscoveryEnabled: true
         property bool logDiscoveryEnabled: false
+
+        property var recommendationSeeds: "[]"
     }
 }

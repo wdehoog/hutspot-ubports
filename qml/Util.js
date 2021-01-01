@@ -388,6 +388,11 @@ function loadCursor(data, cursorType) {
     return cursor
 }
 
+
+function isArray(obj) {
+    return Object.prototype.toString.call(obj) === '[object Array]'
+}
+
 /*function getNextCursorText(offset, limit, total) {
     var lower = offset + limit
     var upper = lower + limit

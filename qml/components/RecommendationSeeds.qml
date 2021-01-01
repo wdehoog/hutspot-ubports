@@ -14,6 +14,10 @@ Item {
 
     property alias seedModel: seedModel
 
+    property bool _signal: false
+
+    signal seedsChanged()
+
     // type 0: Artist, 1: Track, 2: Genre
     ListModel {
         id: seedModel
@@ -27,11 +31,13 @@ Item {
     function clearSlot(index) {
         var emptySeed = {type: -1, sid: "", name: "", image: "",}
         seedModel.set(index, emptySeed)
+        if(_signal)  seedsChanged()
     }
 
     function addSeed(seed) {
         seedModel.insert(0, seed)
         seedModel.remove(5, seedModel.count - 5)
+        if(_signal)  seedsChanged()
     }
 
     function getSeedTypeString(type) {
@@ -46,7 +52,7 @@ Item {
         var seed = {
             type: 0,
             sid: artist.id,
-            name: artist.name, 
+            name: artist.name,
             image: ""
         }
         addSeed(seed)
@@ -56,7 +62,7 @@ Item {
         var seed = {
             type: 1,
             sid: track.id,
-            name: track.name, 
+            name: track.name,
             image: ""
         }
         addSeed(seed)
@@ -66,9 +72,33 @@ Item {
         var seed = {
             type: 2,
             sid: "",
-            name: genre, 
+            name: genre,
             image: ""
         }
         addSeed(seed)
+    }
+
+    function getSeedsSaveData() {
+        var i
+        var savedSeeds = []
+        for(i=0;i<seedModel.count;i++) {
+            var seed = seedModel.get(i)
+            if(seed.type >= 0)
+                savedSeeds.push({stype: seed.type, sid: seed.sid, sname: seed.name})
+        }
+        var saveData = []
+        saveData.push({name: "saved_seeds", seeds: savedSeeds})
+        return saveData
+    }
+
+    function loadSeedsSaveData(saveData) {
+        _signal = false
+        console.log("loadSeedsSaveData: " + JSON.stringify(saveData))
+        var i
+        var savedSeeds = saveData[0].seeds
+        for(i=0;i<savedSeeds.length;i++) {
+            addSeed({type: savedSeeds[i].stype, sid: savedSeeds[i].sid, name: savedSeeds[i].sname, image: ""})
+        }
+        _signal = true
     }
 }
