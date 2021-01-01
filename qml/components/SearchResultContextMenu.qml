@@ -89,6 +89,24 @@ Item {
                     visible: enabled
                     onTriggered: app.addToPlaylist(model.item)
                 }
+                Action {
+                    id: h
+                    property int idx: enabled ? (g.idx + 1) : g.idx
+                    text: i18n.tr("Add to Recommendation Seeds")
+                    enabled: model && (model.type === Util.SpotifyItemType.Artist
+                                       || model.type === Util.SpotifyItemType.Track )
+                    visible: enabled
+                    onTriggered: {
+                        switch(model.type) {
+                        case Util.SpotifyItemType.Artist:
+                            app.recommendationSeeds.addArtist(model.item)
+                            break
+                        case Util.SpotifyItemType.Track:
+                            app.recommendationSeeds.addTrack(model.item)
+                            break
+                        }
+                    }
+                }
                 /*Action {
                     text: i18n.tr("Use as Seeds for Recommendations")
                     enabled: model && (model.type === Util.SpotifyItemType.Playlist)

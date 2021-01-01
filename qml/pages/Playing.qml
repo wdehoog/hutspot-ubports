@@ -255,16 +255,6 @@ Page {
                 }
             }
 
-            /*Text {
-                truncationMode: TruncationMode.Fade
-                width: parent.width
-                font.pixelSize: Theme.fontSizeSmall
-                wrapMode: Text.Wrap
-                text:  (app.controller.playbackState && app.controller.playbackState.device)
-                        ? i18n.tr("on: ") + app.controller.playbackState.device.name + " (" + app.controller.playbackState.device.type + ")"
-                        : i18n.tr("none")
-            }*/
-
             Rectangle {
                 width: parent.width
                 height: app.paddingMedium

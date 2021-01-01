@@ -17,7 +17,7 @@ import "../Spotify.js" as Spotify
 import "../Util.js" as Util
 
 Page {
-    id: albumPage
+    id: recommendedPage
     objectName: "RecommendedPage"
 
     property bool showBusy: false
@@ -25,24 +25,6 @@ Page {
 
     ListModel {
         id: searchModel
-    }
-
-    // type 0: Artist, 1: Track, 2: Genre
-    ListModel {
-        id: seedModel
-        ListElement {type: -1; sid: ""; name: ""; image: "";}
-        ListElement {type: -1; sid: ""; name: ""; image: "";}
-        ListElement {type: -1; sid: ""; name: ""; image: "";}
-        ListElement {type: -1; sid: ""; name: ""; image: "";}
-        ListElement {type: -1; sid: ""; name: ""; image: "";}
-    }
-
-    function getSeedTypeString(type) {
-        switch(type) {
-            case 0: return i18n.tr("artist")
-            case 1: return i18n.tr("track")
-            case 2: return i18n.tr("genre")
-        }
     }
 
     header: PageHeader {
@@ -78,7 +60,7 @@ Page {
                 width: parent.width
                 implicitHeight: contentItem.childrenRect.height
 
-                model: seedModel
+                model: app.recommendationSeeds.seedModel
 
                 delegate: ListItem {
                     height: app.itemSizeMedium
@@ -106,7 +88,7 @@ Page {
                             //truncationMode: TruncationMode.Fade
                             horizontalAlignment: type >= 0 ? Text.AlignLeft : Text.AlignHCenter
                             text: type >= 0 
-                                  ? getSeedTypeString(type) + ": " + name
+                                  ? app.recommendationSeeds.getSeedTypeString(type) + ": " + name
                                   : i18n.tr("Empty Seed Slot")
                         }
                         Icon {
@@ -120,8 +102,7 @@ Page {
                             MouseArea {
                                 anchors.fill: parent
                                 onClicked: {
-                                    var emptySeed = {type: -1, sid: "", name: "", image: "",}
-                                    seedModel.set(index, emptySeed)
+                                    app.recommendationSeeds.clearSlot(index)
                                 }
                             }
                         }
@@ -218,14 +199,14 @@ Page {
         var tracks = []
         var genres = []
 
-        for(i=0;i<seedModel.count;i++) {
-            var seed = seedModel.get(i)
+        for(i=0;i<app.recommendationSeeds.seedModel.count;i++) {
+            var seed = app.recommendationSeeds.seedModel.get(i)
             switch(seed.type) {
                 case 0:
-                    artists.push(seed.id)
+                    artists.push(seed.sid)
                     break
                 case 1:
-                    tracks.push(seed.id)
+                    tracks.push(seed.sid)
                     break
                 case 2:
                     genres.push(seed.name)
@@ -256,23 +237,12 @@ Page {
 
     }
 
-    function addSeed(seed) {
-        seedModel.insert(0, seed)
-        seedModel.remove(5, seedModel.count - 5)
-    }
-
     function selectGenreSeed() {
         var ms = pageStack.push(Qt.resolvedUrl("../components/GenrePicker.qml"),
                                 { label: i18n.tr("Select a Genre") } );
         ms.accepted.connect(function() {
             if(ms.selectedItem && ms.selectedItem.name) {
-                var seed = {
-                    type: 2,
-                    sid: "",
-                    name: ms.selectedItem.name, 
-                    image: ""
-                }
-                addSeed(seed)
+                app.recommendationSeeds.addGenre(ms.selectedItem.name)
                 refresh()
             }
         })

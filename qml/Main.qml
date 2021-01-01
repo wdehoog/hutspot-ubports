@@ -246,6 +246,7 @@ MainView {
         case 'RecommendedPage':
             //pageStack.clear()
             page = pageStack.push(Qt.resolvedUrl("pages/Recommended.qml"))
+            page.refresh()
             break;
         case 'ShowPage':
             page = pageStack.push(Qt.resolvedUrl("pages/Show.qml"))
@@ -1160,6 +1161,11 @@ MainView {
 
     Librespot {
         id: librespot
+    }
+
+    property alias recommendationSeeds: recommendationSeeds
+    RecommendationSeeds {
+        id: recommendationSeeds
     }
 
     property var foundDevices: []     // the device info queried by getInfo
