@@ -14,11 +14,11 @@ build:
 build64:
   image: clickable/ci-16.04-arm64
   script:
-    - clickable --output ./build64 build-libs qtdbusextended --arch amd64
-    - clickable --output ./build64 build-libs nemo-qml-plugin-dbus --arch amd64
-    - clickable --output ./build64 build-libs qtmpris --arch amd64
-    - clickable --output ./build64 build-libs qmdnsengine --arch amd64
-    - clickable --output ./build64 build --arch amd64
+    - clickable --output ./build64 build-libs qtdbusextended --arch arm64
+    - clickable --output ./build64 build-libs nemo-qml-plugin-dbus --arch arm64
+    - clickable --output ./build64 build-libs qtmpris --arch arm64
+    - clickable --output ./build64 build-libs qmdnsengine --arch arm64
+    - clickable --output ./build64 build --arch arm64
   artifacts:
     paths:
       - build64/*.click
