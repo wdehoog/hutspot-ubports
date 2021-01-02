@@ -31,10 +31,15 @@ Hutspot is an 'unconfined' app. This due to:
 
 If you want to run it as a confined app you need to add some policy groups to you system and Hutspot's apparmor file. See the `confined` directory of the sources. 
 
+
+## Install
+A package might be available at [Gitlab](https://gitlab.com/wdehoog/hutspot-ut/-/pipelines) where a CI job runs for an ``armhf`` and an ``arm64`` target. Ofcourse you can always build it yourself, see below.
+
+
 ## Developing
 You can build it with [clickable](http://clickable.bhdouglass.com/en/latest/).
 
-Hutspot uses some libraries [qtdbusextended](https://github.com/nemomobile/qtdbusextended) and [qtmpris](https://git.merproject.org/mer-core/qtmpris), [qmdnsengine](https://github.com/nitroshare/qmdnsengine) and [nemo-qml-plugin-dbus](https://git.sailfishos.org/mer-core/nemo-qml-plugin-dbus). Their sources are currently included in the git repo. Building these libraries required some ugly stuff in two .pro files from qtmpris.
+Hutspot uses some libraries [qtdbusextended](https://github.com/nemomobile/qtdbusextended) and [qtmpris](https://git.merproject.org/mer-core/qtmpris), [qmdnsengine](https://github.com/nitroshare/qmdnsengine) and [nemo-qml-plugin-dbus](https://git.sailfishos.org/mer-core/nemo-qml-plugin-dbus). Their sources are currently included in the git repo. Building these libraries required some modifications in two .pro files from qtmpris.
 
 
 ### Thanks
