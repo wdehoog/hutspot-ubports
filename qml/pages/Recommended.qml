@@ -155,7 +155,7 @@ Page {
                 }
 
                 MouseArea {
-                    //width:  parent.width // childrenRect.width
+                    width:  childrenRect.width
                     height: childrenRect.height
                     anchors.right: parent.right
                     Row {
