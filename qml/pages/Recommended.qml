@@ -322,7 +322,18 @@ Page {
         }
     }
 
+    Connections {
+        target: app
+        onHasValidTokenChanged: if(app.hasValidToken) refresh()
+    }
+
+    Component.onCompleted: {
+        if(app.hasValidToken)
+            refresh()
+    }
+
     function refresh() {
+        console.log("Recommended.refresh")
         //showBusy = true
         searchModel.clear()
         append()
@@ -342,36 +353,11 @@ Page {
             return
         recommendedPage._loading = true
 
-        var artists = []
-        var tracks = []
-        var genres = []
-
-        for(i=0;i<app.recommendationData.seedModel.count;i++) {
-            var seed = app.recommendationData.seedModel.get(i)
-            switch(seed.type) {
-                case 0:
-                    artists.push(seed.sid)
-                    break
-                case 1:
-                    tracks.push(seed.sid)
-                    break
-                case 2:
-                    genres.push(seed.name)
-                    break
-            }
-        }
-
         var options = {offset: searchModel.count, limit: cursorHelper.limit}
-        options.seed_artists = artists.join(',')
-        options.seed_tracks = tracks.join(',')
-        options.seed_genres = genres.join(',')
-
-        if(app.recommendationData.useAttributes) {
-            options = app.recommendationData.getAttributeValuesForQuery(options)
-        }
-
+        options = app.recommendationData.addQueryOptions(options)
         if(app.settings.queryForMarket)
             options.market = "from_token"
+
         console.log(JSON.stringify(options))
 
         Spotify.getRecommendations(options, function(error, data) {

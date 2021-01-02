@@ -102,10 +102,10 @@ Page {
             return
         _loading = true
 
-        var i;
         Spotify.getCategories({offset: searchModel.count, limit: cursorHelper.limit}, function(error, data) {
             if(data) {
                 try {
+                    var i
                     //console.log("number of Categories: " + data.categories.items.length)
                     cursorHelper.offset = data.categories.offset
                     cursorHelper.total = data.categories.total
@@ -131,7 +131,7 @@ Page {
 
     Connections {
         target: app
-        onHasValidTokenChanged: refresh()
+        onHasValidTokenChanged: if(app.hasValidToken) refresh()
     }
 
     Component.onCompleted: {

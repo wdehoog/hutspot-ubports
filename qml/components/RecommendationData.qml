@@ -218,4 +218,35 @@ Item {
             }
         }
     }
+
+    function addQueryOptions(options) {
+        var i
+        var artists = []
+        var tracks = []
+        var genres = []
+
+        for(i=0;i<seedModel.count;i++) {
+            var seed = seedModel.get(i)
+            switch(seed.type) {
+                case 0:
+                    artists.push(seed.sid)
+                    break
+                case 1:
+                    tracks.push(seed.sid)
+                    break
+                case 2:
+                    genres.push(seed.name)
+                    break
+            }
+        }
+
+        options.seed_artists = artists.join(',')
+        options.seed_tracks = tracks.join(',')
+        options.seed_genres = genres.join(',')
+
+        if(useAttributes)
+            options = getAttributeValuesForQuery(options)
+
+        return options
+    }
 }
