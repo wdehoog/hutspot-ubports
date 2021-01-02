@@ -14,8 +14,11 @@ Item {
 
     property alias seedModel: seedModel
     property alias attributesModel: attributesModel
+    property bool useAttributes: false
 
-    signal attributeChanged(var attribute, var value)
+    property bool _debug: true
+
+    signal attributesChanged()
     signal seedsChanged()
 
     property bool _signal: true
@@ -31,8 +34,16 @@ Item {
     }
 
     function clearSlot(index) {
+        var i
         var emptySeed = {type: -1, sid: "", name: "", image: "",}
         seedModel.set(index, emptySeed)
+        // keep all non-empty slots at the top
+        for(i=index+1;i<seedModel.count;i++) {
+            var seed = seedModel.get(i)
+            if(seed.type >= 0)
+                // move up
+                seedModel.move(i, i-1, 1)
+        }
         if(_signal) seedsChanged()
     }
 
@@ -100,6 +111,7 @@ Item {
         saveData.push({
             name: "saved_seeds", 
             seeds: savedSeeds,
+            use_attributes: useAttributes,
             attributes: saveAttributes
         })
 
@@ -107,7 +119,7 @@ Item {
     }
 
     function loadSaveData(saveData) {
-        console.log("loadSeedsSaveData: " + JSON.stringify(saveData))
+        if(_debug) console.log("loadSeedsSaveData: " + JSON.stringify(saveData))
         _signal = false
         var i
 
@@ -116,6 +128,9 @@ Item {
             var seed = savedSeeds[i-1]
             addSeed({type: seed.stype, sid: seed.sid, name: seed.sname, image: ""})
         }
+
+        useAttributes = saveData[0].hasOwnProperty("use_attributes") 
+            ? saveData[0].use_attributes : false
 
         var savedAttributes = saveData[0].attributes
         for(i=0;i<attributesModel.count;i++) {
@@ -155,7 +170,7 @@ Item {
         ListElement {attribute: "popularity"; min: 0; max: 100; value: 50}
     }
 
-    function getAttributeValues(options) {
+    function getAttributeValuesForQuery(options) {
         var i
         for(i=0;i<attributesModel.count;i++) {
             var attribute = attributesModel.get(i)
@@ -165,7 +180,7 @@ Item {
         return options
     }
 
-    function setAttributeValues(options) {
+    /*function setAttributeValues(options) {
         var i
         for(i=0;i<attributesModel.count;i++) {
             var attribute = attributesModel.get(i)
@@ -176,6 +191,17 @@ Item {
                 //item.slider.value = attribute.value
             }
         }
-    }
+    }*/
 
+    function setAttributeValue(name, value) {
+        var i
+        for(i=0;i<attributesModel.count;i++) {
+            var attribute = attributesModel.get(i)
+            if(name === attribute.attribute) {
+                attribute.value = value
+                attributesChanged()
+                return
+            }
+        }
+    }
 }

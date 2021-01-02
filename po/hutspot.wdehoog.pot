@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-02 09:03+0000\n"
+"POT-Creation-Date: 2021-01-02 10:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,64 +21,52 @@ msgstr ""
 msgid "There is a resume point available for this Epsidode: "
 msgstr ""
 
-#: ../qml/components/RecommendationData.qml:47
-#: ../qml/components/RecommendationSeeds.qml:45 ../qml/Main.qml:991
+#: ../qml/components/RecommendationData.qml:58 ../qml/Main.qml:991
 msgid "artist"
 msgstr ""
 
-#: ../qml/components/RecommendationData.qml:48
-#: ../qml/components/RecommendationSeeds.qml:46 ../qml/Main.qml:993
+#: ../qml/components/RecommendationData.qml:59 ../qml/Main.qml:993
 #: ../qml/pages/Playing.qml:583 ../qml/pages/Album.qml:89
 msgid "track"
 msgstr ""
 
-#: ../qml/components/RecommendationData.qml:49
-#: ../qml/components/RecommendationSeeds.qml:47
+#: ../qml/components/RecommendationData.qml:60
 msgid "genre"
 msgstr ""
 
-#: ../qml/components/RecommendationData.qml:133
-#: ../qml/components/RecommendationAttributes.qml:22
+#: ../qml/components/RecommendationData.qml:149
 msgid "Tempo"
 msgstr ""
 
-#: ../qml/components/RecommendationData.qml:134
-#: ../qml/components/RecommendationAttributes.qml:23
+#: ../qml/components/RecommendationData.qml:150
 msgid "Energy"
 msgstr ""
 
-#: ../qml/components/RecommendationData.qml:135
-#: ../qml/components/RecommendationAttributes.qml:24
+#: ../qml/components/RecommendationData.qml:151
 msgid "Danceability"
 msgstr ""
 
-#: ../qml/components/RecommendationData.qml:136
-#: ../qml/components/RecommendationAttributes.qml:25
+#: ../qml/components/RecommendationData.qml:152
 msgid "Instrumentalness"
 msgstr ""
 
-#: ../qml/components/RecommendationData.qml:137
-#: ../qml/components/RecommendationAttributes.qml:26
+#: ../qml/components/RecommendationData.qml:153
 msgid "Speechiness"
 msgstr ""
 
-#: ../qml/components/RecommendationData.qml:138
-#: ../qml/components/RecommendationAttributes.qml:27
+#: ../qml/components/RecommendationData.qml:154
 msgid "Acousticness"
 msgstr ""
 
-#: ../qml/components/RecommendationData.qml:139
-#: ../qml/components/RecommendationAttributes.qml:28
+#: ../qml/components/RecommendationData.qml:155
 msgid "Liveness"
 msgstr ""
 
-#: ../qml/components/RecommendationData.qml:140
-#: ../qml/components/RecommendationAttributes.qml:29
+#: ../qml/components/RecommendationData.qml:156
 msgid "Positiveness"
 msgstr ""
 
-#: ../qml/components/RecommendationData.qml:141
-#: ../qml/components/RecommendationAttributes.qml:30
+#: ../qml/components/RecommendationData.qml:157
 msgid "Popularity"
 msgstr ""
 
@@ -319,45 +307,53 @@ msgid ""
 "to %2.<br><br>Is that Ok?"
 msgstr ""
 
-#: ../qml/pages/Recommended.qml:34 ../qml/pages/Menu.qml:73
+#: ../qml/pages/Recommended.qml:33 ../qml/pages/Menu.qml:73
 msgid "Recommended"
 msgstr ""
 
-#: ../qml/pages/Recommended.qml:38
+#: ../qml/pages/Recommended.qml:37
 msgid "Add Genre"
 msgstr ""
 
-#: ../qml/pages/Recommended.qml:43
+#: ../qml/pages/Recommended.qml:42
 msgid "Import into Playlist"
 msgstr ""
 
-#: ../qml/pages/Recommended.qml:61
+#: ../qml/pages/Recommended.qml:48
+msgid "Reload"
+msgstr ""
+
+#: ../qml/pages/Recommended.qml:66
 msgid "Seeds"
 msgstr ""
 
-#: ../qml/pages/Recommended.qml:100
+#: ../qml/pages/Recommended.qml:105
 msgid "Empty Seed Slot"
 msgstr ""
 
-#: ../qml/pages/Recommended.qml:145
+#: ../qml/pages/Recommended.qml:153
+msgid "Use"
+msgstr ""
+
+#: ../qml/pages/Recommended.qml:169
 msgid "Attributes"
 msgstr ""
 
-#: ../qml/pages/Recommended.qml:210
+#: ../qml/pages/Recommended.qml:235
 msgid "Recommendations"
 msgstr ""
 
-#: ../qml/pages/Recommended.qml:337
+#: ../qml/pages/Recommended.qml:362
 msgid "Select a Genre"
 msgstr ""
 
-#: ../qml/pages/Recommended.qml:349
+#: ../qml/pages/Recommended.qml:374
 msgid ""
 "Do you want to replace the tracks in the Hutspot Recommendations playlist "
 "with these results?"
 msgstr ""
 
-#: ../qml/pages/Recommended.qml:360
+#: ../qml/pages/Recommended.qml:385
 msgid "Replacing tracks in succeeded. D you want to play %1?"
 msgstr ""
 

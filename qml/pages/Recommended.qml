@@ -22,7 +22,6 @@ Page {
 
     property bool showBusy: false
     property int currentIndex: -1
-    //property bool useAttributes: false
     property bool expandAttributes: false
 
     ListModel {
@@ -36,7 +35,7 @@ Page {
         trailingActionBar.actions: [
             Action {
                 text: i18n.tr("Add Genre")
-                iconName: "stock_music"
+                iconName: "tag"
                 onTriggered: selectGenreSeed()
             },
             Action {
@@ -44,6 +43,12 @@ Page {
                 iconName: "import"
                 enabled: searchModel.count > 0
                 onTriggered: importIntoPlaylist()
+            },
+            Action {
+                text: i18n.tr("Reload")
+                iconName: "reload"
+                enabled: searchModel.count > 0
+                onTriggered: refresh()
             }
         ]
     }
@@ -130,29 +135,49 @@ Page {
             //    onAttributeChanged: refresh()
             //}
 
-            MouseArea {
+            Item {
                 width:  parent.width // childrenRect.width
                 height: childrenRect.height
-                anchors.right: parent.right
+
                 Row {
-                    anchors.right: parent.right
-                    height: hl.height
-                    spacing: app.paddingMedium
-                    Label {
-                        id: hl
-                        font.weight: app.fontHighlightWeight
-                        anchors.verticalCenter: parent.verticalCenter
-                        text: i18n.tr("Attributes")
+                    anchors.left: parent.left
+                    height: childrenRect.height
+                    spacing: app.paddingSmall
+
+                    CheckBox {
+                        checked: app.recommendationData.useAttributes
+                        onClicked: app.recommendationData.useAttributes = checked
                     }
-                    Icon {
-                        id: hi
-                        width: app.iconSizeMedium
-                        anchors.verticalCenter: parent.verticalCenter
-                        name: expandAttributes ? "up" : "down"
+                    Label {
+                        id: useAttrLabel
+                        text: i18n.tr("Use")
                     }
                 }
-                onClicked: {
-                    expandAttributes = !expandAttributes
+
+                MouseArea {
+                    //width:  parent.width // childrenRect.width
+                    height: childrenRect.height
+                    anchors.right: parent.right
+                    Row {
+                        anchors.right: parent.right
+                        height: hl.height
+                        spacing: app.paddingMedium
+                        Label {
+                            id: hl
+                            font.weight: app.fontHighlightWeight
+                            anchors.verticalCenter: parent.verticalCenter
+                            text: i18n.tr("Attributes")
+                        }
+                        Icon {
+                            id: hi
+                            width: app.iconSizeMedium
+                            anchors.verticalCenter: parent.verticalCenter
+                            name: expandAttributes ? "up" : "down"
+                        }
+                    }
+                    onClicked: {
+                        expandAttributes = !expandAttributes
+                    }
                 }
             }
 
@@ -193,7 +218,7 @@ Page {
                             if(pressed)
                               return
                             model.value = slider.value
-                            attributeChanged(attribute, model.value)
+                            app.recommendationData.setAttributeValue(attribute, model.value)
                         }
                         Component.onCompleted: slider.value = model.value
                     }
@@ -283,7 +308,7 @@ Page {
         // guard
         if(_loading)
             return
-        _loading = true
+        recommendedPage._loading = true
 
         var artists = []
         var tracks = []
@@ -309,8 +334,8 @@ Page {
         options.seed_tracks = tracks.join(',')
         options.seed_genres = genres.join(',')
 
-        if(expandAttributes) { //useAttributes) {
-            options = app.recommendationData.getAttributeValues(options)
+        if(app.recommendationData.useAttributes) {
+            options = app.recommendationData.getAttributeValuesForQuery(options)
         }
 
         if(app.settings.queryForMarket)
@@ -327,7 +352,7 @@ Page {
                 }
             } else
                 console.log("No Data for getRecommendations")
-            _loading = false
+            recommendedPage._loading = false
         })
 
     }
