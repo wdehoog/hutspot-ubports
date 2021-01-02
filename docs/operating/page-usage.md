@@ -120,6 +120,16 @@ layout: default
    * Create New Playlist
  * Click on Playlist item to select it
 
+### Recommended Page
+ * Page header buttons:
+   * Refresh
+   * Put current recommendations in playlist
+   * Select Genre
+ * Click on Clear icon to clear the slot
+ * Checkbox to indicate to use Atrributes or not
+ * Click on chevron to show/hide Attribute sliders
+ * Use Sliders to modify Attributes
+
 ### Search Page
  * Item List button on the page header opens Query History Maintenance page
  * Search Text contains your query. It is a combobox with a list of your last searches.

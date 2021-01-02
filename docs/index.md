@@ -15,6 +15,7 @@ Main features:
  * Discover and control Connect Devices
  * Control Play/Pause/Next/Previous/Volume/Shuffle/Replay/Seek
  * Create and Edit Playlists
+ * Get Recommendations based on Artists, Tracks, Genres and some attributes
  * Keep track of visited Albums, Artists and Playlists 
  * Can be used by controls from indicator panel
  * Start/Stop Librespot if available (see [play-on-phone](play-on-phone))
