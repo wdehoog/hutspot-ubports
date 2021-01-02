@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-02 10:30+0000\n"
+"POT-Creation-Date: 2021-01-02 10:34+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,39 +34,39 @@ msgstr ""
 msgid "genre"
 msgstr ""
 
-#: ../qml/components/RecommendationData.qml:149
+#: ../qml/components/RecommendationData.qml:148
 msgid "Tempo"
 msgstr ""
 
-#: ../qml/components/RecommendationData.qml:150
+#: ../qml/components/RecommendationData.qml:149
 msgid "Energy"
 msgstr ""
 
-#: ../qml/components/RecommendationData.qml:151
+#: ../qml/components/RecommendationData.qml:150
 msgid "Danceability"
 msgstr ""
 
-#: ../qml/components/RecommendationData.qml:152
+#: ../qml/components/RecommendationData.qml:151
 msgid "Instrumentalness"
 msgstr ""
 
-#: ../qml/components/RecommendationData.qml:153
+#: ../qml/components/RecommendationData.qml:152
 msgid "Speechiness"
 msgstr ""
 
-#: ../qml/components/RecommendationData.qml:154
+#: ../qml/components/RecommendationData.qml:153
 msgid "Acousticness"
 msgstr ""
 
-#: ../qml/components/RecommendationData.qml:155
+#: ../qml/components/RecommendationData.qml:154
 msgid "Liveness"
 msgstr ""
 
-#: ../qml/components/RecommendationData.qml:156
+#: ../qml/components/RecommendationData.qml:155
 msgid "Positiveness"
 msgstr ""
 
-#: ../qml/components/RecommendationData.qml:157
+#: ../qml/components/RecommendationData.qml:156
 msgid "Popularity"
 msgstr ""
 
