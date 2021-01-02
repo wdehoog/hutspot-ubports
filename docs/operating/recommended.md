@@ -1,10 +1,8 @@
 ---
 title: Recommended
+parent: Operating
 nav_order: 4
 layout: default
-has_children: true
-has_toc: false
-permalink: recommended
 ---
 
 ## Recommended
