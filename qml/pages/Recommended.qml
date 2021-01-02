@@ -23,7 +23,7 @@ Page {
     property bool showBusy: false
     property int currentIndex: -1
     //property bool useAttributes: false
-    property var attributes: null
+    property bool expandAttributes: false
 
     ListModel {
         id: searchModel
@@ -68,7 +68,7 @@ Page {
                 width: parent.width
                 implicitHeight: contentItem.childrenRect.height
 
-                model: app.recommendationSeeds.seedModel
+                model: app.recommendationData.seedModel
 
                 delegate: ListItem {
                     height: app.itemSizeMedium
@@ -96,7 +96,7 @@ Page {
                             //truncationMode: TruncationMode.Fade
                             horizontalAlignment: type >= 0 ? Text.AlignLeft : Text.AlignHCenter
                             text: type >= 0
-                                  ? app.recommendationSeeds.getSeedTypeString(type) + ": " + name
+                                  ? app.recommendationData.getSeedTypeString(type) + ": " + name
                                   : i18n.tr("Empty Seed Slot")
                         }
                         Icon {
@@ -110,7 +110,7 @@ Page {
                             MouseArea {
                                 anchors.fill: parent
                                 onClicked: {
-                                    app.recommendationSeeds.clearSlot(index)
+                                    app.recommendationData.clearSlot(index)
                                     refresh()
                                 }
                             }
@@ -125,11 +125,79 @@ Page {
                 color: app.dividerColor
             }
 
-            RecommendationAttributes {
-                id: recommendationAttributes
-                //onExpandAttributes: useAttributes = expandAttributes
-                Component.onCompleted: attributes = recommendationAttributes
-                onAttributeChanged: refresh()
+            //RecommendationAttributes {
+            //    id: recommendationAttributes
+            //    onAttributeChanged: refresh()
+            //}
+
+            MouseArea {
+                width:  parent.width // childrenRect.width
+                height: childrenRect.height
+                anchors.right: parent.right
+                Row {
+                    anchors.right: parent.right
+                    height: hl.height
+                    spacing: app.paddingMedium
+                    Label {
+                        id: hl
+                        font.weight: app.fontHighlightWeight
+                        anchors.verticalCenter: parent.verticalCenter
+                        text: i18n.tr("Attributes")
+                    }
+                    Icon {
+                        id: hi
+                        width: app.iconSizeMedium
+                        anchors.verticalCenter: parent.verticalCenter
+                        name: expandAttributes ? "up" : "down"
+                    }
+                }
+                onClicked: {
+                    expandAttributes = !expandAttributes
+                }
+            }
+
+            ListView {
+                id: listView
+                width: parent.width
+                implicitHeight: expandAttributes ? contentItem.childrenRect.height : 0
+                visible: expandAttributes
+
+                model: app.recommendationData.attributesModel
+
+                delegate: ListItem {
+                    width: parent.width
+
+                    Column {
+                      id: lab
+                      width: parent.width * 0.25
+                      anchors.verticalCenter: parent.verticalCenter
+                      Label {
+                          anchors.left: parent.left
+                          text: app.recommendationData.getLabelText(attribute)
+                      }
+                      Label {
+                          anchors.left: parent.left
+                          text: slider.value.toPrecision(3)
+                      }
+                    }
+
+                    Slider {
+                        id: slider
+                        width: parent.width - lab.width - app.paddingMedium
+                        anchors.right: parent.right
+                        anchors.verticalCenter: parent.verticalCenter
+                        minimumValue: min
+                        maximumValue: max
+                        live: true
+                        onPressedChanged: {
+                            if(pressed)
+                              return
+                            model.value = slider.value
+                            attributeChanged(attribute, model.value)
+                        }
+                        Component.onCompleted: slider.value = model.value
+                    }
+                }
             }
 
             Rectangle {
@@ -221,8 +289,8 @@ Page {
         var tracks = []
         var genres = []
 
-        for(i=0;i<app.recommendationSeeds.seedModel.count;i++) {
-            var seed = app.recommendationSeeds.seedModel.get(i)
+        for(i=0;i<app.recommendationData.seedModel.count;i++) {
+            var seed = app.recommendationData.seedModel.get(i)
             switch(seed.type) {
                 case 0:
                     artists.push(seed.sid)
@@ -241,13 +309,13 @@ Page {
         options.seed_tracks = tracks.join(',')
         options.seed_genres = genres.join(',')
 
-        if(attributes.expandAttributes) { //useAttributes) {
-            console.log(JSON.stringify(attributes.getAttributeValues(options)))
+        if(expandAttributes) { //useAttributes) {
+            options = app.recommendationData.getAttributeValues(options)
         }
 
         if(app.settings.queryForMarket)
             options.market = "from_token"
-        //console.log(JSON.stringify(options))
+        console.log(JSON.stringify(options))
 
         Spotify.getRecommendations(options, function(error, data) {
             if(data) {
@@ -269,7 +337,7 @@ Page {
                                 { label: i18n.tr("Select a Genre") } );
         ms.accepted.connect(function() {
             if(ms.selectedItem && ms.selectedItem.name) {
-                app.recommendationSeeds.addGenre(ms.selectedItem.name)
+                app.recommendationData.addGenre(ms.selectedItem.name)
                 refresh()
             }
         })
