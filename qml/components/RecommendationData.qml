@@ -20,6 +20,7 @@ Item {
 
     signal attributesChanged()
     signal seedsChanged()
+    signal reset()
 
     property bool _signal: true
 
@@ -33,7 +34,7 @@ Item {
         ListElement {type: -1; sid: ""; name: ""; image: "";}
     }
 
-    function reset() {
+    function resetValues() {
       var i
       _signal = false
       for(i=0;i<seedModel.count;i++)
@@ -50,13 +51,14 @@ Item {
       setAttributeValue("popularity", 50)
 
       _signal = true
-      seedsChanged()
-      attributesChanged()
+      //seedsChanged()
+      //attributesChanged()
+      reset()
     }
 
     function clearSlot(index) {
         var i
-        var emptySeed = {type: -1, sid: "", name: "", image: "",}
+        var emptySeed = {type: -1, sid: "", name: "", image: ""}
         seedModel.set(index, emptySeed)
         // keep all non-empty slots at the top
         for(i=index+1;i<seedModel.count;i++) {
@@ -180,39 +182,29 @@ Item {
 
     ListModel {
         id: attributesModel
-        ListElement {attribute: "tempo"; min: 0; max: 512; value: 100}
-        ListElement {attribute: "energy"; min: 0; max: 1.0; value: 0.5}
-        ListElement {attribute: "danceability"; min: 0; max: 1.0; value: 0.5}
-        ListElement {attribute: "instrumentalness"; min: 0; max: 1.0; value: 0.5}
-        ListElement {attribute: "speechiness"; min: 0; max: 1.0; value: 0.5}
-        ListElement {attribute: "acousticness"; min: 0; max: 1.0; value: 0.5}
-        ListElement {attribute: "liveness"; min: 0; max: 1.0; value: 0.5}
-        ListElement {attribute: "positiveness"; min: 0; max: 1.0; value: 0.5}
-        ListElement {attribute: "popularity"; min: 0; max: 100; value: 50}
+        ListElement {attribute: "tempo"; min: 0; max: 512; value: 100; dtype: "int"}
+        ListElement {attribute: "energy"; min: 0; max: 1.0; value: 0.5; dtype: "double"}
+        ListElement {attribute: "danceability"; min: 0; max: 1.0; value: 0.5; dtype: "double"}
+        ListElement {attribute: "instrumentalness"; min: 0; max: 1.0; value: 0.5; dtype: "double"}
+        ListElement {attribute: "speechiness"; min: 0; max: 1.0; value: 0.5; dtype: "double"}
+        ListElement {attribute: "acousticness"; min: 0; max: 1.0; value: 0.5; dtype: "double"}
+        ListElement {attribute: "liveness"; min: 0; max: 1.0; value: 0.5; dtype: "double"}
+        ListElement {attribute: "positiveness"; min: 0; max: 1.0; value: 0.5; dtype: "double"}
+        ListElement {attribute: "popularity"; min: 0; max: 100; value: 50; dtype: "int"}
     }
 
     function getAttributeValuesForQuery(options) {
         var i
         for(i=0;i<attributesModel.count;i++) {
             var attribute = attributesModel.get(i)
-            options["target_"+attribute.attribute] = attribute.value
+            var value = attribute.value
+            if(attribute.dtype === "int")
+                value = Math.round(value)
+            options["target_"+attribute.attribute] = value
             //console.log("options[%1]: %2".arg("target_"+attribute.attribute).arg(attribute.value))
         }
         return options
     }
-
-    /*function setAttributeValues(options) {
-        var i
-        for(i=0;i<attributesModel.count;i++) {
-            var attribute = attributesModel.get(i)
-            var propertyName = "target_"+attribute.attribute
-            if(options.hasOwnProperty(propertyName)) {
-                attribute.value = options[propertyName]
-                //var item = listView.itemAtIndex(i)
-                //item.slider.value = attribute.value
-            }
-        }
-    }*/
 
     function setAttributeValue(name, value) {
         var i

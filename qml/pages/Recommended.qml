@@ -131,7 +131,6 @@ Page {
                                 anchors.fill: parent
                                 onClicked: {
                                     app.recommendationData.clearSlot(index)
-                                    refresh()
                                 }
                             }
                         }
@@ -144,11 +143,6 @@ Page {
                 height: app.dividerHeight
                 color: app.dividerColor
             }
-
-            //RecommendationAttributes {
-            //    id: recommendationAttributes
-            //    onAttributeChanged: refresh()
-            //}
 
             Item {
                 width:  parent.width // childrenRect.width
@@ -217,7 +211,12 @@ Page {
                       }
                       Label {
                           anchors.left: parent.left
-                          text: slider.value.toPrecision(3)
+                          text: {
+                            if(dtype === "int")
+                                Math.round(slider.value)
+                            else  
+                                slider.value.toPrecision(2)
+                          }
                       }
                     }
 
@@ -236,6 +235,10 @@ Page {
                             app.recommendationData.setAttributeValue(attribute, model.value)
                         }
                         Component.onCompleted: slider.value = model.value
+                        Connections {
+                            target: app.recommendationData
+                            onReset: slider.value = model.value
+                        }
                     }
                 }
             }
@@ -297,12 +300,26 @@ Page {
         anchors.right: parent.right
     }
 
-    //onAlbumChanged: refresh()
-
     property alias cursorHelper: cursorHelper
 
     CursorHelper {
         id: cursorHelper
+    }
+
+    Connections {
+        target: app.recommendationData
+        onAttributesChanged: refresh()
+        onSeedsChanged: refresh()
+        onReset: {
+            // seeds model is already updated so we only need to update the sliders
+            // too bad itemAtIndex is not in Qt 5.12
+            /*var i
+            for(i=0;i<app.recommendationData.attributesModel.count;i++) {
+                var attribute = app.recommendationData.attributesModel.get(i)
+                var item = listView.itemAtIndex(i)
+                item.slider.value = attribute.value
+            }*/
+        }
     }
 
     function refresh() {
@@ -378,7 +395,6 @@ Page {
         ms.accepted.connect(function() {
             if(ms.selectedItem && ms.selectedItem.name) {
                 app.recommendationData.addGenre(ms.selectedItem.name)
-                refresh()
             }
         })
     }
@@ -407,7 +423,7 @@ Page {
 
     function resetSeedsAndAttributes() {
         app.showConfirmDialog(i18n.tr("Do you want to reset all Recommendations Seeds and Attributes?"),
-            function() { app.recommendationData.reset() }
+            function() { app.recommendationData.resetValues() }
         )
     }
 
