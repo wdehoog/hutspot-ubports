@@ -56,7 +56,7 @@ Page {
                 onTriggered: saveSeedsAndAttributes()
             },
             Action {
-                text: i18n.tr("Open")
+                text: i18n.tr("Load")
                 iconName: "document-open"
                 onTriggered: loadSeedsAndAttributes()
             },

@@ -121,10 +121,13 @@ layout: default
  * Click on Playlist item to select it
 
 ### Recommended Page
- * Page header buttons:
+ * Page header buttons allow to:
    * Refresh
-   * Put current recommendations in playlist
    * Select Genre
+   * Put current recommendations in playlist
+   * Save current Seeds and Attributes to a file
+   * Load Seeds and Attributes from a file
+   * Remove the Seeds and set the Attributes back to their default values
  * Click on Clear icon to clear the slot
  * Checkbox to indicate to use Atrributes or not
  * Click on chevron to show/hide Attribute sliders

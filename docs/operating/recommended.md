@@ -27,5 +27,9 @@ Currently Hutspot supports the following attributes
 ### Playlist
 To play the recommended tracks Hutspot can add them to a playlist named "Recommendations [hutspot]". Use the import-button on the page header to do this.
 
+### Export/Import
+The current recommendation Seeds and Attributes are saved in- and loaded from the configuration file. They can also be exported and imported. This is done using the Content-Hub mechanism. Selecting the FileManager as the source or destination allows you to use previously saved data. Note that this does not save the recommended tracks but only the (maximum five) Seeds and Attributes.
+
 ### Various
  * There is a refresh button on the page header to get new recommendations based on the current seeds and attributes.
+ * There is also a Reset button to remove the Seeds and set the Attributes back to their default value.
