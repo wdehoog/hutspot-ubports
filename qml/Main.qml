@@ -42,6 +42,7 @@ MainView {
     property alias deviceName: settings.deviceName
 
     property alias librespot: librespot
+    property alias pageStack: pageStack
 
     //
     // UI stuff
@@ -77,6 +78,9 @@ MainView {
     readonly property var configDirectory: Util.urlToPath(Platform.StandardPaths.writableLocation(Platform.StandardPaths.AppConfigLocation).toString())
     readonly property var dataDirectory: Util.urlToPath(Platform.StandardPaths.writableLocation(Platform.StandardPaths.AppDataLocation).toString())
     readonly property var cacheDirectory: Util.urlToPath(Platform.StandardPaths.writableLocation(Platform.StandardPaths.CacheLocation).toString())
+    readonly property var tempDirectory: Util.urlToPath(Platform.StandardPaths.writableLocation(Platform.StandardPaths.TempLocation).toString())
+
+    readonly property var tempPathUrl: Platform.StandardPaths.writableLocation(Platform.StandardPaths.TempLocation)
 
     //
 
@@ -309,6 +313,7 @@ MainView {
         console.log("configDirectory: " + configDirectory)
         console.log("dataDirectory  : " + dataDirectory)
         console.log("cacheDirectory : " + cacheDirectory)
+        console.log("tempDirectory  : " + tempDirectory)
         pageStack.push(Qt.resolvedUrl("pages/Menu.qml"))
         history = settings.history
         initRecommendationData()

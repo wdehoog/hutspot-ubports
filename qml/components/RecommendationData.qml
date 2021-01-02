@@ -33,6 +33,27 @@ Item {
         ListElement {type: -1; sid: ""; name: ""; image: "";}
     }
 
+    function reset() {
+      var i
+      _signal = false
+      for(i=0;i<seedModel.count;i++)
+         clearSlot(i)
+
+      setAttributeValue("tempo",  100)
+      setAttributeValue("energy", 0.5)
+      setAttributeValue("danceability", 0.5)
+      setAttributeValue("instrumentalness", 0.5)
+      setAttributeValue("speechiness", 0.5)
+      setAttributeValue("acousticness", 0.5)
+      setAttributeValue("liveness", 0.5)
+      setAttributeValue("positiveness", 0.5)
+      setAttributeValue("popularity", 50)
+
+      _signal = true
+      seedsChanged()
+      attributesChanged()
+    }
+
     function clearSlot(index) {
         var i
         var emptySeed = {type: -1, sid: "", name: "", image: "",}
@@ -109,7 +130,7 @@ Item {
 
         var saveData = []
         saveData.push({
-            name: "saved_seeds", 
+            name: "saved_seeds",
             seeds: savedSeeds,
             use_attributes: useAttributes,
             attributes: saveAttributes
@@ -129,7 +150,7 @@ Item {
             addSeed({type: seed.stype, sid: seed.sid, name: seed.sname, image: ""})
         }
 
-        useAttributes = saveData[0].hasOwnProperty("use_attributes") 
+        useAttributes = saveData[0].hasOwnProperty("use_attributes")
             ? saveData[0].use_attributes : false
 
         var savedAttributes = saveData[0].attributes
@@ -199,7 +220,8 @@ Item {
             var attribute = attributesModel.get(i)
             if(name === attribute.attribute) {
                 attribute.value = value
-                attributesChanged()
+                if(_signal)
+                    attributesChanged()
                 return
             }
         }

@@ -2,6 +2,8 @@
 #define SYSTEMUTIL_H
 
 #include <QObject>
+#include <QFile>
+#include <QTextStream>
 
 class SystemUtilEnums : public QObject
 {
@@ -29,6 +31,7 @@ public:
 public slots:
     Q_INVOKABLE void pkill(uint pid, int signal);
     Q_INVOKABLE static QString env(const QString &name);
+    Q_INVOKABLE bool write(const QString& source, const QString& data);
 };
 
 #endif // SYSTEMUTIL_H

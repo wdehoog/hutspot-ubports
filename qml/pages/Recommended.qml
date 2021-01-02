@@ -1,6 +1,5 @@
 /**
- * Copyright (C) 2018 Willem-Jan de Hoog
- * Copyright (C) 2018 Maciej Janiszewski
+ * Copyright (C) 2020 Willem-Jan de Hoog
  *
  * License: MIT
  */
@@ -11,6 +10,7 @@ import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 //import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
+import Ubuntu.Content 1.3
 
 import "../components"
 import "../Spotify.js" as Spotify
@@ -39,16 +39,31 @@ Page {
                 onTriggered: selectGenreSeed()
             },
             Action {
+                text: i18n.tr("Reload")
+                iconName: "reload"
+                enabled: searchModel.count > 0
+                onTriggered: refresh()
+            },
+            Action {
                 text: i18n.tr("Import into Playlist")
                 iconName: "import"
                 enabled: searchModel.count > 0
                 onTriggered: importIntoPlaylist()
             },
             Action {
-                text: i18n.tr("Reload")
-                iconName: "reload"
-                enabled: searchModel.count > 0
-                onTriggered: refresh()
+                text: i18n.tr("Save")
+                iconName: "document-save"
+                onTriggered: saveSeedsAndAttributes()
+            },
+            Action {
+                text: i18n.tr("Open")
+                iconName: "document-open"
+                onTriggered: loadSeedsAndAttributes()
+            },
+            Action {
+                text: i18n.tr("Reset")
+                iconName: "reset"
+                onTriggered: resetSeedsAndAttributes()
             }
         ]
     }
@@ -390,22 +405,25 @@ Page {
         )
     }
 
-    /*Connections {
-        target: app
-        onFavoriteEvent: {
-            switch(event.type) {
-            case Util.SpotifyItemType.Album:
-                if(album.id === event.id) {
-                    isAlbumSaved = event.isFavorite
-                }
-                break
-            case Util.SpotifyItemType.Track:
-                // no way to check if this track is for this album
-                // so just try to update
-                Util.setSavedInfo(Spotify.ItemType.Track, [event.id], [event.isFavorite], searchModel)
-                break
-            }
-        }
-    }*/
+    function resetSeedsAndAttributes() {
+        app.showConfirmDialog(i18n.tr("Do you want to reset all Recommendations Seeds and Attributes?"),
+            function() { app.recommendationData.reset() }
+        )
+    }
+
+    function saveSeedsAndAttributes() {
+        var saveData = JSON.stringify(app.recommendationData.getSaveData())
+        var page = app.pageStack.push(Qt.resolvedUrl("../components/ExportRecommendationsDataPage.qml"), {saveData: saveData})
+    }
+
+    function loadSeedsAndAttributes() {
+        var page = app.pageStack.push(Qt.resolvedUrl("../components/ImportRecommendationsDataPage.qml"))
+        page.imported.connect(function(data) {
+            //console.log("imported: " + data)
+            var saveData = JSON.parse(data)
+            pageStack.pop()
+            app.recommendationData.loadSaveData(data)
+        })
+    }
 
 }

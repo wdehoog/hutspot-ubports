@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-02 10:34+0000\n"
+"POT-Creation-Date: 2021-01-02 16:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,52 +21,52 @@ msgstr ""
 msgid "There is a resume point available for this Epsidode: "
 msgstr ""
 
-#: ../qml/components/RecommendationData.qml:58 ../qml/Main.qml:991
+#: ../qml/components/RecommendationData.qml:79 ../qml/Main.qml:996
 msgid "artist"
 msgstr ""
 
-#: ../qml/components/RecommendationData.qml:59 ../qml/Main.qml:993
+#: ../qml/components/RecommendationData.qml:80 ../qml/Main.qml:998
 #: ../qml/pages/Playing.qml:583 ../qml/pages/Album.qml:89
 msgid "track"
 msgstr ""
 
-#: ../qml/components/RecommendationData.qml:60
+#: ../qml/components/RecommendationData.qml:81
 msgid "genre"
 msgstr ""
 
-#: ../qml/components/RecommendationData.qml:148
+#: ../qml/components/RecommendationData.qml:169
 msgid "Tempo"
 msgstr ""
 
-#: ../qml/components/RecommendationData.qml:149
+#: ../qml/components/RecommendationData.qml:170
 msgid "Energy"
 msgstr ""
 
-#: ../qml/components/RecommendationData.qml:150
+#: ../qml/components/RecommendationData.qml:171
 msgid "Danceability"
 msgstr ""
 
-#: ../qml/components/RecommendationData.qml:151
+#: ../qml/components/RecommendationData.qml:172
 msgid "Instrumentalness"
 msgstr ""
 
-#: ../qml/components/RecommendationData.qml:152
+#: ../qml/components/RecommendationData.qml:173
 msgid "Speechiness"
 msgstr ""
 
-#: ../qml/components/RecommendationData.qml:153
+#: ../qml/components/RecommendationData.qml:174
 msgid "Acousticness"
 msgstr ""
 
-#: ../qml/components/RecommendationData.qml:154
+#: ../qml/components/RecommendationData.qml:175
 msgid "Liveness"
 msgstr ""
 
-#: ../qml/components/RecommendationData.qml:155
+#: ../qml/components/RecommendationData.qml:176
 msgid "Positiveness"
 msgstr ""
 
-#: ../qml/components/RecommendationData.qml:156
+#: ../qml/components/RecommendationData.qml:177
 msgid "Popularity"
 msgstr ""
 
@@ -102,7 +102,7 @@ msgstr ""
 #: ../qml/components/CreatePlaylist.qml:34
 #: ../qml/components/PlaylistPicker.qml:36 ../qml/components/Librespot.qml:414
 #: ../qml/components/GenrePicker.qml:36 ../qml/components/ArtistPicker.qml:35
-#: ../qml/Main.qml:1063
+#: ../qml/Main.qml:1068
 msgid "Cancel"
 msgstr ""
 
@@ -158,6 +158,18 @@ msgstr ""
 msgid "externally hosted"
 msgstr ""
 
+#: ../qml/components/ExportRecommendationsDataPage.qml:24
+msgid "Save with"
+msgstr ""
+
+#: ../qml/components/ExportRecommendationsDataPage.qml:30
+msgid "Failed to export Recommendations data."
+msgstr ""
+
+#: ../qml/components/ImportRecommendationsDataPage.qml:25
+msgid "Load with"
+msgstr ""
+
 #: ../qml/components/PlaylistPicker.qml:31
 msgid "Select Playlist to Add To"
 msgstr ""
@@ -186,8 +198,8 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-#: ../qml/components/Librespot.qml:404 ../qml/Main.qml:1011
-#: ../qml/Main.qml:1072
+#: ../qml/components/Librespot.qml:404 ../qml/Main.qml:1016
+#: ../qml/Main.qml:1077
 msgid "Ok"
 msgstr ""
 
@@ -220,88 +232,88 @@ msgstr ""
 msgid "Select Artist"
 msgstr ""
 
-#: ../qml/Main.qml:216
+#: ../qml/Main.qml:220
 msgid ""
 "Playing page is already loaded. Go back to it and discard the pages on top?"
 msgstr ""
 
-#: ../qml/Main.qml:401
+#: ../qml/Main.qml:406
 msgid "Failed to Refresh Authorization Token"
 msgstr ""
 
-#: ../qml/Main.qml:473
+#: ../qml/Main.qml:478
 msgid "Edit Playlist Details"
 msgstr ""
 
-#: ../qml/Main.qml:500
+#: ../qml/Main.qml:505
 msgid "Select a Playlist"
 msgstr ""
 
-#: ../qml/Main.qml:522
+#: ../qml/Main.qml:527
 msgid "Please confirm removing<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:670
+#: ../qml/Main.qml:675
 msgid "Please confirm to unfollow playlist:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:696
+#: ../qml/Main.qml:701
 msgid "Please confirm to unfollow artist:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:727
+#: ../qml/Main.qml:732
 msgid "Please confirm to un-save album:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:758
+#: ../qml/Main.qml:763
 msgid "Please confirm to un-save show:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:784
+#: ../qml/Main.qml:789
 msgid "Please confirm to un-save track:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:898
+#: ../qml/Main.qml:903
 msgid "Failed to fetch Show"
 msgstr ""
 
-#: ../qml/Main.qml:966
+#: ../qml/Main.qml:971
 msgid "Failed to fetch full "
 msgstr ""
 
-#: ../qml/Main.qml:976
+#: ../qml/Main.qml:981
 msgid "View an Artist"
 msgstr ""
 
-#: ../qml/Main.qml:990 ../qml/Main.qml:992
+#: ../qml/Main.qml:995 ../qml/Main.qml:997
 msgid "album"
 msgstr ""
 
-#: ../qml/Main.qml:994
+#: ../qml/Main.qml:999
 msgid "episode"
 msgstr ""
 
-#: ../qml/Main.qml:995
+#: ../qml/Main.qml:1000
 msgid "show"
 msgstr ""
 
-#: ../qml/Main.qml:996
+#: ../qml/Main.qml:1001
 msgid "unknown type"
 msgstr ""
 
-#: ../qml/Main.qml:1027
+#: ../qml/Main.qml:1032
 msgid "Error"
 msgstr ""
 
-#: ../qml/Main.qml:1090
+#: ../qml/Main.qml:1095
 msgid "Confirm"
 msgstr ""
 
-#: ../qml/Main.qml:1100
+#: ../qml/Main.qml:1105
 msgid "Failed to transfer to"
 msgstr ""
 
-#: ../qml/Main.qml:1349
+#: ../qml/Main.qml:1354
 msgid ""
 "Hutspot wants to create playlist:<br><br><b>%1</b><br><br>which will be used "
 "to %2.<br><br>Is that Ok?"
@@ -316,45 +328,61 @@ msgid "Add Genre"
 msgstr ""
 
 #: ../qml/pages/Recommended.qml:42
-msgid "Import into Playlist"
-msgstr ""
-
-#: ../qml/pages/Recommended.qml:48
 msgid "Reload"
 msgstr ""
 
-#: ../qml/pages/Recommended.qml:66
+#: ../qml/pages/Recommended.qml:48
+msgid "Import into Playlist"
+msgstr ""
+
+#: ../qml/pages/Recommended.qml:54
+msgid "Save"
+msgstr ""
+
+#: ../qml/pages/Recommended.qml:59
+msgid "Open"
+msgstr ""
+
+#: ../qml/pages/Recommended.qml:64
+msgid "Reset"
+msgstr ""
+
+#: ../qml/pages/Recommended.qml:81
 msgid "Seeds"
 msgstr ""
 
-#: ../qml/pages/Recommended.qml:105
+#: ../qml/pages/Recommended.qml:120
 msgid "Empty Seed Slot"
 msgstr ""
 
-#: ../qml/pages/Recommended.qml:153
+#: ../qml/pages/Recommended.qml:168
 msgid "Use"
 msgstr ""
 
-#: ../qml/pages/Recommended.qml:169
+#: ../qml/pages/Recommended.qml:184
 msgid "Attributes"
 msgstr ""
 
-#: ../qml/pages/Recommended.qml:235
+#: ../qml/pages/Recommended.qml:250
 msgid "Recommendations"
 msgstr ""
 
-#: ../qml/pages/Recommended.qml:362
+#: ../qml/pages/Recommended.qml:377
 msgid "Select a Genre"
 msgstr ""
 
-#: ../qml/pages/Recommended.qml:374
+#: ../qml/pages/Recommended.qml:389
 msgid ""
 "Do you want to replace the tracks in the Hutspot Recommendations playlist "
 "with these results?"
 msgstr ""
 
-#: ../qml/pages/Recommended.qml:385
+#: ../qml/pages/Recommended.qml:400
 msgid "Replacing tracks in succeeded. D you want to play %1?"
+msgstr ""
+
+#: ../qml/pages/Recommended.qml:409
+msgid "Do you want to reset all Recommendations Seeds and Attributes?"
 msgstr ""
 
 #: ../qml/pages/TopStuff.qml:34
