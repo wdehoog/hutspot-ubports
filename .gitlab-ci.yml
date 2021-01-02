@@ -1,0 +1,25 @@
+build:
+  image: clickable/ci-16.04-armhf
+  script:
+    - clickable --output ./build build-libs qtdbusextended
+    - clickable --output ./build build-libs nemo-qml-plugin-dbus
+    - clickable --output ./build build-libs qtmpris
+    - clickable --output ./build build-libs qmdnsengine
+    - clickable --output ./build build
+  artifacts:
+    paths:
+      - build/*.click
+    expire_in: never
+
+build64:
+  image: clickable/ci-16.04-arm64
+  script:
+    - clickable --output ./build64 build-libs qtdbusextended --arch amd64
+    - clickable --output ./build64 build-libs nemo-qml-plugin-dbus --arch amd64
+    - clickable --output ./build64 build-libs qtmpris --arch amd64
+    - clickable --output ./build64 build-libs qmdnsengine --arch amd64
+    - clickable --output ./build64 build --arch amd64
+  artifacts:
+    paths:
+      - build64/*.click
+    expire_in: never
