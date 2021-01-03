@@ -9,6 +9,7 @@ The menu list:
 
   * List: Library, your Saved Albums and Tracks, Playlists and Followed Artists
   * Heart: Top, your favorite Artists and Tracks and Recently Played Tracks
+  * Thumb Up: manage Recommendation Sets which Spotify will use to recommend Tracks
   * Ambience: Genre & Mood, Spotify's list of Categories of Playlists
   * Magnifier: Search, search Albums, Artists, Playlists and Tracks
   * Clock: History list of recently visited Albums, Artists and Playlists

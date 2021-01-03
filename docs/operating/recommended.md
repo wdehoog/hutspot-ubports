@@ -1,12 +1,16 @@
 ---
-title: Recommended
+title: Recommendations
 parent: Operating
 nav_order: 4
 layout: default
 ---
+## Recommendations
+The Recommended page allows to manage Recommendation Sets which allows Spotify to recommend tracks. A Recommendation Set can consist of Seeds (Artists, Tracks, Genres) and Attributes. Hutspot can have multiple of these Sets.
+
+For more see the [Spotify WebAPI docs](https://developer.spotify.com/documentation/web-api/reference/browse/get-recommendations/).
 
 ## Recommended
-The Recommended page allows to get recommended tracks from Spotify. These recommendations can be based on Artists, Tracks, Genres and Attributes. For more see the [Spotify WebAPI docs](https://developer.spotify.com/documentation/web-api/reference/browse/get-recommendations/).
+This page is used to edit the seeds and attribtes of a Recommendation Set.
 
 The api allows to specify a total of five seeds (Artists, Tracks or Genres). Hutspot allows to add Artists and Tracks using the context menu on an Artist or Track. The Genres can be added on the Recommended page using the Tag-button on the page header.
 

@@ -120,6 +120,14 @@ layout: default
    * Create New Playlist
  * Click on Playlist item to select it
 
+### Recommendations Page
+ * Page header '+' button allows to add a new Recommendations Set
+ * Context Menu of Recommendation Set:
+   * Play: create a playlist based on the Set
+   * Rename the Set
+   * Edit the Set
+   * Delete the Set
+
 ### Recommended Page
  * Page header buttons allow to:
    * Refresh
