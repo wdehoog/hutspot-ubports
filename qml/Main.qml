@@ -9,6 +9,7 @@ import QtQuick 2.7
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import Ubuntu.Components.Themes 1.3
+import Ubuntu.Components.ListItems 1.3 as UCListItem
 //import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
 import Qt.labs.settings 1.0 as QLS
@@ -1368,7 +1369,7 @@ MainView {
         Spotify.getRecommendations(options, function(error, data) {
             if(data) {
                 try {
-                    //console.log("number of Recommendations: " + data.tracks.length)
+                    console.log("number of Recommendations: " + data.tracks.length)
 
                     var uris = [data.tracks.length]
                     for(var i=0;i<data.tracks.length;i++)
@@ -1378,7 +1379,7 @@ MainView {
 
                     replaceTracksInHutspotPlaylist(info, uris, function() {
                         app.showConfirmDialog(
-                            i18n.tr("Replacing tracks succeeded. Do you want to start playing %1?").arg(playlistInfo.name),
+                            i18n.tr("Generating Playlist succeeded. Do you want to start playing %1?").arg(name),
                             function(info) { app.ensurePlaylistIsPlaying(info) }
                         )
                     })
@@ -1419,6 +1420,85 @@ MainView {
               app.controller.playPause()
           else
               app.controller.playContext({uri: info.uri})
+        }
+    }
+
+    //
+    //
+    //
+
+    function addTrackToRecommendationSet(artist) {
+        rsComboModel.clear()
+        var rs = JSON.parse(app.settings.recommendationsData)
+        for(var i=0;i<rs.length;i++)
+            rsComboModel.append({name: rs[i].name})
+        var dialog = PopupUtils.open(selectRecommendationSetDialog)
+        dialog.selected.connect(function(index) {
+            rs[index].seeds.unshift({type: 1, sid: track.id, name: track.name})
+            if(rs[index].seeds.count > 5)
+                rs[index].seeds.pop()
+            app.settings.recommendationsData = JSON.stringify(rs)
+        })
+    }
+
+    function addArtistToRecommendationSet(artist) {
+        rsComboModel.clear()
+        var rs = JSON.parse(app.settings.recommendationsData)
+        for(var i=0;i<rs.length;i++)
+            rsComboModel.append({name: rs[i].name})
+        var dialog = PopupUtils.open(selectRecommendationSetDialog)
+        dialog.selected.connect(function(index) {
+            rs[index].seeds.unshift({type: 0, sid: artist.id, name: artist.name})
+            if(rs[index].seeds.count > 5)
+                rs[index].seeds.pop()
+            app.settings.recommendationsData = JSON.stringify(rs)
+        })
+    }
+
+    ListModel {
+        id: rsComboModel
+    }
+
+    Component {
+        id: selectRecommendationSetDialog
+
+        Dialog {
+            id: dialogSelect
+            title: i18n.tr("Select Recommendation Set")
+
+            property var selectedIndex: -1
+            signal selected(var index)
+
+            ComboButton {
+                id: rsCombo
+                text: i18n.tr("Sets")
+                width: parent.width < units.gu(30)? parent.width : units.gu(30)
+                comboList:  UbuntuListView {
+                    model: rsComboModel
+                    delegate: UCListItem.Standard {
+                        text: model.name
+                        onClicked: {
+                          rsCombo.text = text
+                          dialogSelect.selectedIndex = index
+                          rsCombo.expanded = false
+                        }
+                    }
+                }
+            }
+
+            Button {
+                text: i18n.tr("Select")
+                enabled: dialogSelect.selectedIndex >= 0
+                onClicked: {
+                    selected(dialogSelect.selectedIndex)
+                    PopupUtils.close(dialogSelect)
+                }
+            }
+            Button {
+                text: i18n.tr("Cancel")
+                onClicked: PopupUtils.close(dialogRename)
+            }
+            Component.onCompleted: rsCombo.forceActiveFocus()
         }
     }
 
@@ -1526,7 +1606,6 @@ MainView {
         property bool connectDiscoveryEnabled: true
         property bool logDiscoveryEnabled: false
 
-        property var recommendationData: "[]"
         property var recommendationsData: "[]"
     }
 }

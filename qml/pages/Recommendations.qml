@@ -58,8 +58,8 @@ Page {
                 actions: ActionList {
                     Action {
                         property int idx: 0
-                        text: i18n.tr("Play")
-                        onTriggered: playSet(contextMenu.model)
+                        text: i18n.tr("Generate Playlist")
+                        onTriggered: generatePlaylist(contextMenu.model)
                     }
                     Action {
                         property int idx: 1
@@ -200,6 +200,15 @@ Page {
         dialog.oldName = model.recommendationSet.name
         dialog.recommendationSet = model.recommendationSet
         dialog.index = model.index
+    }
+
+    RecommendationData {
+        id: tempRD
+    }
+
+    function generatePlaylist(model) {
+        tempRD.loadData(model.recommendationSet)
+        app.createPlaylistFromRecommendations(tempRD.name, i18n.tr("Hutspot playlist based on a Recommendation Set"), tempRD)
     }
 
     Component {

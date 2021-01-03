@@ -99,10 +99,10 @@ Item {
                     onTriggered: {
                         switch(model.type) {
                         case Util.SpotifyItemType.Artist:
-                            app.recommendationSeeds.addArtist(model.item)
+                            app.addArtistToRecommendationSet(model.item)
                             break
                         case Util.SpotifyItemType.Track:
-                            app.recommendationSeeds.addTrack(model.item)
+                            app.addTrackToRecommendationSet.addTrack(model.item)
                             break
                         }
                     }

@@ -305,14 +305,14 @@ Page {
                 id:trackListItem
                 dataModel: model
                 isFavorite: saved
-                onToggleFavorite: app.toggleSavedTrack(model)
+                //onToggleFavorite: app.toggleSavedTrack(model)
             }
 
-            onPressAndHold: {
-                //contextMenu.model = model
-                //contextMenu.context = album
-                //PopupUtils.open(contextMenu, listItem)
-            }
+            /*onPressAndHold: {
+                contextMenu.model = model
+                contextMenu.context = album
+                PopupUtils.open(contextMenu, listItem)
+            }*/
 
             //onClicked: controller.playTrackInContext(item, album, index)
         }

@@ -123,7 +123,7 @@ Item {
         for(i=0;i<seedModel.count;i++) {
             var seed = seedModel.get(i)
             if(seed.type >= 0)
-                savedSeeds.push({stype: seed.type, sid: seed.sid, sname: seed.name})
+                savedSeeds.push({type: seed.type, sid: seed.sid, name: seed.name})
         }
 
         var saveAttributes = {}
@@ -143,6 +143,8 @@ Item {
     }
 
     function loadData(data) {
+        //console.log("loadData: " + JSON.stringify(data))
+
         _signal = false
         var i
 
@@ -150,7 +152,7 @@ Item {
 
         for(i=data.seeds.length;i>0;i--) { // reverse order
             var seed = data.seeds[i-1]
-            addSeed({type: seed.stype, sid: seed.sid, name: seed.sname, image: ""})
+            addSeed({type: seed.type, sid: seed.sid, name: seed.name, image: ""})
         }
 
         useAttributes = data.use_attributes
@@ -174,7 +176,7 @@ Item {
         var savedSeeds = saveData.seeds
         for(i=savedSeeds.length;i>0;i--) { // reverse order
             var seed = savedSeeds[i-1]
-            addSeed({type: seed.stype, sid: seed.sid, name: seed.sname, image: ""})
+            addSeed({type: seed.type, sid: seed.sid, name: seed.name, image: ""})
         }
 
         useAttributes = saveData.hasOwnProperty("use_attributes")
