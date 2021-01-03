@@ -24,14 +24,44 @@ Page {
     property int currentIndex: -1
     property bool expandAttributes: false
 
+    property alias recommendationData: recommendationData 
+    RecommendationData {
+        id: recommendationData
+        onAttributesChanged: refresh()
+        onSeedsChanged: refresh()
+        onReset: {
+            // seeds model is already updated so we only need to update the sliders
+            // too bad itemAtIndex is not in Qt 5.12
+            /*var i
+            for(i=0;i<recommendationData.attributesModel.count;i++) {
+                var attribute = recommendationData.attributesModel.get(i)
+                var item = listView.itemAtIndex(i)
+                item.slider.value = attribute.value
+            }*/
+        }
+    }
+
     ListModel {
         id: searchModel
     }
 
+    signal closed()
+
     header: PageHeader {
         id: header
         title: i18n.tr("Recommended")
+        subtitle: recommendationData.name
         flickable: listView
+        leadingActionBar.actions: [
+            Action { // copied from PageHeader
+                iconName: Qt.application.layoutDirection == Qt.RightToLeft ? "next": "back"
+                text: i18n.tr("Back")
+                onTriggered: {
+                    closed()
+                    pageStack.pop()
+                }
+            }
+        ]
         trailingActionBar.actions: [
             Action {
                 text: i18n.tr("Add Genre")
@@ -88,7 +118,7 @@ Page {
                 width: parent.width
                 implicitHeight: contentItem.childrenRect.height
 
-                model: app.recommendationData.seedModel
+                model: recommendationData.seedModel
 
                 delegate: ListItem {
                     height: app.itemSizeMedium
@@ -116,7 +146,7 @@ Page {
                             //truncationMode: TruncationMode.Fade
                             horizontalAlignment: type >= 0 ? Text.AlignLeft : Text.AlignHCenter
                             text: type >= 0
-                                  ? app.recommendationData.getSeedTypeString(type) + ": " + name
+                                  ? recommendationData.getSeedTypeString(type) + ": " + name
                                   : i18n.tr("Empty Seed Slot")
                         }
                         Icon {
@@ -130,7 +160,7 @@ Page {
                             MouseArea {
                                 anchors.fill: parent
                                 onClicked: {
-                                    app.recommendationData.clearSlot(index)
+                                    recommendationData.clearSlot(index)
                                 }
                             }
                         }
@@ -154,8 +184,8 @@ Page {
                     spacing: app.paddingSmall
 
                     CheckBox {
-                        checked: app.recommendationData.useAttributes
-                        onClicked: app.recommendationData.useAttributes = checked
+                        checked: recommendationData.useAttributes
+                        onClicked: recommendationData.useAttributes = checked
                     }
                     Label {
                         id: useAttrLabel
@@ -196,7 +226,7 @@ Page {
                 implicitHeight: expandAttributes ? contentItem.childrenRect.height : 0
                 visible: expandAttributes
 
-                model: app.recommendationData.attributesModel
+                model: recommendationData.attributesModel
 
                 delegate: ListItem {
                     width: parent.width
@@ -207,7 +237,7 @@ Page {
                       anchors.verticalCenter: parent.verticalCenter
                       Label {
                           anchors.left: parent.left
-                          text: app.recommendationData.getLabelText(attribute)
+                          text: recommendationData.getLabelText(attribute)
                       }
                       Label {
                           anchors.left: parent.left
@@ -232,11 +262,11 @@ Page {
                             if(pressed)
                               return
                             model.value = slider.value
-                            app.recommendationData.setAttributeValue(attribute, model.value)
+                            recommendationData.setAttributeValue(attribute, model.value)
                         }
                         Component.onCompleted: slider.value = model.value
                         Connections {
-                            target: app.recommendationData
+                            target: recommendationData
                             onReset: slider.value = model.value
                         }
                     }
@@ -284,7 +314,7 @@ Page {
                 //PopupUtils.open(contextMenu, listItem)
             }
 
-            //onClicked: app.controller.playTrackInContext(item, album, index)
+            //onClicked: controller.playTrackInContext(item, album, index)
         }
 
         onAtYEndChanged: {
@@ -307,30 +337,14 @@ Page {
     }
 
     Connections {
-        target: app.recommendationData
-        onAttributesChanged: refresh()
-        onSeedsChanged: refresh()
-        onReset: {
-            // seeds model is already updated so we only need to update the sliders
-            // too bad itemAtIndex is not in Qt 5.12
-            /*var i
-            for(i=0;i<app.recommendationData.attributesModel.count;i++) {
-                var attribute = app.recommendationData.attributesModel.get(i)
-                var item = listView.itemAtIndex(i)
-                item.slider.value = attribute.value
-            }*/
-        }
-    }
-
-    Connections {
         target: app
         onHasValidTokenChanged: if(app.hasValidToken) refresh()
     }
 
-    Component.onCompleted: {
+    /*Component.onCompleted: {
         if(app.hasValidToken)
             refresh()
-    }
+    }*/
 
     function refresh() {
         console.log("Recommended.refresh")
@@ -354,7 +368,7 @@ Page {
         recommendedPage._loading = true
 
         var options = {offset: searchModel.count, limit: cursorHelper.limit}
-        options = app.recommendationData.addQueryOptions(options)
+        options = recommendationData.addQueryOptions(options)
         if(app.settings.queryForMarket)
             options.market = "from_token"
 
@@ -375,12 +389,24 @@ Page {
 
     }
 
+    function setRecommendationData(data) {
+        recommendationData.loadData(data)
+        refresh()
+    }
+
+    function initRecommendationData(data) {
+        var rs = JSON.parse(data)
+        // ToDo cleanup  
+        recommendationData.loadSaveData(Util.isArray(rs) ? rs[0] : rs)
+        refresh()
+    }
+
     function selectGenreSeed() {
         var ms = pageStack.push(Qt.resolvedUrl("../components/GenrePicker.qml"),
                                 { label: i18n.tr("Select a Genre") } );
         ms.accepted.connect(function() {
             if(ms.selectedItem && ms.selectedItem.name) {
-                app.recommendationData.addGenre(ms.selectedItem.name)
+                recommendationData.addGenre(ms.selectedItem.name)
             }
         })
     }
@@ -395,11 +421,11 @@ Page {
                     uris[i] = searchModel.get(i).item.uri
                 var info = {}
                 info.name = "Recommendations [hutspot]"
-                info.description = "Playlist for Hutspot to store recommended tracks"
-                info.usage = "store recommended tracks"
+                info.description = i18n.tr("Playlist for Hutspot to store recommended tracks")
+                info.usage = i18n.tr("store recommended tracks")
                 app.replaceTracksInHutspotPlaylist(info, uris, function() {
                     app.showConfirmDialog(
-                        i18n.tr("Replacing tracks in succeeded. D you want to play %1?").arg(playlistInfo.name),
+                        i18n.tr("Replacing tracks succeeded. Do you want to start playing %1?").arg(playlistInfo.name),
                         function(info) { app.ensurePlaylistIsPlaying(info) }
                     )
                 })
@@ -409,12 +435,12 @@ Page {
 
     function resetSeedsAndAttributes() {
         app.showConfirmDialog(i18n.tr("Do you want to reset all Recommendations Seeds and Attributes?"),
-            function() { app.recommendationData.resetValues() }
+            function() { recommendationData.resetValues() }
         )
     }
 
     function saveSeedsAndAttributes() {
-        var saveData = JSON.stringify(app.recommendationData.getSaveData())
+        var saveData = JSON.stringify(recommendationData.getSaveData())
         var page = app.pageStack.push(Qt.resolvedUrl("../components/ExportRecommendationsDataPage.qml"), {saveData: saveData})
     }
 
@@ -424,7 +450,7 @@ Page {
             //console.log("imported: " + data)
             var saveData = JSON.parse(data)
             pageStack.pop()
-            app.recommendationData.loadSaveData(data)
+            recommendationData.loadSaveData(data)
         })
     }
 

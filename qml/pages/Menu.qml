@@ -69,8 +69,12 @@ Page {
                           name: i18n.tr("Top"),
                           icon: "image://theme/unlike"
                          })
-        menuModel.append({hutspotMenuItem: Util.HutspotMenuItem.ShowRecommendedPage,
+        /*menuModel.append({hutspotMenuItem: Util.HutspotMenuItem.ShowRecommendedPage,
                           name: i18n.tr("Recommended"),
+                          icon: "image://theme/thumb-up"
+                         })*/
+        menuModel.append({hutspotMenuItem: Util.HutspotMenuItem.ShowRecommendationsPage,
+                          name: i18n.tr("Recommendations"),
                           icon: "image://theme/thumb-up"
                          })
         menuModel.append({hutspotMenuItem: Util.HutspotMenuItem.ShowGenreMoodPage,

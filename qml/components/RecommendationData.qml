@@ -14,6 +14,8 @@ Item {
 
     property alias seedModel: seedModel
     property alias attributesModel: attributesModel
+
+    property string name: "no name"
     property bool useAttributes: false
 
     property bool _debug: true
@@ -132,7 +134,7 @@ Item {
 
         var saveData = []
         saveData.push({
-            name: "saved_seeds",
+            name: name,
             seeds: savedSeeds,
             use_attributes: useAttributes,
             attributes: saveAttributes
@@ -141,21 +143,45 @@ Item {
         return saveData
     }
 
+    function loadData(data) {
+        _signal = false
+        var i
+
+        name = data.name
+
+        for(i=data.seeds.length;i>0;i--) { // reverse order
+            var seed = data.seeds[i-1]
+            addSeed({type: seed.stype, sid: seed.sid, name: seed.sname, image: ""})
+        }
+
+        useAttributes = data.use_attributes
+        for(i=0;i<attributesModel.count;i++) {
+            var attribute = attributesModel.get(i)
+            var propertyName = "target_"+attribute.attribute
+            if(data.attributes.hasOwnProperty(propertyName))
+                attribute.value = data.attributes[propertyName]
+        }
+
+        _signal = true
+    }
+
     function loadSaveData(saveData) {
         if(_debug) console.log("loadSeedsSaveData: " + JSON.stringify(saveData))
         _signal = false
         var i
 
-        var savedSeeds = saveData[0].seeds
+        name = saveData.name
+
+        var savedSeeds = saveData.seeds
         for(i=savedSeeds.length;i>0;i--) { // reverse order
             var seed = savedSeeds[i-1]
             addSeed({type: seed.stype, sid: seed.sid, name: seed.sname, image: ""})
         }
 
-        useAttributes = saveData[0].hasOwnProperty("use_attributes")
-            ? saveData[0].use_attributes : false
+        useAttributes = saveData.hasOwnProperty("use_attributes")
+            ? saveData.use_attributes : false
 
-        var savedAttributes = saveData[0].attributes
+        var savedAttributes = saveData.attributes
         for(i=0;i<attributesModel.count;i++) {
             var attribute = attributesModel.get(i)
             var propertyName = "target_"+attribute.attribute
@@ -249,4 +275,5 @@ Item {
 
         return options
     }
+
 }

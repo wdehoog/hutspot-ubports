@@ -185,6 +185,9 @@ MainView {
         case Util.HutspotMenuItem.ShowRecommendedPage:
             app.showPage('RecommendedPage')
             break
+        case Util.HutspotMenuItem.ShowRecommendationsPage:
+            app.showPage('RecommendationsPage')
+            break
         case Util.HutspotMenuItem.ShowSearchPage:
             app.showPage('SearchPage')
             break
@@ -253,6 +256,12 @@ MainView {
         case 'RecommendedPage':
             //pageStack.clear()
             page = pageStack.push(Qt.resolvedUrl("pages/Recommended.qml"))
+            page.initRecommendationData(settings.recommendationData)
+            //page.refresh()
+            break;
+        case 'RecommendationsPage':
+            //pageStack.clear()
+            page = pageStack.push(Qt.resolvedUrl("pages/Recommendations.qml"))
             page.refresh()
             break;
         case 'ShowPage':
@@ -316,7 +325,6 @@ MainView {
         console.log("tempDirectory  : " + tempDirectory)
         pageStack.push(Qt.resolvedUrl("pages/Menu.qml"))
         history = settings.history
-        initRecommendationData()
         startSpotify()
         //console.log(Platform.StandardPaths.writableLocation(Platform.StandardPaths.AppConfigLocation))
         //console.log(Platform.StandardPaths.writableLocation(Platform.StandardPaths.ConfigLocation))
@@ -1172,28 +1180,6 @@ MainView {
         id: librespot
     }
 
-    property alias recommendationData: recommendationData
-    RecommendationData {
-        id: recommendationData
-        onSeedsChanged: {
-            settings.recommendationData = JSON.stringify(getSaveData())
-            console.log("save: " + settings.recommendationData)
-        }
-    }
-
-    function initRecommendationData() {
-        console.log("load: " + settings.recommendationData)
-        var rs = JSON.parse(settings.recommendationData)
-        if(Util.isArray(rs)) {
-            //var i
-            //for(i=0;i<rs.length;i++) // currently it is only 1 element
-                //recommendationSeeds.loadSeedsSaveData(rs[i])
-            if(rs.length > 0)
-                recommendationData.loadSaveData(rs)
-        }
-    }
-
-
     property var foundDevices: []     // the device info queried by getInfo
     property var connectDevices: ({}) // the device info discovered by mdns
 
@@ -1380,6 +1366,37 @@ MainView {
         }
     }
 
+    function createPlaylistFromRecommendations(name, description, recommendations) {
+        var options = {}
+        recommendations.addQueryOptions(options)
+        if(app.settings.queryForMarket)
+            options.market = "from_token"
+        Spotify.getRecommendations(options, function(error, data) {
+            if(data) {
+                try {
+                    //console.log("number of Recommendations: " + data.tracks.length)
+
+                    var uris = [data.tracks.length]
+                    for(var i=0;i<data.tracks.length;i++)
+                        uris[i] = data.tracks[i].uri
+                    var info = {name: name, description: description}
+                    info.usage = i18n.tr("store recommended tracks")
+
+                    replaceTracksInHutspotPlaylist(info, uris, function() {
+                        app.showConfirmDialog(
+                            i18n.tr("Replacing tracks succeeded. Do you want to start playing %1?").arg(playlistInfo.name),
+                            function(info) { app.ensurePlaylistIsPlaying(info) }
+                        )
+                    })
+
+                } catch (err) {
+                    console.log(err)
+                }
+            } else
+                console.log("No Data for getRecommendations")
+        })
+    }
+
     function replaceTracksInHutspotPlaylist(playlistInfo, uris, callback) {
         getPlaylistByName(playlistInfo, function(success, info) {
             if(success) {
@@ -1389,7 +1406,7 @@ MainView {
                 })
             } else {
                 showErrorMessage(undefined, qsTr("Failed to find Playlist " + playlistInfo.name))
-                console.log("replaceQueueWith: failed to find  Playlist " + playlistInfo.name)
+                console.log("replaceTracksInPlaylist: failed to find  Playlist " + playlistInfo.name)
             }
         })
     }
@@ -1516,5 +1533,6 @@ MainView {
         property bool logDiscoveryEnabled: false
 
         property var recommendationData: "[]"
+        property var recommendationsData: "[]"
     }
 }
