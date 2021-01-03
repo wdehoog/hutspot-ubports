@@ -42,7 +42,7 @@ Page {
 
     property alias contextMenu: contextMenu
 
-    Item {        
+    Item {
         id: contextMenu
         property var model
 
@@ -117,7 +117,7 @@ Page {
                     text: i18n.tr("#seeds: %1, use attributes: %2".arg(recommendationSet.seeds.length).arg(recommendationSet.use_attributes? i18n.tr("yes") : i18n.tr("no") ))
                 }
             }
-            
+
             onClicked: editSet(model)
             onPressAndHold: contextMenu.open(model, listItem)
         }
@@ -136,7 +136,7 @@ Page {
     }
 
     function loadRecommendationsData(recommendationsData) {
-        console.log("load: " + recommendationsData)
+        //console.log("load: " + recommendationsData)
         var rs = JSON.parse(recommendationsData)
         if(!Util.isArray(rs)) {
             app.showErrorMessage(undefined, "Invalid Recommendations Data")
@@ -159,7 +159,7 @@ Page {
         var rs = [recommendationsModel.count]
         for(var i=0;i<recommendationsModel.count;i++)
             rs[i] = recommendationsModel.get(i).recommendationSet
-        console.log("save: " + JSON.stringify(rs))
+        //console.log("save: " + JSON.stringify(rs))
         app.settings.recommendationsData = JSON.stringify(rs)
     }
 
@@ -184,21 +184,20 @@ Page {
     }
 
     function editSet(model) {
+        var index = model.index
         var page = app.pageStack.push(Qt.resolvedUrl("Recommended.qml"))
         page.setRecommendationData(model.recommendationSet)
         page.closed.connect(function() {
-
-            // this gives an error but does work  
             var rs = page.recommendationData.getSaveData()
-            if(Util.isArray(rs)) rs = rs[0] // ToDo cleanup
-            recommendationsModel.setProperty(model.index, "recommendationSet", rs)
+            recommendationsModel.remove(index, 1)
+            recommendationsModel.insert(index, {recommendationSet: rs})
             saveTosettings()
         })
     }
 
     function renameSet(model) {
         var dialog = PopupUtils.open(renameDialog)
-        dialog.oldName = model.recommendationSet.name  
+        dialog.oldName = model.recommendationSet.name
         dialog.recommendationSet = model.recommendationSet
         dialog.index = model.index
     }
@@ -222,15 +221,20 @@ Page {
 
             Button {
                 text: i18n.tr("Change")
-                enabled: newName.text.length > 0        
+                enabled: newName.text.length > 0
                 onClicked: {
                     recommendationSet.name = newName.text
 
-                    // this does not work  
+                    // these do not work
                     //recommendationsModel.set(index, recommendationSet)
+                    //recommendationsModel.get(index).recommendationSet.name = newName.text
 
-                    // this gives an error but does work  
-                    recommendationsModel.setProperty(index, "recommendationSet", recommendationSet)
+                    // this gives an error but does work
+                    //recommendationsModel.setProperty(index, "recommendationSet", recommendationSet)
+                    // this works
+                    recommendationsModel.remove(index, 1)
+                    recommendationsModel.insert(index, {recommendationSet: recommendationSet})
+
                     saveTosettings()
                     PopupUtils.close(dialogRename)
                 }

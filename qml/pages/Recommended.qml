@@ -394,13 +394,6 @@ Page {
         refresh()
     }
 
-    function initRecommendationData(data) {
-        var rs = JSON.parse(data)
-        // ToDo cleanup  
-        recommendationData.loadSaveData(Util.isArray(rs) ? rs[0] : rs)
-        refresh()
-    }
-
     function selectGenreSeed() {
         var ms = pageStack.push(Qt.resolvedUrl("../components/GenrePicker.qml"),
                                 { label: i18n.tr("Select a Genre") } );

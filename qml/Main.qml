@@ -253,12 +253,6 @@ MainView {
             //pageStack.clear()
             page = pageStack.push(Qt.resolvedUrl("pages/History.qml"))
             break;
-        case 'RecommendedPage':
-            //pageStack.clear()
-            page = pageStack.push(Qt.resolvedUrl("pages/Recommended.qml"))
-            page.initRecommendationData(settings.recommendationData)
-            //page.refresh()
-            break;
         case 'RecommendationsPage':
             //pageStack.clear()
             page = pageStack.push(Qt.resolvedUrl("pages/Recommendations.qml"))

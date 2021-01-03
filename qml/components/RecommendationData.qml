@@ -132,13 +132,12 @@ Item {
             saveAttributes["target_"+attribute.attribute] = attribute.value
         }
 
-        var saveData = []
-        saveData.push({
+        var saveData = {
             name: name,
             seeds: savedSeeds,
             use_attributes: useAttributes,
             attributes: saveAttributes
-        })
+        }
 
         return saveData
     }
