@@ -19,28 +19,38 @@ Item {
     readonly property int followedPlaylistsMask: 0x01
     readonly property int followedArtistsMask: 0x02
     readonly property int savedAlbumsMask: 0x04
-    readonly property int savedTracksMask: 0x08
-    readonly property int savedShowsMask: 0x10
+    readonly property int savedShowsMask: 0x08
+    //readonly property int savedTracksMask: 0x10
 
-    readonly property int allDoneMask: 0x1F
+    readonly property int allDoneMask: 0x0F
     property int happendMask: 0
 
     function notifyHappend(mask) {
         happendMask |= mask
         if((happendMask & allDoneMask) === allDoneMask) {
+            console.log("will signal 'spotifyDataCacheReady'")
             spotifyDataCacheReady()
         }
     }
 
-    property var _followedPlaylistsId: new BSALib.BSArray()   //  key is id, stores uri
-    //property var _followedPlaylistsName: ({}) // key is name, stores id
+    property var _followedPlaylists: new BSALib.BSArray()   //  key is id
     property var _followedArtistsId: new BSALib.BSArray()   //  key is id, stores uri
     property var _savedAlbumsId: new BSALib.BSArray()   //  key is id, stores uri
     property var _savedTracksId: new BSALib.BSArray()   //  key is id, stores uri, only for tracks not in a saved album
     property var _savedShowsId: new BSALib.BSArray()   //  key is id, stores uri
 
     function isPlaylistFollowed(id) {
-        return _followedPlaylistsId.find(id) !== null
+        return _followedPlaylists.find(id) !== null
+    }
+
+    function getPlaylistUri(id) {
+        var data = _followedPlaylists.find(id)
+        return data ? data.uri : null
+    }
+
+    function getPlaylistImage(id) {
+        var data = _followedPlaylists.find(id)
+        return data ? data.image : null
     }
 
     function isArtistFollowed(id) {
@@ -58,27 +68,33 @@ Item {
     // Followed Playlists
     function loadFollowedPlaylists() {
         _followedPlaylistsId = new BSALib.BSArray()
-        //_followedPlaylistsName = new BSALib.BSArray()
+        _followedPlaylistsImage = new BSALib.BSArray()
         _loadFollowedPlaylistsSet(0)
     }
 
     function _loadFollowedPlaylistsSet(offset) {
-        Spotify.getUserPlaylists(app.id, {offset: offset, limit: 50}, function(error, data) {
+        Spotify.getUserPlaylists({offset: offset, limit: 50}, function(error, data) {
             var i
             if(data && data.items) {
                 for(i=0;i<data.items.length;i++) {
+                    var data = {
+                        uri: data.items[i].uri,
+                        image: data.items[i].images.length > 0
+                            ? data.items[i].images[0].url : ""
+                    }
                     _followedPlaylistsId.insert(
-                        data.items[i].id, data.items[i].uri)
-                    //_followedPlaylistsName.insert(
-                    //    data.items[i].name, data.items[i].id)
+                        data.items[i].id, data)
                 }
                 var nextOffset = data.offset+data.items.length
                 if(nextOffset < data.total)
                     _loadFollowedPlaylistsSet(nextOffset)
                 else {
-                    notifyHappend(followedPlaylistsMask)
                     console.log("Loaded info of " + _followedPlaylistsId.items.length + " followed playlists")
+                    notifyHappend(followedPlaylistsMask)
                 }
+            } else {
+                console.log("no data for getUserPlaylists")
+                notifyHappend(followedPlaylistsMask)
             }
         })
     }
@@ -101,9 +117,12 @@ Item {
                 if(nextOffset < data.artists.total)
                     _loadFollowedPlaylistsSet(nextOffset)
                 else {
-                    notifyHappend(followedArtistsMask)
                     console.log("Loaded info of " + _followedArtistsId.items.length + " followed artists")
+                    notifyHappend(followedArtistsMask)
                 }
+            } else {
+                notifyHappend(followedArtistsMask)
+                console.log("no data for getFollowedArtists")
             }
         })
     }
@@ -126,9 +145,12 @@ Item {
                 if(nextOffset < data.total)
                     _loadSavedAlbums(nextOffset)
                 else {
-                    notifyHappend(savedAlbumsMask)
                     console.log("Loaded info of " + _savedAlbumsId.items.length + " saved albums")
+                    notifyHappend(savedAlbumsMask)
                 }
+            } else {
+                console.log("no data for getMySavedAlbums")
+                notifyHappend(savedAlbumsMask)
             }
         })
     }
@@ -151,9 +173,12 @@ Item {
                 if(nextOffset < data.total)
                     _loadSavedShows(nextOffset)
                 else {
-                    notifyHappend(savedShowsMask)
                     console.log("Loaded info of " + _savedShowsId.items.length + " saved shows")
+                    notifyHappend(savedShowsMask)
                 }
+            } else {
+                console.log("no data for getMySavedShows")
+                notifyHappend(savedShowsMask)
             }
         })
     }

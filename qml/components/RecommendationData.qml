@@ -16,6 +16,7 @@ Item {
     property alias attributesModel: attributesModel
 
     property string name: "no name"
+    property string playlistId: ""
     property bool useAttributes: false
 
     property bool _debug: true
@@ -134,6 +135,7 @@ Item {
 
         var saveData = {
             name: name,
+            playlist_id: playlistId,
             seeds: savedSeeds,
             use_attributes: useAttributes,
             attributes: saveAttributes
@@ -143,12 +145,13 @@ Item {
     }
 
     function loadData(data) {
-        //console.log("loadData: " + JSON.stringify(data))
+        if(_debug)console.log("loadData: " + JSON.stringify(data))
 
         _signal = false
         var i
 
         name = data.name
+        playlistId = data.playlist_id
 
         for(i=data.seeds.length;i>0;i--) { // reverse order
             var seed = data.seeds[i-1]
@@ -172,6 +175,7 @@ Item {
         var i
 
         name = saveData.name
+        playlistId = saveData.playlist_id
 
         var savedSeeds = saveData.seeds
         for(i=savedSeeds.length;i>0;i--) { // reverse order

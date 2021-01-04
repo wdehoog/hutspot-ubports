@@ -467,6 +467,13 @@ MainView {
         })
     }
 
+    function getPlaylistImage(playlistId, callback) {
+        Spotify.getPlaylist(playlistId, {}, function(error, data) {
+            if(callback)
+                callback(error, data)
+        })
+    }
+
     function getPlaylist(playlistId, callback) {
         Spotify.getPlaylist(playlistId, {}, function(error, data) {
             if(callback)
@@ -578,9 +585,9 @@ MainView {
         spotify.performRequest(url, "DELETE", data, Spotify.getAccessToken())
     }
 
-    function createPlaylist(callback) {
+    function createPlaylist(defaultName, callback) {
         var ms = pageStack.push(Qt.resolvedUrl("components/CreatePlaylist.qml"),
-                                {} );
+                                {name: defaultName} )
         ms.accepted.connect(function() {
             if(ms.name && ms.name.length > 0) {
                 var options = {name: ms.name,
@@ -648,6 +655,20 @@ MainView {
             }
         })
     }
+
+    function choosePlaylist(title, defaultName, callback) {
+        var ms = pageStack.push(Qt.resolvedUrl("components/PlaylistPicker.qml"),
+                                { label: title, defaultName: defaultName } )
+        ms.accepted.connect(function() { 
+            if(ms.selectedItem && ms.selectedItem.item) {
+                callback(ms.selectedItem.item)
+            }
+        })
+    }
+
+    //
+    //
+    //
 
     signal favoriteEvent(var event)
 
@@ -1292,7 +1313,7 @@ MainView {
     // HutspotPlaylist util
     //
 
-    function getPlaylistByName(playlistInfo, callback) {
+    /*function getPlaylistByName(playlistInfo, callback) {
         _getPlaylistByName(playlistInfo, 0, 0, callback)
     }
 
@@ -1359,9 +1380,44 @@ MainView {
             )
             break
         }
+    }*/
+
+    function updatePlaylistFromRecommendations(recommendationData) {
+        var options = {}
+        recommendationData.addQueryOptions(options)
+        if(app.settings.queryForMarket)
+            options.market = "from_token"
+        Spotify.getRecommendations(options, function(error, data) {
+            if(data) {
+                try {
+                    console.log("number of Recommendations: " + data.tracks.length)
+
+                    var uris = [data.tracks.length]
+                    for(var i=0;i<data.tracks.length;i++)
+                        uris[i] = data.tracks[i].uri
+
+                    app.replaceTracksInPlaylist(recommendationData.playlistId, uris, function(error, data) {
+                        if(data) {
+                            app.showConfirmDialog(
+                                i18n.tr("Generating Playlist succeeded. Do you want to start playing %1?").arg(name),
+                                function() { app.ensurePlaylistIsPlaying(recommendationData.playlistId) }
+                            )
+                        } else {
+                            showErrorMessage(undefined, i18n.tr("Failed to update Playlist for %1").arg(name))
+                            console.log("updatePlaylistFromRecommendations: failed to add tracks for " + name)
+                        }
+                    })
+                } catch (err) {
+                    console.log(err)
+                }
+            } else {
+                showErrorMessage(undefined, i18n.tr("No Recommended Tracks for " + name))
+                console.log("No Data for getRecommendations")
+            }
+        })
     }
 
-    function createPlaylistFromRecommendations(name, description, recommendations) {
+    /*function createPlaylistFromRecommendations(name, description, recommendations) {
         var options = {}
         recommendations.addQueryOptions(options)
         if(app.settings.queryForMarket)
@@ -1380,7 +1436,7 @@ MainView {
                     replaceTracksInHutspotPlaylist(info, uris, function() {
                         app.showConfirmDialog(
                             i18n.tr("Generating Playlist succeeded. Do you want to start playing %1?").arg(name),
-                            function(info) { app.ensurePlaylistIsPlaying(info) }
+                            function() { app.ensurePlaylistIsPlaying(info) }
                         )
                     })
 
@@ -1404,12 +1460,13 @@ MainView {
                 console.log("replaceTracksInPlaylist: failed to find  Playlist " + playlistInfo.name)
             }
         })
-    }
+    }*/
 
-    function ensurePlaylistIsPlaying(info) {
+    function ensurePlaylistIsPlaying(id) {
+        var uri = spotifyDataCache.getPlaylistUri(id)
         // if not yet playing it then start playing it
         if(app.controller.playbackState.item.id !== info.id) {
-            app.controller.playContext({uri: info.uri})
+            app.controller.playContext({uri: uri})
             return
         }
 
@@ -1419,7 +1476,7 @@ MainView {
           if(app.controller.playbackState.context.snapshot_id === info.snapshot_id)
               app.controller.playPause()
           else
-              app.controller.playContext({uri: info.uri})
+              app.controller.playContext({uri: uri})
         }
     }
 

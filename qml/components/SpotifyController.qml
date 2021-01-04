@@ -12,6 +12,7 @@ import "../Util.js" as Util
 
 
 Item {
+
     PlaybackState {
         id: playbackState
     }

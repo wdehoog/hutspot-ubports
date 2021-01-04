@@ -52,7 +52,7 @@ Rectangle {
 
         Column {
             id: column
-            width: parent.width - image.width - 2 * app.paddingMedium
+            width: parent.width - image.width - app.paddingMedium
 
             Text {
                 //color: currentIndex === dataModel.index ? Theme.highlightColor : Theme.primaryColor

@@ -18,7 +18,9 @@ Page {
 
     signal accepted()
 
-    property string label: ""
+    property string label: i18n.tr("Select Playlist")
+    property string defaultName: ""
+
     property var selectedItem
 
     property int currentIndex: -1
@@ -28,7 +30,7 @@ Page {
         contents: Text {
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
-            text: i18n.tr("Select Playlist to Add To")
+            text: label
         }
         leadingActionBar.actions: [
             Action {
@@ -50,7 +52,7 @@ Page {
             Action {
                 iconName: "list-add"
                 text: qsTr("Create New Playlist")
-                onTriggered: app.createPlaylist(function(error, data) {
+                onTriggered: app.createPlaylist(defaultName, function(error, data) {
                     if(data) {
                         refresh()
                     }

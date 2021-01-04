@@ -20,6 +20,7 @@ Page {
     objectName: "RecommendationsPage"
 
     property bool showBusy: false
+    property url defaultImage: Qt.resolvedUrl("../resources/broken-link.svg")
 
     property int currentIndex: -1
 
@@ -57,22 +58,30 @@ Page {
 
                 actions: ActionList {
                     Action {
-                        property int idx: 0
-                        text: i18n.tr("Generate Playlist")
-                        onTriggered: generatePlaylist(contextMenu.model)
+                        id: a
+                        property int idx: enabled ? 0 : -1
+                        text: contextMenu.model.recommendationSet.playlist_id
+                            ? i18n.tr("Refresh Playlist Tracks")
+                            : i18n.tr("Link to Playlist")
+                        onTriggered: contextMenu.model.recommendationSet.playlist_id
+                            ? generatePlaylist(contextMenu.model)
+                            : linkToPlaylist(contextMenu.model)
                     }
                     Action {
-                        property int idx: 1
+                        id: b
+                        property int idx: enabled ? (a.idx + 1) : a.idx
                         text: i18n.tr("Rename")
                         onTriggered: renameSet(contextMenu.model)
                     }
                     Action {
-                        property int idx: 2
+                        id: c
+                        property int idx: enabled ? (b.idx + 1) : b.idx
                         text: i18n.tr("Edit")
                         onTriggered: editSet(contextMenu.model)
                     }
                     Action {
-                        property int idx: 3
+                        id: d
+                        property int idx: enabled ? (c.idx + 1) : c.idx
                         text: i18n.tr("Delete")
                         onTriggered: deleteSet(contextMenu.model)
                     }
@@ -95,26 +104,30 @@ Page {
             width: parent.width - 2*app.paddingMedium
             x: app.paddingMedium
 
-            /*Image {
-                id: categoryIcon
-                height: parent.height - app.paddingSmall
-                width: height
-                anchors.left: parent.left
-                anchors.verticalCenter: parent.verticalCenter
-                asynchronous: true
-                fillMode: Image.PreserveAspectFit
-                source: category.icons[0].url
-            }*/
-
-            Column {
+            Row {
                 width: parent.width
+                spacing: app.paddingMedium         
                 anchors.verticalCenter: parent.verticalCenter
-                Label {
-                    elide: Text.ElideRight
-                    text: recommendationSet.name
+
+                Image {
+                    id: playlistImage
+                    height: app.itemSizeMedium //parent.height - app.paddingSmall
+                    width: height
+                    anchors.verticalCenter: parent.verticalCenter
+                    asynchronous: true
+                    fillMode: Image.PreserveAspectFit
+                    source: getCoverImage(recommendationSet.playlist_id)
                 }
-                Label {
-                    text: i18n.tr("#seeds: %1, use attributes: %2".arg(recommendationSet.seeds.length).arg(recommendationSet.use_attributes? i18n.tr("yes") : i18n.tr("no") ))
+
+                Column {
+                    width: parent.width - playlistImage.width - app.paddingMedium
+                    Label {
+                        elide: Text.ElideRight
+                        text: recommendationSet.name
+                    }
+                    Label {
+                        text: i18n.tr("#seeds: %1, use attributes: %2".arg(recommendationSet.seeds.length).arg(recommendationSet.use_attributes? i18n.tr("yes") : i18n.tr("no") ))
+                    }
                 }
             }
 
@@ -149,12 +162,6 @@ Page {
         }
     }
 
-    function loadFromsettings() {
-        var rs = JSON.parse(app.settings.recommendationsData)
-        for(var i=0;i<rs.length;i++)
-            recommendationsModel.append({recommendationSet: rs[i]})
-    }
-
     function saveTosettings() {
         var rs = [recommendationsModel.count]
         for(var i=0;i<recommendationsModel.count;i++)
@@ -183,15 +190,26 @@ Page {
         )
     }
 
+    function _updateSet(model, index, rs) {
+        // these do not work
+        //recommendationsModel.set(index, recommendationSet)
+        //recommendationsModel.get(index).recommendationSet.name = newName.text
+
+        // this gives an error but does seem to work
+        //recommendationsModel.setProperty(index, "recommendationSet", recommendationSet)
+        // this works
+        recommendationsModel.remove(index, 1)
+        recommendationsModel.insert(index, {recommendationSet: rs})
+        saveTosettings()
+    }
+
     function editSet(model) {
         var index = model.index
         var page = app.pageStack.push(Qt.resolvedUrl("Recommended.qml"))
         page.setRecommendationData(model.recommendationSet)
         page.closed.connect(function() {
             var rs = page.recommendationData.getSaveData()
-            recommendationsModel.remove(index, 1)
-            recommendationsModel.insert(index, {recommendationSet: rs})
-            saveTosettings()
+            _updateSet(recommendationsModel, index, rs)
         })
     }
 
@@ -206,10 +224,32 @@ Page {
         id: tempRD
     }
 
-    function generatePlaylist(model) {
-        tempRD.loadData(model.recommendationSet)
-        app.createPlaylistFromRecommendations(tempRD.name, i18n.tr("Hutspot playlist based on a Recommendation Set"), tempRD)
+    function linkToPlaylist(model) {
+        var index = model.index
+        var rs = model.recommendationSet  
+        app.choosePlaylist(i18n.tr("Select Playlist to Link to"), model.recommendationSet.name, function(item) {
+            rs.playlist_id = item.id
+            _updateSet(recommendationsModel, index, rs)
+        })
     }
+
+    function generatePlaylist(model) {
+        app.showConfirmDialog(
+            i18n.tr("Do you want to update the tracks of linked playlist for<br><b>%1</b>").arg(model.recommendationSet.name), function() {
+           
+            tempRD.loadData(model.recommendationSet)
+            app.updatePlaylistFromRecommendations(tempRD)
+        })
+    }
+
+    /*function generatePlaylist(model) {
+        app.showConfirmDialog(
+            i18n.tr("Do you want to create or update %1?").arg(model.name), function(info) {
+           
+            tempRD.loadData(model.recommendationSet)
+            app.createPlaylistFromRecommendations(tempRD.name, i18n.tr("Hutspot playlist based on a Recommendation Set"), tempRD)
+        })
+    }*/
 
     Component {
         id: renameDialog
@@ -233,18 +273,7 @@ Page {
                 enabled: newName.text.length > 0
                 onClicked: {
                     recommendationSet.name = newName.text
-
-                    // these do not work
-                    //recommendationsModel.set(index, recommendationSet)
-                    //recommendationsModel.get(index).recommendationSet.name = newName.text
-
-                    // this gives an error but does work
-                    //recommendationsModel.setProperty(index, "recommendationSet", recommendationSet)
-                    // this works
-                    recommendationsModel.remove(index, 1)
-                    recommendationsModel.insert(index, {recommendationSet: recommendationSet})
-
-                    saveTosettings()
+                     _updateSet(recommendationsModel, index, recommendationSet)
                     PopupUtils.close(dialogRename)
                 }
             }
@@ -256,7 +285,28 @@ Page {
         }
     }
 
+
+    function getCoverImage(playlist_id) {
+        var url = app.spotifyDataCache.getPlaylistImage()
+        if(!url)
+            url = defaultImage
+        return url      
+    }
+
+    /*Connections {
+        target: app.spotifyDataCache
+
+        // if this is the first page data might already be loaded before the data cache is ready
+        onSpotifyDataCacheReady: {
+            var i
+            for(i=0;i<recommendationsModel.count;i++) {
+                var obj = recommendationsModel.get(i)
+                if(obj  
+            }
+        }
+    }*/
+
     Component.onCompleted: {
-        loadFromsettings()
+        loadRecommendationsData(app.settings.recommendationsData)
     }
 }
