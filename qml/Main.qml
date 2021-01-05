@@ -257,7 +257,6 @@ MainView {
         case 'RecommendationsPage':
             //pageStack.clear()
             page = pageStack.push(Qt.resolvedUrl("pages/Recommendations.qml"))
-            page.refresh()
             break;
         case 'ShowPage':
             page = pageStack.push(Qt.resolvedUrl("pages/Show.qml"))

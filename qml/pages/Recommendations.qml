@@ -19,7 +19,7 @@ Page {
     id: genreMoodPage
     objectName: "RecommendationsPage"
 
-    property bool showBusy: false
+    property bool showBusy: true
     property url defaultUnlinkedImage: Qt.resolvedUrl("../resources/broken-link.svg")
     property url defaultLinkedImage: "image://theme/stock_music"
 
@@ -154,6 +154,17 @@ Page {
         id: scrollBar
         flickableItem: listView
         anchors.right: parent.right
+    }
+
+    ActivityIndicator {
+        id: activity
+        width: app.itemSizeLarge
+        height: width
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.verticalCenter: parent.verticalCenter
+        running: showBusy
+        visible: running
+        z: 1
     }
 
     function refresh() {
@@ -315,28 +326,28 @@ Page {
         return defaultLinkedImage
     }
 
-    /*Connections {
+    Connections {
         target: app.spotifyDataCache
 
-        // if this is the first page data might already be loaded before the data cache is ready
         onSpotifyDataCacheReady: {
-            var i
-            for(i=0;i<recommendationsModel.count;i++) {
-                var obj = recommendationsModel.get(i)
-                if(obj
-            }
+            showBusy = false
+            loadRecommendationsData(app.settings.recommendationsData)
         }
-    }*/
-
-    Component.onCompleted: {
-        loadRecommendationsData(app.settings.recommendationsData)
     }
 
-    Connections {
+    Component.onCompleted: {
+        // we need the cache
+        if(app.spotifyDataCache.ready) {
+            showBusy = false
+            loadRecommendationsData(app.settings.recommendationsData)
+        }
+    }
+
+    /*Connections {
         target: app
 
         onPlaylistEvent: {
             listView.forceLayout()
         }
-    }
+    }*/
 }

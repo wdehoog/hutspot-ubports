@@ -14,6 +14,8 @@ Item {
 
     signal spotifyDataCacheReady()
 
+    property bool ready: false
+
     readonly property int followedPlaylistsMask: 0x01
     readonly property int followedArtistsMask: 0x02
     readonly property int savedAlbumsMask: 0x04
@@ -27,6 +29,7 @@ Item {
         happendMask |= mask
         if((happendMask & allDoneMask) === allDoneMask) {
             console.log("will signal 'spotifyDataCacheReady'")
+            ready = true
             spotifyDataCacheReady()
         }
     }
