@@ -7,6 +7,8 @@ layout: default
 ## Recommendations
 The Recommended page allows to manage Recommendation Sets which allows Spotify to recommend tracks. A Recommendation Set can consist of Seeds (Artists, Tracks, Genres) and Attributes. Hutspot can have multiple of these Sets.
 
+A Recommendation Set must be linked to a playlist. This playlist will get the recommneded tracks when you want to play them.
+
 For more see the [Spotify WebAPI docs](https://developer.spotify.com/documentation/web-api/reference/browse/get-recommendations/).
 
 ## Recommended

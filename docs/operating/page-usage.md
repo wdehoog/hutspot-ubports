@@ -123,7 +123,8 @@ layout: default
 ### Recommendations Page
  * Page header '+' button allows to add a new Recommendations Set
  * Context Menu of Recommendation Set:
-   * Generate Playlist: create a playlist with tracks based on the Set
+   * Refresh Playlist: replace the tracks from the linked playlist with recommneded ones
+   * Link the Set to a playlist
    * Rename the Set
    * Edit the Set
    * Delete the Set
