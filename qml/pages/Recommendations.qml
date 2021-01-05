@@ -170,6 +170,11 @@ Page {
 
         var i
         for(i=0;i<rs.length;i++) {
+            // if we don't have cache info the playlist is probably deleted
+            // and user will have to relink
+            var uri = spotifyDataCache.getPlaylistProperty(rs[i].playlist_id, "uri")
+            if(!uri)
+                rs[i].playlist_id = undefined
             recommendationsModel.append({recommendationSet: rs[i]})
         }
     }
@@ -299,9 +304,11 @@ Page {
 
 
     function getCoverImage(playlist_id) {
+        console.log("getCoverImage id: " + playlist_id)
         if(!playlist_id)
             return defaultUnlinkedImage
-        var url = app.spotifyDataCache.getPlaylistImage(playlist_id)
+        var url = app.spotifyDataCache.getPlaylistProperty(playlist_id, "image")
+        console.log("getCoverImage url:  " + url)
         if(url)
             return url
         return defaultLinkedImage
@@ -322,5 +329,13 @@ Page {
 
     Component.onCompleted: {
         loadRecommendationsData(app.settings.recommendationsData)
+    }
+
+    Connections {
+        target: app
+
+        onPlaylistEvent: {
+            listView.forceLayout()
+        }
     }
 }

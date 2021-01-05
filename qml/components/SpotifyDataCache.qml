@@ -9,8 +9,6 @@ import QtQuick 2.0
 
 import "../Spotify.js" as Spotify
 import "../Util.js" as Util
-import "../BSArray.js" as BSALib
-
 
 Item {
 
@@ -33,41 +31,38 @@ Item {
         }
     }
 
-    property var _followedPlaylists: new BSALib.BSArray()   //  key is id
-    property var _followedArtistsId: new BSALib.BSArray()   //  key is id, stores uri
-    property var _savedAlbumsId: new BSALib.BSArray()   //  key is id, stores uri
-    property var _savedTracksId: new BSALib.BSArray()   //  key is id, stores uri, only for tracks not in a saved album
-    property var _savedShowsId: new BSALib.BSArray()   //  key is id, stores uri
+    property var _followedPlaylists: {}
+    property var _followedArtistsId: {}
+    property var _savedAlbumsId: {}
+    property var _savedTracksId: {}
+    property var _savedShowsId: {}
 
     function isPlaylistFollowed(id) {
-        return _followedPlaylists.find(id) !== null
+        return _followedPlaylists[id] !== null
     }
 
-    function getPlaylistUri(id) {
-        var data = _followedPlaylists.find(id)
-        return data ? data.uri : null
-    }
-
-    function getPlaylistImage(id) {
-        var data = _followedPlaylists.find(id)
-        return data ? data.image : null
+    function getPlaylistProperty(id, property) {
+        console.log("getPlaylistProperty("+id+","+property+")")
+        var data = _followedPlaylists[id]
+        console.log("found: "+JSON.stringify(data))
+        return data ? data[property] : null
     }
 
     function isArtistFollowed(id) {
-        return _followedArtistsId.find(id) !== null
+        return _followedArtistsId[id] !== null
     }
 
     function isAlbumSaved(id) {
-        return _savedAlbumsId.find(id) !== null
+        return _savedAlbumsId[id] !== null
     }
 
     function isShowSaved(id) {
-        return _savedShowsId.find(id) !== null
+        return _savedShowsId[id] !== null
     }
 
     // Followed Playlists
     function loadFollowedPlaylists() {
-        _followedPlaylists = new BSALib.BSArray()
+        _followedPlaylists = {}
         _loadFollowedPlaylistsSet(0)
     }
 
@@ -75,14 +70,8 @@ Item {
         Spotify.getUserPlaylists({offset: offset, limit: 50}, function(error, data) {
             var i
             if(data && data.items) {
-                for(i=0;i<data.items.length;i++) {
-                    var plData = {
-                        uri: data.items[i].uri,
-                        image: data.items[i].images.length > 0
-                            ? data.items[i].images[0].url : ""
-                    }
-                    _followedPlaylists.insert(data.items[i].id, plData)
-                }
+                for(i=0;i<data.items.length;i++)
+                    updateFollowedPlaylist(data.items[i])
                 var nextOffset = data.offset+data.items.length
                 if(nextOffset < data.total)
                     _loadFollowedPlaylistsSet(nextOffset)
@@ -97,9 +86,31 @@ Item {
         })
     }
 
+    function updateFollowedPlaylist(playlist) {
+        var plData = {
+            uri: playlist.uri,
+            name: playlist.name,
+            image: playlist.images && playlist.images.length > 0
+                ? playlist.images[0].url : ""
+        }
+        console.log("adding " + JSON.stringify(plData) + " for " +  playlist.id)
+        _followedPlaylists[playlist.id] = plData
+    }
+
+    function triggerUpdatePlaylistImage(playlistId) {
+        Spotify.getPlaylistCoverImage(playlistId, function(error, data) {
+            if(data) {
+                var url = data[0].url
+                var pd = _followedPlaylists.find(playlistId)
+                if(pd)
+                    pd.image = url
+            }
+        })
+    }
+
     // Followed Artists
     function loadFollowedArtists() {
-        _followedArtistsId = new BSALib.BSArray()
+        _followedArtistsId = {}
         _loadFollowedArtists(0)
     }
 
@@ -108,8 +119,7 @@ Item {
             var i
             if(data && data.artists) {
                 for(i=0;i<data.artists.items.length;i++) {
-                    _followedArtistsId.insert(
-                        data.artists.items[i].id, data.artists.items[i].uri)
+                    _followedArtistsId[data.artists.items[i].id] = data.artists.items[i].uri
                 }
                 var nextOffset = data.offset+data.artists.items.length
                 if(nextOffset < data.artists.total)
@@ -127,7 +137,7 @@ Item {
 
     // Saved Albums
     function loadSavedAlbums() {
-        _savedAlbumsId = new BSALib.BSArray()
+        _savedAlbumsId = {}
         _loadSavedAlbums(0)
     }
 
@@ -136,8 +146,7 @@ Item {
             var i
             if(data && data.items) {
                 for(i=0;i<data.items.length;i++) {
-                    _savedAlbumsId.insert(
-                        data.items[i].album.id, data.items[i].album.uri)
+                    _savedAlbumsId[data.items[i].album.id] = data.items[i].album.uri
                 }
                 var nextOffset = data.offset+data.items.length
                 if(nextOffset < data.total)
@@ -155,7 +164,7 @@ Item {
 
     // Saved Shows
     function loadSavedShows() {
-        _savedShowsId = new BSALib.BSArray()
+        _savedShowsId = {}
         _loadSavedShows(0)
     }
 
@@ -164,8 +173,7 @@ Item {
             var i
             if(data && data.items) {
                 for(i=0;i<data.items.length;i++) {
-                    _savedShowsId.insert(
-                        data.items[i].show.id, data.items[i].show.uri)
+                    _savedShowsId[data.items[i].show.id] = data.items[i].show.uri
                 }
                 var nextOffset = data.offset+data.items.length
                 if(nextOffset < data.total)

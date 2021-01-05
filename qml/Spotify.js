@@ -965,6 +965,13 @@ function uploadCustomPlaylistCoverImage(playlistId, imageData, callback) {
   return _checkParamsAndPerformRequest(requestData, {}, callback);
 };
 
+function getPlaylistCoverImage(playlistId, callback) {
+  var requestData = {
+      url: _baseUri + '/playlists/' + playlistId + '/images'
+  };
+  return _checkParamsAndPerformRequest(requestData, {}, callback);
+};
+
 /**
  * Fetches an album from the Spotify catalog.
  * See [Get an Album](https://developer.spotify.com/web-api/get-album/) on

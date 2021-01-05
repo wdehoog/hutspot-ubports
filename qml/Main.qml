@@ -598,6 +598,7 @@ MainView {
                 Spotify.createPlaylist(id, options, function(error, data) {
                     callback(error, data)
                     if(data) {
+                        spotifyDataCache.updateFollowedPlaylist(data)
                         var ev = new Util.PlayListEvent(Util.PlaylistEventType.CreatedPlaylist,
                                                         data.id, data.snapshot_id)
                         ev.playlist = data
@@ -622,6 +623,7 @@ MainView {
             if(callback)
                 callback(error, data)
             if(data && data.snapshot_id) {
+                spotifyDataCache.triggerUpdatePlaylistImage(playlistId)
                 var ev = new Util.PlayListEvent(Util.PlaylistEventType.ReplacedAllTracks,
                                                 playlistId, data.snapshot_id)
                 playlistEvent(ev)
@@ -659,7 +661,7 @@ MainView {
     function choosePlaylist(title, defaultName, callback) {
         var ms = pageStack.push(Qt.resolvedUrl("components/PlaylistPicker.qml"),
                                 { label: title, defaultName: defaultName } )
-        ms.accepted.connect(function() { 
+        ms.accepted.connect(function() {
             if(ms.selectedItem && ms.selectedItem.item) {
                 callback(ms.selectedItem.item)
             }
@@ -1396,11 +1398,14 @@ MainView {
                     for(var i=0;i<data.tracks.length;i++)
                         uris[i] = data.tracks[i].uri
 
-                    app.replaceTracksInPlaylist(recommendationData.playlistId, uris, function(error, data) {
+                    replaceTracksInPlaylist(recommendationData.playlistId, uris, function(error, data) {
+                        var name = spotifyDataCache.getPlaylistProperty(recommendationData.playlistId, "name")
                         if(data) {
-                            app.showConfirmDialog(
-                                i18n.tr("Generating Playlist succeeded. Do you want to start playing %1?").arg(name),
-                                function() { app.ensurePlaylistIsPlaying(recommendationData.playlistId) }
+                            showConfirmDialog(
+                                i18n.tr("Refreshing Tracks in Playlist succeeded. Do you want to start playing %1?").arg(name),
+                                function() {
+                                    app.ensurePlaylistIsPlaying(recommendationData.playlistId, data.snapshot_id)
+                                }
                             )
                         } else {
                             showErrorMessage(undefined, i18n.tr("Failed to update Playlist for %1").arg(name))
@@ -1411,7 +1416,7 @@ MainView {
                     console.log(err)
                 }
             } else {
-                showErrorMessage(undefined, i18n.tr("No Recommended Tracks for " + name))
+                showErrorMessage(undefined, i18n.tr("No Recommended Tracks for " + recommendationData.name))
                 console.log("No Data for getRecommendations")
             }
         })
@@ -1451,7 +1456,7 @@ MainView {
     function replaceTracksInHutspotPlaylist(playlistInfo, uris, callback) {
         getPlaylistByName(playlistInfo, function(success, info) {
             if(success) {
-                app.replaceTracksInPlaylist(info.id, uris, function(error, data) {
+                replaceTracksInPlaylist(info.id, uris, function(error, data) {
                     if(data)
                         callback(info)
                 })
@@ -1462,10 +1467,10 @@ MainView {
         })
     }*/
 
-    function ensurePlaylistIsPlaying(id) {
-        var uri = spotifyDataCache.getPlaylistUri(id)
+    function ensurePlaylistIsPlaying(id, snapshot_id) {
+        var uri = spotifyDataCache.getPlaylistProperty(id, "uri")
         // if not yet playing it then start playing it
-        if(app.controller.playbackState.item.id !== info.id) {
+        if(app.controller.playbackState.item.id !== id) {
             app.controller.playContext({uri: uri})
             return
         }
@@ -1473,7 +1478,7 @@ MainView {
         // the playlist is loaded but is not being played
         // check if correct snapshot is present
         if(!app.controller.playbackState.is_playing) {
-          if(app.controller.playbackState.context.snapshot_id === info.snapshot_id)
+          if(app.controller.playbackState.context.snapshot_id === snapshot_id)
               app.controller.playPause()
           else
               app.controller.playContext({uri: uri})
