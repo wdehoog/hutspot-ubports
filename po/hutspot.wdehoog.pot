@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-05 20:45+0000\n"
+"POT-Creation-Date: 2021-01-05 21:08+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -103,7 +103,7 @@ msgstr ""
 #: ../qml/components/PlaylistPicker.qml:38 ../qml/components/Librespot.qml:414
 #: ../qml/components/GenrePicker.qml:36 ../qml/components/ArtistPicker.qml:35
 #: ../qml/Main.qml:1094 ../qml/Main.qml:1560
-#: ../qml/pages/Recommendations.qml:298
+#: ../qml/pages/Recommendations.qml:299
 msgid "Cancel"
 msgstr ""
 
@@ -469,7 +469,7 @@ msgstr ""
 msgid "Link to Playlist"
 msgstr ""
 
-#: ../qml/pages/Recommendations.qml:83 ../qml/pages/Recommendations.qml:276
+#: ../qml/pages/Recommendations.qml:83 ../qml/pages/Recommendations.qml:277
 msgid "Rename"
 msgstr ""
 
@@ -477,31 +477,31 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: ../qml/pages/Recommendations.qml:141
+#: ../qml/pages/Recommendations.qml:142
 msgid "yes"
 msgstr ""
 
-#: ../qml/pages/Recommendations.qml:141
+#: ../qml/pages/Recommendations.qml:142
 msgid "no"
 msgstr ""
 
-#: ../qml/pages/Recommendations.qml:141
+#: ../qml/pages/Recommendations.qml:142
 msgid "#seeds: %1, use attributes: %2"
 msgstr ""
 
-#: ../qml/pages/Recommendations.qml:202
+#: ../qml/pages/Recommendations.qml:203
 msgid "Do you want to delete<br>%1?"
 msgstr ""
 
-#: ../qml/pages/Recommendations.qml:247
+#: ../qml/pages/Recommendations.qml:248
 msgid "Select Playlist to Link to"
 msgstr ""
 
-#: ../qml/pages/Recommendations.qml:255
+#: ../qml/pages/Recommendations.qml:256
 msgid "Do you want to update the tracks of linked playlist for<br><b>%1</b>"
 msgstr ""
 
-#: ../qml/pages/Recommendations.qml:289
+#: ../qml/pages/Recommendations.qml:290
 msgid "Change"
 msgstr ""
 

@@ -123,7 +123,7 @@ Page {
 
                 Image {
                     id: playlistImage
-                    height: app.itemSizeMedium //parent.height - app.paddingSmall
+                    height: listItem.height - app.paddingSmall
                     width: height
                     anchors.verticalCenter: parent.verticalCenter
                     asynchronous: true
@@ -133,6 +133,7 @@ Page {
 
                 Column {
                     width: parent.width - playlistImage.width - app.paddingMedium
+                    anchors.verticalCenter: parent.verticalCenter
                     Label {
                         elide: Text.ElideRight
                         text: recommendationSet.name

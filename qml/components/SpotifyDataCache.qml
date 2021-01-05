@@ -42,9 +42,9 @@ Item {
     }
 
     function getPlaylistProperty(id, property) {
-        console.log("getPlaylistProperty("+id+","+property+")")
+        //console.log("getPlaylistProperty("+id+","+property+")")
         var data = _followedPlaylists[id]
-        console.log("found: "+JSON.stringify(data))
+        //console.log("found: "+JSON.stringify(data))
         return data ? data[property] : null
     }
 
@@ -76,7 +76,7 @@ Item {
                 if(nextOffset < data.total)
                     _loadFollowedPlaylistsSet(nextOffset)
                 else {
-                    console.log("Loaded info of " + _followedPlaylists.items.length + " followed playlists")
+                    console.log("Loaded info of " + Object.keys(_followedPlaylists).length + " followed playlists")
                     notifyHappend(followedPlaylistsMask)
                 }
             } else {
@@ -93,7 +93,7 @@ Item {
             image: playlist.images && playlist.images.length > 0
                 ? playlist.images[0].url : ""
         }
-        console.log("adding " + JSON.stringify(plData) + " for " +  playlist.id)
+        //console.log("adding " + JSON.stringify(plData) + " for " +  playlist.id)
         _followedPlaylists[playlist.id] = plData
     }
 
@@ -125,7 +125,7 @@ Item {
                 if(nextOffset < data.artists.total)
                     _loadFollowedPlaylistsSet(nextOffset)
                 else {
-                    console.log("Loaded info of " + _followedArtistsId.items.length + " followed artists")
+                    console.log("Loaded info of " + Object.keys(_followedArtistsId).length + " followed artists")
                     notifyHappend(followedArtistsMask)
                 }
             } else {
@@ -152,7 +152,7 @@ Item {
                 if(nextOffset < data.total)
                     _loadSavedAlbums(nextOffset)
                 else {
-                    console.log("Loaded info of " + _savedAlbumsId.items.length + " saved albums")
+                    console.log("Loaded info of " + Object.keys(_savedAlbumsId).length + " saved albums")
                     notifyHappend(savedAlbumsMask)
                 }
             } else {
@@ -179,7 +179,7 @@ Item {
                 if(nextOffset < data.total)
                     _loadSavedShows(nextOffset)
                 else {
-                    console.log("Loaded info of " + _savedShowsId.items.length + " saved shows")
+                    console.log("Loaded info of " + Object.keys(_savedShowsId).length + " saved shows")
                     notifyHappend(savedShowsMask)
                 }
             } else {
