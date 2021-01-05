@@ -13,6 +13,9 @@ Read the docs at [https://wdehoog.github.io/hutspot-ut/](https://wdehoog.github.
 The [screenshots](screenshots) directory shows some images made while running with `clickable desktop`. 
 
 
+## Download
+A CI pipeline is executed on GitLab to build click packages for ``armhf`` and ``arm64``. Follow the link on the pipeline badge above.
+
 ## Developing
 You can build it with [clickable](http://clickable.bhdouglass.com/en/latest/).
 
