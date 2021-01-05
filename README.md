@@ -1,3 +1,5 @@
+[![build status](https://gitlab.com/wdehoog/hutspot-ut/badges/master/pipeline.svg)](https://gitlab.com/wdehoog/hutspot-ut/-/pipelines)
+
 # Hutspot
 
 A simple Spotify Controller for Ubuntu Touch.
