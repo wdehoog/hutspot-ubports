@@ -12,6 +12,9 @@ ActionSelectionPopover {
 
     delegate: Empty {
         id: listItem
+
+        height: visible ? implicitHeight : 0
+
         Label {
             text: listItem.text
             anchors {
@@ -21,8 +24,10 @@ ActionSelectionPopover {
             wrapMode: Text.Wrap
             color: theme.palette.normal.overlayText
             font.bold: true
+            opacity: listItem.action.enabled ? 1.0 : 0.4
             z: 2
         }
+
         Rectangle {
             x: borderWidth
             y: {
@@ -45,12 +50,13 @@ ActionSelectionPopover {
             color: "white" 
             z: 1
         }
+
         Rectangle {
             anchors.fill: parent
             color: "black"
             z: -1
         }
+
         onTriggered: actionSelectionPopover.hide()
-        height: visible ? implicitHeight : 0
     }
 }
