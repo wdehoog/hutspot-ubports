@@ -67,8 +67,7 @@ Item {
 
     // Followed Playlists
     function loadFollowedPlaylists() {
-        _followedPlaylistsId = new BSALib.BSArray()
-        _followedPlaylistsImage = new BSALib.BSArray()
+        _followedPlaylists = new BSALib.BSArray()
         _loadFollowedPlaylistsSet(0)
     }
 
@@ -77,19 +76,18 @@ Item {
             var i
             if(data && data.items) {
                 for(i=0;i<data.items.length;i++) {
-                    var data = {
+                    var plData = {
                         uri: data.items[i].uri,
                         image: data.items[i].images.length > 0
                             ? data.items[i].images[0].url : ""
                     }
-                    _followedPlaylistsId.insert(
-                        data.items[i].id, data)
+                    _followedPlaylists.insert(data.items[i].id, plData)
                 }
                 var nextOffset = data.offset+data.items.length
                 if(nextOffset < data.total)
                     _loadFollowedPlaylistsSet(nextOffset)
                 else {
-                    console.log("Loaded info of " + _followedPlaylistsId.items.length + " followed playlists")
+                    console.log("Loaded info of " + _followedPlaylists.items.length + " followed playlists")
                     notifyHappend(followedPlaylistsMask)
                 }
             } else {
