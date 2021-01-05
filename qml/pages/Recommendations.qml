@@ -20,7 +20,8 @@ Page {
     objectName: "RecommendationsPage"
 
     property bool showBusy: false
-    property url defaultImage: Qt.resolvedUrl("../resources/broken-link.svg")
+    property url defaultUnlinkedImage: Qt.resolvedUrl("../resources/broken-link.svg")
+    property url defaultLinkedImage: "image://theme/stock_music"
 
     property int currentIndex: -1
 
@@ -58,30 +59,41 @@ Page {
 
                 actions: ActionList {
                     Action {
-                        id: a
-                        property int idx: enabled ? 0 : -1
-                        text: contextMenu.model.recommendationSet.playlist_id
-                            ? i18n.tr("Refresh Playlist Tracks")
-                            : i18n.tr("Link to Playlist")
-                        onTriggered: contextMenu.model.recommendationSet.playlist_id
-                            ? generatePlaylist(contextMenu.model)
-                            : linkToPlaylist(contextMenu.model)
+                        property int idx: 0
+                        //id: a
+                        //property int idx: enabled ? 0 : -1
+                        text: i18n.tr("Refresh Playlist Tracks")
+                        enabled: contextMenu.model.recommendationSet.playlist_id
+                                 ? true : false
+                        onTriggered: generatePlaylist(contextMenu.model)
                     }
                     Action {
-                        id: b
-                        property int idx: enabled ? (a.idx + 1) : a.idx
+                        property int idx: 1
+                        //id: b
+                        //property int idx: enabled ? (a.idx + 1) : a.idx
+                        text: contextMenu.model.recommendationSet.playlist_id
+                            ? i18n.tr("Link to other Playlist")
+                            : i18n.tr("Link to Playlist")
+                        onTriggered: linkToPlaylist(contextMenu.model)
+                    }
+                    Action {
+                        property int idx: 2
+                        //id: c
+                        //property int idx: enabled ? (b.idx + 1) : a.idx
                         text: i18n.tr("Rename")
                         onTriggered: renameSet(contextMenu.model)
                     }
                     Action {
-                        id: c
-                        property int idx: enabled ? (b.idx + 1) : b.idx
+                        property int idx: 3
+                        //id: d
+                        //property int idx: enabled ? (c.idx + 1) : b.idx
                         text: i18n.tr("Edit")
                         onTriggered: editSet(contextMenu.model)
                     }
                     Action {
-                        id: d
-                        property int idx: enabled ? (c.idx + 1) : c.idx
+                        property int idx: 4
+                        //id: e
+                        //property int idx: enabled ? (d.idx + 1) : c.idx
                         text: i18n.tr("Delete")
                         onTriggered: deleteSet(contextMenu.model)
                     }
@@ -106,7 +118,7 @@ Page {
 
             Row {
                 width: parent.width
-                spacing: app.paddingMedium         
+                spacing: app.paddingMedium
                 anchors.verticalCenter: parent.verticalCenter
 
                 Image {
@@ -226,7 +238,7 @@ Page {
 
     function linkToPlaylist(model) {
         var index = model.index
-        var rs = model.recommendationSet  
+        var rs = model.recommendationSet
         app.choosePlaylist(i18n.tr("Select Playlist to Link to"), model.recommendationSet.name, function(item) {
             rs.playlist_id = item.id
             _updateSet(recommendationsModel, index, rs)
@@ -236,7 +248,7 @@ Page {
     function generatePlaylist(model) {
         app.showConfirmDialog(
             i18n.tr("Do you want to update the tracks of linked playlist for<br><b>%1</b>").arg(model.recommendationSet.name), function() {
-           
+
             tempRD.loadData(model.recommendationSet)
             app.updatePlaylistFromRecommendations(tempRD)
         })
@@ -245,7 +257,7 @@ Page {
     /*function generatePlaylist(model) {
         app.showConfirmDialog(
             i18n.tr("Do you want to create or update %1?").arg(model.name), function(info) {
-           
+
             tempRD.loadData(model.recommendationSet)
             app.createPlaylistFromRecommendations(tempRD.name, i18n.tr("Hutspot playlist based on a Recommendation Set"), tempRD)
         })
@@ -287,10 +299,12 @@ Page {
 
 
     function getCoverImage(playlist_id) {
-        var url = app.spotifyDataCache.getPlaylistImage()
-        if(!url)
-            url = defaultImage
-        return url      
+        if(!playlist_id)
+            return defaultUnlinkedImage
+        var url = app.spotifyDataCache.getPlaylistImage(playlist_id)
+        if(url)
+            return url
+        return defaultLinkedImage
     }
 
     /*Connections {
@@ -301,7 +315,7 @@ Page {
             var i
             for(i=0;i<recommendationsModel.count;i++) {
                 var obj = recommendationsModel.get(i)
-                if(obj  
+                if(obj
             }
         }
     }*/
