@@ -80,7 +80,7 @@ Page {
                 width: parent.width
                 spacing: app.paddingMedium
                 height: childrenRect.height 
-                Text { 
+                Label { 
                     id: tlabel
                     anchors.verticalCenter: parent.verticalCenter
                     text: i18n.tr("Range") 

@@ -360,7 +360,7 @@ Page {
 
             Row {
                 width: parent.width
-                Text {
+                Label {
                     id: progressLabel
                     //font.pixelSize: Theme.fontSizeSmall
                     anchors.verticalCenter: parent.verticalCenter
@@ -385,7 +385,7 @@ Page {
                         onProgress_msChanged: progressSlider.value = app.controller.playbackState.progress_ms
                     }
                 }
-                Text {
+                Label {
                     id: durationLabel
                     //font.pixelSize: Theme.fontSizeSmall
                     anchors.verticalCenter: parent.verticalCenter
@@ -456,7 +456,7 @@ Page {
                         height: width
                         radius: width/2
 
-                        Text {
+                        Label {
                             text: "1"
                             anchors.centerIn: parent
                             color: "#000"
@@ -507,7 +507,7 @@ Page {
                         source: "image://theme/toolkit_arrow-right"
                     }
 
-                    Text {
+                    Label {
                         id: spotifyConnectLabel
                         text: app.controller.hasCurrentDevice ? "Listening on <b>" + app.controller.playbackState.device.name + "</b>" : i18n.tr("no current device")
                     }

@@ -40,6 +40,7 @@ Page {
             Rectangle {
                 height: app.paddingLarge
                 width: parent.width
+                color: app.bgColor
             }
 
             Item {
@@ -69,20 +70,20 @@ Page {
                         topMargin: app.paddingMedium
                     }
 
-                    Text {
+                    Label {
                         anchors.horizontalCenter: parent.horizontalCenter
                         //font.pixelSize: Theme.fontSizeLarge
                         text: "Hutspot " + app.version
                     }
 
-                    Text {
+                    Label {
                         horizontalAlignment: Text.AlignHCenter
                         text: i18n.tr("Spotify controller for Ubuntu Touch")
                         width: parent.width
                         wrapMode: Text.WordWrap
                     }
 
-                    Text {
+                    Label {
                         horizontalAlignment: implicitWidth > width ? Text.AlignLeft : Text.AlignHCenter
                         anchors.horizontalCenter: parent.horizontalCenter
                         //font.pixelSize: Theme.fontSizeExtraSmall
@@ -90,14 +91,14 @@ Page {
                         text: i18n.tr("Copyright (C) 2020")
                         width: parent.width
                     }
-                    Text {
+                    Label {
                         horizontalAlignment: implicitWidth > width ? Text.AlignLeft : Text.AlignHCenter
                         anchors.horizontalCenter: parent.horizontalCenter
                         //font.pixelSize: Theme.fontSizeExtraSmall
                         text: i18n.tr("License: MIT")
                         width: parent.width
                     }
-                    Text {
+                    Label {
                         horizontalAlignment: implicitWidth > width ? Text.AlignLeft : Text.AlignHCenter
                         anchors.horizontalCenter: parent.horizontalCenter
                         //font.pixelSize: Theme.fontSizeExtraSmall
@@ -109,11 +110,11 @@ Page {
 
             }
 
-            Text {
+            Label {
                 text: i18n.tr("Contributors")
             }
 
-            Text {
+            Label {
                 anchors {
                     left: parent.left
                     leftMargin: app.paddingMedium
@@ -129,9 +130,10 @@ Page {
             Rectangle { 
                 width: parent.width
                 height: app.paddingLarge
+                color: app.bgColor
             }
 
-/*            Text {
+/*            Label {
                 text: i18n.tr("Translations")
             }
 
@@ -148,11 +150,11 @@ Page {
 ""
             }*/
 
-            Text {
+            Label {
                 text: i18n.tr("Thanks to")
             }
 
-            Text {
+            Label {
                 anchors {
                     left: parent.left
                     leftMargin: app.paddingMedium

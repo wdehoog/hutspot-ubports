@@ -58,7 +58,7 @@ Item {
         anchors.leftMargin: app.paddingMedium
         //height: childrenRect.height causes Binding Loop
 
-        Text {
+        Label {
             id: label
             anchors.left: parent.left
             anchors.right: duration.left
@@ -73,7 +73,7 @@ Item {
             text: dataModel.name ? dataModel.name : i18n.tr("No Name")
         }
 
-        Text {
+        Label {
             id: duration
             anchors.right: parent.right
             anchors.verticalCenter: parent.verticalCenter

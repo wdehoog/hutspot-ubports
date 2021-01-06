@@ -33,7 +33,7 @@ Item {
         width: parent.width
         spacing: app.paddingSmall
 
-        Text {
+        Label {
             id: firstLabel
             //color: Theme.highlightColor
             font.bold: true
@@ -55,7 +55,7 @@ Item {
                 spacing: app.paddingSmall
                 width: parent.width - savedImage.width
 
-                Text {
+                Label {
                     id: secondLabel
                     //color: Theme.primaryColor
                     //font.pixelSize: Theme.fontSizeSmall
@@ -68,7 +68,7 @@ Item {
                         onClicked: secondLabelClicked()
                     }
                 }
-                Text {
+                Label {
                     id: thirdLabel
                     width: parent.width
                     //font.pixelSize: Theme.fontSizeSmall

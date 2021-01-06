@@ -5,13 +5,15 @@
  * License: MIT
  */
  
-import QtQuick 2.0
+import QtQuick 2.7
+import Ubuntu.Components 1.3
 
 import "../Util.js" as Util
 
 Rectangle {
     width: parent.width
     height: row.height
+    color:  app.normalBackgroundColor
     //color: currentIndex === dataModel.index 
     //       ? app.highlightBackgroundColor : app.normalBackgroundColor
 
@@ -54,7 +56,7 @@ Rectangle {
             id: column
             width: parent.width - image.width - app.paddingMedium
 
-            Text {
+            Label {
                 //color: currentIndex === dataModel.index ? Theme.highlightColor : Theme.primaryColor
                 textFormat: Text.StyledText
                 font.weight: isCurrentItem ? app.fontHighlightWeight : app.fontPrimaryWeight
@@ -70,7 +72,7 @@ Rectangle {
                 Column {
                     id: col2
                     width: parent.width - favorite.width
-                    Text {
+                    Label {
                         width: parent.width
                         font.weight: isCurrentItem ? app.fontHighlightWeight : app.fontPrimaryWeight
                         //color: currentIndex === dataModel.index ? Theme.highlightColor : Theme.primaryColor
@@ -81,7 +83,7 @@ Rectangle {
                         visible: enabled
                     }
 
-                    Text {
+                    Label {
                         width: parent.width
                         font.weight: isCurrentItem ? app.fontHighlightWeight : app.fontPrimaryWeight
                         //color: currentIndex === dataModel.index ? Theme.secondaryHighlightColor : Theme.secondaryColor

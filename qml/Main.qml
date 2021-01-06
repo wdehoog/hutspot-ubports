@@ -14,7 +14,8 @@ import Ubuntu.Components.ListItems 1.3 as UCListItem
 import QtQuick.Layouts 1.3
 import Qt.labs.settings 1.0 as QLS
 import Qt.labs.platform 1.0 as Platform
-import QtWebEngine 1.7
+//import QtWebEngine 1.7
+import QtQuick.Controls.Suru 2.2
 
 import org.hildon.components 1.0
 import SystemUtil 1.0
@@ -59,8 +60,6 @@ MainView {
     property double itemSizeMedium: units.gu(4)
     property double itemSizeLarge: units.gu(10)
 
-    property color normalBackgroundColor: "white" // theme.palette.normal.base
-    property color highlightBackgroundColor: "#CDCDCD" // theme.palette.highlited.base
 
     property var fontPrimaryWeight: Font.Light
     property var fontHighlightWeight: Font.Bold
@@ -73,6 +72,23 @@ MainView {
 
     property int dividerHeight: 2
     property color dividerColor: theme.palette.normal.base
+
+    // colors
+    function getColorAlpha(color, alpha) {
+        return Qt.hsla(color.hslHue, color.hslSaturation, color.hslLightness, alpha)
+    }
+
+    readonly property color bgColor: app.Suru.backgroundColor
+    property color normalBackgroundColor: bgColor
+    property color highlightBackgroundColor: "#CDCDCD" // theme.palette.highlited.base
+
+    property color primaryColor: Suru.foregroundColor
+    property color secondaryColor: Suru.secondaryForegroundColor
+    property color tertiaryColor: Suru.tertiaryForegroundColor
+
+    property color primaryHighlightColor: Suru.highlightColor
+    property color secondaryHighlightColor: getColorAlpha(primaryHighlightColor, 0.8571)
+    property color tertiaryHighlightColor: getColorAlpha(primaryHighlightColor, 0.6429)
 
     // UT stuff
     readonly property var homeDirectory: Util.urlToPath(Platform.StandardPaths.writableLocation(Platform.StandardPaths.HomeLocation).toString())

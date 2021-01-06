@@ -91,8 +91,7 @@ Page {
                          })
         menuModel.append({hutspotMenuItem: Util.HutspotMenuItem.ShowDevicesPage,
                           name: i18n.tr("Devices"),
-                          icon: "image://theme/audio-speakers-symbolic",
-                          name: "devices"
+                          icon: "image://theme/audio-speakers-symbolic"
                                 //"image://theme/audio-volume-muted-blocking-panel"
                          })
         /*menuModel.append({hutspotMenuItem: Util.HutspotMenuItem.ShowSettingsPage,
@@ -138,12 +137,11 @@ Page {
                 lightness: -0.2
             }
 
-            Text {
+            Label {
                 anchors.left: image.right
                 anchors.leftMargin: app.paddingLarge
                 anchors.right: parent.right
                 anchors.verticalCenter: parent.verticalCenter
-                //color: _currentIndex === index ? Theme.highlightColor : Theme.primaryColor
                 text: model.name
             }
 

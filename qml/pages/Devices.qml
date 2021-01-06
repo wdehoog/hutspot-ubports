@@ -122,14 +122,14 @@ Page {
                 id: column
                 width: parent.width
                 anchors.verticalCenter: parent.verticalCenter
-                Text {
+                Label {
                     id: nameLabel
                     //color: is_active ? Theme.highlightColor : Theme.primaryColor
                     font.weight: is_active ? app.fontHighlightWeight : app.fontPrimaryWeight
                     textFormat: Text.StyledText
                     text: getNameLabelText(sp, deviceIndex, name)
                 }
-                Text {
+                Label {
                     id: meta1Label
                     width: parent.width
                     //color: is_active ? Theme.secondaryHighlightColor : Theme.secondaryColor
@@ -300,6 +300,7 @@ Page {
         y: parent.height - height // - app.dockedPanel.visibleSize
         width: parent.width
         height: volumeSlider.height
+        color:  app.normalBackgroundColor
 
         Image {
             id: speakerIcon

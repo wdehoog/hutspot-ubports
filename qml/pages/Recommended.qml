@@ -138,7 +138,7 @@ Page {
                             source: image
                         }*/
 
-                        Text {
+                        Label {
                             width: parent.width - parent.spacing - clearButton.width
                             anchors.verticalCenter: parent.verticalCenter
                             textFormat: Text.StyledText

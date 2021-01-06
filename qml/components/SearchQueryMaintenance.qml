@@ -21,7 +21,7 @@ Page {
 
     header: PageHeader {
         id: header
-        contents: Text {
+        contents: Label {
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
             text: i18n.tr("Search Query History")
@@ -74,7 +74,7 @@ Page {
                 ]
             }
 
-            Text {
+            Label {
                 anchors.verticalCenter: parent.verticalCenter
                 textFormat: Text.StyledText
                 width: parent.width

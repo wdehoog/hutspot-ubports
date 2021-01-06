@@ -22,7 +22,7 @@ ActionSelectionPopover {
                 horizontalCenter: parent.horizontalCenter
             }
             wrapMode: Text.Wrap
-            color: theme.palette.normal.overlayText
+            //color: theme.palette.normal.overlayText
             font.bold: true
             opacity: listItem.action.enabled ? 1.0 : 0.4
             z: 2
@@ -47,13 +47,13 @@ ActionSelectionPopover {
               else    
                   return parent.height - seperatorWidth
             }
-            color: "white" 
+            color: app.normalBackgroundColor
             z: 1
         }
 
         Rectangle {
             anchors.fill: parent
-            color: "black"
+            color: app.primaryColor
             z: -1
         }
 

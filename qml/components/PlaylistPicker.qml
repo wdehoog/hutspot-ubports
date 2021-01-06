@@ -27,7 +27,7 @@ Page {
 
     header: PageHeader {
         id: header
-        contents: Text {
+        contents: Label {
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
             text: label

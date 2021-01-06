@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-06 21:01+0000\n"
+"POT-Creation-Date: 2021-01-06 22:27+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,11 +21,11 @@ msgstr ""
 msgid "There is a resume point available for this Epsidode: "
 msgstr ""
 
-#: ../qml/components/RecommendationData.qml:84 ../qml/Main.qml:1020
+#: ../qml/components/RecommendationData.qml:84 ../qml/Main.qml:1036
 msgid "artist"
 msgstr ""
 
-#: ../qml/components/RecommendationData.qml:85 ../qml/Main.qml:1022
+#: ../qml/components/RecommendationData.qml:85 ../qml/Main.qml:1038
 #: ../qml/pages/Playing.qml:583 ../qml/pages/Album.qml:89
 msgid "track"
 msgstr ""
@@ -102,14 +102,14 @@ msgstr ""
 #: ../qml/components/CreatePlaylist.qml:34
 #: ../qml/components/PlaylistPicker.qml:38 ../qml/components/Librespot.qml:414
 #: ../qml/components/GenrePicker.qml:36 ../qml/components/ArtistPicker.qml:35
-#: ../qml/Main.qml:1092 ../qml/Main.qml:1558
+#: ../qml/Main.qml:1108 ../qml/Main.qml:1574
 #: ../qml/pages/Recommendations.qml:310
 msgid "Cancel"
 msgstr ""
 
 #: ../qml/components/CreatePlaylist.qml:41
 #: ../qml/components/PlaylistPicker.qml:45 ../qml/components/GenrePicker.qml:43
-#: ../qml/components/ArtistPicker.qml:42 ../qml/Main.qml:1550
+#: ../qml/components/ArtistPicker.qml:42 ../qml/Main.qml:1566
 msgid "Select"
 msgstr ""
 
@@ -146,17 +146,17 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: ../qml/components/SearchResultListItem.qml:215 ../qml/pages/Playing.qml:591
+#: ../qml/components/SearchResultListItem.qml:217 ../qml/pages/Playing.qml:591
 #: ../qml/pages/Playing.qml:597
 msgid "followers"
 msgstr ""
 
-#: ../qml/components/SearchResultListItem.qml:240 ../qml/pages/Playing.qml:608
+#: ../qml/components/SearchResultListItem.qml:242 ../qml/pages/Playing.qml:608
 #: ../qml/pages/Show.qml:78
 msgid "explicit"
 msgstr ""
 
-#: ../qml/components/SearchResultListItem.qml:242
+#: ../qml/components/SearchResultListItem.qml:244
 msgid "externally hosted"
 msgstr ""
 
@@ -200,8 +200,8 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-#: ../qml/components/Librespot.qml:404 ../qml/Main.qml:1040
-#: ../qml/Main.qml:1101
+#: ../qml/components/Librespot.qml:404 ../qml/Main.qml:1056
+#: ../qml/Main.qml:1117
 msgid "Ok"
 msgstr ""
 
@@ -234,105 +234,105 @@ msgstr ""
 msgid "Select Artist"
 msgstr ""
 
-#: ../qml/Main.qml:224
+#: ../qml/Main.qml:240
 msgid ""
 "Playing page is already loaded. Go back to it and discard the pages on top?"
 msgstr ""
 
-#: ../qml/Main.qml:408
+#: ../qml/Main.qml:424
 msgid "Failed to Refresh Authorization Token"
 msgstr ""
 
-#: ../qml/Main.qml:487
+#: ../qml/Main.qml:503
 msgid "Edit Playlist Details"
 msgstr ""
 
-#: ../qml/Main.qml:514
+#: ../qml/Main.qml:530
 msgid "Select a Playlist"
 msgstr ""
 
-#: ../qml/Main.qml:536
+#: ../qml/Main.qml:552
 msgid "Please confirm removing<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:699
+#: ../qml/Main.qml:715
 msgid "Please confirm to unfollow playlist:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:725
+#: ../qml/Main.qml:741
 msgid "Please confirm to unfollow artist:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:756
+#: ../qml/Main.qml:772
 msgid "Please confirm to un-save album:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:787
+#: ../qml/Main.qml:803
 msgid "Please confirm to un-save show:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:813
+#: ../qml/Main.qml:829
 msgid "Please confirm to un-save track:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:927
+#: ../qml/Main.qml:943
 msgid "Failed to fetch Show"
 msgstr ""
 
-#: ../qml/Main.qml:995
+#: ../qml/Main.qml:1011
 msgid "Failed to fetch full "
 msgstr ""
 
-#: ../qml/Main.qml:1005
+#: ../qml/Main.qml:1021
 msgid "View an Artist"
 msgstr ""
 
-#: ../qml/Main.qml:1019 ../qml/Main.qml:1021
+#: ../qml/Main.qml:1035 ../qml/Main.qml:1037
 msgid "album"
 msgstr ""
 
-#: ../qml/Main.qml:1023
+#: ../qml/Main.qml:1039
 msgid "episode"
 msgstr ""
 
-#: ../qml/Main.qml:1024
+#: ../qml/Main.qml:1040
 msgid "show"
 msgstr ""
 
-#: ../qml/Main.qml:1025
+#: ../qml/Main.qml:1041
 msgid "unknown type"
 msgstr ""
 
-#: ../qml/Main.qml:1056
+#: ../qml/Main.qml:1072
 msgid "Error"
 msgstr ""
 
-#: ../qml/Main.qml:1119
+#: ../qml/Main.qml:1135
 msgid "Confirm"
 msgstr ""
 
-#: ../qml/Main.qml:1129
+#: ../qml/Main.qml:1145
 msgid "Failed to transfer to"
 msgstr ""
 
-#: ../qml/Main.qml:1403
+#: ../qml/Main.qml:1419
 msgid ""
 "Refreshing Tracks in Playlist succeeded. Do you want to start playing %1?"
 msgstr ""
 
-#: ../qml/Main.qml:1409
+#: ../qml/Main.qml:1425
 msgid "Failed to update Playlist for %1"
 msgstr ""
 
-#: ../qml/Main.qml:1417
+#: ../qml/Main.qml:1433
 msgid "No Recommended Tracks for "
 msgstr ""
 
-#: ../qml/Main.qml:1527
+#: ../qml/Main.qml:1543
 msgid "Select Recommendation Set"
 msgstr ""
 
-#: ../qml/Main.qml:1534
+#: ../qml/Main.qml:1550
 msgid "Sets"
 msgstr ""
 
@@ -604,23 +604,23 @@ msgstr ""
 msgid "About"
 msgstr ""
 
-#: ../qml/pages/About.qml:80
+#: ../qml/pages/About.qml:81
 msgid "Spotify controller for Ubuntu Touch"
 msgstr ""
 
-#: ../qml/pages/About.qml:90
+#: ../qml/pages/About.qml:91
 msgid "Copyright (C) 2020"
 msgstr ""
 
-#: ../qml/pages/About.qml:97
+#: ../qml/pages/About.qml:98
 msgid "License: MIT"
 msgstr ""
 
-#: ../qml/pages/About.qml:113
+#: ../qml/pages/About.qml:114
 msgid "Contributors"
 msgstr ""
 
-#: ../qml/pages/About.qml:152
+#: ../qml/pages/About.qml:154
 msgid "Thanks to"
 msgstr ""
 
