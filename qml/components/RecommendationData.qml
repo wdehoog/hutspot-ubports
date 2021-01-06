@@ -151,7 +151,7 @@ Item {
         var i
 
         name = data.name
-        playlistId = data.playlist_id
+        playlistId = data.playlist_id ? data.playlist_id : ""
 
         for(i=data.seeds.length;i>0;i--) { // reverse order
             var seed = data.seeds[i-1]

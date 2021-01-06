@@ -622,7 +622,6 @@ MainView {
             if(callback)
                 callback(error, data)
             if(data && data.snapshot_id) {
-                spotifyDataCache.triggerUpdatePlaylistImage(playlistId)
                 var ev = new Util.PlayListEvent(Util.PlaylistEventType.ReplacedAllTracks,
                                                 playlistId, data.snapshot_id)
                 playlistEvent(ev)

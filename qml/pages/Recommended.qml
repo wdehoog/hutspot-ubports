@@ -151,17 +151,15 @@ Page {
                         }
                         Icon {
                             id: clearButton
-                            //height: parent.height
                             width: app.iconSizeMedium
+                            height: width
                             anchors.verticalCenter: parent.verticalCenter
                             //color: app.normalBackgroundColor
                             name: "edit-clear"
                             visible: type >= 0
                             MouseArea {
                                 anchors.fill: parent
-                                onClicked: {
-                                    recommendationData.clearSlot(index)
-                                }
+                                onClicked: deleteSlot(model)
                             }
                         }
                     }
@@ -401,6 +399,12 @@ Page {
             if(ms.selectedItem && ms.selectedItem.name) {
                 recommendationData.addGenre(ms.selectedItem.name)
             }
+        })
+    }
+
+    function deleteSlot(model) {
+        app.showConfirmDialog(i18n.tr("Do you want to remove %1?").arg(model.name), function() {
+               recommendationData.clearSlot(model.index) 
         })
     }
 

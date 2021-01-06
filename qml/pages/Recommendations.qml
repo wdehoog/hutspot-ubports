@@ -316,14 +316,22 @@ Page {
 
 
     function getCoverImage(playlist_id) {
-        console.log("getCoverImage id: " + playlist_id)
         if(!playlist_id)
             return defaultUnlinkedImage
         var url = app.spotifyDataCache.getPlaylistProperty(playlist_id, "image")
-        console.log("getCoverImage url:  " + url)
         if(url)
             return url
         return defaultLinkedImage
+    }
+
+
+    function updateForPlaylist(playlistId) {
+        for(var i=0;i<recommendationsModel.count;i++) {
+            // testing if this will update the ListElement
+            var rs = recommendationsModel.get(i).recommendationSet
+            if(rs.playlist_id && rs.playlist_id == playlistId)
+                recommendationsModel.setProperty(index, "recommendationSet", rs)
+        }
     }
 
     Connections {
@@ -343,11 +351,15 @@ Page {
         }
     }
 
-    /*Connections {
+    Connections {
         target: app
 
         onPlaylistEvent: {
-            listView.forceLayout()
+            switch(event.type) {
+            case Util.PlaylistEventType.ReplacedAllTracks:
+                updateForPlaylist(event.id)
+                break
+            }
         }
-    }*/
+    }
 }
