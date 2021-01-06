@@ -100,14 +100,12 @@ Item {
         _followedPlaylists[playlist.id] = plData
     }
 
-    function triggerUpdatePlaylistImage(playlistId) {
-        Spotify.getPlaylistCoverImage(playlistId, function(error, data) {
-            if(data) {
-                var url = data[0].url
-                var pd = _followedPlaylists.find(playlistId)
-                if(pd)
-                    pd.image = url
-            }
+    function triggerUpdatePlaylistDetails(playlistId) {
+        Spotify.getPlaylist(playlistId, {}, function(error, data) {
+            if(data)
+                updateFollowedPlaylist(data)
+            else
+                console.log("no data for getPlaylist " + playlistId)
         })
     }
 
@@ -204,31 +202,40 @@ Item {
             }
         }
 
+        onPlaylistEvent: {
+            switch(event.type) {
+            case Util.PlaylistEventType.ChangedDetails:
+            case Util.PlaylistEventType.ReplacedAllTracks:
+                triggerUpdatePlaylistDetails(event.playlistId)
+                break
+            }
+        }
+
         onFavoriteEvent: {
             switch(event.type) {
             case Util.SpotifyItemType.Album:
                 if(event.isFavorite)
-                    _savedAlbumsId.insert(event.id, event.uri)
+                    _savedAlbumsId[event.id] = event.uri
                 else
-                    _savedAlbumsId.remove(event.id)
+                    delete _savedAlbumsId[event.id]
                 break
             case Util.SpotifyItemType.Artist:
                 if(event.isFavorite)
-                    _followedArtistsId.insert(event.id, event.uri)
+                    _followedArtistsId[event.id] = event.uri
                 else
-                    _followedArtistsId.remove(event.id)
+                    delete _followedArtistsId[event.id]
                 break
             case Util.SpotifyItemType.Playlist:
                 if(event.isFavorite)
-                    _followedPlaylistsId.insert(event.id, event.uri)
+                    triggerUpdatePlaylistDetails(event.id)
                 else
-                    _followedPlaylistsId.remove(event.id)
+                    delete _followedPlaylists[event.id]
                 break
             case Util.SpotifyItemType.Show:
                 if(event.isFavorite)
-                    _savedShowsId.insert(event.id, event.uri)
+                    _savedShowsId[event.id] = event.uri
                 else
-                    _savedShowsId.remove(event.id)
+                    delete _savedShowsId[event.id]
                 break
             }
         }
