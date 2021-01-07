@@ -8,6 +8,7 @@
 import QtQuick 2.7
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
+import Ubuntu.Components.ListItems 1.3 as UCListItem
 import QtQuick.Controls 2.2 as QtQc
 import QtQuick.Layouts 1.3
 
@@ -65,27 +66,59 @@ Page {
 
         width: parent.width
         anchors.top: parent.top
-        height: parent.height 
+        height: parent.height
+        //headerPositioning: ListView.OverlayHeader does not work
+        //headerPositioning: ListView.PullBackHeader does not work
 
         header: Column {
             id: lvColumn
 
             width: parent.width - 2*app.paddingMedium
             x: app.paddingMedium
-            anchors.bottomMargin: app.paddingLarge
-            spacing: app.paddingLarge
-            enabled: _itemClass <= 1
+
+            //anchors.topMargin: listView.headerPositioning != ListView.InlineHeader
+            //    ? topStuffPage.header.height : 0
+            //enabled: _itemClass <= 1
 
             Row {
                 width: parent.width
                 spacing: app.paddingMedium
-                height: childrenRect.height 
-                Label { 
+                height: childrenRect.height
+                Label {
                     id: tlabel
                     anchors.verticalCenter: parent.verticalCenter
-                    text: i18n.tr("Range") 
+                    text: i18n.tr("Range")
                 }
-                QtQc.ComboBox {
+
+                ComboButton {
+                    id: cbSelector
+                    //anchors.right: parent.right
+                    width: parent.width - tlabel.width - app.paddingLarge
+                    expandedHeight: collapsedHeight + units.gu(1) + cbChoices.length * units.gu(6)
+                    text: cbChoices[currentIndex]
+                    property int currentIndex: -1
+                    property var cbChoices: [
+                        i18n.tr("Short (weeks)"),
+                        i18n.tr("Medium (months)"),
+                        i18n.tr("Long (years)"),
+                    ]
+                    comboList:  UbuntuListView {
+                        delegate: UCListItem.Standard {
+                            text: modelData
+                            selected: model.index == cbSelector.currentIndex
+                            onClicked: {
+                                cbSelector.currentIndex = model.index
+                                rangeClass = index
+                                refresh()
+                                cbSelector.expanded = false
+                            }
+                        }
+                        model: cbSelector.cbChoices
+                    }
+                    Component.onCompleted: currentIndex = rangeClass
+                }
+
+                /*QtQc.ComboBox {
                     id: rangeCombo
                     width: parent.width - tlabel.width - parent.spacing
                     height: pHeader.height * 0.9
@@ -102,19 +135,19 @@ Page {
                         text: modelData
                     }
                     model: [
-                        i18n.tr("Short (weeks)"), 
-                        i18n.tr("Medium (months)"), 
-                        i18n.tr("Long (years)"), 
+                        i18n.tr("Short (weeks)"),
+                        i18n.tr("Medium (months)"),
+                        i18n.tr("Long (years)"),
                     ]
                     onActivated: {
                         rangeClass = index
                         refresh()
                     }
-                }
+                }*/
             }
             Rectangle {
                 width: parent.width
-                height: app.paddingSmall
+                height: app.paddingMedium
                 opacity: 0
             }
         }
@@ -194,7 +227,7 @@ Page {
             return
         _loading = true
 
-        var range = rangeClass == 0 
+        var range = rangeClass == 0
                     ? "short_term"
                     : (rangeClass == 1 ? "medium_term" : "long_term")
         var options = {offset: searchModel.count, limit: cursorHelper.limit, time_range: range}
@@ -241,7 +274,7 @@ Page {
                     _loading = false
                 }
             })
-            break 
+            break
 
         case 2:
             // unfortunately:

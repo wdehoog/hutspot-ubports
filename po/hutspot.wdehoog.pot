@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-07 15:38+0000\n"
+"POT-Creation-Date: 2021-01-07 16:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -419,41 +419,41 @@ msgstr ""
 msgid "Do you want to reset all Recommendations Seeds and Attributes?"
 msgstr ""
 
-#: ../qml/pages/TopStuff.qml:34
+#: ../qml/pages/TopStuff.qml:35
 msgid "Top Tracks"
 msgstr ""
 
-#: ../qml/pages/TopStuff.qml:35
+#: ../qml/pages/TopStuff.qml:36
 msgid "Top Artists"
 msgstr ""
 
-#: ../qml/pages/TopStuff.qml:36
+#: ../qml/pages/TopStuff.qml:37
 msgid "My Recently Played"
 msgstr ""
 
-#: ../qml/pages/TopStuff.qml:42 ../qml/pages/Library.qml:32
+#: ../qml/pages/TopStuff.qml:43 ../qml/pages/Library.qml:32
 #: ../qml/pages/Artist.qml:56
 msgid "next"
 msgstr ""
 
-#: ../qml/pages/TopStuff.qml:47 ../qml/pages/Library.qml:37
+#: ../qml/pages/TopStuff.qml:48 ../qml/pages/Library.qml:37
 #: ../qml/pages/Artist.qml:61
 msgid "previous"
 msgstr ""
 
-#: ../qml/pages/TopStuff.qml:86
+#: ../qml/pages/TopStuff.qml:91
 msgid "Range"
 msgstr ""
 
-#: ../qml/pages/TopStuff.qml:105
+#: ../qml/pages/TopStuff.qml:102
 msgid "Short (weeks)"
 msgstr ""
 
-#: ../qml/pages/TopStuff.qml:106
+#: ../qml/pages/TopStuff.qml:103
 msgid "Medium (months)"
 msgstr ""
 
-#: ../qml/pages/TopStuff.qml:107
+#: ../qml/pages/TopStuff.qml:104
 msgid "Long (years)"
 msgstr ""
 
@@ -584,15 +584,15 @@ msgstr ""
 msgid "External Browser"
 msgstr ""
 
-#: ../qml/pages/Settings.qml:169
+#: ../qml/pages/Settings.qml:165
 msgid "Number of Search History Items to save"
 msgstr ""
 
-#: ../qml/pages/Settings.qml:191
+#: ../qml/pages/Settings.qml:187
 msgid "Number of results per request (limit)"
 msgstr ""
 
-#: ../qml/pages/Settings.qml:211
+#: ../qml/pages/Settings.qml:207
 msgid "Prevent suspending while playing"
 msgstr ""
 

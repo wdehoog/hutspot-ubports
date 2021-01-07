@@ -105,8 +105,6 @@ Page {
                             onClicked: {
                                 authUsingBrowserSelector.currentIndex = model.index
                                 app.settings.authUsingBrowser = model.index
-                                console.log("model.count: " + model.count)
-                                console.log("new authUsingBrowser: " + app.settings.authUsingBrowser)
                                 authUsingBrowserSelector.expanded = false
                             }
                         }
