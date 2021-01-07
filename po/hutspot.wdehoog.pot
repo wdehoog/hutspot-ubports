@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-06 22:27+0000\n"
+"POT-Creation-Date: 2021-01-07 15:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -560,39 +560,39 @@ msgstr ""
 msgid "Edit Details"
 msgstr ""
 
-#: ../qml/pages/Settings.qml:13 ../qml/pages/Menu.qml:44
+#: ../qml/pages/Settings.qml:14 ../qml/pages/Menu.qml:44
 msgid "Settings"
 msgstr ""
 
-#: ../qml/pages/Settings.qml:33
+#: ../qml/pages/Settings.qml:34
 msgid "Confirm Un-Follow/Save"
 msgstr ""
 
-#: ../qml/pages/Settings.qml:46
+#: ../qml/pages/Settings.qml:47
 msgid "Query for Market"
 msgstr ""
 
-#: ../qml/pages/Settings.qml:79
+#: ../qml/pages/Settings.qml:84
 msgid "Authorize using"
 msgstr ""
 
-#: ../qml/pages/Settings.qml:107
+#: ../qml/pages/Settings.qml:97
 msgid "Internal Webview"
 msgstr ""
 
-#: ../qml/pages/Settings.qml:108
+#: ../qml/pages/Settings.qml:98
 msgid "External Browser"
 msgstr ""
 
-#: ../qml/pages/Settings.qml:120
+#: ../qml/pages/Settings.qml:169
 msgid "Number of Search History Items to save"
 msgstr ""
 
-#: ../qml/pages/Settings.qml:142
+#: ../qml/pages/Settings.qml:191
 msgid "Number of results per request (limit)"
 msgstr ""
 
-#: ../qml/pages/Settings.qml:162
+#: ../qml/pages/Settings.qml:211
 msgid "Prevent suspending while playing"
 msgstr ""
 

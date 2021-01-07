@@ -14,7 +14,7 @@ import Ubuntu.Components.ListItems 1.3 as UCListItem
 import QtQuick.Layouts 1.3
 import Qt.labs.settings 1.0 as QLS
 import Qt.labs.platform 1.0 as Platform
-//import QtWebEngine 1.7
+import QtWebEngine 1.7
 import QtQuick.Controls.Suru 2.2
 
 import org.hildon.components 1.0
