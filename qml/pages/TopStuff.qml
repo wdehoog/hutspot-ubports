@@ -60,6 +60,24 @@ Page {
         id: contextMenu
     }
 
+    // When the ComboButton in the ListView header expands the list scolls up.
+    // Unbelievable.
+    // Could not prevent this so now we have a timer that triggers a scroll to the top
+    // (hopefully, since there is no real api for it).
+    // The timer itsef is triggered by the height of the listview of the button.
+    // It's hack on hack on hack. Sorry.
+    Timer {
+      id: scrollToTop
+      interval: 1
+      running: false
+      repeat: false
+      onTriggered: {
+          //console.log("scrollToTop.onTriggered contentY: " + listView.contentY + ", originY: " + listView.originY)
+          listView.contentY = listView.originY - listView.topMargin
+          listView.returnToBounds()
+      }
+    }
+
     ListView {
         id: listView
         model: searchModel
@@ -67,18 +85,16 @@ Page {
         width: parent.width
         anchors.top: parent.top
         height: parent.height
-        //headerPositioning: ListView.OverlayHeader does not work
-        //headerPositioning: ListView.PullBackHeader does not work
+
+        //headerPositioning: ListView.OverlayHeader // does not work
+        //headerPositioning: ListView.PullBackHeader // does not work
+        //onContentYChanged: console.log(originY + ":" + contentY + ":" + headerItem.height)
 
         header: Column {
             id: lvColumn
 
             width: parent.width - 2*app.paddingMedium
             x: app.paddingMedium
-
-            //anchors.topMargin: listView.headerPositioning != ListView.InlineHeader
-            //    ? topStuffPage.header.height : 0
-            //enabled: _itemClass <= 1
 
             Row {
                 width: parent.width
@@ -89,12 +105,11 @@ Page {
                     anchors.verticalCenter: parent.verticalCenter
                     text: i18n.tr("Range")
                 }
-
                 ComboButton {
                     id: cbSelector
                     //anchors.right: parent.right
                     width: parent.width - tlabel.width - app.paddingLarge
-                    expandedHeight: collapsedHeight + units.gu(1) + cbChoices.length * units.gu(6)
+                    //expandedHeight: collapsedHeight + units.gu(1) + cbChoices.length * units.gu(6)
                     text: cbChoices[currentIndex]
                     property int currentIndex: -1
                     property var cbChoices: [
@@ -110,11 +125,30 @@ Page {
                                 cbSelector.currentIndex = model.index
                                 rangeClass = index
                                 refresh()
+                                //listView.interactive = true
                                 cbSelector.expanded = false
                             }
                         }
                         model: cbSelector.cbChoices
                     }
+                    Connections {
+                        //target: cbSelector.combo.__styleInstance.comboListPanel
+                        target: cbSelector.__styleInstance.comboListPanel
+                        onHeightChanged: {
+                            //console.log("onHeightChanged: " + height + " (" + cbSelector.expandedHeight + ")")
+                            if(height >= (cbSelector.expandedHeight*0.9))
+                                scrollToTop.running = true
+                        }
+                    }
+                    /*onExpandedChanged: {
+                        if(expanded)
+                            listView.positionViewAtBeginning()
+                    }*/
+                    /*onClicked: {
+                        listView.interactive = false
+                        expanded = !combo.expanded
+                        forceActiveFocus()
+                    }*/
                     Component.onCompleted: currentIndex = rangeClass
                 }
 

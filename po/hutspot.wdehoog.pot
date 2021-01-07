@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-07 16:55+0000\n"
+"POT-Creation-Date: 2021-01-07 22:03+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -441,19 +441,19 @@ msgstr ""
 msgid "previous"
 msgstr ""
 
-#: ../qml/pages/TopStuff.qml:91
+#: ../qml/pages/TopStuff.qml:104
 msgid "Range"
 msgstr ""
 
-#: ../qml/pages/TopStuff.qml:102
+#: ../qml/pages/TopStuff.qml:114
 msgid "Short (weeks)"
 msgstr ""
 
-#: ../qml/pages/TopStuff.qml:103
+#: ../qml/pages/TopStuff.qml:115
 msgid "Medium (months)"
 msgstr ""
 
-#: ../qml/pages/TopStuff.qml:104
+#: ../qml/pages/TopStuff.qml:116
 msgid "Long (years)"
 msgstr ""
 
