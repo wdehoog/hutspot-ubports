@@ -1,6 +1,7 @@
 import QtQuick 2.7
 import Ubuntu.Components 1.3
 import QtQuick.Controls 2.2 as QtQc
+import Ubuntu.Components.ListItems 1.3 as UCListItem
 
 Page {
     id: settingsPage
@@ -47,31 +48,35 @@ Page {
                     //description: qsTr("Show only content playable in the country associated with the user account")
                 }
                 CheckBox {
-                    id: queryForMarket 
+                    id: queryForMarket
                     anchors.right: parent.right
                     checked: app.settings.queryForMarket
                     onCheckedChanged: app.settings.queryForMarket = checked
                 }
             }
 
-            /*Item {
+            /*Item { setting theme this way results in errors
                 width: parent.width
                 height: childrenRect.height
                 Label {
                     anchors.left: parent.left
-                    text: i18n.tr("Authorize using Browser")
+                    text: i18n.tr("Dark Theme")
                 }
                 CheckBox {
-                    id: authUsingBrowser 
+                    id: theme
                     anchors.right: parent.right
-                    checked: app.settings.authUsingBrowser
-                    onCheckedChanged: app.settings.authUsingBrowser = checked
+                    checked: app.theme.name == 'Ubuntu.Components.Themes.SuruDark'
+                    onCheckedChanged: {
+                        app.theme.name = checked
+                          ? 'Ubuntu.Components.Themes.SuruDark'
+                          : 'Ubuntu.Components.Themes.Ambiance'
+                    }
                 }
             }*/
 
             Item {
                 width: parent.width
-                height: childrenRect.height 
+                height: childrenRect.height
                 Label {
                     id: authUsingBrowserLabel
                     anchors.left: parent.left
@@ -79,7 +84,43 @@ Page {
                     text: i18n.tr("Authorize using")
                 }
 
-                QtQc.ComboBox {
+                ComboButton {
+                    id: authUsingBrowserSelector
+                    anchors.right: parent.right
+                    width: parent.width - authUsingBrowserLabel.width - app.paddingLarge
+                    expandedHeight: collapsedHeight + units.gu(1) + wvChoices.length * units.gu(6)
+                    //text: currentIndex >= 0 ? wvChoices.get(currentIndex).text : ""
+                    //property alias wvChoices: wvChoices
+                    //ListModel { id: wvChoices }
+                    text: wvChoices[currentIndex]
+                    property var wvChoices: [
+                        i18n.tr("Internal Webview"),
+                        i18n.tr("External Browser")
+                    ]
+                    comboList:  UbuntuListView {
+                        delegate: UCListItem.Standard {
+                            text: modelData
+                            selected: model.index == authUsingBrowserSelector.currentIndex
+                            //text: model.text
+                            onClicked: {
+                                authUsingBrowserSelector.currentIndex = model.index
+                                app.settings.authUsingBrowser = model.index
+                                console.log("model.count: " + model.count)
+                                console.log("new authUsingBrowser: " + app.settings.authUsingBrowser)
+                                authUsingBrowserSelector.expanded = false
+                            }
+                        }
+                        model: authUsingBrowserSelector.wvChoices
+                    }
+                    property int currentIndex: -1
+                    Component.onCompleted: {
+                        //wvChoices.append({text: i18n.tr("Internal Webview")})
+                        //wvChoices.append({text: i18n.tr("External Webview")})
+                        currentIndex = app.settings.authUsingBrowser
+                    }
+                }
+
+                /*QtQc.ComboBox {
                     id: authUsingBrowserSelector
                     anchors.right: parent.right
                     width: parent.width - authUsingBrowserLabel.width - app.paddingLarge
@@ -96,9 +137,15 @@ Page {
                         width: authUsingBrowserSelector.width
                         height: authUsingBrowserSelector.height
                         text: modelData
+                        //color: app.foregroundColor
                     }
 
-                    Component.onCompleted: currentIndex = app.settings.authUsingBrowser ? 1 : 0 
+                    Component.onCompleted: {
+                        currentIndex = app.settings.authUsingBrowser ? 1 : 0
+                        //__styleInstance.textColor = app.foregroundColor
+                        //style.textColor = app.foregroundColor
+                    }
+
                     onActivated: {
                         app.settings.authUsingBrowser = currentIndex == 1
                         console.log("new authUsingBrowser: " + app.settings.authUsingBrowser)
@@ -107,7 +154,7 @@ Page {
                         i18n.tr("Internal Webview"),
                         i18n.tr("External Browser")
                     ]
-                }
+                }*/
             }
 
             Item {
