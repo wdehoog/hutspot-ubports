@@ -55,7 +55,9 @@ Page {
                 }
             }
 
-            /*Item { setting theme this way results in errors
+            // setting theme this way results in errors and does not seem to
+            // have an effect on the QtQc controls
+            /*Item {
                 width: parent.width
                 height: childrenRect.height
                 Label {

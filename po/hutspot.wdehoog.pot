@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-08 20:22+0000\n"
+"POT-Creation-Date: 2021-01-08 20:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,7 +26,7 @@ msgid "artist"
 msgstr ""
 
 #: ../qml/components/RecommendationData.qml:85 ../qml/Main.qml:1038
-#: ../qml/pages/Playing.qml:583 ../qml/pages/Album.qml:89
+#: ../qml/pages/Playing.qml:584 ../qml/pages/Album.qml:89
 msgid "track"
 msgstr ""
 
@@ -146,12 +146,12 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: ../qml/components/SearchResultListItem.qml:217 ../qml/pages/Playing.qml:591
-#: ../qml/pages/Playing.qml:597
+#: ../qml/components/SearchResultListItem.qml:217 ../qml/pages/Playing.qml:592
+#: ../qml/pages/Playing.qml:598
 msgid "followers"
 msgstr ""
 
-#: ../qml/components/SearchResultListItem.qml:242 ../qml/pages/Playing.qml:608
+#: ../qml/components/SearchResultListItem.qml:242 ../qml/pages/Playing.qml:609
 #: ../qml/pages/Show.qml:78
 msgid "explicit"
 msgstr ""
@@ -517,38 +517,38 @@ msgstr ""
 msgid "View Playlist"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:512
+#: ../qml/pages/Playing.qml:513
 msgid "no current device"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:551 ../qml/pages/Playing.qml:571
+#: ../qml/pages/Playing.qml:552 ../qml/pages/Playing.qml:572
 #: ../qml/pages/Album.qml:78
 msgid "no artist known"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:554
+#: ../qml/pages/Playing.qml:555
 msgid "no genre known"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:581 ../qml/pages/Playing.qml:594
+#: ../qml/pages/Playing.qml:582 ../qml/pages/Playing.qml:595
 #: ../qml/pages/Album.qml:87
 msgid "tracks"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:595 ../qml/pages/Playing.qml:606
+#: ../qml/pages/Playing.qml:596 ../qml/pages/Playing.qml:607
 #: ../qml/pages/Show.qml:76
 msgid "by"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:599
+#: ../qml/pages/Playing.qml:600
 msgid "public"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:601
+#: ../qml/pages/Playing.qml:602
 msgid "collaborative"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:605 ../qml/pages/Show.qml:75
+#: ../qml/pages/Playing.qml:606 ../qml/pages/Show.qml:75
 msgid "episodes"
 msgstr ""
 
@@ -572,27 +572,27 @@ msgstr ""
 msgid "Query for Market"
 msgstr ""
 
-#: ../qml/pages/Settings.qml:84
+#: ../qml/pages/Settings.qml:86
 msgid "Authorize using"
 msgstr ""
 
-#: ../qml/pages/Settings.qml:97
+#: ../qml/pages/Settings.qml:99
 msgid "Internal Webview"
 msgstr ""
 
-#: ../qml/pages/Settings.qml:98
+#: ../qml/pages/Settings.qml:100
 msgid "External Browser"
 msgstr ""
 
-#: ../qml/pages/Settings.qml:165
+#: ../qml/pages/Settings.qml:167
 msgid "Number of Search History Items to save"
 msgstr ""
 
-#: ../qml/pages/Settings.qml:187
+#: ../qml/pages/Settings.qml:189
 msgid "Number of results per request (limit)"
 msgstr ""
 
-#: ../qml/pages/Settings.qml:207
+#: ../qml/pages/Settings.qml:209
 msgid "Prevent suspending while playing"
 msgstr ""
 
@@ -680,55 +680,55 @@ msgstr ""
 msgid "Queries Maintenance"
 msgstr ""
 
-#: ../qml/pages/Search.qml:140
+#: ../qml/pages/Search.qml:135
 msgid "Add Filter"
 msgstr ""
 
-#: ../qml/pages/Search.qml:142
+#: ../qml/pages/Search.qml:137
 msgid "album:"
 msgstr ""
 
-#: ../qml/pages/Search.qml:143
+#: ../qml/pages/Search.qml:138
 msgid "artist:"
 msgstr ""
 
-#: ../qml/pages/Search.qml:144
+#: ../qml/pages/Search.qml:139
 msgid "genre:"
 msgstr ""
 
-#: ../qml/pages/Search.qml:145
+#: ../qml/pages/Search.qml:140
 msgid "track:"
 msgstr ""
 
-#: ../qml/pages/Search.qml:146
+#: ../qml/pages/Search.qml:141
 msgid "year:"
 msgstr ""
 
-#: ../qml/pages/Search.qml:181
+#: ../qml/pages/Search.qml:176
 msgid "In"
 msgstr ""
 
-#: ../qml/pages/Search.qml:188
+#: ../qml/pages/Search.qml:183
 msgid "Albums"
 msgstr ""
 
-#: ../qml/pages/Search.qml:189
+#: ../qml/pages/Search.qml:184
 msgid "Artists"
 msgstr ""
 
-#: ../qml/pages/Search.qml:190 ../qml/pages/Library.qml:23
+#: ../qml/pages/Search.qml:185 ../qml/pages/Library.qml:23
 msgid "Playlists"
 msgstr ""
 
-#: ../qml/pages/Search.qml:191
+#: ../qml/pages/Search.qml:186
 msgid "Tracks"
 msgstr ""
 
-#: ../qml/pages/Search.qml:192
+#: ../qml/pages/Search.qml:187
 msgid "Episodes"
 msgstr ""
 
-#: ../qml/pages/Search.qml:193
+#: ../qml/pages/Search.qml:188
 msgid "Shows"
 msgstr ""
 

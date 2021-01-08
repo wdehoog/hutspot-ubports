@@ -249,7 +249,7 @@ Page {
                     onThirdLabelClicked: openMenu()
 
                     function openMenu() {
-                        updateContextMenu()             
+                        updateContextMenu()
                         PopupUtils.open(contextMenu, info)
                     }
                 }
@@ -408,7 +408,8 @@ Page {
 
                 Button {
                     width: buttonRow.itemWidth
-                    color: app.controller.playbackState.shuffle_state ? "#E5E4E2" : "white" 
+                    color: app.controller.playbackState.shuffle_state
+                           ? "#E5E4E2" : app.bgColor //: "white"
                     action: Action {
                         iconName: "media-playlist-shuffle"
                         onTriggered: app.controller.setShuffle(!app.controller.playbackState.shuffle_state)
@@ -417,7 +418,7 @@ Page {
 
                 Button {
                     width: buttonRow.itemWidth
-                    color: "white"
+                    color: app.bgColor
                     //enabled: app.mprisPlayer.canGoPrevious
                     action: Action {
                         iconName: "media-skip-backward"
@@ -426,7 +427,7 @@ Page {
                 }
                 Button {
                     width: buttonRow.itemWidth
-                    color: "white"
+                    color: app.bgColor
                     action: Action {
                         iconName: app.controller.playbackState.is_playing
                                  ? "media-playback-pause"
@@ -436,7 +437,7 @@ Page {
                 }
                 Button {
                     width: buttonRow.itemWidth
-                    color: "white"
+                    color: app.bgColor
                     //enabled: app.mprisPlayer.canGoNext
                     action: Action {
                         iconName: "media-skip-forward"
@@ -466,12 +467,12 @@ Page {
                     }*/
 
                     width: buttonRow.itemWidth
-                    color: app.controller.playbackState.repeat_state == "off" 
-                           ? "white" 
-                           : "#E5E4E2"  
+                    color: app.controller.playbackState.repeat_state == "off"
+                           ? app.bgColor
+                           : "#E5E4E2"
                            //   : "#BCC6CC") // white/platinum/metallic silver
                     action: Action {
-                        iconName: app.controller.playbackState.repeat_state == "track" 
+                        iconName: app.controller.playbackState.repeat_state == "track"
                                   ? "media-playlist-repeat-one"
                                   : "media-playlist-repeat"
                         onTriggered: app.controller.setRepeat(app.controller.nextRepeatState())
@@ -781,7 +782,7 @@ Page {
             // do we have an id?
             if(currentId == "" && app.controller.playbackState.context)
                 currentId = app.controller.playbackState.context.id
-                
+
             if(currentTrackId === app.controller.playbackState.item.id) {
                 if(currentIndex === -1) // we can still miss it
                     updateForCurrentTrack()
@@ -1032,7 +1033,7 @@ Page {
             switch(event.type) {
             case Util.PlaylistEventType.AddedTrack:
                 // in theory it has been added at the end of the list
-                // so we could load the info and add it to the model but ...                
+                // so we could load the info and add it to the model but ...
                 if(app.controller.playbackState.is_playing) {
                     waitForEndOfSnapshot = true
                     waitForEndSnapshotData.uri = event.uri
@@ -1072,8 +1073,8 @@ Page {
 
     Component.onCompleted: {
         // do we have an id?
-        if(currentId == "" 
-           && app.controller.playbackState 
+        if(currentId == ""
+           && app.controller.playbackState
            && app.controller.playbackState.context)
             currentId = app.controller.playbackState.context.id
     }

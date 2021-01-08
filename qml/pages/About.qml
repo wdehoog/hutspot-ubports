@@ -88,7 +88,7 @@ Page {
                         anchors.horizontalCenter: parent.horizontalCenter
                         //font.pixelSize: Theme.fontSizeExtraSmall
                         //: I doubt this needs to be translated
-                        text: i18n.tr("Copyright (C) 2020")
+                        text: i18n.tr("Copyright (C) 2021")
                         width: parent.width
                     }
                     Label {

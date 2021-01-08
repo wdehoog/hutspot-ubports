@@ -37,7 +37,7 @@ Page {
         searchHistoryModel.clear()
         //console.log("reloadSearchHistoryModel: " + app.settings.searchHistory)
         var data = JSON.parse(app.settings.searchHistory)
-        for(var i=0;i<data.length;i++) 
+        for(var i=0;i<data.length;i++)
             searchHistoryModel.append({query: data[i]})
     }
 
@@ -74,59 +74,54 @@ Page {
 
         width: parent.width
         anchors.top: parent.top
-        height: parent.height 
+        height: parent.height
 
         header: Component {
             Column {
                 width: parent.width - 2*app.paddingMedium
                 x: app.paddingMedium
-                spacing: app.paddingMedium 
-                Row {
-                    width: parent.width
-                    spacing: app.paddingMedium
-                    height: childrenRect.height 
-                    QtQc.ComboBox {
-                        id: searchCombo
-                        width: parent.width //- parent.spacing - tlabel.width 
-                        height: pHeader.height * 0.9
-                        editable: true
-                        model: searchHistoryModel
-                        onAccepted: {
-                            searchString = editText.toLowerCase().trim()
-                            refresh()
-                            app.settings.searchHistory = 
-                                updateSearchHistory(
-                                    editText,
-                                    app.settings.searchHistory,
-                                    app.settings.searchHistoryMaxSize)                         
-                            reloadSearchHistoryModel()
+                spacing: app.paddingMedium
+                QtQc.ComboBox {
+                    id: searchCombo
+                    width: parent.width //- parent.spacing - tlabel.width
+                    height: pHeader.height * 0.9
+                    editable: true
+                    model: searchHistoryModel
+                    onAccepted: {
+                        searchString = editText.toLowerCase().trim()
+                        refresh()
+                        app.settings.searchHistory =
+                            updateSearchHistory(
+                                editText,
+                                app.settings.searchHistory,
+                                app.settings.searchHistoryMaxSize)
+                        reloadSearchHistoryModel()
+                    }
+                    onActivated: {
+                        var selectedText = model.get(index).query
+                        editText = selectedText
+                        accepted()
+                        editText = selectedText // why is this needed?
+                    }
+                    function insert(txt) {
+                        /*var newContent
+                        var newIndex
+                        if(cursorIndex == -1) {
+                            newContent = editText + " " + txt
+                            newIndex = newContent.length
+                        } else {
+                            newContent = editText.substr(0, cursorIndex)
+                            newContent += " " + txt
+                            newIndex = newContent.length
+                            var rest = editText.substr(cursorIndex)
+                            if(rest.length > 0)
+                                newContent += " " + rest
                         }
-                        onActivated: {
-                            var selectedText = model.get(index).query
-                            editText = selectedText
-                            accepted()
-                            editText = selectedText // why is this needed?
-                        }
-                        function insert(txt) {
-                            /*var newContent
-                            var newIndex
-                            if(cursorIndex == -1) {
-                                newContent = editText + " " + txt
-                                newIndex = newContent.length
-                            } else {
-                                newContent = editText.substr(0, cursorIndex)
-                                newContent += " " + txt
-                                newIndex = newContent.length
-                                var rest = editText.substr(cursorIndex)
-                                if(rest.length > 0)
-                                    newContent += " " + rest
-                            }
-                            editText = newContent
-                            cursorIndex = newIndex
-                            */
-                            editText = editText + " " + txt
-                            focus = true
-                        }
+                        editText = newContent
+                        cursorIndex = newIndex
+                        */
+                        editText = editText + " " + txt
+                        focus = true
                     }
                 }
                 Row {
@@ -138,12 +133,12 @@ Page {
                         width: parent.width - 2*parent.spacing - notButton.width - orButton.width
                         height: pHeader.height * 0.9
                         displayText: i18n.tr("Add Filter")
-                        model: [ 
-                            i18n.tr("album:"), 
-                            i18n.tr("artist:"), 
-                            i18n.tr("genre:"), 
-                            i18n.tr("track:"), 
-                            i18n.tr("year:") 
+                        model: [
+                            i18n.tr("album:"),
+                            i18n.tr("artist:"),
+                            i18n.tr("genre:"),
+                            i18n.tr("track:"),
+                            i18n.tr("year:")
                         ]
                         onActivated: {
                           searchCombo.insert(model[index])
@@ -174,23 +169,23 @@ Page {
                 Row {
                     width: parent.width
                     spacing: app.paddingMedium
-                    height: childrenRect.height 
-                    Label { 
+                    height: childrenRect.height
+                    Label {
                         id: label
                         anchors.verticalCenter: parent.verticalCenter
-                        text: i18n.tr("In") 
+                        text: i18n.tr("In")
                     }
                     QtQc.ComboBox {
                         id: itemClassCombo
                         width: parent.width - label.width - parent.spacing
                         height: pHeader.height * 0.9
-                        model: [ 
-                            i18n.tr("Albums"), 
-                            i18n.tr("Artists"), 
-                            i18n.tr("Playlists"), 
-                            i18n.tr("Tracks"), 
-                            i18n.tr("Episodes"), 
-                            i18n.tr("Shows"), 
+                        model: [
+                            i18n.tr("Albums"),
+                            i18n.tr("Artists"),
+                            i18n.tr("Playlists"),
+                            i18n.tr("Tracks"),
+                            i18n.tr("Episodes"),
+                            i18n.tr("Shows"),
                         ]
                         onActivated: {
                           setItemClass(index)
