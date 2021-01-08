@@ -4,6 +4,7 @@
 #include <QString>
 #include <QQuickView>
 #include <QQmlContext>
+#include <QQuickStyle>
 
 //#include <QTranslator>
 //#include <QDebug>
@@ -20,6 +21,8 @@ int main(int argc, char *argv[])
 {
     QGuiApplication *app = new QGuiApplication(argc, (char**)argv);
  
+    QQuickStyle::setStyle("Suru");
+
     // what should the real values be? hutspot.wdehoog?
     QCoreApplication::setApplicationName("hutspot.wdehoog");
     QCoreApplication::setOrganizationName("hutspot.wdehoog");

@@ -132,7 +132,6 @@ Page {
                         model: cbSelector.cbChoices
                     }
                     Connections {
-                        //target: cbSelector.combo.__styleInstance.comboListPanel
                         target: cbSelector.__styleInstance.comboListPanel
                         onHeightChanged: {
                             //console.log("onHeightChanged: " + height + " (" + cbSelector.expandedHeight + ")")
@@ -140,44 +139,9 @@ Page {
                                 scrollToTop.running = true
                         }
                     }
-                    /*onExpandedChanged: {
-                        if(expanded)
-                            listView.positionViewAtBeginning()
-                    }*/
-                    /*onClicked: {
-                        listView.interactive = false
-                        expanded = !combo.expanded
-                        forceActiveFocus()
-                    }*/
                     Component.onCompleted: currentIndex = rangeClass
                 }
 
-                /*QtQc.ComboBox {
-                    id: rangeCombo
-                    width: parent.width - tlabel.width - parent.spacing
-                    height: pHeader.height * 0.9
-                    indicator.width: height
-                    background: Rectangle {
-                        color: app.normalBackgroundColor
-                        border.width: 1
-                        border.color: "grey"
-                        radius: 7
-                    }
-                    delegate: QtQc.ItemDelegate {
-                        width: rangeCombo.width
-                        height: rangeCombo.height
-                        text: modelData
-                    }
-                    model: [
-                        i18n.tr("Short (weeks)"),
-                        i18n.tr("Medium (months)"),
-                        i18n.tr("Long (years)"),
-                    ]
-                    onActivated: {
-                        rangeClass = index
-                        refresh()
-                    }
-                }*/
             }
             Rectangle {
                 width: parent.width
@@ -190,7 +154,6 @@ Page {
             id: listItem
             width: parent.width - 2*app.paddingMedium
             x: app.paddingMedium
-            //contentHeight: app.itemSizeLarge
 
             SearchResultListItem {
                 id: searchResultListItem

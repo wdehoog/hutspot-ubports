@@ -86,7 +86,7 @@ Item {
                         anchors.verticalCenter: parent.verticalCenter
                         width: row.itemWidth * 0.8
                         height: width
-                        color: "white"
+                        color: app.bgColor
                         // enabled: app.mprisPlayer.canGoPrevious
                         action: Action {
                             iconName: "media-skip-backward"
@@ -97,7 +97,7 @@ Item {
                         anchors.verticalCenter: parent.verticalCenter
                         width: row.itemWidth * 0.9
                         height: width
-                        color: "white"
+                        color: app.bgColor
                         action: Action {
                             iconName: app.controller.playbackState.is_playing
                                          ? "media-playback-pause"
@@ -109,7 +109,7 @@ Item {
                         anchors.verticalCenter: parent.verticalCenter
                         width: row.itemWidth * 0.8
                         height: width
-                        color: "white"
+                        color: app.bgColor
                         action: Action {
                             iconName: "media-skip-forward"
                             onTriggered: app.controller.next()
@@ -123,7 +123,7 @@ Item {
                 width: row.itemWidth * 0.8
                 height: width
                 visible: showHomeButton
-                color: "white"
+                color: app.bgColor
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
                 action: Action {

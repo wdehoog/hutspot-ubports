@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-07 22:03+0000\n"
+"POT-Creation-Date: 2021-01-08 20:22+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -441,19 +441,19 @@ msgstr ""
 msgid "previous"
 msgstr ""
 
-#: ../qml/pages/TopStuff.qml:104
+#: ../qml/pages/TopStuff.qml:106
 msgid "Range"
 msgstr ""
 
-#: ../qml/pages/TopStuff.qml:114
+#: ../qml/pages/TopStuff.qml:116
 msgid "Short (weeks)"
 msgstr ""
 
-#: ../qml/pages/TopStuff.qml:115
+#: ../qml/pages/TopStuff.qml:117
 msgid "Medium (months)"
 msgstr ""
 
-#: ../qml/pages/TopStuff.qml:116
+#: ../qml/pages/TopStuff.qml:118
 msgid "Long (years)"
 msgstr ""
 
@@ -680,55 +680,55 @@ msgstr ""
 msgid "Queries Maintenance"
 msgstr ""
 
-#: ../qml/pages/Search.qml:158
+#: ../qml/pages/Search.qml:140
 msgid "Add Filter"
 msgstr ""
 
-#: ../qml/pages/Search.qml:171
+#: ../qml/pages/Search.qml:142
 msgid "album:"
 msgstr ""
 
-#: ../qml/pages/Search.qml:172
+#: ../qml/pages/Search.qml:143
 msgid "artist:"
 msgstr ""
 
-#: ../qml/pages/Search.qml:173
+#: ../qml/pages/Search.qml:144
 msgid "genre:"
 msgstr ""
 
-#: ../qml/pages/Search.qml:174
+#: ../qml/pages/Search.qml:145
 msgid "track:"
 msgstr ""
 
-#: ../qml/pages/Search.qml:175
+#: ../qml/pages/Search.qml:146
 msgid "year:"
 msgstr ""
 
-#: ../qml/pages/Search.qml:210
+#: ../qml/pages/Search.qml:181
 msgid "In"
 msgstr ""
 
-#: ../qml/pages/Search.qml:229
+#: ../qml/pages/Search.qml:188
 msgid "Albums"
 msgstr ""
 
-#: ../qml/pages/Search.qml:230
+#: ../qml/pages/Search.qml:189
 msgid "Artists"
 msgstr ""
 
-#: ../qml/pages/Search.qml:231 ../qml/pages/Library.qml:23
+#: ../qml/pages/Search.qml:190 ../qml/pages/Library.qml:23
 msgid "Playlists"
 msgstr ""
 
-#: ../qml/pages/Search.qml:232
+#: ../qml/pages/Search.qml:191
 msgid "Tracks"
 msgstr ""
 
-#: ../qml/pages/Search.qml:233
+#: ../qml/pages/Search.qml:192
 msgid "Episodes"
 msgstr ""
 
-#: ../qml/pages/Search.qml:234
+#: ../qml/pages/Search.qml:193
 msgid "Shows"
 msgstr ""
 

@@ -85,27 +85,10 @@ Page {
                     width: parent.width
                     spacing: app.paddingMedium
                     height: childrenRect.height 
-                    /*Label { 
-                        id: tlabel
-                        anchors.verticalCenter: parent.verticalCenter
-                        text: i18n.tr("Search") 
-                    }*/
                     QtQc.ComboBox {
                         id: searchCombo
                         width: parent.width //- parent.spacing - tlabel.width 
                         height: pHeader.height * 0.9
-                        indicator.width: height
-                        background: Rectangle {
-                            color: app.normalBackgroundColor
-                            border.width: 1
-                            border.color: "grey"
-                            radius: 7
-                        }
-                        delegate: QtQc.ItemDelegate {
-                            width: searchCombo.width
-                            height: searchCombo.height
-                            text: modelData
-                        }
                         editable: true
                         model: searchHistoryModel
                         onAccepted: {
@@ -154,19 +137,7 @@ Page {
                         id: filterCombo
                         width: parent.width - 2*parent.spacing - notButton.width - orButton.width
                         height: pHeader.height * 0.9
-                        indicator.width: height
                         displayText: i18n.tr("Add Filter")
-                        background: Rectangle {
-                            color: app.normalBackgroundColor
-                            border.width: 1
-                            border.color: "grey"
-                            radius: 7
-                        }
-                        delegate: QtQc.ItemDelegate {
-                            width: filterCombo.width
-                            height: filterCombo.height
-                            text: modelData
-                        }
                         model: [ 
                             i18n.tr("album:"), 
                             i18n.tr("artist:"), 
@@ -213,18 +184,6 @@ Page {
                         id: itemClassCombo
                         width: parent.width - label.width - parent.spacing
                         height: pHeader.height * 0.9
-                        indicator.width: height
-                        background: Rectangle {
-                            color: app.normalBackgroundColor
-                            border.width: 1
-                            border.color: "grey"
-                            radius: 7
-                        }
-                        delegate: QtQc.ItemDelegate {
-                            width: itemClassCombo.width
-                            height: itemClassCombo.height
-                            text: modelData
-                        }
                         model: [ 
                             i18n.tr("Albums"), 
                             i18n.tr("Artists"), 
