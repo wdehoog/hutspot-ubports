@@ -74,12 +74,12 @@ Page {
                 enabled: searchModel.count > 0
                 onTriggered: refresh()
             },
-            Action {
+            /*Action {
                 text: i18n.tr("Import into Playlist")
                 iconName: "import"
                 enabled: searchModel.count > 0
                 onTriggered: importIntoPlaylist()
-            },
+            },*/
             Action {
                 text: i18n.tr("Save")
                 iconName: "document-save"
@@ -408,7 +408,7 @@ Page {
         })
     }
 
-    function importIntoPlaylist() {
+    /*function importIntoPlaylist() {
         if(searchModel.count <= 0)
             return
         app.showConfirmDialog(i18n.tr("Do you want to replace the tracks in the Hutspot Recommendations playlist with these results?"),
@@ -428,7 +428,7 @@ Page {
                 })
             }
         )
-    }
+    }*/
 
     function resetSeedsAndAttributes() {
         app.showConfirmDialog(i18n.tr("Do you want to reset all Recommendations Seeds and Attributes?"),
