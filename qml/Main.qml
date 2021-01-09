@@ -1528,12 +1528,12 @@ MainView {
         settings.recommendationsData = JSON.stringify(recommendationSets)
     }
 
-    function isPlaylistLinked(playlistId) {
+    function getRecommendationSetForPlaylist(playlistId) {
         var rs = recommendationSets
         for(var i=0;i<rs.length;i++)
-            if(rs[index].playlist_id === playlistId)
-                return true
-        return false
+            if(rs[i].playlist_id === playlistId)
+                return i
+        return -1
     }
 
     function addTrackToRecommendationSet(artist) {
