@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-09 11:11+0000\n"
+"POT-Creation-Date: 2021-01-09 16:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,11 +21,11 @@ msgstr ""
 msgid "There is a resume point available for this Epsidode: "
 msgstr ""
 
-#: ../qml/components/RecommendationData.qml:84 ../qml/Main.qml:1036
+#: ../qml/components/RecommendationData.qml:84 ../qml/Main.qml:1037
 msgid "artist"
 msgstr ""
 
-#: ../qml/components/RecommendationData.qml:85 ../qml/Main.qml:1038
+#: ../qml/components/RecommendationData.qml:85 ../qml/Main.qml:1039
 #: ../qml/pages/Playing.qml:584 ../qml/pages/Album.qml:89
 msgid "track"
 msgstr ""
@@ -102,14 +102,14 @@ msgstr ""
 #: ../qml/components/CreatePlaylist.qml:34
 #: ../qml/components/PlaylistPicker.qml:38 ../qml/components/Librespot.qml:414
 #: ../qml/components/GenrePicker.qml:36 ../qml/components/ArtistPicker.qml:35
-#: ../qml/Main.qml:1108 ../qml/Main.qml:1574
-#: ../qml/pages/Recommendations.qml:310
+#: ../qml/Main.qml:1109 ../qml/Main.qml:1607
+#: ../qml/pages/Recommendations.qml:297
 msgid "Cancel"
 msgstr ""
 
 #: ../qml/components/CreatePlaylist.qml:41
 #: ../qml/components/PlaylistPicker.qml:45 ../qml/components/GenrePicker.qml:43
-#: ../qml/components/ArtistPicker.qml:42 ../qml/Main.qml:1566
+#: ../qml/components/ArtistPicker.qml:42 ../qml/Main.qml:1599
 msgid "Select"
 msgstr ""
 
@@ -200,8 +200,8 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-#: ../qml/components/Librespot.qml:404 ../qml/Main.qml:1056
-#: ../qml/Main.qml:1117
+#: ../qml/components/Librespot.qml:404 ../qml/Main.qml:1057
+#: ../qml/Main.qml:1118
 msgid "Ok"
 msgstr ""
 
@@ -239,100 +239,100 @@ msgid ""
 "Playing page is already loaded. Go back to it and discard the pages on top?"
 msgstr ""
 
-#: ../qml/Main.qml:424
+#: ../qml/Main.qml:425
 msgid "Failed to Refresh Authorization Token"
 msgstr ""
 
-#: ../qml/Main.qml:503
+#: ../qml/Main.qml:504
 msgid "Edit Playlist Details"
 msgstr ""
 
-#: ../qml/Main.qml:530
+#: ../qml/Main.qml:531
 msgid "Select a Playlist"
 msgstr ""
 
-#: ../qml/Main.qml:552
+#: ../qml/Main.qml:553
 msgid "Please confirm removing<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:715
+#: ../qml/Main.qml:716
 msgid "Please confirm to unfollow playlist:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:741
+#: ../qml/Main.qml:742
 msgid "Please confirm to unfollow artist:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:772
+#: ../qml/Main.qml:773
 msgid "Please confirm to un-save album:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:803
+#: ../qml/Main.qml:804
 msgid "Please confirm to un-save show:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:829
+#: ../qml/Main.qml:830
 msgid "Please confirm to un-save track:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:943
+#: ../qml/Main.qml:944
 msgid "Failed to fetch Show"
 msgstr ""
 
-#: ../qml/Main.qml:1011
+#: ../qml/Main.qml:1012
 msgid "Failed to fetch full "
 msgstr ""
 
-#: ../qml/Main.qml:1021
+#: ../qml/Main.qml:1022
 msgid "View an Artist"
 msgstr ""
 
-#: ../qml/Main.qml:1035 ../qml/Main.qml:1037
+#: ../qml/Main.qml:1036 ../qml/Main.qml:1038
 msgid "album"
 msgstr ""
 
-#: ../qml/Main.qml:1039
+#: ../qml/Main.qml:1040
 msgid "episode"
 msgstr ""
 
-#: ../qml/Main.qml:1040
+#: ../qml/Main.qml:1041
 msgid "show"
 msgstr ""
 
-#: ../qml/Main.qml:1041
+#: ../qml/Main.qml:1042
 msgid "unknown type"
 msgstr ""
 
-#: ../qml/Main.qml:1072
+#: ../qml/Main.qml:1073
 msgid "Error"
 msgstr ""
 
-#: ../qml/Main.qml:1135
+#: ../qml/Main.qml:1136
 msgid "Confirm"
 msgstr ""
 
-#: ../qml/Main.qml:1145
+#: ../qml/Main.qml:1146
 msgid "Failed to transfer to"
 msgstr ""
 
-#: ../qml/Main.qml:1419
+#: ../qml/Main.qml:1420
 msgid ""
 "Refreshing Tracks in Playlist succeeded. Do you want to start playing %1?"
 msgstr ""
 
-#: ../qml/Main.qml:1425
+#: ../qml/Main.qml:1426
 msgid "Failed to update Playlist for %1"
 msgstr ""
 
-#: ../qml/Main.qml:1433
+#: ../qml/Main.qml:1434
 msgid "No Recommended Tracks for "
 msgstr ""
 
-#: ../qml/Main.qml:1543
+#: ../qml/Main.qml:1576
 msgid "Select Recommendation Set"
 msgstr ""
 
-#: ../qml/Main.qml:1550
+#: ../qml/Main.qml:1583
 msgid "Sets"
 msgstr ""
 
@@ -350,10 +350,6 @@ msgstr ""
 
 #: ../qml/pages/Recommended.qml:72
 msgid "Reload"
-msgstr ""
-
-#: ../qml/pages/Recommended.qml:78
-msgid "Import into Playlist"
 msgstr ""
 
 #: ../qml/pages/Recommended.qml:84
@@ -395,24 +391,6 @@ msgstr ""
 
 #: ../qml/pages/Recommended.qml:406
 msgid "Do you want to remove %1?"
-msgstr ""
-
-#: ../qml/pages/Recommended.qml:414
-msgid ""
-"Do you want to replace the tracks in the Hutspot Recommendations playlist "
-"with these results?"
-msgstr ""
-
-#: ../qml/pages/Recommended.qml:421
-msgid "Playlist for Hutspot to store recommended tracks"
-msgstr ""
-
-#: ../qml/pages/Recommended.qml:422
-msgid "store recommended tracks"
-msgstr ""
-
-#: ../qml/pages/Recommended.qml:425
-msgid "Replacing tracks succeeded. Do you want to start playing %1?"
 msgstr ""
 
 #: ../qml/pages/Recommended.qml:434
@@ -473,7 +451,7 @@ msgstr ""
 msgid "Link to Playlist"
 msgstr ""
 
-#: ../qml/pages/Recommendations.qml:83 ../qml/pages/Recommendations.qml:288
+#: ../qml/pages/Recommendations.qml:83 ../qml/pages/Recommendations.qml:275
 msgid "Rename"
 msgstr ""
 
@@ -493,19 +471,19 @@ msgstr ""
 msgid "#seeds: %1, use attributes: %2"
 msgstr ""
 
-#: ../qml/pages/Recommendations.qml:214
+#: ../qml/pages/Recommendations.qml:200
 msgid "Do you want to delete<br>%1?"
 msgstr ""
 
-#: ../qml/pages/Recommendations.qml:259
+#: ../qml/pages/Recommendations.qml:246
 msgid "Select Playlist to Link to"
 msgstr ""
 
-#: ../qml/pages/Recommendations.qml:267
+#: ../qml/pages/Recommendations.qml:254
 msgid "Do you want to update the tracks of linked playlist for<br><b>%1</b>"
 msgstr ""
 
-#: ../qml/pages/Recommendations.qml:301
+#: ../qml/pages/Recommendations.qml:288
 msgid "Change"
 msgstr ""
 

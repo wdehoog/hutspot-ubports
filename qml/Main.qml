@@ -342,6 +342,7 @@ MainView {
         //console.log(Platform.StandardPaths.writableLocation(Platform.StandardPaths.DataLocation))
         //console.log(Platform.StandardPaths.writableLocation(Platform.StandardPaths.AppDataLocation))
         //console.log(Platform.StandardPaths.writableLocation(Platform.StandardPaths.AppLocalDataLocation))
+        initRecommendationSets()
     }
 
     function onTokenLost() {
@@ -1502,10 +1503,42 @@ MainView {
     //
     //
     //
+    property var recommendationSets: []
+
+    function initRecommendationSets() {
+        recommendationSets = JSON.parse(app.settings.recommendationsData)
+        if(!Util.isArray(recommendationsData)) {
+            app.showErrorMessage(undefined, "Invalid Recommendations Data. Will discard it.")
+            recommendationSets = []
+        }
+    }
+
+    function addRecommendationSet(rs) {
+        recommendationSets.push(rs)
+        settings.recommendationsData = JSON.stringify(recommendationSets)
+    }
+
+    function removeRecommendationSet(index) {
+        recommendationSets.splice(index, 1)
+        settings.recommendationsData = JSON.stringify(recommendationSets)
+    }
+
+    function updateRecommendationSet(index, rs) {
+        recommendationSets[index] = rs
+        settings.recommendationsData = JSON.stringify(recommendationSets)
+    }
+
+    function isPlaylistLinked(playlistId) {
+        var rs = recommendationSets
+        for(var i=0;i<rs.length;i++)
+            if(rs[index].playlist_id === playlistId)
+                return true
+        return false
+    }
 
     function addTrackToRecommendationSet(artist) {
         rsComboModel.clear()
-        var rs = JSON.parse(app.settings.recommendationsData)
+        var rs = recommendationSets
         for(var i=0;i<rs.length;i++)
             rsComboModel.append({name: rs[i].name})
         var dialog = PopupUtils.open(selectRecommendationSetDialog)
@@ -1519,7 +1552,7 @@ MainView {
 
     function addArtistToRecommendationSet(artist) {
         rsComboModel.clear()
-        var rs = JSON.parse(app.settings.recommendationsData)
+        var rs = recommendationSets
         for(var i=0;i<rs.length;i++)
             rsComboModel.append({name: rs[i].name})
         var dialog = PopupUtils.open(selectRecommendationSetDialog)

@@ -169,19 +169,12 @@ Page {
 
     function refresh() {
         recommendationsModel.clear()
-        loadRecommendationsData(app.settings.recommendationsData)
+        loadRecommendationsData()
     }
 
-    function loadRecommendationsData(recommendationsData) {
-        //console.log("load: " + recommendationsData)
-        var rs = JSON.parse(recommendationsData)
-        if(!Util.isArray(rs)) {
-            app.showErrorMessage(undefined, "Invalid Recommendations Data")
-            return
-        }
-
-        var i
-        for(i=0;i<rs.length;i++) {
+    function loadRecommendationsData() {
+        var rs = app.recommendationSets
+        for(var i=0;i<rs.length;i++) {
             // if we don't have cache info the playlist is probably deleted
             // and user will have to relink
             var uri = spotifyDataCache.getPlaylistProperty(rs[i].playlist_id, "uri")
@@ -189,14 +182,6 @@ Page {
                 rs[i].playlist_id = undefined
             recommendationsModel.append({recommendationSet: rs[i]})
         }
-    }
-
-    function saveTosettings() {
-        var rs = [recommendationsModel.count]
-        for(var i=0;i<recommendationsModel.count;i++)
-            rs[i] = recommendationsModel.get(i).recommendationSet
-        //console.log("save: " + JSON.stringify(rs))
-        app.settings.recommendationsData = JSON.stringify(rs)
     }
 
     function addNewSet() {
@@ -207,14 +192,15 @@ Page {
             use_attributes: false
         }
         recommendationsModel.append({recommendationSet: rs})
-        saveTosettings()
+        app.addRecommendationSet(rs)
     }
 
     function deleteSet(model) {
+        var index = model.index
         app.showConfirmDialog(i18n.tr("Do you want to delete<br>%1?".arg(model.recommendationSet.name)),
             function() {
-                recommendationsModel.remove(model.index)
-                saveTosettings()
+                recommendationsModel.remove(index)
+                app.removeRecommendationSet(index)
             }
         )
     }
@@ -229,7 +215,8 @@ Page {
         // this works
         recommendationsModel.remove(index, 1)
         recommendationsModel.insert(index, {recommendationSet: rs})
-        saveTosettings()
+
+        app.updateRecommendationSet(index, rs)
     }
 
     function editSet(model) {
@@ -339,7 +326,7 @@ Page {
 
         onSpotifyDataCacheReady: {
             showBusy = false
-            loadRecommendationsData(app.settings.recommendationsData)
+            loadRecommendationsData()
         }
 
         onPlaylistDetailsUpdated: {
@@ -358,7 +345,7 @@ Page {
         // we need the cache
         if(app.spotifyDataCache.ready) {
             showBusy = false
-            loadRecommendationsData(app.settings.recommendationsData)
+            loadRecommendationsData()
         }
     }
 
