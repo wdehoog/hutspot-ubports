@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2020 Willem-Jan de Hoog
+ * Copyright (C) 2021 Willem-Jan de Hoog
  *
  * License: MIT
  */
@@ -340,6 +340,17 @@ Page {
         onSpotifyDataCacheReady: {
             showBusy = false
             loadRecommendationsData(app.settings.recommendationsData)
+        }
+
+        onPlaylistDetailsUpdated: {
+            for(var i=0;i<recommendationsModel.count;i++) {
+                var rs = recommendationsModel.get(i).recommendationSet
+                if(rs.playlist_id && rs.playlist_id == id) {
+                    rs.image = details.image
+                    // update
+                    recommendationsModel.setProperty(i, "recommendationSet", rs)
+                }
+            }
         }
     }
 

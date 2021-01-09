@@ -1,6 +1,6 @@
 /**
  * Hutspot.
- * Copyright (C) 2019 Willem-Jan de Hoog
+ * Copyright (C) 2021 Willem-Jan de Hoog
  *
  * License: MIT
  */
@@ -13,6 +13,8 @@ import "../Util.js" as Util
 Item {
 
     signal spotifyDataCacheReady()
+
+    signal playlistDetailsUpdated(var id, var details)
 
     property bool ready: false
 
@@ -97,14 +99,15 @@ Item {
                 ? playlist.images[0].url : ""
         }
         //console.log("adding " + JSON.stringify(plData) + " for " +  playlist.id)
-        _followedPlaylists[playlist.id] = plData
+        return _followedPlaylists[playlist.id] = plData
     }
 
     function triggerUpdatePlaylistDetails(playlistId) {
         Spotify.getPlaylist(playlistId, {}, function(error, data) {
-            if(data)
-                updateFollowedPlaylist(data)
-            else
+            if(data) {
+                var d = updateFollowedPlaylist(data)
+                playlistDetailsUpdated(data.id, d)
+            } else
                 console.log("no data for getPlaylist " + playlistId)
         })
     }
