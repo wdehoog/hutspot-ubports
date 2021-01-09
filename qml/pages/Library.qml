@@ -322,11 +322,36 @@ Page {
         useHas: true
     }
 
+    function isCurrentClass(type) {
+        switch(type) {
+        case Util.SpotifyItemType.Album:
+            return _itemClass === 0
+        case Util.SpotifyItemType.Playlist:
+            return _itemClass === 1
+        case Util.SpotifyItemType.Track:
+            return _itemClass === 2
+        case Util.SpotifyItemType.Artist:
+            return _itemClass === 3
+        case Util.SpotifyItemType.Show:
+            return _itemClass === 4
+        }
+        return false
+    }
+
     Connections {
         target: app
         onHasValidTokenChanged: {
           console.log("Library.onHasValidTokenChanged")
           refresh()
+        }
+
+        onFavoriteEvent: {
+            if(!isCurrentClass(event.type))
+                return
+            if(!event.isFavorite)
+                Util.removeFromListModel(searchModel, event.type, event.id)
+            else
+                refresh()
         }
     }
 

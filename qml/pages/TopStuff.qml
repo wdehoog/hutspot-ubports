@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2018 Willem-Jan de Hoog
+ * Copyright (C) 2021 Willem-Jan de Hoog
  *
  * License: MIT
  */
@@ -309,15 +309,28 @@ Page {
         id: cursorHelper
     }
 
+    function isCurrentClass(type) {
+        switch(type) {
+        //case Util.SpotifyItemType.Album:
+        //case Util.SpotifyItemType.Playlist:
+        case Util.SpotifyItemType.Track:
+            return _itemClass === 0 || _itemClass === 2
+        case Util.SpotifyItemType.Artist:
+            return _itemClass === 1
+        //case Util.SpotifyItemType.Show:
+        }
+        return false
+    }
+
     Connections {
         target: app
+
         onHasValidTokenChanged: refresh()
+
         onFavoriteEvent: {
-            switch(event.type) {
-            case Util.SpotifyItemType.Artist:
-                Util.setSavedInfo(event.type, [event.id], [event.isFavorite], searchModel)
-                break
-            }
+            if(!isCurrentClass(event.type))
+                return
+            Util.setSavedInfo(event.type, [event.id], [event.isFavorite], searchModel)
         }
     }
 

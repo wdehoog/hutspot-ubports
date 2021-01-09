@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-08 20:55+0000\n"
+"POT-Creation-Date: 2021-01-09 11:11+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -609,7 +609,7 @@ msgid "Spotify controller for Ubuntu Touch"
 msgstr ""
 
 #: ../qml/pages/About.qml:91
-msgid "Copyright (C) 2020"
+msgid "Copyright (C) 2021"
 msgstr ""
 
 #: ../qml/pages/About.qml:98
