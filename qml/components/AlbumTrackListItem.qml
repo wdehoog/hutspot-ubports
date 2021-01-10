@@ -24,6 +24,9 @@ Item {
 
     opacity: Util.isTrackPlayable(dataModel.item) ? 1.0 : 0.4
 
+    property color textColor: currentIndex === dataModel.index
+                              ? app.primaryHighlightColor : app.primaryColor
+
     Image {
         id: savedImage
         anchors.left: parent.left
@@ -31,7 +34,7 @@ Item {
         height: app.iconSizeSmall
         asynchronous: true
         fillMode: Image.PreserveAspectFit
-        source: isFavorite 
+        source: isFavorite
                 ? "image://theme/starred"
                 : "image://theme/non-starred"
         /*source: {
@@ -64,8 +67,7 @@ Item {
             anchors.right: duration.left
             anchors.rightMargin: app.paddingLarge
             anchors.verticalCenter: parent.verticalCenter
-            //color: currentIndex === dataModel.index ? Theme.highlightColor : Theme.primaryColor
-            font.weight: currentIndex === dataModel.index ? app.fontHighlightWeight : app.fontPrimaryWeight
+            color: textColor
             elide: Text.ElideRight
             wrapMode: Text.Wrap
             maximumLineCount: 2
@@ -77,8 +79,7 @@ Item {
             id: duration
             anchors.right: parent.right
             anchors.verticalCenter: parent.verticalCenter
-            //color: currentIndex === dataModel.index ? Theme.highlightColor : Theme.primaryColor
-            font.weight: currentIndex === dataModel.index ? app.fontHighlightWeight : app.fontPrimaryWeight
+            color: textColor
             text: Util.getDurationString(dataModel.item.duration_ms)
             enabled: text.length > 0
             visible: enabled

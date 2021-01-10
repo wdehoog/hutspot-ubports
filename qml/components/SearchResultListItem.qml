@@ -1,10 +1,10 @@
 /**
- * Hutspot. 
- * Copyright (C) 2020 Willem-Jan de Hoog
+ * Hutspot.
+ * Copyright (C) 2021 Willem-Jan de Hoog
  *
  * License: MIT
  */
- 
+
 import QtQuick 2.7
 import Ubuntu.Components 1.3
 
@@ -14,8 +14,13 @@ Rectangle {
     width: parent.width
     height: row.height
     color:  app.normalBackgroundColor
-    //color: currentIndex === dataModel.index 
-    //       ? app.highlightBackgroundColor : app.normalBackgroundColor
+
+    property color textPrimaryColor: currentIndex === dataModel.index
+                                     ? app.primaryHighlightColor : app.primaryColor
+    property color textSecundaryColor: currentIndex === dataModel.index
+                                     ? app.secondaryHighlightColor : app.secondaryColor
+    property color textTertiaryColor: currentIndex === dataModel.index
+                                     ? app.tertiaryHighlightColor : app.tertiaryColor
 
     property var dataModel
     property bool isCurrentItem: currentIndex === dataModel.index
@@ -28,7 +33,7 @@ Rectangle {
     property bool saved
     property int contextType: -1
 
-    signal toggleFavorite()    
+    signal toggleFavorite()
 
     Row {
         id: row
@@ -57,9 +62,9 @@ Rectangle {
             width: parent.width - image.width - app.paddingMedium
 
             Label {
-                //color: currentIndex === dataModel.index ? Theme.highlightColor : Theme.primaryColor
+                color: textPrimaryColor
                 textFormat: Text.StyledText
-                font.weight: isCurrentItem ? app.fontHighlightWeight : app.fontPrimaryWeight
+                //font.weight: isCurrentItem ? app.fontHighlightWeight : app.fontPrimaryWeight
                 //truncationMode: TruncationMode.Fade
                 width: parent.width
                 text: firstLine
@@ -74,8 +79,8 @@ Rectangle {
                     width: parent.width - favorite.width
                     Label {
                         width: parent.width
-                        font.weight: isCurrentItem ? app.fontHighlightWeight : app.fontPrimaryWeight
-                        //color: currentIndex === dataModel.index ? Theme.highlightColor : Theme.primaryColor
+                        color: textSecundaryColor
+                        //font.weight: isCurrentItem ? app.fontHighlightWeight : app.fontPrimaryWeight
                         //font.pixelSize: fontSizeExtraSmall
                         elide: Text.ElideRight
                         text: getMeta1String()
@@ -85,8 +90,8 @@ Rectangle {
 
                     Label {
                         width: parent.width
-                        font.weight: isCurrentItem ? app.fontHighlightWeight : app.fontPrimaryWeight
-                        //color: currentIndex === dataModel.index ? Theme.secondaryHighlightColor : Theme.secondaryColor
+                        color: textTertiaryColor
+                        //font.weight: isCurrentItem ? app.fontHighlightWeight : app.fontPrimaryWeight
                         //font.pixelSize: fontSizeExtraSmall
                         textFormat: Text.StyledText
                         elide: Text.ElideRight
@@ -102,7 +107,7 @@ Rectangle {
                     height: app.iconSizeSmall
                     asynchronous: true
                     fillMode: Image.PreserveAspectFit
-                    source: (dataModel.following || dataModel.saved) 
+                    source: (dataModel.following || dataModel.saved)
                             ? "image://theme/starred" : "image://theme/non-starred"
                     /*source: if(dataModel.following || dataModel.saved)
                                 return currentIndex === dataModel.index
@@ -197,7 +202,7 @@ Rectangle {
         case Util.SpotifyItemType.Show:
             if(dataModel.item.publisher)
                 sb.append(dataModel.item.publisher)
-            break 
+            break
         }
         return sb.toString(", ")
     }

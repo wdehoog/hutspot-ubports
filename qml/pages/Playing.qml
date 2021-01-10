@@ -199,7 +199,7 @@ Page {
     }
 
     //
-    //
+    // ListView
     //
 
     ListView {
@@ -673,10 +673,17 @@ Page {
     }
 
     function updateForCurrentAlbumTrack() {
-        // keep current track visible
+        console.log("updateForCurrentTrack " + searchModel.count + ", " + currentTrackId)
+        // to keep current track visible
+
+        // if currentTrackId is not set take it from playback state
+        if(!currentTrackId)
+            currentTrackId = app.controller.playbackState.item.id
+
         currentIndex = -1
         for(var i=0;i<searchModel.count;i++) {
             var track = searchModel.get(i).item
+            //console.log(JSON.stringify(track))
             if(track.id === currentTrackId
                || (track.linked_from && track.linked_from.id === currentTrackId)) {
                 currentIndex = i
@@ -717,6 +724,11 @@ Page {
 
     function updateForCurrentPlaylistTrack(onInit) {
         currentIndex = -1
+
+        // if currentTrackId is not set take it from playback state
+        if(!currentTrackId)
+            currentTrackId = app.controller.playbackState.item.id
+
         for(var i=0;i<tracksInfo.length;i++) {
             if(tracksInfo[i].id === currentTrackId
                || tracksInfo[i].linked_from === currentTrackId) {
@@ -811,7 +823,7 @@ Page {
                 currentId = app.controller.playbackState.context.id
 
             if(currentTrackId === app.controller.playbackState.item.id) {
-                if(currentIndex === -1) // we can still miss it
+                if(currentIndex === -1) // we can still have missed it
                     updateForCurrentTrack()
                 return
             }
@@ -846,7 +858,7 @@ Page {
         }
 
         onIs_playingChanged: {
-            if(_debug)console.log("Playing.onIs_playingChanged ")
+            if(_debug)console.log("Playing.onIs_playingChanged currentIndex: " + currentIndex)
             if(!_isPlaying && app.controller.playbackState.is_playing) {
                 if(currentIndex === -1)
                     updateForCurrentTrack()
@@ -937,7 +949,7 @@ Page {
         cursorHelper.offset = 0
         cursorHelper.limit = 50 // for now load as much as possible and hope it is enough
         _loadAlbumTracks(id)
-        isContextFavorite = app.spotifyDataCache.isAlbumSaved(pid)
+        isContextFavorite = app.spotifyDataCache.isAlbumSaved(id)
         Spotify.containsMySavedAlbums([id], {}, function(error, data) {
             if(data)
                 isContextFavorite = data[0]
@@ -1119,6 +1131,7 @@ Page {
            && app.controller.playbackState.context) {
             currentId = app.controller.playbackState.context.id
             currentSnapshotId = app.controller.playbackState.context.snapshot_id
+                                ? app.controller.playbackState.context.snapshot_id : ""
         }
     }
 }
