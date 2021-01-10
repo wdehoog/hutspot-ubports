@@ -7,6 +7,7 @@
 
 import QtQuick 2.7
 import Ubuntu.Components 1.3
+import QtGraphicalEffects 1.0
 
 import "../Util.js" as Util
 
@@ -21,6 +22,7 @@ Rectangle {
                                      ? app.secondaryHighlightColor : app.secondaryColor
     property color textTertiaryColor: currentIndex === dataModel.index
                                      ? app.tertiaryHighlightColor : app.tertiaryColor
+    property var textWeight: isCurrentItem ? app.fontHighlightWeight : app.fontPrimaryWeight
 
     property var dataModel
     property bool isCurrentItem: currentIndex === dataModel.index
@@ -64,7 +66,7 @@ Rectangle {
             Label {
                 color: textPrimaryColor
                 textFormat: Text.StyledText
-                //font.weight: isCurrentItem ? app.fontHighlightWeight : app.fontPrimaryWeight
+                font.weight: textWeight
                 //truncationMode: TruncationMode.Fade
                 width: parent.width
                 text: firstLine
@@ -80,7 +82,7 @@ Rectangle {
                     Label {
                         width: parent.width
                         color: textSecundaryColor
-                        //font.weight: isCurrentItem ? app.fontHighlightWeight : app.fontPrimaryWeight
+                        font.weight: textWeight
                         //font.pixelSize: fontSizeExtraSmall
                         elide: Text.ElideRight
                         text: getMeta1String()
@@ -91,7 +93,7 @@ Rectangle {
                     Label {
                         width: parent.width
                         color: textTertiaryColor
-                        //font.weight: isCurrentItem ? app.fontHighlightWeight : app.fontPrimaryWeight
+                        font.weight: textWeight
                         //font.pixelSize: fontSizeExtraSmall
                         textFormat: Text.StyledText
                         elide: Text.ElideRight
@@ -109,17 +111,16 @@ Rectangle {
                     fillMode: Image.PreserveAspectFit
                     source: (dataModel.following || dataModel.saved)
                             ? "image://theme/starred" : "image://theme/non-starred"
-                    /*source: if(dataModel.following || dataModel.saved)
-                                return currentIndex === dataModel.index
-                                        ? "image://theme/icon-m-favorite-selected?" + Theme.highlightColor
-                                        : "image://theme/icon-m-favorite-selected"
-                            else
-                                return currentIndex === dataModel.index
-                                          ? "image://theme/icon-m-favorite?" + Theme.highlightColor
-                                          : "image://theme/icon-m-favorite"*/
                     MouseArea {
                          anchors.fill: parent
                          onClicked: toggleFavorite()
+                    }
+                    Colorize {
+                        anchors.fill: favorite
+                        source: favorite
+                        hue: textSecundaryColor.hslHue
+                        saturation: textSecundaryColor.hslSaturation
+                        lightness: textSecundaryColor.hslLightness
                     }
                 }
             }

@@ -38,6 +38,8 @@ MainView {
     readonly property string app_id: app_full_name + "_" + app_name + "_" + app_version
     readonly property string app_id_dbus: UT.createAppIdDbus(app_id)
 
+    property string defaultCoverImageSource : "image://theme/stock_music"
+
     property alias settings: settings
 
     property alias deviceId: settings.deviceId
@@ -136,6 +138,16 @@ MainView {
                             ? !pageStack.currentPage.fromPlaying
                             : true
         showHomeButton: pageStack.currentPage.objectName !== "MenuPage"
+    }
+
+    Image {
+        anchors.fill: parent
+        //z: 1
+        fillMode: Image.PreserveAspectCrop
+        opacity: 0.1
+        source:  app.controller.getCoverArt(defaultCoverImageSource, true)
+        //source:  defaultCoverImageSource
+        visible: settings.useAlbumartAsBackground
     }
 
     function loadFirstPage() {
@@ -1703,6 +1715,7 @@ MainView {
         property bool queryForMarket: true
         property bool confirmUnFollowSave: true
         property bool preventSuspendWhilePlaying: true
+        property bool useAlbumartAsBackground: true
 
         property var history: []
 

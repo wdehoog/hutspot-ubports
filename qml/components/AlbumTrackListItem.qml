@@ -26,6 +26,8 @@ Item {
 
     property color textColor: currentIndex === dataModel.index
                               ? app.primaryHighlightColor : app.primaryColor
+    property var textWeight:  currentIndex === dataModel.index
+                              ? app.fontHighlightWeight : app.fontPrimaryWeight
 
     Image {
         id: savedImage
@@ -68,6 +70,7 @@ Item {
             anchors.rightMargin: app.paddingLarge
             anchors.verticalCenter: parent.verticalCenter
             color: textColor
+            font.weight: textWeight
             elide: Text.ElideRight
             wrapMode: Text.Wrap
             maximumLineCount: 2
@@ -80,6 +83,7 @@ Item {
             anchors.right: parent.right
             anchors.verticalCenter: parent.verticalCenter
             color: textColor
+            font.weight: textWeight
             text: Util.getDurationString(dataModel.item.duration_ms)
             enabled: text.length > 0
             visible: enabled

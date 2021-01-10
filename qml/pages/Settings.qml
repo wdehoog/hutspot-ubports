@@ -39,6 +39,22 @@ Page {
                     onCheckedChanged: app.settings.confirmUnFollowSave = checked
                 }
             }
+
+            Item {
+                width: parent.width
+                height: childrenRect.height
+                Label {
+                    anchors.left: parent.left
+                    text: i18n.tr("Use Album Art for Background")
+                }
+                CheckBox {
+                    id: queryForMarket
+                    anchors.right: parent.right
+                    checked: app.settings.useAlbumartAsBackground
+                    onCheckedChanged: app.settings.useAlbumartAsBackground = checked
+                }
+            }
+
             Item {
                 width: parent.width
                 height: childrenRect.height

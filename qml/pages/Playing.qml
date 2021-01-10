@@ -22,7 +22,6 @@ Page {
     id: playingPage
     objectName: "PlayingPage"
 
-    property string defaultImageSource : "image://theme/stock_music"
     property bool showBusy: false
 
     property string pageHeaderText: i18n.tr("Playing")
@@ -226,7 +225,7 @@ Page {
                     anchors.horizontalCenter: parent.horizontalCenter
                     width: parent.width * 0.75
                     height: sourceSize.height*(width/sourceSize.width)
-                    source:  app.controller.getCoverArt(defaultImageSource, showTrackInfo)
+                    source:  app.controller.getCoverArt(app.defaultCoverImageSource, showTrackInfo)
                     fillMode: Image.PreserveAspectFit
                     onPaintedHeightChanged: parent.height = Math.min(parent.parent.width, paintedHeight)
                     MouseArea {
@@ -244,6 +243,12 @@ Page {
                     color: "#000"
                     source: imageItem
                 }*/
+            }
+
+            Rectangle {
+                width: parent.width
+                height: app.paddingMedium
+                opacity: 0
             }
 
             Item {
@@ -273,12 +278,6 @@ Page {
                         PopupUtils.open(contextMenu, info)
                     }
                 }
-            }
-
-            Rectangle {
-                width: parent.width
-                height: app.paddingMedium
-                opacity: 0
             }
 
             /*Separator {

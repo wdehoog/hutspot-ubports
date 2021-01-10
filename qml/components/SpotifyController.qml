@@ -17,16 +17,18 @@ Item {
         id: playbackState
     }
 
-    function getCoverArt(defaultValue, ignoreContext) {
-        if (ignoreContext) {
+    function getCoverArt(defaultValue, preferTrack) {
+        if (preferTrack) {
             if (playbackState.coverArtUrl)
                 return playbackState.coverArtUrl
-            return defaultValue
+            //return defaultValue
         }
 
-        if (playbackState.context)
+        if (playbackState.context) {
             if (playbackState.context.images)
                 return playbackState.context.images[0].url
+        }
+
         return defaultValue;
     }
 
