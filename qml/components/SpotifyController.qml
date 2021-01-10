@@ -320,7 +320,7 @@ Item {
                 return
             }
 
-            //console.log("PBS e:" + JSON.stringify(error) + ", d:" + JSON.stringify(data))
+            //console.log("PlaybackState error:" + JSON.stringify(error) + ", data:" + JSON.stringify(data))
             if(!error && !data) {
                 // status: 200 for no device, 204 for not playing or private session
                 playbackState.notifyNoState(status)
@@ -338,7 +338,11 @@ Item {
                 }
             }
         })
-        //reloadDevices() Why is this here? The info is not used.
+
+        // Debugging
+        //Spotify.getMyCurrentPlayingTrack({}, function (error, data, status) {
+        //    console.log("PlayingTrack error:" + JSON.stringify(error) + ", data:" + JSON.stringify(data))
+        //})
     }
 
     function playContext(context) {
@@ -389,7 +393,8 @@ Item {
                     playbackState.item = obj
                     if(!context)
                         app.getContext(obj, function(ctx) {
-                            playbackState.context = ctx})
+                            playbackState.context = ctx
+                        })
                     refreshPlaybackState()
                 } else {
                     app.showErrorMessage(error, qsTr("Play failed: " + error))

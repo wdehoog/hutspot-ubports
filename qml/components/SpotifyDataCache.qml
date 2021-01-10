@@ -93,6 +93,7 @@ Item {
 
     function updateFollowedPlaylist(playlist) {
         var plData = {
+            href: playlist.href,
             uri: playlist.uri,
             name: playlist.name,
             image: playlist.images && playlist.images.length > 0

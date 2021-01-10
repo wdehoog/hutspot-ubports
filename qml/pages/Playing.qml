@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2018 Willem-Jan de Hoog
+ * Copyright (C) 2021 Willem-Jan de Hoog
  * Copyright (C) 2018 Maciej Janiszewski
  *
  * License: MIT
@@ -24,6 +24,7 @@ Page {
 
     property string defaultImageSource : "image://theme/stock_music"
     property bool showBusy: false
+
     property string pageHeaderText: i18n.tr("Playing")
     property string pageHeaderDescription: ""
 
@@ -33,23 +34,20 @@ Page {
     property string currentSnapshotId: ""
     property string currentTrackId: ""
 
-    property string viewMenuText: ""
     property bool showTrackInfo: true
     property int contextType: -1
 
     property int currentIndex: -1
 
-    property int mutedVolume: -1
-    property bool muted: false
-
-    property bool _debug: false
+    property bool _debug: true
 
     ListModel {
         id: searchModel
     }
 
     header: PageHeader {
-        title: i18n.tr("Playing")
+        title: pageHeaderText
+        subtitle: pageHeaderDescription
         leadingActionBar.actions: [
             Action { // copied from PageHeader
                 iconName: Qt.application.layoutDirection == Qt.RightToLeft ? "next": "back"
@@ -63,9 +61,14 @@ Page {
         flickable: listView
     }
 
+    //
+    // Context Menu
+    //
+
     property bool _viewAlbumEnabled: false
     property bool _viewArtistEnabled: false
     property bool _viewPlaylistEnabled: false
+    property bool _viewRefreshPlaylistEnabled: false
     property bool _viewShowEnabled: false
     //property bool viewTrackEnabled: false
 
@@ -73,6 +76,7 @@ Page {
         _viewAlbumEnabled = false
         _viewArtistEnabled = false
         _viewPlaylistEnabled = false
+        _viewRefreshPlaylistEnabled = false
         _viewShowEnabled = false
         //viewTrackEnabled = false
 
@@ -86,6 +90,8 @@ Page {
             break
         case Spotify.ItemType.Playlist:
             _viewPlaylistEnabled = true
+            if(getRecommendationSetForPlaylist(currentId) >= 0)
+                _viewRefreshPlaylistEnabled = true
             break
         case Spotify.ItemType.Show:
             _viewShowEnabled = true
@@ -153,6 +159,14 @@ Page {
                 Action {
                     id: d
                     property int idx: enabled ? (c.idx + 1) : c.idx
+                    text: i18n.tr("Refresh Recommended Tracks")
+                    visible: enabled
+                    enabled: _viewRefreshPlaylistEnabled
+                    onTriggered: refreshRecommendedTracks()
+                }
+                Action {
+                    id: e
+                    property int idx: enabled ? (d.idx + 1) : d.idx
                     text: i18n.tr("View Show")
                     visible: enabled
                     enabled: _viewShowEnabled
@@ -183,6 +197,10 @@ Page {
         //property bool enableQueueItems: true
         property bool fromPlaying: true
     }
+
+    //
+    //
+    //
 
     ListView {
         id: listView
@@ -247,6 +265,8 @@ Page {
                     onFirstLabelClicked: openMenu()
                     onSecondLabelClicked: openMenu()
                     onThirdLabelClicked: openMenu()
+
+                    onContextMenuRequested: openMenu
 
                     function openMenu() {
                         updateContextMenu()
@@ -345,6 +365,10 @@ Page {
         flickableItem: listView
         anchors.right: parent.right
     }
+
+    //
+    // Control Panel
+    //
 
     //PanelBackground { //
     Item { //for transparant controlpanel
@@ -547,16 +571,17 @@ Page {
         }
         if(app.controller.playbackState.context === null)
             return s
-        switch(app.controller.playbackState.context.type) {
+        var context = app.controller.playbackState.context
+        switch(context.type) {
         case 'album':
-            s += Util.createItemsString(app.controller.playbackState.context.artists, i18n.tr("no artist known"))
+            s += Util.createItemsString(context.artists, i18n.tr("no artist known"))
             break
         case 'artist':
-            s += Util.createItemsString(app.controller.playbackState.context.genres, i18n.tr("no genre known"))
+            s += Util.createItemsString(context.genres, i18n.tr("no genre known"))
             break
         case 'playlist':
         case 'show':
-            s+= app.controller.playbackState.context.description
+            s+= context.description
             break
         }
         return s
@@ -576,38 +601,39 @@ Page {
         }
         if(!app.controller.playbackState.context)
             return
-        switch(app.controller.playbackState.context.type) {
+        var context = app.controller.playbackState.context
+        switch(context.type) {
         case 'album':
-            if(app.controller.playbackState.context.tracks)
-                s += app.controller.playbackState.context.tracks.total + " " + i18n.tr("tracks")
-            else if(app.controller.playbackState.context.album_type === "single")
+            if(context.tracks)
+                s += context.tracks.total + " " + i18n.tr("tracks")
+            else if(context.album_type === "single")
                 s += "1 " + i18n.tr("track")
-            if (app.controller.playbackState.context.release_date)
-                s += ", " + Util.getYearFromReleaseDate(app.controller.playbackState.context.release_date)
-            if(app.controller.playbackState.context.genres && app.controller.playbackState.context.genres.lenght > 0)
-                s += ", " + Util.createItemsString(app.controller.playbackState.context.genres, "")
+            if (context.release_date)
+                s += ", " + Util.getYearFromReleaseDate(context.release_date)
+            if(context.genres && context.genres.lenght > 0)
+                s += ", " + Util.createItemsString(context.genres, "")
             break
         case 'artist':
-            if(app.controller.playbackState.context.followers && app.controller.playbackState.context.followers.total > 0)
-                s += Util.abbreviateNumber(app.controller.playbackState.context.followers.total) + " " + i18n.tr("followers")
+            if(context.followers && context.followers.total > 0)
+                s += Util.abbreviateNumber(context.followers.total) + " " + i18n.tr("followers")
             break
         case 'playlist':
-            s += app.controller.playbackState.context.tracks.total + " " + i18n.tr("tracks")
-            s += ", " + i18n.tr("by") + " " + app.controller.playbackState.context.owner.display_name
-            if(app.controller.playbackState.context.followers && app.controller.playbackState.context.followers.total > 0)
-                s += ", " + Util.abbreviateNumber(app.controller.playbackState.context.followers.total) + " " + i18n.tr("followers")
-            if(app.controller.playbackState.context["public"])
+            s += context.tracks.total + " " + i18n.tr("tracks")
+            s += ", " + i18n.tr("by") + " " + context.owner.display_name
+            if(context.followers && context.followers.total > 0)
+                s += ", " + Util.abbreviateNumber(context.followers.total) + " " + i18n.tr("followers")
+            if(context["public"])
                 s += ", " +  i18n.tr("public")
-            if(app.controller.playbackState.context.collaborative)
+            if(context.collaborative)
                 s += ", " +  i18n.tr("collaborative")
             break
         case 'show':
-            if(app.controller.playbackState.context.total_episodes)
-                s += app.controller.playbackState.context.total_episodes + " " + i18n.tr("episodes")
-            s += ", " + i18n.tr("by") + " " + app.controller.playbackState.context.publisher
-            if(app.controller.playbackState.context.explicit)
+            if(context.total_episodes)
+                s += context.total_episodes + " " + i18n.tr("episodes")
+            s += ", " + i18n.tr("by") + " " + context.publisher
+            if(context.explicit)
                 s += ", " +  i18n.tr("explicit")
-            s += ", " + Util.createItemsString(app.controller.playbackState.context.languages, "")
+            s += ", " + Util.createItemsString(context.languages, "")
             break
         }
         return s
@@ -661,9 +687,10 @@ Page {
     }
 
     function updateForCurrentTrack() {
-        if (app.controller.playbackState.context) {
-            if(_debug)console.log("updateForCurrentTrack: context=" + app.controller.playbackState.context.type)
-            switch(app.controller.playbackState.context.type) {
+        var context = app.controller.playbackState.context
+        if(context) {
+            if(_debug)console.log("updateForCurrentTrack: context=" + context.type)
+            switch(context.type) {
             case 'album':
                 updateForCurrentAlbumTrack()
                 break
@@ -674,7 +701,7 @@ Page {
                 updateForCurrentPlaylistTrack(true)
                 break
             default:
-                console.log("updateForCurrentTrack() with unhandled context: " + app.controller.playbackState.context.type)
+                console.log("updateForCurrentTrack() with unhandled context: " + context.type)
                 break
             }
         } else
@@ -741,10 +768,7 @@ Page {
                 case 'artist':
                     contextType = Util.SpotifyItemType.Artist
                     showTrackInfo = false
-                    Spotify.isFollowingArtists([currentId], function(error, data) {
-                        if(data)
-                            isContextFavorite = data[0]
-                    })
+                    isContextFavorite = app.spotifyDataCache.isArtistFollowed(currentId)
                     break
                 case 'playlist':
                     contextType = Util.SpotifyItemType.Playlist
@@ -770,10 +794,13 @@ Page {
 
         onContextChanged: {
             if(_debug)console.log("Playing.onContextChanged: " + currentId)
-            if(app.controller.playbackState.context)
+            if(app.controller.playbackState.context) {
                 currentId = app.controller.playbackState.context.id
-            else
+                currentSnapshotId = app.controller.playbackState.context.snapshot_id
+            } else {
                 currentId = ""
+                currentSnapshotId = ""
+            }
         }
 
         onItemChanged: {
@@ -843,7 +870,7 @@ Page {
     property bool _loading: false
 
     function appendPlaylistTracks(id, pid, onInit) {
-      if(_debug)console.log("appendPlaylistTracks ")
+        if(_debug)console.log("appendPlaylistTracks id: %1, pid: %2, onInit: %3".arg(id).arg(pid).arg(onInit))
         // if already at the end -> bail out
         if(searchModel.count > 0 && searchModel.count >= cursorHelper.total)
             return
@@ -872,10 +899,7 @@ Page {
             }
             _loading = false
         })
-        app.isFollowingPlaylist(pid, function(error, data) {
-            if(data)
-                isContextFavorite = data[0]
-        })
+        isContextFavorite = app.spotifyDataCache.isPlaylistFollowed(pid)
     }
 
     property bool _loadingTrack: false
@@ -913,6 +937,7 @@ Page {
         cursorHelper.offset = 0
         cursorHelper.limit = 50 // for now load as much as possible and hope it is enough
         _loadAlbumTracks(id)
+        isContextFavorite = app.spotifyDataCache.isAlbumSaved(pid)
         Spotify.containsMySavedAlbums([id], {}, function(error, data) {
             if(data)
                 isContextFavorite = data[0]
@@ -1006,7 +1031,7 @@ Page {
             waitForEndOfSnapshot = false
             if(waitForEndSnapshotData.snapshotId !== currentSnapshotId) { // only if still needed
                 currentId = "" // trigger reload
-                app.controller.playContext({uri: waitForEndSnapshotData.uri},
+                app.controller.playContext({type: 'playlist', uri: waitForEndSnapshotData.uri},
                             {offset: {uri: waitForEndSnapshotData.trackUri}})
             }
         }
@@ -1016,6 +1041,7 @@ Page {
         target: app
 
         onPlaylistEvent: {
+            if(_debug)console.log("onPlaylistEvent " + event.playlistId)
             if(getContextType() !== Spotify.ItemType.Playlist
                || app.controller.playbackState.context.id !== event.playlistId)
                 return
@@ -1037,11 +1063,12 @@ Page {
                 if(app.controller.playbackState.is_playing) {
                     waitForEndOfSnapshot = true
                     waitForEndSnapshotData.uri = event.uri
+                    waitForEndSnapshotData.href = event.uri
                     waitForEndSnapshotData.snapshotId = event.snapshotId
                     waitForEndSnapshotData.index = app.controller.playbackState.context.tracks.total // not used
                     waitForEndSnapshotData.trackUri = event.trackUri
                 } else {
-                    currentSnapshotId = event.snapshotId
+                    //currentSnapshotId = event.snapshotId
                     loadPlaylistTracks(app.id, currentId)
                 }
                 break
@@ -1050,12 +1077,12 @@ Page {
                 //currentSnapshotId = event.snapshotId
                 break
             case Util.PlaylistEventType.ReplacedAllTracks:
-                if(app.controller.playbackState.is_playing)
+                if(app.controller.playbackState.is_playing) {
+                    var href = app.controller.playbackState.context.href
                     app.controller.pause(function(error, data) {
-                        currentId = "" // trigger reload)
-                        app.controller.playContext({uri: app.controller.playbackState.context.uri})
+                        app.controller.playContext({type: 'playlist', href: href})
                     })
-                else {
+                } else {
                     loadPlaylistTracks(app.id, currentId)
                 }
                 break
@@ -1071,11 +1098,27 @@ Page {
         }
     }
 
+    RecommendationData {
+        id: tempRD
+    }
+
+    function refreshRecommendedTracks() {
+        var name = app.controller.playbackState.context.name
+        app.showConfirmDialog(
+            i18n.tr("Do you want to refresh the tracks of %1?").arg(name), function(info) {
+            var rsi = getRecommendationSetForPlaylist(currentId)
+            tempRD.loadData(app.recommendationSets[rsi])
+            app.updatePlaylistFromRecommendations(tempRD)
+        })
+    }
+
     Component.onCompleted: {
         // do we have an id?
         if(currentId == ""
            && app.controller.playbackState
-           && app.controller.playbackState.context)
+           && app.controller.playbackState.context) {
             currentId = app.controller.playbackState.context.id
+            currentSnapshotId = app.controller.playbackState.context.snapshot_id
+        }
     }
 }

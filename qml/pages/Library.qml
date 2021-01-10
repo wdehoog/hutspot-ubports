@@ -1,3 +1,9 @@
+/**
+ * Copyright (C) 2021 Willem-Jan de Hoog
+ *
+ * License: MIT
+ */
+
 import QtQuick 2.7
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3

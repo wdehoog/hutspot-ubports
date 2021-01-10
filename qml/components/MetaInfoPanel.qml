@@ -28,6 +28,8 @@ Item {
 
     signal toggleFavorite()
 
+    signal contextMenuRequested()
+
     Column {
         id: labelsColumn
         width: parent.width
@@ -43,6 +45,7 @@ Item {
             MouseArea {
                 anchors.fill: parent
                 onClicked: firstLabelClicked()
+                onPressAndHold: contextMenuRequested()
             }
         }
 
@@ -66,6 +69,7 @@ Item {
                     MouseArea {
                         anchors.fill: parent
                         onClicked: secondLabelClicked()
+                        onPressAndHold: contextMenuRequested()
                     }
                 }
                 Label {
@@ -78,6 +82,7 @@ Item {
                     MouseArea {
                         anchors.fill: parent
                         onClicked: thirdLabelClicked()
+                        onPressAndHold: contextMenuRequested()
                     }
                 }
             }
@@ -92,6 +97,7 @@ Item {
                 MouseArea {
                      anchors.fill: parent
                      onClicked: toggleFavorite()
+                     onPressAndHold: contextMenuRequested()
                 }
             }
         }

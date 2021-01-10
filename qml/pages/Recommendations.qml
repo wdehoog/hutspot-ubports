@@ -254,7 +254,14 @@ Page {
             i18n.tr("Do you want to update the tracks of linked playlist for<br><b>%1</b>").arg(model.recommendationSet.name), function() {
 
             tempRD.loadData(model.recommendationSet)
-            app.updatePlaylistFromRecommendations(tempRD)
+            app.updatePlaylistFromRecommendations(tempRD, function(playlistId, snapshotId) {
+                showConfirmDialog(
+                    i18n.tr("Refreshing Tracks in Playlist succeeded. Do you want to start playing %1?").arg(name),
+                    function() {
+                        app.ensurePlaylistIsPlaying(playlistId, snapshotId)
+                    }
+                )
+            })
         })
     }
 

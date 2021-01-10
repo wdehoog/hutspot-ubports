@@ -518,6 +518,7 @@ MainView {
                         var ev = new Util.PlayListEvent(Util.PlaylistEventType.ChangedDetails,
                                                         playlist.id, playlist.snapshot_id)
                         ev.newDetails = options
+                        ev.href = playlist.href
                         playlistEvent(ev)
                     }
                 })
@@ -539,6 +540,7 @@ MainView {
                                                         item.id, data.snapshot_id)
                         ev.trackId = track.id
                         ev.trackUri = track.uri
+                        ev.href = item.href
                         playlistEvent(ev)
                         console.log("addToPlaylist: added \"")
                     } else
@@ -578,6 +580,7 @@ MainView {
                 var ev = new Util.PlayListEvent(Util.PlaylistEventType.RemovedTrack,
                                                 playlist.id, data.snapshot_id)
                 ev.trackId = track.id
+                ev.href = playlist.href
                 playlistEvent(ev)
             })
         })
@@ -618,6 +621,7 @@ MainView {
                         var ev = new Util.PlayListEvent(Util.PlaylistEventType.CreatedPlaylist,
                                                         data.id, data.snapshot_id)
                         ev.playlist = data
+                        ev.href = data.href
                         playlistEvent(ev)
                     }
                 })
@@ -639,10 +643,11 @@ MainView {
             if(callback)
                 callback(error, data)
             if(data && data.snapshot_id) {
+                console.log("replaceTracksInPlaylist: snapshot: " + data.snapshot_id)
                 var ev = new Util.PlayListEvent(Util.PlaylistEventType.ReplacedAllTracks,
                                                 playlistId, data.snapshot_id)
+                //ev.href = data. no href available here
                 playlistEvent(ev)
-                console.log("replaceTracksInPlaylist: snapshot: " + data.snapshot_id)
             } else
                 console.log("No Data while replacing tracks in Playlist " + playlistId)
         })
@@ -931,7 +936,7 @@ MainView {
     function loadAlbum(album, fromPlaying) {
         ensureFullObject(album, function(obj) {
            app.pushPage(Util.HutspotPage.Album, {album: obj}, fromPlaying)
-           })
+        })
     }
 
     function loadShowForEpisode(episode, fromPlaying) {
@@ -959,8 +964,8 @@ MainView {
                   callback(fullObj)})
               break
           default:
-            // the rest are context themselves
-            callback(null)
+              // the rest are context themselves
+              callback(null)
         }
     }
 
@@ -1399,7 +1404,7 @@ MainView {
         }
     }*/
 
-    function updatePlaylistFromRecommendations(recommendationData) {
+    function updatePlaylistFromRecommendations(recommendationData, callback) {
         var options = {}
         recommendationData.addQueryOptions(options)
         if(app.settings.queryForMarket)
@@ -1416,12 +1421,8 @@ MainView {
                     replaceTracksInPlaylist(recommendationData.playlistId, uris, function(error, data) {
                         var name = spotifyDataCache.getPlaylistProperty(recommendationData.playlistId, "name")
                         if(data) {
-                            showConfirmDialog(
-                                i18n.tr("Refreshing Tracks in Playlist succeeded. Do you want to start playing %1?").arg(name),
-                                function() {
-                                    app.ensurePlaylistIsPlaying(recommendationData.playlistId, data.snapshot_id)
-                                }
-                            )
+                            if(callback)
+                                callback(recommendationData.playlistId, data.snapshot_id)
                         } else {
                             showErrorMessage(undefined, i18n.tr("Failed to update Playlist for %1").arg(name))
                             console.log("updatePlaylistFromRecommendations: failed to add tracks for " + name)
@@ -1483,10 +1484,10 @@ MainView {
     }*/
 
     function ensurePlaylistIsPlaying(id, snapshot_id) {
-        var uri = spotifyDataCache.getPlaylistProperty(id, "uri")
+        var href = spotifyDataCache.getPlaylistProperty(id, "href")
         // if not yet playing it then start playing it
         if(app.controller.playbackState.item.id !== id) {
-            app.controller.playContext({uri: uri})
+            app.controller.playContext({type: 'playlist', href: href})
             return
         }
 
@@ -1496,7 +1497,7 @@ MainView {
           if(app.controller.playbackState.context.snapshot_id === snapshot_id)
               app.controller.playPause()
           else
-              app.controller.playContext({uri: uri})
+              app.controller.playContext({type: 'playlist', href: href})
         }
     }
 
@@ -1507,7 +1508,7 @@ MainView {
 
     function initRecommendationSets() {
         recommendationSets = JSON.parse(app.settings.recommendationsData)
-        if(!Util.isArray(recommendationsData)) {
+        if(!Util.isArray(recommendationSets)) {
             app.showErrorMessage(undefined, "Invalid Recommendations Data. Will discard it.")
             recommendationSets = []
         }

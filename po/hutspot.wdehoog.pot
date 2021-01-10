@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-09 16:39+0000\n"
+"POT-Creation-Date: 2021-01-10 19:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,16 +17,16 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../qml/components/SpotifyController.qml:418
+#: ../qml/components/SpotifyController.qml:423
 msgid "There is a resume point available for this Epsidode: "
 msgstr ""
 
-#: ../qml/components/RecommendationData.qml:84 ../qml/Main.qml:1037
+#: ../qml/components/RecommendationData.qml:84 ../qml/Main.qml:1042
 msgid "artist"
 msgstr ""
 
-#: ../qml/components/RecommendationData.qml:85 ../qml/Main.qml:1039
-#: ../qml/pages/Playing.qml:584 ../qml/pages/Album.qml:89
+#: ../qml/components/RecommendationData.qml:85 ../qml/Main.qml:1044
+#: ../qml/pages/Playing.qml:610 ../qml/pages/Album.qml:89
 msgid "track"
 msgstr ""
 
@@ -77,11 +77,11 @@ msgstr ""
 
 #: ../qml/components/AlbumTrackContextMenu.qml:34
 #: ../qml/components/SearchResultContextMenu.qml:48
-#: ../qml/pages/Playing.qml:109
+#: ../qml/pages/Playing.qml:115
 msgid "View Album"
 msgstr ""
 
-#: ../qml/components/AlbumTrackContextMenu.qml:45 ../qml/pages/Playing.qml:126
+#: ../qml/components/AlbumTrackContextMenu.qml:45 ../qml/pages/Playing.qml:132
 #: ../qml/pages/Album.qml:43
 msgid "View Artist"
 msgstr ""
@@ -102,14 +102,14 @@ msgstr ""
 #: ../qml/components/CreatePlaylist.qml:34
 #: ../qml/components/PlaylistPicker.qml:38 ../qml/components/Librespot.qml:414
 #: ../qml/components/GenrePicker.qml:36 ../qml/components/ArtistPicker.qml:35
-#: ../qml/Main.qml:1109 ../qml/Main.qml:1607
-#: ../qml/pages/Recommendations.qml:297
+#: ../qml/Main.qml:1114 ../qml/Main.qml:1608
+#: ../qml/pages/Recommendations.qml:304
 msgid "Cancel"
 msgstr ""
 
 #: ../qml/components/CreatePlaylist.qml:41
 #: ../qml/components/PlaylistPicker.qml:45 ../qml/components/GenrePicker.qml:43
-#: ../qml/components/ArtistPicker.qml:42 ../qml/Main.qml:1599
+#: ../qml/components/ArtistPicker.qml:42 ../qml/Main.qml:1600
 msgid "Select"
 msgstr ""
 
@@ -146,12 +146,12 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: ../qml/components/SearchResultListItem.qml:217 ../qml/pages/Playing.qml:592
-#: ../qml/pages/Playing.qml:598
+#: ../qml/components/SearchResultListItem.qml:217 ../qml/pages/Playing.qml:618
+#: ../qml/pages/Playing.qml:624
 msgid "followers"
 msgstr ""
 
-#: ../qml/components/SearchResultListItem.qml:242 ../qml/pages/Playing.qml:609
+#: ../qml/components/SearchResultListItem.qml:242 ../qml/pages/Playing.qml:635
 #: ../qml/pages/Show.qml:78
 msgid "explicit"
 msgstr ""
@@ -200,8 +200,8 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-#: ../qml/components/Librespot.qml:404 ../qml/Main.qml:1057
-#: ../qml/Main.qml:1118
+#: ../qml/components/Librespot.qml:404 ../qml/Main.qml:1062
+#: ../qml/Main.qml:1123
 msgid "Ok"
 msgstr ""
 
@@ -210,7 +210,7 @@ msgid "View"
 msgstr ""
 
 #: ../qml/components/SearchResultContextMenu.qml:56
-#: ../qml/pages/Playing.qml:156
+#: ../qml/pages/Playing.qml:170
 msgid "View Show"
 msgstr ""
 
@@ -247,92 +247,87 @@ msgstr ""
 msgid "Edit Playlist Details"
 msgstr ""
 
-#: ../qml/Main.qml:531
+#: ../qml/Main.qml:532
 msgid "Select a Playlist"
 msgstr ""
 
-#: ../qml/Main.qml:553
+#: ../qml/Main.qml:555
 msgid "Please confirm removing<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:716
+#: ../qml/Main.qml:721
 msgid "Please confirm to unfollow playlist:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:742
+#: ../qml/Main.qml:747
 msgid "Please confirm to unfollow artist:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:773
+#: ../qml/Main.qml:778
 msgid "Please confirm to un-save album:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:804
+#: ../qml/Main.qml:809
 msgid "Please confirm to un-save show:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:830
+#: ../qml/Main.qml:835
 msgid "Please confirm to un-save track:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:944
+#: ../qml/Main.qml:949
 msgid "Failed to fetch Show"
 msgstr ""
 
-#: ../qml/Main.qml:1012
+#: ../qml/Main.qml:1017
 msgid "Failed to fetch full "
 msgstr ""
 
-#: ../qml/Main.qml:1022
+#: ../qml/Main.qml:1027
 msgid "View an Artist"
 msgstr ""
 
-#: ../qml/Main.qml:1036 ../qml/Main.qml:1038
+#: ../qml/Main.qml:1041 ../qml/Main.qml:1043
 msgid "album"
 msgstr ""
 
-#: ../qml/Main.qml:1040
+#: ../qml/Main.qml:1045
 msgid "episode"
 msgstr ""
 
-#: ../qml/Main.qml:1041
+#: ../qml/Main.qml:1046
 msgid "show"
 msgstr ""
 
-#: ../qml/Main.qml:1042
+#: ../qml/Main.qml:1047
 msgid "unknown type"
 msgstr ""
 
-#: ../qml/Main.qml:1073
+#: ../qml/Main.qml:1078
 msgid "Error"
 msgstr ""
 
-#: ../qml/Main.qml:1136
+#: ../qml/Main.qml:1141
 msgid "Confirm"
 msgstr ""
 
-#: ../qml/Main.qml:1146
+#: ../qml/Main.qml:1151
 msgid "Failed to transfer to"
 msgstr ""
 
-#: ../qml/Main.qml:1420
-msgid ""
-"Refreshing Tracks in Playlist succeeded. Do you want to start playing %1?"
-msgstr ""
-
-#: ../qml/Main.qml:1426
+#: ../qml/Main.qml:1427
 msgid "Failed to update Playlist for %1"
 msgstr ""
 
-#: ../qml/Main.qml:1434
+#: ../qml/Main.qml:1435
 msgid "No Recommended Tracks for "
 msgstr ""
 
-#: ../qml/Main.qml:1576
+#: ../qml/Main.qml:1577
 msgid "Select Recommendation Set"
 msgstr ""
 
-#: ../qml/Main.qml:1583
+#: ../qml/Main.qml:1584
 msgid "Sets"
 msgstr ""
 
@@ -340,7 +335,7 @@ msgstr ""
 msgid "Recommended"
 msgstr ""
 
-#: ../qml/pages/Recommended.qml:58 ../qml/pages/Playing.qml:56
+#: ../qml/pages/Recommended.qml:58 ../qml/pages/Playing.qml:54
 msgid "Back"
 msgstr ""
 
@@ -409,12 +404,12 @@ msgstr ""
 msgid "My Recently Played"
 msgstr ""
 
-#: ../qml/pages/TopStuff.qml:43 ../qml/pages/Library.qml:32
+#: ../qml/pages/TopStuff.qml:43 ../qml/pages/Library.qml:38
 #: ../qml/pages/Artist.qml:56
 msgid "next"
 msgstr ""
 
-#: ../qml/pages/TopStuff.qml:48 ../qml/pages/Library.qml:37
+#: ../qml/pages/TopStuff.qml:48 ../qml/pages/Library.qml:43
 #: ../qml/pages/Artist.qml:61
 msgid "previous"
 msgstr ""
@@ -451,7 +446,7 @@ msgstr ""
 msgid "Link to Playlist"
 msgstr ""
 
-#: ../qml/pages/Recommendations.qml:83 ../qml/pages/Recommendations.qml:275
+#: ../qml/pages/Recommendations.qml:83 ../qml/pages/Recommendations.qml:282
 msgid "Rename"
 msgstr ""
 
@@ -483,51 +478,64 @@ msgstr ""
 msgid "Do you want to update the tracks of linked playlist for<br><b>%1</b>"
 msgstr ""
 
-#: ../qml/pages/Recommendations.qml:288
+#: ../qml/pages/Recommendations.qml:259
+msgid ""
+"Refreshing Tracks in Playlist succeeded. Do you want to start playing %1?"
+msgstr ""
+
+#: ../qml/pages/Recommendations.qml:295
 msgid "Change"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:27 ../qml/pages/Playing.qml:52
+#: ../qml/pages/Playing.qml:28
 msgid "Playing"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:146
+#: ../qml/pages/Playing.qml:152
 msgid "View Playlist"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:513
+#: ../qml/pages/Playing.qml:162
+msgid "Refresh Recommended Tracks"
+msgstr ""
+
+#: ../qml/pages/Playing.qml:537
 msgid "no current device"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:552 ../qml/pages/Playing.qml:572
+#: ../qml/pages/Playing.qml:577 ../qml/pages/Playing.qml:597
 #: ../qml/pages/Album.qml:78
 msgid "no artist known"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:555
+#: ../qml/pages/Playing.qml:580
 msgid "no genre known"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:582 ../qml/pages/Playing.qml:595
+#: ../qml/pages/Playing.qml:608 ../qml/pages/Playing.qml:621
 #: ../qml/pages/Album.qml:87
 msgid "tracks"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:596 ../qml/pages/Playing.qml:607
+#: ../qml/pages/Playing.qml:622 ../qml/pages/Playing.qml:633
 #: ../qml/pages/Show.qml:76
 msgid "by"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:600
+#: ../qml/pages/Playing.qml:626
 msgid "public"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:602
+#: ../qml/pages/Playing.qml:628
 msgid "collaborative"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:606 ../qml/pages/Show.qml:75
+#: ../qml/pages/Playing.qml:632 ../qml/pages/Show.qml:75
 msgid "episodes"
+msgstr ""
+
+#: ../qml/pages/Playing.qml:1111
+msgid "Do you want to refresh the tracks of %1?"
 msgstr ""
 
 #: ../qml/pages/Playlist.qml:39
@@ -694,7 +702,7 @@ msgstr ""
 msgid "Artists"
 msgstr ""
 
-#: ../qml/pages/Search.qml:185 ../qml/pages/Library.qml:23
+#: ../qml/pages/Search.qml:185 ../qml/pages/Library.qml:29
 msgid "Playlists"
 msgstr ""
 
@@ -714,19 +722,19 @@ msgstr ""
 msgid "Show"
 msgstr ""
 
-#: ../qml/pages/Library.qml:22
+#: ../qml/pages/Library.qml:28
 msgid "Saved Albums"
 msgstr ""
 
-#: ../qml/pages/Library.qml:24
+#: ../qml/pages/Library.qml:30
 msgid "Saved Tracks"
 msgstr ""
 
-#: ../qml/pages/Library.qml:25
+#: ../qml/pages/Library.qml:31
 msgid "Followed Artists"
 msgstr ""
 
-#: ../qml/pages/Library.qml:26
+#: ../qml/pages/Library.qml:32
 msgid "Saved Shows"
 msgstr ""
 
