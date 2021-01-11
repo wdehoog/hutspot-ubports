@@ -431,9 +431,11 @@ Page {
 
                 Button {
                     width: buttonRow.itemWidth
-                    color: app.controller.playbackState.shuffle_state
-                           ? "#E5E4E2" : app.bgColor //: "white"
+                    //color: app.controller.playbackState.shuffle_state
+                    //       ? theme.palette.normal.focus : theme.palette.normal.foregroundText
+                    opacity: app.controller.playbackState.shuffle_state ? 1 : .4
                     enabled: app.controller.playbackState.canShuffle
+                    color: app.bgColor
                     action: Action {
                         iconName: "media-playlist-shuffle"
                         onTriggered: app.controller.setShuffle(!app.controller.playbackState.shuffle_state)
