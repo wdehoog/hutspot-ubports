@@ -143,7 +143,13 @@ Item {
         'toggling_repeat_track'
         'transferring_playback'
         */
-        return !disallows ? true : !disallows.hasOwnProperty(action)
+        // not allowed if: disallowed.action: true
+        // allowed if: no action or false or undefined
+        return !disallows
+          ? true
+          : (!disallows.hasOwnProperty(action)
+             ? true
+             : !disallows[action])
     }
 
     function importState(state) {
