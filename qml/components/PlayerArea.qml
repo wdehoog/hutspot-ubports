@@ -87,7 +87,7 @@ Item {
                         width: row.itemWidth * 0.8
                         height: width
                         color: app.bgColor
-                        // enabled: app.mprisPlayer.canGoPrevious
+                        enabled: app.controller.playbackState.canGoPrevious
                         action: Action {
                             iconName: "media-skip-backward"
                             onTriggered: app.controller.previous()
@@ -98,6 +98,8 @@ Item {
                         width: row.itemWidth * 0.9
                         height: width
                         color: app.bgColor
+                        enabled: app.controller.playbackState.canPause
+                                 || app.controller.playbackState.canPlay
                         action: Action {
                             iconName: app.controller.playbackState.is_playing
                                          ? "media-playback-pause"
@@ -110,6 +112,7 @@ Item {
                         width: row.itemWidth * 0.8
                         height: width
                         color: app.bgColor
+                        enabled: app.controller.playbackState.canGoNext
                         action: Action {
                             iconName: "media-skip-forward"
                             onTriggered: app.controller.next()

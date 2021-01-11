@@ -278,10 +278,12 @@ Item {
     }
 
     function setRepeat(value, callback) {
+        console.log("setRepeat: " + value)
         Spotify.setRepeat(value, {}, function(error, data) {
+            console.log("setRepeat error: " + error + ", data: " + JSON.stringify(data))
             if (!error) {
-                playbackState.repeat_state = value;
-                delayedRefreshPlaybackState();
+                playbackState.repeat_state = value
+                delayedRefreshPlaybackState()
             }
 
             if (callback) callback(error, data)
@@ -289,18 +291,25 @@ Item {
     }
 
     function nextRepeatState() {
-        if (playbackState.repeat_state === "off")
-            return "context"
-        else if (playbackState.repeat_state === "context")
-            return "track";
-        return "off";
+        // off -> context -> track -> off
+        console.log("nextRepeatState: current=" + playbackState.repeat_state)
+        if (playbackState.repeat_state === "off") {
+            if(playbackState.isAllowed("toggling_repeat_context"))
+                return "context"
+            else if(playbackState.isAllowed("toggling_repeat_track"))
+                return "track"
+        } else if (playbackState.repeat_state === "context") {
+            if(playbackState.isAllowed("toggling_repeat_track"))
+                return "track"
+        }
+        return "off"
     }
 
     function setShuffle(value, callback) {
         Spotify.setShuffle(value, {}, function(error, data) {
             if (!error) {
-                playbackState.shuffle_state = value;
-                delayedRefreshPlaybackState();
+                playbackState.shuffle_state = value
+                delayedRefreshPlaybackState()
             }
 
             if (callback) callback(error, data)

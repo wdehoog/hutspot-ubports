@@ -433,6 +433,7 @@ Page {
                     width: buttonRow.itemWidth
                     color: app.controller.playbackState.shuffle_state
                            ? "#E5E4E2" : app.bgColor //: "white"
+                    enabled: app.controller.playbackState.canShuffle
                     action: Action {
                         iconName: "media-playlist-shuffle"
                         onTriggered: app.controller.setShuffle(!app.controller.playbackState.shuffle_state)
@@ -442,7 +443,7 @@ Page {
                 Button {
                     width: buttonRow.itemWidth
                     color: app.bgColor
-                    //enabled: app.mprisPlayer.canGoPrevious
+                    enabled: app.controller.playbackState.canGoPrevious
                     action: Action {
                         iconName: "media-skip-backward"
                         onTriggered: app.controller.previous()
@@ -451,6 +452,8 @@ Page {
                 Button {
                     width: buttonRow.itemWidth
                     color: app.bgColor
+                    enabled: app.controller.playbackState.canPlay
+                             || app.controller.playbackState.canPause
                     action: Action {
                         iconName: app.controller.playbackState.is_playing
                                  ? "media-playback-pause"
@@ -461,43 +464,22 @@ Page {
                 Button {
                     width: buttonRow.itemWidth
                     color: app.bgColor
-                    //enabled: app.mprisPlayer.canGoNext
+                    enabled: app.controller.playbackState.canGoNext
                     action: Action {
                         iconName: "media-skip-forward"
                         onTriggered: app.controller.next()
                     }
                 }
                 Button {
-                    /*Rectangle {
-                        visible: app.controller.playbackState.repeat_state === "track"
-                        color: Theme.highlightColor
-                        anchors {
-                            rightMargin: (buttonRow.itemWidth - Theme.iconSizeMedium)/2
-                            right: parent.right
-                            top: parent.top
-                        }
-                        width: Theme.iconSizeSmall
-                        height: width
-                        radius: width/2
-
-                        Label {
-                            text: "1"
-                            anchors.centerIn: parent
-                            color: "#000"
-                            font.pixelSize: Theme.fontSizeSmall
-                            font.bold: true
-                        }
-                    }*/
-
                     width: buttonRow.itemWidth
-                    color: app.controller.playbackState.repeat_state == "off"
-                           ? app.bgColor
-                           : "#E5E4E2"
-                           //   : "#BCC6CC") // white/platinum/metallic silver
+                    color: app.bgColor
+                    enabled: app.controller.playbackState.canRepeat
                     action: Action {
-                        iconName: app.controller.playbackState.repeat_state == "track"
-                                  ? "media-playlist-repeat-one"
-                                  : "media-playlist-repeat"
+                        iconSource: app.controller.playbackState.repeat_state == "context"
+                                    ? Qt.resolvedUrl("../resources/media-playlist-repeat-all.svg")
+                                    : (app.controller.playbackState.repeat_state == "track"
+                                       ? "image://theme/media-playlist-repeat-one"
+                                       : "image://theme/media-playlist-repeat")
                         onTriggered: app.controller.setRepeat(app.controller.nextRepeatState())
                     }
                 }

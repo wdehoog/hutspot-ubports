@@ -1,5 +1,5 @@
 /**
- * Hutspot. 
+ * Hutspot.
  * Copyright (C) 2018 Maciej Janiszewski
  *
  * License: MIT
@@ -10,13 +10,23 @@ import QtQuick 2.0
 import org.nemomobile.mpris 1.0
 import "../Util.js" as Util
 
-Item {   
+Item {
+    id: pbs
 
+    property bool _hasItem: item && item.id != -1
+
+    property bool canPause: is_playing && isAllowed('pausing')
+    property bool canPlay: _hasItem && !is_playing && isAllowed('resuming')
+    property bool canGoNext: _hasItem && isAllowed('skipping_next')
+    property bool canGoPrevious: _hasItem && isAllowed('skipping_prev')
+    property bool canSeek: _hasItem && isAllowed('seeking')
+    property bool canShuffle: _hasItem && isAllowed('toggling_shuffle')
+    property bool canRepeat: _hasItem && (isAllowed('toggling_repeat_track') || isAllowed('toggling_repeat_context'))
 
     MprisPlayer {
         id: mprisPlayer
 
-        // Used by apparmor to check dbus permissions. Use APP_ID_DBUS.      
+        // Used by apparmor to check dbus permissions. Use APP_ID_DBUS.
         serviceName: app.app_id_dbus
 
         playbackStatus: is_playing ? Mpris.Playing : Mpris.Paused
@@ -29,12 +39,11 @@ Item {
 
         canControl: true
 
-        // ToDo add more checks
-        canPause: item && item.id != -1
-        canPlay: item && item.id != -1
-        canGoNext: true
-        canGoPrevious: true
-        canSeek: item && item.id != -1
+        canPause: pbs.canPause  // how about || canPlay
+        canPlay: pbs.canPlay
+        canGoNext: pbs.canGoNext
+        canGoPrevious: pbs.canGoPrevious
+        canSeek: pbs.canSeek
 
         onPauseRequested: app.controller.playPause()
         onStopRequested: app.controller.pause()
@@ -72,7 +81,7 @@ Item {
                 coverArtUrl = item.album.images[0].url
             else if (item.images && item.images.length > 0)
                 coverArtUrl = item.images[0].url
-            else 
+            else
                 coverArtUrl = ""
 
             // Album, ArtUrl, Artist, AlbumArtist, Composer, Length, TrackNumber, Title
@@ -93,7 +102,7 @@ Item {
 
     signal playbackDeviceChanged(string id, string name)
 
-    property var device: no_device  
+    property var device: no_device
     property var no_device: {
         "id": "-1",
         "is_active": false,
@@ -103,6 +112,8 @@ Item {
         "name": "No Device",
         "volume_percent": 0
     }
+
+    onRepeat_stateChanged: console.log("onRepeat_stateChanged: " + repeat_state)
 
     property string repeat_state: "off"
     property bool shuffle_state: false
@@ -116,6 +127,23 @@ Item {
         "artists": [],
         "name": "",
         "album": {"name": "", "id": -1, "images": []}
+    }
+    property var disallows: {}
+
+    function isAllowed(action) {
+        /*
+        'interrupting_playback'
+        'pausing'
+        'resuming'
+        'seeking'
+        'skipping_next'
+        'skipping_prev'
+        'toggling_repeat_context'
+        'toggling_shuffle'
+        'toggling_repeat_track'
+        'transferring_playback'
+        */
+        return !disallows ? true : !disallows.hasOwnProperty(action)
     }
 
     function importState(state) {
@@ -145,8 +173,14 @@ Item {
                 context = state.context
         }
 
+        if(state.actions && state.actions.disallows)
+            disallows = state.actions.disallows
+        else
+            disallows = {}
+
         if(oldDeviceName != device.name)
           playbackDeviceChanged(device.id, deviceName)
+
     }
 
     function notifyNoState(status) {

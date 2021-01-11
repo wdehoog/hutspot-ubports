@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-10 23:01+0000\n"
+"POT-Creation-Date: 2021-01-11 21:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../qml/components/SpotifyController.qml:425
+#: ../qml/components/SpotifyController.qml:434
 msgid "There is a resume point available for this Epsidode: "
 msgstr ""
 
@@ -26,7 +26,7 @@ msgid "artist"
 msgstr ""
 
 #: ../qml/components/RecommendationData.qml:85 ../qml/Main.qml:1056
-#: ../qml/pages/Playing.qml:609 ../qml/pages/Album.qml:89
+#: ../qml/pages/Playing.qml:595 ../qml/pages/Album.qml:89
 msgid "track"
 msgstr ""
 
@@ -146,12 +146,12 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: ../qml/components/SearchResultListItem.qml:223 ../qml/pages/Playing.qml:617
-#: ../qml/pages/Playing.qml:623
+#: ../qml/components/SearchResultListItem.qml:223 ../qml/pages/Playing.qml:603
+#: ../qml/pages/Playing.qml:609
 msgid "followers"
 msgstr ""
 
-#: ../qml/components/SearchResultListItem.qml:248 ../qml/pages/Playing.qml:634
+#: ../qml/components/SearchResultListItem.qml:248 ../qml/pages/Playing.qml:620
 #: ../qml/pages/Show.qml:78
 msgid "explicit"
 msgstr ""
@@ -499,42 +499,42 @@ msgstr ""
 msgid "Refresh Recommended Tracks"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:536
+#: ../qml/pages/Playing.qml:522
 msgid "no current device"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:576 ../qml/pages/Playing.qml:596
+#: ../qml/pages/Playing.qml:562 ../qml/pages/Playing.qml:582
 #: ../qml/pages/Album.qml:78
 msgid "no artist known"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:579
+#: ../qml/pages/Playing.qml:565
 msgid "no genre known"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:607 ../qml/pages/Playing.qml:620
+#: ../qml/pages/Playing.qml:593 ../qml/pages/Playing.qml:606
 #: ../qml/pages/Album.qml:87
 msgid "tracks"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:621 ../qml/pages/Playing.qml:632
+#: ../qml/pages/Playing.qml:607 ../qml/pages/Playing.qml:618
 #: ../qml/pages/Show.qml:76
 msgid "by"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:625
+#: ../qml/pages/Playing.qml:611
 msgid "public"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:627
+#: ../qml/pages/Playing.qml:613
 msgid "collaborative"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:631 ../qml/pages/Show.qml:75
+#: ../qml/pages/Playing.qml:617 ../qml/pages/Show.qml:75
 msgid "episodes"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:1119
+#: ../qml/pages/Playing.qml:1105
 msgid "Do you want to refresh the tracks of %1?"
 msgstr ""
 
@@ -555,7 +555,7 @@ msgid "Confirm Un-Follow/Save"
 msgstr ""
 
 #: ../qml/pages/Settings.qml:48
-msgid "Show Album Art as Background"
+msgid "Use Album Art for Background"
 msgstr ""
 
 #: ../qml/pages/Settings.qml:63
