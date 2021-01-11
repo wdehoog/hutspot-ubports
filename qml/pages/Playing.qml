@@ -40,6 +40,8 @@ Page {
 
     property bool _debug: true
 
+    property var playbackState: app.controller.playbackState
+
     ListModel {
         id: searchModel
     }
@@ -117,10 +119,10 @@ Page {
                     onTriggered: {
                         switch(getContextType()) {
                         case Spotify.ItemType.Album:
-                            app.loadAlbum(app.controller.playbackState.context, true)
+                            app.loadAlbum(playbackState.context, true)
                             break
                         case Spotify.ItemType.Track:
-                            app.loadAlbum(app.controller.playbackState.item.album, true)
+                            app.loadAlbum(playbackState.item.album, true)
                             break
                         }
                     }
@@ -134,13 +136,13 @@ Page {
                     onTriggered: {
                         switch(getContextType()) {
                         case Spotify.ItemType.Album:
-                            app.loadArtist(app.controller.playbackState.context.artists, true)
+                            app.loadArtist(playbackState.context.artists, true)
                             break
                         case Spotify.ItemType.Artist:
-                            app.pushPage(Util.HutspotPage.Artist, {currentArtist: app.controller.playbackState.context}, true)
+                            app.pushPage(Util.HutspotPage.Artist, {currentArtist: playbackState.context}, true)
                             break
                         case Spotify.ItemType.Track:
-                            app.loadArtist(app.controller.playbackState.item.artists, true)
+                            app.loadArtist(playbackState.item.artists, true)
                             break
                         }
                     }
@@ -152,7 +154,7 @@ Page {
                     visible: enabled
                     enabled: _viewPlaylistEnabled
                     onTriggered: {
-                        app.pushPage(Util.HutspotPage.Playlist, {playlist: app.controller.playbackState.context}, true)
+                        app.pushPage(Util.HutspotPage.Playlist, {playlist: playbackState.context}, true)
                     }
                 }
                 Action {
@@ -170,7 +172,7 @@ Page {
                     visible: enabled
                     enabled: _viewShowEnabled
                     onTriggered: {
-                        app.pushPage(Util.HutspotPage.Show, {show: app.controller.playbackState.context}, true)
+                        app.pushPage(Util.HutspotPage.Show, {show: playbackState.context}, true)
                     }
                 }
             }
@@ -330,12 +332,12 @@ Page {
             }
 
             onPressAndHold: {
-                //console.log("contextType: " + contextType + " => " + JSON.stringify(app.controller.playbackState.context))
+                //console.log("contextType: " + contextType + " => " + JSON.stringify(playbackState.context))
                 if(contextType > 0) {
                     searchResultContextMenu.open(model, listItem)
                 } else {
                     albumTrackContextMenu.model = model
-                    albumTrackContextMenu.context = app.controller.playbackState.context
+                    albumTrackContextMenu.context = playbackState.context
                     PopupUtils.open(albumTrackContextMenu, listItem)
                 }
             }
@@ -346,14 +348,14 @@ Page {
             }
 
             // play track
-            onClicked: app.controller.playTrackInContext(item, app.controller.playbackState.context, index)
+            onClicked: app.controller.playTrackInContext(item, playbackState.context, index)
         }
 
         onAtYEndChanged: {
             if(listView.atYEnd && searchModel.count > 0) {
                 // album is already completely loaded
-                if(app.controller.playbackState.context
-                   && app.controller.playbackState.context.type === 'playlist')
+                if(playbackState.context
+                   && playbackState.context.type === 'playlist')
                     appendPlaylistTracks(app.id, currentId, false)
             }
         }
@@ -387,7 +389,7 @@ Page {
                     id: progressLabel
                     //font.pixelSize: Theme.fontSizeSmall
                     anchors.verticalCenter: parent.verticalCenter
-                    text: Util.getDurationString(app.controller.playbackState.progress_ms)
+                    text: Util.getDurationString(playbackState.progress_ms)
                 }
                 Slider {
                     id: progressSlider
@@ -395,8 +397,8 @@ Page {
                     anchors.verticalCenter: parent.verticalCenter
                     width: parent.width - durationLabel.width - progressLabel.width
                     minimumValue: 0
-                    maximumValue: app.controller.playbackState.item
-                                  ? app.controller.playbackState.item.duration_ms
+                    maximumValue: playbackState.item
+                                  ? playbackState.item.duration_ms
                                   : ""
                     onPressedChanged: {
                         if(pressed) // only act on release
@@ -404,16 +406,16 @@ Page {
                         app.controller.seek(value)
                     }
                     Connections {
-                        target: app.controller.playbackState
-                        onProgress_msChanged: progressSlider.value = app.controller.playbackState.progress_ms
+                        target: playbackState
+                        onProgress_msChanged: progressSlider.value = playbackState.progress_ms
                     }
                 }
                 Label {
                     id: durationLabel
                     //font.pixelSize: Theme.fontSizeSmall
                     anchors.verticalCenter: parent.verticalCenter
-                    text: app.controller.playbackState.item
-                          ? Util.getDurationString(app.controller.playbackState.item.duration_ms)
+                    text: playbackState.item
+                          ? Util.getDurationString(playbackState.item.duration_ms)
                           : ""
                 }
             }
@@ -431,21 +433,21 @@ Page {
 
                 Button {
                     width: buttonRow.itemWidth
-                    //color: app.controller.playbackState.shuffle_state
+                    //color: playbackState.shuffle_state
                     //       ? theme.palette.normal.focus : theme.palette.normal.foregroundText
-                    opacity: app.controller.playbackState.shuffle_state ? 1 : .4
-                    enabled: app.controller.playbackState.canShuffle
+                    opacity: playbackState.shuffle_state ? 1 : .4
+                    enabled: playbackState.canShuffle
                     color: app.bgColor
                     action: Action {
                         iconName: "media-playlist-shuffle"
-                        onTriggered: app.controller.setShuffle(!app.controller.playbackState.shuffle_state)
+                        onTriggered: app.controller.setShuffle(!playbackState.shuffle_state)
                     }
                 }
 
                 Button {
                     width: buttonRow.itemWidth
                     color: app.bgColor
-                    enabled: app.controller.playbackState.canGoPrevious
+                    enabled: playbackState.canGoPrevious
                     action: Action {
                         iconName: "media-skip-backward"
                         onTriggered: app.controller.previous()
@@ -454,10 +456,10 @@ Page {
                 Button {
                     width: buttonRow.itemWidth
                     color: app.bgColor
-                    enabled: app.controller.playbackState.canPlay
-                             || app.controller.playbackState.canPause
+                    enabled: playbackState.canPlay
+                             || playbackState.canPause
                     action: Action {
-                        iconName: app.controller.playbackState.is_playing
+                        iconName: playbackState.is_playing
                                  ? "media-playback-pause"
                                  : "media-playback-start"
                         onTriggered: app.controller.playPause()
@@ -466,7 +468,7 @@ Page {
                 Button {
                     width: buttonRow.itemWidth
                     color: app.bgColor
-                    enabled: app.controller.playbackState.canGoNext
+                    enabled: playbackState.canGoNext
                     action: Action {
                         iconName: "media-skip-forward"
                         onTriggered: app.controller.next()
@@ -475,11 +477,11 @@ Page {
                 Button {
                     width: buttonRow.itemWidth
                     color: app.bgColor
-                    enabled: app.controller.playbackState.canRepeat
+                    enabled: playbackState.canRepeat
                     action: Action {
-                        iconSource: app.controller.playbackState.repeat_state == "context"
+                        iconSource: playbackState.repeat_state == "context"
                                     ? Qt.resolvedUrl("../resources/media-playlist-repeat-all.svg")
-                                    : (app.controller.playbackState.repeat_state == "track"
+                                    : (playbackState.repeat_state == "track"
                                        ? "image://theme/media-playlist-repeat-one"
                                        : "image://theme/media-playlist-repeat")
                         onTriggered: app.controller.setRepeat(app.controller.nextRepeatState())
@@ -517,7 +519,7 @@ Page {
 
                     Label {
                         id: spotifyConnectLabel
-                        text: app.controller.hasCurrentDevice ? "Listening on <b>" + app.controller.playbackState.device.name + "</b>" : i18n.tr("no current device")
+                        text: app.controller.hasCurrentDevice ? "Listening on <b>" + playbackState.device.name + "</b>" : i18n.tr("no current device")
                     }
                 }
             }
@@ -526,35 +528,35 @@ Page {
 
     function getFirstLabelText() {
         var s = ""
-        if(app.controller.playbackState === undefined)
+        if(playbackState === undefined)
              return s
-        if(!app.controller.playbackState.context || showTrackInfo)
-            return app.controller.playbackState.item ? app.controller.playbackState.item.name : ""
-        if(app.controller.playbackState.context === null)
+        if(!playbackState.context || showTrackInfo)
+            return playbackState.item ? playbackState.item.name : ""
+        if(playbackState.context === null)
             return s
-        return app.controller.playbackState.context.name
+        return playbackState.context.name
     }
 
     function getSecondLabelText() {
         var s = ""
-        if(app.controller.playbackState === undefined)
+        if(playbackState === undefined)
              return s
-        if(!app.controller.playbackState.context || showTrackInfo) {
+        if(!playbackState.context || showTrackInfo) {
             // no context (a single track?)
-            if(app.controller.playbackState.item && app.controller.playbackState.item.album) {
-                s += app.controller.playbackState.item.album.name
-                if (app.controller.playbackState.item.album.release_date)
-                    s += ", " + Util.getYearFromReleaseDate(app.controller.playbackState.item.album.release_date)
-            } else if(app.controller.playbackState.item && app.controller.playbackState.item.show) {
-                s += app.controller.playbackState.item.show.name
-                //if (app.controller.playbackState.item.show.copyrights)
-                //    s += ", " + app.controller.playbackState.item.show.copyrights
+            if(playbackState.item && playbackState.item.album) {
+                s += playbackState.item.album.name
+                if (playbackState.item.album.release_date)
+                    s += ", " + Util.getYearFromReleaseDate(playbackState.item.album.release_date)
+            } else if(playbackState.item && playbackState.item.show) {
+                s += playbackState.item.show.name
+                //if (playbackState.item.show.copyrights)
+                //    s += ", " + playbackState.item.show.copyrights
             }
             return s
         }
-        if(app.controller.playbackState.context === null)
+        if(playbackState.context === null)
             return s
-        var context = app.controller.playbackState.context
+        var context = playbackState.context
         switch(context.type) {
         case 'album':
             s += Util.createItemsString(context.artists, i18n.tr("no artist known"))
@@ -572,19 +574,19 @@ Page {
 
     function getThirdLabelText() {
         var s = ""
-        if(app.controller.playbackState === undefined)
+        if(playbackState === undefined)
              return s
-        if(!app.controller.playbackState.context || showTrackInfo) {
+        if(!playbackState.context || showTrackInfo) {
             // no context (a single track?)
-            if(app.controller.playbackState.item && app.controller.playbackState.item.artists)
-                s += Util.createItemsString(app.controller.playbackState.item.artists, i18n.tr("no artist known"))
-            else if(app.controller.playbackState.item && app.controller.playbackState.item.show)
-                s += app.controller.playbackState.item.show.publisher
+            if(playbackState.item && playbackState.item.artists)
+                s += Util.createItemsString(playbackState.item.artists, i18n.tr("no artist known"))
+            else if(playbackState.item && playbackState.item.show)
+                s += playbackState.item.show.publisher
             return s
         }
-        if(!app.controller.playbackState.context)
+        if(!playbackState.context)
             return
-        var context = app.controller.playbackState.context
+        var context = playbackState.context
         switch(context.type) {
         case 'album':
             if(context.tracks)
@@ -638,11 +640,11 @@ Page {
     }
 
     function getContextType() {
-        if(!app.controller.playbackState || !app.controller.playbackState.item)
+        if(!playbackState || !playbackState.item)
             return -1
 
-        if (app.controller.playbackState.context)
-            switch(app.controller.playbackState.context.type) {
+        if (playbackState.context)
+            switch(playbackState.context.type) {
             case 'album':
                 return Spotify.ItemType.Album
             case 'artist':
@@ -661,7 +663,7 @@ Page {
 
         // if currentTrackId is not set take it from playback state
         if(!currentTrackId)
-            currentTrackId = app.controller.playbackState.item.id
+            currentTrackId = playbackState.item.id
 
         currentIndex = -1
         for(var i=0;i<searchModel.count;i++) {
@@ -677,7 +679,7 @@ Page {
     }
 
     function updateForCurrentTrack() {
-        var context = app.controller.playbackState.context
+        var context = playbackState.context
         if(context) {
             if(_debug)console.log("updateForCurrentTrack: context=" + context.type)
             switch(context.type) {
@@ -710,7 +712,7 @@ Page {
 
         // if currentTrackId is not set take it from playback state
         if(!currentTrackId)
-            currentTrackId = app.controller.playbackState.item.id
+            currentTrackId = playbackState.item.id
 
         for(var i=0;i<tracksInfo.length;i++) {
             if(tracksInfo[i].id === currentTrackId
@@ -754,8 +756,8 @@ Page {
 
     onCurrentIdChanged: {
         if(_debug)console.log("Playing.onCurrentIdChanged: " + currentId)
-        if (app.controller.playbackState.context) {
-            switch (app.controller.playbackState.context.type) {
+        if (playbackState.context) {
+            switch (playbackState.context.type) {
                 case 'album':
                     contextType = Util.SpotifyItemType.Album
                     loadAlbumTracks(currentId)
@@ -785,13 +787,13 @@ Page {
     // try to detect end of playlist play
     property bool _isPlaying: false
     Connections {
-        target: app.controller.playbackState
+        target: playbackState
 
         onContextChanged: {
             if(_debug)console.log("Playing.onContextChanged: " + currentId)
-            if(app.controller.playbackState.context) {
-                currentId = app.controller.playbackState.context.id
-                currentSnapshotId = app.controller.playbackState.context.snapshot_id
+            if(playbackState.context) {
+                currentId = playbackState.context.id
+                currentSnapshotId = playbackState.context.snapshot_id
             } else {
                 currentId = ""
                 currentSnapshotId = ""
@@ -802,39 +804,39 @@ Page {
             if(_debug)console.log("Playing.onItemChanged  currentId: " +currentId + ", currentTrackId: " + currentTrackId + ", currentIndex: " + currentIndex)
 
             // do we have an id?
-            if(currentId == "" && app.controller.playbackState.context)
-                currentId = app.controller.playbackState.context.id
+            if(currentId == "" && playbackState.context)
+                currentId = playbackState.context.id
 
-            if(currentTrackId === app.controller.playbackState.item.id) {
+            if(currentTrackId === playbackState.item.id) {
                 if(currentIndex === -1) // we can still have missed it
                     updateForCurrentTrack()
                 return
             }
 
-            currentTrackId = app.controller.playbackState.item.id
+            currentTrackId = playbackState.item.id
             updateForCurrentTrack()
 
-            if(app.controller.playbackState.context) {
-                switch (app.controller.playbackState.context.type) {
+            if(playbackState.context) {
+                switch (playbackState.context.type) {
                     case 'album':
-                        pageHeaderDescription = app.controller.playbackState.item.album.name
+                        pageHeaderDescription = playbackState.item.album.name
                         break
                     case 'artist':
-                        pageHeaderDescription = app.controller.playbackState.artistsString
+                        pageHeaderDescription = playbackState.artistsString
                         break
                     case 'playlist':
                     case 'show':
-                        if(app.controller.playbackState.context)
-                            pageHeaderDescription = app.controller.playbackState.context.name
+                        if(playbackState.context)
+                            pageHeaderDescription = playbackState.context.name
                         break
                     default:
                         pageHeaderDescription = ""
-                        console.log("onItemChanged unknown context: " + app.controller.playbackState.context.type)
+                        console.log("onItemChanged unknown context: " + playbackState.context.type)
                         break
                 }
             } else {
                 // no context (a single track?)
-                currentId = app.controller.playbackState.item.id
+                currentId = playbackState.item.id
                 //console.log("  no context: " + currentId)
                 pageHeaderDescription = ""
             }
@@ -842,16 +844,16 @@ Page {
 
         onIs_playingChanged: {
             if(_debug)console.log("Playing.onIs_playingChanged currentIndex: " + currentIndex)
-            if(!_isPlaying && app.controller.playbackState.is_playing) {
+            if(!_isPlaying && playbackState.is_playing) {
                 if(currentIndex === -1)
                     updateForCurrentTrack()
                 //console.log("Started Playing")
-            } else if(_isPlaying && !app.controller.playbackState.is_playing) {
+            } else if(_isPlaying && !playbackState.is_playing) {
                 //console.log("Stopped Playing")
                 pluOnStopped()
             }
 
-            _isPlaying = app.controller.playbackState.is_playing
+            _isPlaying = playbackState.is_playing
         }
     }
 
@@ -968,39 +970,39 @@ Page {
     }
 
     function toggleSavedFollowed() {
-        if(!app.controller.playbackState.context
-           || !app.controller.playbackState.context)
+        if(!playbackState.context
+           || !playbackState.context)
             return
-        switch(app.controller.playbackState.context.type) {
+        switch(playbackState.context.type) {
         case 'album':
-            app.toggleSavedAlbum(app.controller.playbackState.context, isContextFavorite, function(saved) {
+            app.toggleSavedAlbum(playbackState.context, isContextFavorite, function(saved) {
                 isContextFavorite = saved
             })
             break
         case 'artist':
-            app.toggleFollowArtist(app.controller.playbackState.context, isContextFavorite, function(followed) {
+            app.toggleFollowArtist(playbackState.context, isContextFavorite, function(followed) {
                 isContextFavorite = followed
             })
             break
         case 'playlist':
-            app.toggleFollowPlaylist(app.controller.playbackState.context, isContextFavorite, function(followed) {
+            app.toggleFollowPlaylist(playbackState.context, isContextFavorite, function(followed) {
                 isContextFavorite = followed
             })
             break
         case 'show':
-            app.toggleSavedShow(app.controller.playbackState.context, isContextFavorite, function(saved) {
+            app.toggleSavedShow(playbackState.context, isContextFavorite, function(saved) {
                 isContextFavorite = saved
             })
             break
         default: // track?
-            if (app.controller.playbackState.item) { // Note uses globals
+            if (playbackState.item) { // Note uses globals
                 if(isContextFavorite)
-                    app.unSaveTrack(app.controller.playbackState.item, function(error,data) {
+                    app.unSaveTrack(playbackState.item, function(error,data) {
                         if(!error)
                             isContextFavorite = false
                     })
                 else
-                    app.saveTrack(app.controller.playbackState.item, function(error,data) {
+                    app.saveTrack(playbackState.item, function(error,data) {
                         if(!error)
                             isContextFavorite = true
                     })
@@ -1038,7 +1040,7 @@ Page {
         onPlaylistEvent: {
             if(_debug)console.log("onPlaylistEvent " + event.playlistId)
             if(getContextType() !== Spotify.ItemType.Playlist
-               || app.controller.playbackState.context.id !== event.playlistId)
+               || playbackState.context.id !== event.playlistId)
                 return
 
             // When a playlist is modified while being played the modifications
@@ -1055,12 +1057,12 @@ Page {
             case Util.PlaylistEventType.AddedTrack:
                 // in theory it has been added at the end of the list
                 // so we could load the info and add it to the model but ...
-                if(app.controller.playbackState.is_playing) {
+                if(playbackState.is_playing) {
                     waitForEndOfSnapshot = true
                     waitForEndSnapshotData.uri = event.uri
                     waitForEndSnapshotData.href = event.uri
                     waitForEndSnapshotData.snapshotId = event.snapshotId
-                    waitForEndSnapshotData.index = app.controller.playbackState.context.tracks.total // not used
+                    waitForEndSnapshotData.index = playbackState.context.tracks.total // not used
                     waitForEndSnapshotData.trackUri = event.trackUri
                 } else {
                     //currentSnapshotId = event.snapshotId
@@ -1072,8 +1074,8 @@ Page {
                 //currentSnapshotId = event.snapshotId
                 break
             case Util.PlaylistEventType.ReplacedAllTracks:
-                if(app.controller.playbackState.is_playing) {
-                    var href = app.controller.playbackState.context.href
+                if(playbackState.is_playing) {
+                    var href = playbackState.context.href
                     app.controller.pause(function(error, data) {
                         app.controller.playContext({type: 'playlist', href: href})
                     })
@@ -1098,7 +1100,7 @@ Page {
     }
 
     function refreshRecommendedTracks() {
-        var name = app.controller.playbackState.context.name
+        var name = playbackState.context.name
         app.showConfirmDialog(
             i18n.tr("Do you want to refresh the tracks of %1?").arg(name), function(info) {
             var rsi = getRecommendationSetForPlaylist(currentId)
@@ -1110,11 +1112,11 @@ Page {
     Component.onCompleted: {
         // do we have an id?
         if(currentId == ""
-           && app.controller.playbackState
-           && app.controller.playbackState.context) {
-            currentId = app.controller.playbackState.context.id
-            currentSnapshotId = app.controller.playbackState.context.snapshot_id
-                                ? app.controller.playbackState.context.snapshot_id : ""
+           && playbackState
+           && playbackState.context) {
+            currentId = playbackState.context.id
+            currentSnapshotId = playbackState.context.snapshot_id
+                                ? playbackState.context.snapshot_id : ""
         }
     }
 }
