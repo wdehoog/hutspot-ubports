@@ -17,8 +17,9 @@ Main features:
  * Create and Edit Playlists
  * Get Recommendations based on Artists, Tracks, Genres and some attributes
  * Keep track of visited Albums, Artists and Playlists
- * Can be used by controls from indicator panel
+ * Can be used by media controls from indicator panel
  * Start/Stop Librespot if available (see [play-on-phone](play-on-phone))
+ * Supports Suru Dark mode
 
 It does not support saving tracks nor offline playing
 
