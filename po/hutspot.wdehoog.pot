@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-12 20:54+0000\n"
+"POT-Creation-Date: 2021-01-12 21:48+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -103,7 +103,7 @@ msgstr ""
 #: ../qml/components/PlaylistPicker.qml:38 ../qml/components/Librespot.qml:414
 #: ../qml/components/GenrePicker.qml:36 ../qml/components/ArtistPicker.qml:35
 #: ../qml/Main.qml:1126 ../qml/Main.qml:1624
-#: ../qml/pages/Recommendations.qml:304
+#: ../qml/pages/Recommendations.qml:315
 msgid "Cancel"
 msgstr ""
 
@@ -142,7 +142,7 @@ msgid "Do you really want to delete all Search Queries?"
 msgstr ""
 
 #: ../qml/components/SearchQueryMaintenance.qml:66
-#: ../qml/pages/Recommendations.qml:97
+#: ../qml/pages/Recommendations.qml:108
 msgid "Delete"
 msgstr ""
 
@@ -161,15 +161,15 @@ msgid "externally hosted"
 msgstr ""
 
 #: ../qml/components/ExportRecommendationsDataPage.qml:24
-msgid "Save with"
+msgid "Save Recommendations Data"
 msgstr ""
 
 #: ../qml/components/ExportRecommendationsDataPage.qml:30
-msgid "Failed to export Recommendations data."
+msgid "Failed to export Recommendations Data."
 msgstr ""
 
 #: ../qml/components/ImportRecommendationsDataPage.qml:25
-msgid "Load with"
+msgid "Load Recommendations Data"
 msgstr ""
 
 #: ../qml/components/PlaylistPicker.qml:21
@@ -331,64 +331,56 @@ msgstr ""
 msgid "Sets"
 msgstr ""
 
-#: ../qml/pages/Recommended.qml:52
+#: ../qml/pages/Recommended.qml:51
 msgid "Recommended"
 msgstr ""
 
-#: ../qml/pages/Recommended.qml:58 ../qml/pages/Playing.qml:55
+#: ../qml/pages/Recommended.qml:57 ../qml/pages/Playing.qml:55
 msgid "Back"
 msgstr ""
 
-#: ../qml/pages/Recommended.qml:67
+#: ../qml/pages/Recommended.qml:66
 msgid "Add Genre"
 msgstr ""
 
-#: ../qml/pages/Recommended.qml:72
+#: ../qml/pages/Recommended.qml:71
 msgid "Reload"
 msgstr ""
 
-#: ../qml/pages/Recommended.qml:84
-msgid "Save"
-msgstr ""
-
-#: ../qml/pages/Recommended.qml:89
-msgid "Load"
-msgstr ""
-
-#: ../qml/pages/Recommended.qml:94
+#: ../qml/pages/Recommended.qml:83
 msgid "Reset"
 msgstr ""
 
-#: ../qml/pages/Recommended.qml:111
+#: ../qml/pages/Recommended.qml:100
 msgid "Seeds"
 msgstr ""
 
-#: ../qml/pages/Recommended.qml:150
+#: ../qml/pages/Recommended.qml:139
 msgid "Empty Seed Slot"
 msgstr ""
 
-#: ../qml/pages/Recommended.qml:190
+#: ../qml/pages/Recommended.qml:179
 msgid "Use"
 msgstr ""
 
-#: ../qml/pages/Recommended.qml:206
+#: ../qml/pages/Recommended.qml:195
 msgid "Attributes"
 msgstr ""
 
-#: ../qml/pages/Recommended.qml:281 ../qml/pages/Recommendations.qml:34
+#: ../qml/pages/Recommended.qml:270 ../qml/pages/Recommendations.qml:35
 #: ../qml/pages/Menu.qml:77
 msgid "Recommendations"
 msgstr ""
 
-#: ../qml/pages/Recommended.qml:397
+#: ../qml/pages/Recommended.qml:386
 msgid "Select a Genre"
 msgstr ""
 
-#: ../qml/pages/Recommended.qml:406
+#: ../qml/pages/Recommended.qml:395
 msgid "Do you want to remove %1?"
 msgstr ""
 
-#: ../qml/pages/Recommended.qml:434
+#: ../qml/pages/Recommended.qml:423
 msgid "Do you want to reset all Recommendations Seeds and Attributes?"
 msgstr ""
 
@@ -430,60 +422,68 @@ msgstr ""
 msgid "Long (years)"
 msgstr ""
 
-#: ../qml/pages/Recommendations.qml:38
+#: ../qml/pages/Recommendations.qml:39
 msgid "Add New"
 msgstr ""
 
-#: ../qml/pages/Recommendations.qml:65
-msgid "Refresh Playlist Tracks"
+#: ../qml/pages/Recommendations.qml:44
+msgid "Save"
 msgstr ""
 
-#: ../qml/pages/Recommendations.qml:75
-msgid "Link to other Playlist"
+#: ../qml/pages/Recommendations.qml:49
+msgid "Load"
 msgstr ""
 
 #: ../qml/pages/Recommendations.qml:76
+msgid "Refresh Playlist Tracks"
+msgstr ""
+
+#: ../qml/pages/Recommendations.qml:86
+msgid "Link to other Playlist"
+msgstr ""
+
+#: ../qml/pages/Recommendations.qml:87
 msgid "Link to Playlist"
 msgstr ""
 
-#: ../qml/pages/Recommendations.qml:83 ../qml/pages/Recommendations.qml:282
+#: ../qml/pages/Recommendations.qml:94 ../qml/pages/Recommendations.qml:293
 msgid "Rename"
 msgstr ""
 
-#: ../qml/pages/Recommendations.qml:90
+#: ../qml/pages/Recommendations.qml:101
 msgid "Edit"
 msgstr ""
 
-#: ../qml/pages/Recommendations.qml:142
+#: ../qml/pages/Recommendations.qml:153
 msgid "yes"
 msgstr ""
 
-#: ../qml/pages/Recommendations.qml:142
+#: ../qml/pages/Recommendations.qml:153
 msgid "no"
 msgstr ""
 
-#: ../qml/pages/Recommendations.qml:142
+#: ../qml/pages/Recommendations.qml:153
 msgid "#seeds: %1, use attributes: %2"
 msgstr ""
 
-#: ../qml/pages/Recommendations.qml:200
+#: ../qml/pages/Recommendations.qml:211
 msgid "Do you want to delete<br>%1?"
 msgstr ""
 
-#: ../qml/pages/Recommendations.qml:246
+#: ../qml/pages/Recommendations.qml:257
 msgid "Select Playlist to Link to"
 msgstr ""
 
-#: ../qml/pages/Recommendations.qml:254
+#: ../qml/pages/Recommendations.qml:265
 msgid "Do you want to update the tracks of linked playlist for<br><b>%1</b>"
 msgstr ""
 
-#: ../qml/pages/Recommendations.qml:259
+#: ../qml/pages/Recommendations.qml:270
 msgid ""
 "Refreshing Tracks in Playlist succeeded. Do you want to start playing %1?"
 msgstr ""
 
-#: ../qml/pages/Recommendations.qml:295
+#: ../qml/pages/Recommendations.qml:306
 msgid "Change"
 msgstr ""
 

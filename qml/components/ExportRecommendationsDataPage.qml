@@ -21,13 +21,13 @@ Page {
     property string saveDataPath: app.tempDirectory + "/exported_recommendations.json"
 
     header: PageHeader {
-        title: i18n.tr("Save with")
+        title: i18n.tr("Save Recommendations Data")
     }
 
     onSaveDataChanged: {
         // write saveData to special file in temp dir
         if(!sysUtil.write(saveDataPath, saveData)) {
-            app.showErrorMessage("Write Error", i18n.tr("Failed to export Recommendations data."))
+            app.showErrorMessage("Write Error", i18n.tr("Failed to export Recommendations Data."))
             pageStack.pop()
         }
     }

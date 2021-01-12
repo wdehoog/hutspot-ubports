@@ -10,6 +10,7 @@ import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 //import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
+import Ubuntu.Content 1.3
 
 import "../components"
 import "../Spotify.js" as Spotify
@@ -38,6 +39,16 @@ Page {
                 text: i18n.tr("Add New")
                 iconName: "add"
                 onTriggered: addNewSet()
+            },
+            Action {
+                text: i18n.tr("Save")
+                iconName: "document-save"
+                onTriggered: saveSeedsAndAttributes()
+            },
+            Action {
+                text: i18n.tr("Load")
+                iconName: "document-open"
+                onTriggered: loadSeedsAndAttributes()
             }
         ]
     }
@@ -326,6 +337,20 @@ Page {
             if(rs.playlist_id && rs.playlist_id == playlistId)
                 recommendationsModel.setProperty(index, "recommendationSet", rs)
         }
+    }
+
+    function saveSeedsAndAttributes() {
+        var page = app.pageStack.push(Qt.resolvedUrl("../components/ExportRecommendationsDataPage.qml"), {saveData: app.settings.recommendationsData})
+    }
+
+    function loadSeedsAndAttributes() {
+        var page = app.pageStack.push(Qt.resolvedUrl("../components/ImportRecommendationsDataPage.qml"))
+        page.imported.connect(function(data) {
+            console.log("imported recommendations: " + data)
+            app.settings.recommendationsData = data
+            app.pageStack.pop()
+            app.initRecommendationSets()
+        })
     }
 
     Connections {

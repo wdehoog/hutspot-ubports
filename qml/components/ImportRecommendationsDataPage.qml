@@ -22,7 +22,7 @@ Page {
     signal imported(var data)
 
     header: PageHeader {
-        title: i18n.tr("Load with")
+        title: i18n.tr("Load Recommendations Data")
     }
 
     ContentPeerPicker {

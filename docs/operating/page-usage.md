@@ -121,7 +121,10 @@ layout: default
  * Click on Playlist item to select it
 
 ### Recommendations Page
- * Page header '+' button allows to add a new Recommendations Set
+ * Page header
+   * '+' button allows to add a new Recommendations Set
+   * Save current Recommendation Sets to a file
+   * Load Recommendation Sets from a file
  * Context Menu of Recommendation Set:
    * Refresh Playlist: replace the tracks from the linked playlist with recommneded ones
    * Link the Set to a playlist
@@ -134,8 +137,6 @@ layout: default
    * Refresh
    * Select Genre
    * Put current recommendations in playlist
-   * Save current Seeds and Attributes to a file
-   * Load Seeds and Attributes from a file
    * Remove the Seeds and set the Attributes back to their default values
  * Click on Clear icon to clear the slot
  * Checkbox to indicate to use Atrributes or not
