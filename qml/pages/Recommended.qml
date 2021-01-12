@@ -63,6 +63,12 @@ Page {
         ]
         trailingActionBar.actions: [
             Action {
+                text: i18n.tr("Import into Playlist")
+                iconName: "import"
+                enabled: searchModel.count > 0
+                onTriggered: importIntoPlaylist(recommendationData.name)
+            },
+            Action {
                 text: i18n.tr("Add Genre")
                 iconName: "tag"
                 onTriggered: selectGenreSeed()
@@ -73,12 +79,6 @@ Page {
                 enabled: searchModel.count > 0
                 onTriggered: refresh()
             },
-            /*Action {
-                text: i18n.tr("Import into Playlist")
-                iconName: "import"
-                enabled: searchModel.count > 0
-                onTriggered: importIntoPlaylist()
-            },*/
             Action {
                 text: i18n.tr("Reset")
                 iconName: "reset"
@@ -397,27 +397,31 @@ Page {
         })
     }
 
-    /*function importIntoPlaylist() {
+    function importIntoPlaylist(name) {
         if(searchModel.count <= 0)
             return
-        app.showConfirmDialog(i18n.tr("Do you want to replace the tracks in the Hutspot Recommendations playlist with these results?"),
-            function() {
-                var uris = [searchModel.count]
-                for(var i=0;i<searchModel.count;i++)
-                    uris[i] = searchModel.get(i).item.uri
-                var info = {}
-                info.name = "Recommendations [hutspot]"
-                info.description = i18n.tr("Playlist for Hutspot to store recommended tracks")
-                info.usage = i18n.tr("store recommended tracks")
-                app.replaceTracksInHutspotPlaylist(info, uris, function() {
-                    app.showConfirmDialog(
+        app.choosePlaylist(i18n.tr("Select Playlist to replace tracks from"), name, function(item) {
+            var uris = [searchModel.count]
+            for(var i=0;i<searchModel.count;i++)
+                uris[i] = searchModel.get(i).item.uri
+            var info = {}
+            app.replaceTracksInPlaylist(item.id, uris, function(error, data) {
+                var plName = spotifyDataCache.getPlaylistProperty(item.id, "name")
+                if(data) {
+                    app.showMessageDialog(i18n.tr("Import into Playlist"), i18n.tr("Import succeeded"))
+                    /*app.showConfirmDialog(
                         i18n.tr("Replacing tracks succeeded. Do you want to start playing %1?").arg(playlistInfo.name),
-                        function(info) { app.ensurePlaylistIsPlaying(info) }
-                    )
-                })
-            }
-        )
-    }*/
+                        function(info) {
+                            app.ensurePlaylistIsPlaying(item.id, data.snapshot_id)
+                        }
+                    )*/
+                } else {
+                    showErrorMessage(i18n.r("Import into Playlist"), i18n.tr("Failed to update Playlist %1").arg(plName))
+                    console.log("updatePlaylistFromRecommendations: failed to add tracks to " + plName)
+                }
+            })
+        })
+    }
 
     function resetSeedsAndAttributes() {
         app.showConfirmDialog(i18n.tr("Do you want to reset all Recommendations Seeds and Attributes?"),
