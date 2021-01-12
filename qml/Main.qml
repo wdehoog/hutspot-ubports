@@ -1168,6 +1168,7 @@ MainView {
         target: spotifyController.playbackState
 
         onPlaybackDeviceChanged: {
+            console.log("onPlaybackDeviceChanged: " + id + ", " + name)
             settings.deviceId = id
             if(settings.deviceName == name) {
                 // restore volume
@@ -1297,6 +1298,7 @@ MainView {
     }
 
     onDevicesChanged: {
+        if(logDiscovery)console.log("onDevicesChanged: " + JSON.stringify(devices))
         // for logging Librespot discovery
         /*var ls = isLibrespotInDiscoveredList()
         if(ls !== null) {
@@ -1315,11 +1317,12 @@ MainView {
 
     function handleCurrentDevice() {
         // check if our current device is in the list and if it is active
+        if(logDiscovery)console.log("handleCurrentDevice looking for: " + settings.deviceName)
         var i
         for(i=0;i<spotifyController.devices.count;i++) {
             var device = spotifyController.devices.get(i)
             if(device.name === settings.deviceName) {
-                if(logDiscovery)console.log("onDevicesChanged found current: " + JSON.stringify(device))
+                if(logDiscovery)console.log("handleCurrentDevice found 'settings' device: " + JSON.stringify(device))
                 // Now we want to make sure it is our 'current' Spotify device.
                 // How do we know what Spotify thinks our current device is?
                 // According to the documentation it should be device.is_active
