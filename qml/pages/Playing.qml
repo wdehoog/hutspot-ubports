@@ -91,7 +91,7 @@ Page {
             break
         case Spotify.ItemType.Playlist:
             _viewPlaylistEnabled = true
-            if(getRecommendationSetForPlaylist(currentId) >= 0)
+            if(app.getRecommendationSetForPlaylist(currentId) >= 0)
                 _viewRefreshPlaylistEnabled = true
             break
         case Spotify.ItemType.Show:
@@ -273,7 +273,7 @@ Page {
                     onSecondLabelClicked: openMenu()
                     onThirdLabelClicked: openMenu()
 
-                    onContextMenuRequested: openMenu
+                    onContextMenuRequested: openMenu()
 
                     function openMenu() {
                         updateContextMenu()
@@ -1103,7 +1103,7 @@ Page {
         var name = playbackState.context.name
         app.showConfirmDialog(
             i18n.tr("Do you want to refresh the tracks of %1?").arg(name), function(info) {
-            var rsi = getRecommendationSetForPlaylist(currentId)
+            var rsi = app.getRecommendationSetForPlaylist(currentId)
             tempRD.loadData(app.recommendationSets[rsi])
             app.updatePlaylistFromRecommendations(tempRD)
         })

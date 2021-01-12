@@ -54,7 +54,7 @@ Item {
         repeat: true
         onTriggered: {
             // pretend progress (ms), refresh() will set the actual value
-            if (playbackState.is_playing) {
+            if (playbackState.is_playing && playbackState.item) {
                 if (playbackState.progress_ms < playbackState.item.duration_ms) {
                     playbackState.progress_ms += 1000
                 } else

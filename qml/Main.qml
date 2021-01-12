@@ -1522,7 +1522,8 @@ MainView {
     property var recommendationSets: []
 
     function initRecommendationSets() {
-        recommendationSets = JSON.parse(app.settings.recommendationsData)
+        //console.log("initRecommendationSets: " + settings.recommendationsData)
+        recommendationSets = JSON.parse(settings.recommendationsData)
         if(!Util.isArray(recommendationSets)) {
             app.showErrorMessage(undefined, "Invalid Recommendations Data. Will discard it.")
             recommendationSets = []
