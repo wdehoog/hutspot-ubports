@@ -48,7 +48,6 @@ Page {
                     text: i18n.tr("Use Album Art for Background")
                 }
                 CheckBox {
-                    id: queryForMarket
                     anchors.right: parent.right
                     checked: app.settings.useAlbumartAsBackground
                     onCheckedChanged: app.settings.useAlbumartAsBackground = checked
@@ -64,7 +63,6 @@ Page {
                     //description: qsTr("Show only content playable in the country associated with the user account")
                 }
                 CheckBox {
-                    id: queryForMarket
                     anchors.right: parent.right
                     checked: app.settings.queryForMarket
                     onCheckedChanged: app.settings.queryForMarket = checked
@@ -225,7 +223,6 @@ Page {
                     text: i18n.tr("Prevent suspending while playing")
                 }
                 CheckBox {
-                    id: preventSuspendWhilePlaying
                     anchors.right: parent.right
                     checked: app.settings.preventSuspendWhilePlaying
                     onCheckedChanged: app.settings.preventSuspendWhilePlaying = checked
