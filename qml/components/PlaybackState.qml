@@ -185,7 +185,7 @@ Item {
             disallows = {}
 
         if(oldDeviceName != device.name)
-          playbackDeviceChanged(device.id, deviceName)
+          playbackDeviceChanged(device.id, device.name)
 
     }
 
