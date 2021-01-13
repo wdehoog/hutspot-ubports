@@ -1734,5 +1734,6 @@ MainView {
         property bool logDiscoveryEnabled: false
 
         property var recommendationsData: "[]"
+        property int recommendationsDataExportCounter: 1
     }
 }

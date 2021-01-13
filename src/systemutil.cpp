@@ -18,8 +18,10 @@ bool SystemUtil::write(const QString& source, const QString& data) {
         return false;
 
     QFile file(source);
-    if (!file.open(QFile::WriteOnly | QFile::Truncate))
+    if (!file.open(QFile::WriteOnly | QFile::Truncate | QFile::Text)) {
+        qDebug() << "Failed to open file: " << source;
         return false;
+    }
 
     QTextStream out(&file);
     out << data;
