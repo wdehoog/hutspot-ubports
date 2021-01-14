@@ -84,7 +84,6 @@ Page {
                 QtQc.ComboBox {
                     id: searchCombo
                     width: parent.width //- parent.spacing - tlabel.width
-                    height: pHeader.height * 0.9
                     editable: true
                     model: searchHistoryModel
                     onAccepted: {
@@ -131,7 +130,6 @@ Page {
                     QtQc.ComboBox {
                         id: filterCombo
                         width: parent.width - 2*parent.spacing - notButton.width - orButton.width
-                        height: pHeader.height * 0.9
                         displayText: i18n.tr("Add Filter")
                         model: [
                             i18n.tr("album:"),
@@ -178,7 +176,6 @@ Page {
                     QtQc.ComboBox {
                         id: itemClassCombo
                         width: parent.width - label.width - parent.spacing
-                        height: pHeader.height * 0.9
                         model: [
                             i18n.tr("Albums"),
                             i18n.tr("Artists"),
