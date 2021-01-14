@@ -7,8 +7,6 @@ Page {
     id: settingsPage
     objectName: "SettingsPage"
 
-    property alias _mnor : maxNumberOfResults
-
     header: PageHeader {
         id: pageHeader
         title: i18n.tr("Settings")
@@ -96,75 +94,21 @@ Page {
                     text: i18n.tr("Authorize using")
                 }
 
-                ComboButton {
+                QtQc.ComboBox {
                     id: authUsingBrowserSelector
                     anchors.right: parent.right
                     width: parent.width - authUsingBrowserLabel.width - app.paddingLarge
-                    expandedHeight: collapsedHeight + units.gu(1) + wvChoices.length * units.gu(6)
-                    //text: currentIndex >= 0 ? wvChoices.get(currentIndex).text : ""
-                    //property alias wvChoices: wvChoices
-                    //ListModel { id: wvChoices }
-                    text: wvChoices[currentIndex]
-                    property var wvChoices: [
-                        i18n.tr("Internal Webview"),
-                        i18n.tr("External Browser")
-                    ]
-                    comboList:  UbuntuListView {
-                        delegate: UCListItem.Standard {
-                            text: modelData
-                            selected: model.index == authUsingBrowserSelector.currentIndex
-                            //text: model.text
-                            onClicked: {
-                                authUsingBrowserSelector.currentIndex = model.index
-                                app.settings.authUsingBrowser = model.index
-                                authUsingBrowserSelector.expanded = false
-                            }
-                        }
-                        model: authUsingBrowserSelector.wvChoices
-                    }
-                    property int currentIndex: -1
-                    Component.onCompleted: {
-                        //wvChoices.append({text: i18n.tr("Internal Webview")})
-                        //wvChoices.append({text: i18n.tr("External Webview")})
-                        currentIndex = app.settings.authUsingBrowser
-                    }
-                }
 
-                /*QtQc.ComboBox {
-                    id: authUsingBrowserSelector
-                    anchors.right: parent.right
-                    width: parent.width - authUsingBrowserLabel.width - app.paddingLarge
-                    height: _mnor.height //pageHeader.height * 0.9
-
-                    indicator.width: height
-                    background: Rectangle {
-                        color: app.normalBackgroundColor
-                        border.width: 1
-                        border.color: "grey"
-                        radius: 7
-                    }
-                    delegate: QtQc.ItemDelegate {
-                        width: authUsingBrowserSelector.width
-                        height: authUsingBrowserSelector.height
-                        text: modelData
-                        //color: app.foregroundColor
-                    }
-
-                    Component.onCompleted: {
-                        currentIndex = app.settings.authUsingBrowser ? 1 : 0
-                        //__styleInstance.textColor = app.foregroundColor
-                        //style.textColor = app.foregroundColor
-                    }
+                    Component.onCompleted: currentIndex = app.settings.authUsingBrowser
 
                     onActivated: {
-                        app.settings.authUsingBrowser = currentIndex == 1
-                        console.log("new authUsingBrowser: " + app.settings.authUsingBrowser)
+                        app.settings.authUsingBrowser = currentIndex
                     }
                     model: [
                         i18n.tr("Internal Webview"),
                         i18n.tr("External Browser")
                     ]
-                }*/
+                }
             }
 
             Item {
