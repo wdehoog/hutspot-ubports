@@ -99,8 +99,9 @@ Item {
             image: playlist.images && playlist.images.length > 0
                 ? playlist.images[0].url : ""
         }
-        //console.log("adding " + JSON.stringify(plData) + " for " +  playlist.id)
-        return _followedPlaylists[playlist.id] = plData
+        //console.log("updateFollowedPlaylist " + JSON.stringify(plData) + " for " +  playlist.id)
+        _followedPlaylists[playlist.id] = plData
+        return plData
     }
 
     function triggerUpdatePlaylistDetails(playlistId) {

@@ -261,8 +261,9 @@ Page {
     }
 
     function generatePlaylist(model) {
+        var name = model.recommendationSet.name
         app.showConfirmDialog(
-            i18n.tr("Do you want to update the tracks of linked playlist for<br><b>%1</b>").arg(model.recommendationSet.name), function() {
+            i18n.tr("Do you want to update the tracks of linked playlist for<br><b>%1</b>").arg(name), function() {
 
             tempRD.loadData(model.recommendationSet)
             app.updatePlaylistFromRecommendations(tempRD, function(playlistId, snapshotId) {
@@ -362,9 +363,11 @@ Page {
         }
 
         onPlaylistDetailsUpdated: {
+            //console.log("Recommendations.onPlaylistDetailsUpdated " + id)
             for(var i=0;i<recommendationsModel.count;i++) {
                 var rs = recommendationsModel.get(i).recommendationSet
                 if(rs.playlist_id && rs.playlist_id == id) {
+                    //console.log("update image of " + id)
                     rs.image = details.image
                     // update
                     recommendationsModel.setProperty(i, "recommendationSet", rs)
