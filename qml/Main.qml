@@ -80,7 +80,9 @@ MainView {
         return Qt.hsla(color.hslHue, color.hslSaturation, color.hslLightness, alpha)
     }
 
-    readonly property color bgColor: app.Suru.backgroundColor
+    onBgColorChanged: console.log("new bgColor: " + bgColor)
+
+    property color bgColor: theme.palette.normal.background //app.Suru.backgroundColor
     property color normalBackgroundColor: bgColor
     property color highlightBackgroundColor: "#CDCDCD" // theme.palette.highlited.base
 
@@ -337,6 +339,14 @@ MainView {
         _playingPageOnPageStack = false
     }
 
+    function setDarkMode(mode) {
+        app.theme.name = mode
+            ? 'Ubuntu.Components.Themes.SuruDark'
+            : 'Ubuntu.Components.Themes.Ambiance'
+        Suru.theme = mode ? Suru.Dark : Suru.Light
+        settings.theme = mode ? 1 : 0 // force dark or follow system
+    }
+
     Component.onCompleted: {
         console.log("app_id         : " + app_id)
         console.log("app_id_dbus    : " + app_id_dbus)
@@ -345,6 +355,7 @@ MainView {
         console.log("dataDirectory  : " + dataDirectory)
         console.log("cacheDirectory : " + cacheDirectory)
         console.log("tempDirectory  : " + tempDirectory)
+        setDarkMode(settings.theme === 1)
         pageStack.push(Qt.resolvedUrl("pages/Menu.qml"))
         history = settings.history
         startSpotify()
@@ -1730,6 +1741,7 @@ MainView {
         property bool confirmUnFollowSave: true
         property bool preventSuspendWhilePlaying: true
         property bool useAlbumartAsBackground: true
+        property int theme: 0 // 0: follow system, 1: dark, 2: light 
 
         property var history: []
 

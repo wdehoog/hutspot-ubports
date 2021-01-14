@@ -71,7 +71,7 @@ Page {
 
             // setting theme this way results in errors and does not seem to
             // have an effect on the QtQc controls
-            /*Item {
+            Item {
                 width: parent.width
                 height: childrenRect.height
                 Label {
@@ -81,14 +81,10 @@ Page {
                 CheckBox {
                     id: theme
                     anchors.right: parent.right
-                    checked: app.theme.name == 'Ubuntu.Components.Themes.SuruDark'
-                    onCheckedChanged: {
-                        app.theme.name = checked
-                          ? 'Ubuntu.Components.Themes.SuruDark'
-                          : 'Ubuntu.Components.Themes.Ambiance'
-                    }
+                    checked: app.settings.theme === 1
+                    onCheckedChanged: app.setDarkMode(checked ? 1 : 0)
                 }
-            }*/
+            }
 
             Item {
                 width: parent.width
