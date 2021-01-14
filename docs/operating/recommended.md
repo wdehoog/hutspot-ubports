@@ -25,9 +25,9 @@ For more see the [Spotify WebAPI docs](https://developer.spotify.com/documentati
 
 
 ### Export/Import
-The current Recommendation Sets (name, linked Playlist, Seeds and Attributes) are saved in- and loaded from the configuration file. They can also be exported (saved) and imported (loaded). This is done using the Content-Hub mechanism. Selecting the FileManager as the source or destination allows you to use previously saved data. Note that this does not save the recommended tracks but only the (maximum five) Seeds and Attributes. (This option is probably not very useful but I wanted to see how Content-Hub works.)
+The current Recommendation Sets (name, linked Playlist, Seeds and Attributes) are saved in- and loaded from the configuration file. They can also be exported (saved) and imported (loaded) using the Content-Hub mechanism. Selecting the FileManager as the source or destination allows you to use previously saved data. Note that this does not save the recommended tracks but only the (maximum five) Seeds and Attributes. (This option is probably not very useful but I wanted to see how Content-Hub works.)
 
-Use the buttons on the Page Header to start these actions.
+Use the buttons on the Page Header to start these actions. The resulting file names will be named like `exported_recommendations-0020.json`. The numbers are added since Content-Hub will not overwrite an existing file.
 
 ## Recommended
 This page is used to edit the seeds and attribtes of a Recommendation Set.
