@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-14 19:54+0000\n"
+"POT-Creation-Date: 2021-01-14 20:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -562,47 +562,47 @@ msgstr ""
 msgid "Edit Details"
 msgstr ""
 
-#: ../qml/pages/Settings.qml:14 ../qml/pages/Menu.qml:44
+#: ../qml/pages/Settings.qml:12 ../qml/pages/Menu.qml:44
 msgid "Settings"
 msgstr ""
 
-#: ../qml/pages/Settings.qml:34
+#: ../qml/pages/Settings.qml:32
 msgid "Confirm Un-Follow/Save"
 msgstr ""
 
-#: ../qml/pages/Settings.qml:48
+#: ../qml/pages/Settings.qml:46
 msgid "Use Album Art for Background"
 msgstr ""
 
-#: ../qml/pages/Settings.qml:62
+#: ../qml/pages/Settings.qml:60
 msgid "Query for Market"
 msgstr ""
 
-#: ../qml/pages/Settings.qml:79
+#: ../qml/pages/Settings.qml:77
 msgid "Dark Theme"
 msgstr ""
 
-#: ../qml/pages/Settings.qml:96
+#: ../qml/pages/Settings.qml:94
 msgid "Authorize using"
 msgstr ""
 
-#: ../qml/pages/Settings.qml:109
+#: ../qml/pages/Settings.qml:108
 msgid "Internal Webview"
 msgstr ""
 
-#: ../qml/pages/Settings.qml:110
+#: ../qml/pages/Settings.qml:109
 msgid "External Browser"
 msgstr ""
 
-#: ../qml/pages/Settings.qml:177
+#: ../qml/pages/Settings.qml:121
 msgid "Number of Search History Items to save"
 msgstr ""
 
-#: ../qml/pages/Settings.qml:199
+#: ../qml/pages/Settings.qml:143
 msgid "Number of results per request (limit)"
 msgstr ""
 
-#: ../qml/pages/Settings.qml:219
+#: ../qml/pages/Settings.qml:163
 msgid "Prevent suspending while playing"
 msgstr ""
 
@@ -690,55 +690,55 @@ msgstr ""
 msgid "Queries Maintenance"
 msgstr ""
 
-#: ../qml/pages/Search.qml:135
+#: ../qml/pages/Search.qml:133
 msgid "Add Filter"
 msgstr ""
 
-#: ../qml/pages/Search.qml:137
+#: ../qml/pages/Search.qml:135
 msgid "album:"
 msgstr ""
 
-#: ../qml/pages/Search.qml:138
+#: ../qml/pages/Search.qml:136
 msgid "artist:"
 msgstr ""
 
-#: ../qml/pages/Search.qml:139
+#: ../qml/pages/Search.qml:137
 msgid "genre:"
 msgstr ""
 
-#: ../qml/pages/Search.qml:140
+#: ../qml/pages/Search.qml:138
 msgid "track:"
 msgstr ""
 
-#: ../qml/pages/Search.qml:141
+#: ../qml/pages/Search.qml:139
 msgid "year:"
 msgstr ""
 
-#: ../qml/pages/Search.qml:176
+#: ../qml/pages/Search.qml:174
 msgid "In"
 msgstr ""
 
-#: ../qml/pages/Search.qml:183
+#: ../qml/pages/Search.qml:180
 msgid "Albums"
 msgstr ""
 
-#: ../qml/pages/Search.qml:184
+#: ../qml/pages/Search.qml:181
 msgid "Artists"
 msgstr ""
 
-#: ../qml/pages/Search.qml:185 ../qml/pages/Library.qml:29
+#: ../qml/pages/Search.qml:182 ../qml/pages/Library.qml:29
 msgid "Playlists"
 msgstr ""
 
-#: ../qml/pages/Search.qml:186
+#: ../qml/pages/Search.qml:183
 msgid "Tracks"
 msgstr ""
 
-#: ../qml/pages/Search.qml:187
+#: ../qml/pages/Search.qml:184
 msgid "Episodes"
 msgstr ""
 
-#: ../qml/pages/Search.qml:188
+#: ../qml/pages/Search.qml:185
 msgid "Shows"
 msgstr ""
 

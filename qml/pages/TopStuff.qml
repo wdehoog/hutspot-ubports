@@ -123,14 +123,14 @@ Page {
                             selected: model.index == cbSelector.currentIndex
                             onClicked: {
                                 cbSelector.currentIndex = model.index
-                                rangeClass = index
-                                refresh()
-                                //listView.interactive = true
+                                rangeClass = model.index
                                 cbSelector.expanded = false
+                                refresh()
                             }
                         }
                         model: cbSelector.cbChoices
                     }
+                    Component.onCompleted: currentIndex = rangeClass
                     Connections {
                         target: cbSelector.__styleInstance.comboListPanel
                         onHeightChanged: {
@@ -139,7 +139,6 @@ Page {
                                 scrollToTop.running = true
                         }
                     }
-                    Component.onCompleted: currentIndex = rangeClass
                 }
 
             }
