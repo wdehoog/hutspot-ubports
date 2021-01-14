@@ -1,7 +1,5 @@
 /**
- * Copyright (C) 2020 Willem-Jan de Hoog
- *
- * Based on ImportPage from Gelek by Stefano Verzegnassi 
+ * Copyright (C) 2021 Willem-Jan de Hoog
  *
  * License: MIT
  */
@@ -18,11 +16,32 @@ Page {
 
     property var activeTransfer
     property string loadDataUrl
+    property string response
 
-    signal imported(var data)
+    signal imported(var response)
 
     header: PageHeader {
         title: i18n.tr("Load Recommendations Data")
+    }
+
+    function __importItemsWhenPossible(url) {
+        if(importPage.activeTransfer.state === ContentTransfer.Charged) {
+            console.log("Import Charged");
+            importPage.loadDataUrl = importPage.activeTransfer.items[0].url
+            console.log("received url: " + loadDataUrl)
+            importPage.activeTransfer = null
+
+            var xhr = new XMLHttpRequest;
+            xhr.open("GET", loadDataUrl);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    importPage.response = xhr.responseText;
+                    console.log("read: " + importPage.response)
+                    imported(importPage.response)
+                }
+            }
+            xhr.send()
+        }
     }
 
     ContentPeerPicker {
@@ -39,32 +58,15 @@ Page {
         onPeerSelected: {
             peer.selectionType = ContentTransfer.Single
             importPage.activeTransfer = peer.request()
-            importPage.activeTransfer.stateChanged.connect(function() {
+            __importItemsWhenPossible()
+        }
+    }
 
-                if (importPage.activeTransfer.state === ContentTransfer.InProgress) {
-                    console.log("Import in Progress");
-                    importPage.activeTransfer.items = importPage.activeTransfer.items[0].url;
-                }
-
-                if (importPage.activeTransfer.state === ContentTransfer.Charged) {
-                    console.log("Import Charged");
-                    loadDataUrl = importPage.activeTransfer.items[0].url
-                    console.log("received url: " + loadDataUrl)
-                    importPage.activeTransfer = null
-
-                    var xhr = new XMLHttpRequest;
-                    xhr.open("GET", loadDataUrl);
-                    xhr.onreadystatechange = function() {
-                        if (xhr.readyState === XMLHttpRequest.DONE) {
-                            var response = xhr.responseText;
-                            console.log("read: " + response)
-                            imported(response)
-                        }
-                    }
-                    xhr.send()
-
-                }
-            })
+    Connections {
+        target: importPage.activeTransfer ? importPage.activeTransfer : null
+        onStateChanged: {
+            console.log("Import.curTransfer StateChanged: " + importPage.activeTransfer.state);
+            __importItemsWhenPossible()
         }
     }
 

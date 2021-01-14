@@ -347,9 +347,9 @@ Page {
         var page = app.pageStack.push(Qt.resolvedUrl("../components/ImportRecommendationsDataPage.qml"))
         page.imported.connect(function(data) {
             console.log("imported recommendations: " + data)
-            app.settings.recommendationsData = data
             app.pageStack.pop()
-            app.initRecommendationSets()
+            app.importRecommendationSets(data)
+            refresh()
         })
     }
 
@@ -377,7 +377,7 @@ Page {
         // we need the cache
         if(app.spotifyDataCache.ready) {
             showBusy = false
-            loadRecommendationsData()
+            refresh()
         }
     }
 

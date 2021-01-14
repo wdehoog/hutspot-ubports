@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-13 22:23+0000\n"
+"POT-Creation-Date: 2021-01-14 13:43+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -102,14 +102,14 @@ msgstr ""
 #: ../qml/components/CreatePlaylist.qml:34
 #: ../qml/components/PlaylistPicker.qml:38 ../qml/components/Librespot.qml:414
 #: ../qml/components/GenrePicker.qml:36 ../qml/components/ArtistPicker.qml:35
-#: ../qml/Main.qml:1126 ../qml/Main.qml:1624
+#: ../qml/Main.qml:1126 ../qml/Main.qml:1634
 #: ../qml/pages/Recommendations.qml:315
 msgid "Cancel"
 msgstr ""
 
 #: ../qml/components/CreatePlaylist.qml:41
 #: ../qml/components/PlaylistPicker.qml:45 ../qml/components/GenrePicker.qml:43
-#: ../qml/components/ArtistPicker.qml:42 ../qml/Main.qml:1616
+#: ../qml/components/ArtistPicker.qml:42 ../qml/Main.qml:1626
 msgid "Select"
 msgstr ""
 
@@ -160,15 +160,15 @@ msgstr ""
 msgid "externally hosted"
 msgstr ""
 
-#: ../qml/components/ExportRecommendationsDataPage.qml:33
+#: ../qml/components/ExportRecommendationsDataPage.qml:32
 msgid "Failed to export Recommendations Data."
 msgstr ""
 
-#: ../qml/components/ExportRecommendationsDataPage.qml:46
+#: ../qml/components/ExportRecommendationsDataPage.qml:45
 msgid "Save Recommendations Data"
 msgstr ""
 
-#: ../qml/components/ImportRecommendationsDataPage.qml:25
+#: ../qml/components/ImportRecommendationsDataPage.qml:24
 msgid "Load Recommendations Data"
 msgstr ""
 
@@ -323,11 +323,11 @@ msgstr ""
 msgid "No Recommended Tracks for "
 msgstr ""
 
-#: ../qml/Main.qml:1593
+#: ../qml/Main.qml:1603
 msgid "Select Recommendation Set"
 msgstr ""
 
-#: ../qml/Main.qml:1600
+#: ../qml/Main.qml:1610
 msgid "Sets"
 msgstr ""
 

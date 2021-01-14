@@ -1,7 +1,5 @@
 /**
- * Copyright (C) 2020 Willem-Jan de Hoog
- *
- * Based on ExportPage from Gelek by Stefano Verzegnassi 
+ * Copyright (C) 2021 Willem-Jan de Hoog
  *
  * License: MIT
  */
@@ -27,6 +25,7 @@ Page {
         app.settings.recommendationsDataExportCounter = counter + 1
 
         saveDataPath = app.tempDirectory + "/exported_recommendations-%1.json".arg(zeroPad(counter, 4))
+        //saveDataPath = app.tempDirectory + "/exported_recommendations.json"
 
         // write saveData to special file in temp dir
         if(!sysUtil.write(saveDataPath, saveData)) {

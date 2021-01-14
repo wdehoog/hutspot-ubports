@@ -1530,6 +1530,16 @@ MainView {
         }
     }
 
+    function importRecommendationSets(data) {
+        var rs = JSON.parse(data)
+        if(!Util.isArray(rs)) { // ToDo more checking of data
+            app.showErrorMessage(undefined, "Invalid Recommendations Data. Will discard it.")
+        } else {
+            recommendationSets = recommendationSets.concat(rs)
+            settings.recommendationsData = JSON.stringify(recommendationSets)
+        }
+    }
+
     function addRecommendationSet(rs) {
         recommendationSets.push(rs)
         settings.recommendationsData = JSON.stringify(recommendationSets)
