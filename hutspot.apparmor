@@ -7,7 +7,6 @@
         "content_exchange",
         "networking",
         "webview",
-        "hold_off_suspend",
-        "mpris2"
+        "hold_off_suspend"
     ]
 }
