@@ -4,6 +4,12 @@ nav_order: 4
 layout: default
 ---
 
+## Warning
+First a warning. A major problem is the audio getting choppy due to the phone being suspended when the display goes dark. Currently this is solved using a DBus call to `powerd` (requestSysState) by Hutspot when it is playing a track. If Hutspot crashes or quits it might not have notified `powerd` but powerd takes care of that (says [wiki](https://wiki.ubuntu.com/powerd). Now I still need to find a way to get the app resumed to update the media controls (being an Mpris player).
+
+But getting all this trickery working is too much asked for now so it is best you just use [UT Tweak Tool](https://open-store.io/app/ut-tweak-tool.sverzegnassi) and prevent app suspension for Hutspot.
+
+
 ## Librespot
 [Librespot](https://github.com/librespot-org/librespot) is a Spotify Connect player written in Rust. Hutspot has som extra functionality to use Librespot and reuse it's authorization data.
 
@@ -49,7 +55,7 @@ $LIBRESPOT_DIR/librespot -n Phablet --device-type smartphone -b 320 --enable-vol
 If everything is setup correctly you can now do ``start librespot`` and ``stop librespot`` to start/stop the service. Hutspot can do this as well.
 
 ## Spotifyd 
-One option is to install [spotifyd](https://github.com/Spotifyd/spotifyd/releases) on your phone. For example I use 0.2.19 from  spotifyd-2019-10-06-armv6-slim.zip on by opo. 
+Another option is to install [spotifyd](https://github.com/Spotifyd/spotifyd/releases) on your phone. It's releases contain binaries for armhf. For example I used 0.2.19 from spotifyd-2019-10-06-armv6-slim.zip on by opo. 
 
 This version does not have the pulseaudio backend. It will still work but you will have to take care of setting an environment variable in order for the volume controls to work:
 
@@ -62,8 +68,6 @@ export PULSE_PROP='media.role=multimedia'
 
 The easiest way to set it up is creating a config file as described in the [README from spotifyd](https://github.com/Spotifyd/spotifyd).
 
-
-A problem is the audio getting choppy due to the phone being suspended when the display goes dark. Currently this is solved using a DBus call to `powerd` (requestSysState) by Hutspot when it is playing a track. If Hutspot crashes or quits it might not have notified `powerd` but powerd takes care of that (says [wiki](https://wiki.ubuntu.com/powerd).
 
 ### Config file
 Spotifyd expects it's config file in ~/.config/spotifyd/spotifyd.conf'. It can be overriden though (`--config-path`).
@@ -107,4 +111,4 @@ you will be prompted for your password.
 
 ### Librespot-java
 
-I also tried [Librespot-java](https://github.com/librespot-org/librespot-java) using jre/jkd from Oracle and OpenJDK but this makes the my phone reboot instantly.
+I also tried [Librespot-java](https://github.com/librespot-org/librespot-java) using jre/jkd from Oracle and OpenJDK. It is a really great player I use on raspberry pi but unfortunately it makes my phone reboot instantly.
