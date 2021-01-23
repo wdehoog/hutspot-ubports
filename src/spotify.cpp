@@ -56,9 +56,6 @@ Spotify::Spotify(QObject *parent) : QObject(parent)
     // for http requests
     manager = new QNetworkAccessManager(this);
     QObject::connect(manager, SIGNAL(finished(QNetworkReply*)),this, SLOT(onRequestFinished(QNetworkReply*)));
-    QObject::connect(manager, SIGNAL(error(QNetworkReply::NetworkError)),this, SLOT(onRequestError(QNetworkReply::NetworkError)));
-
-
 }
 
 void Spotify::doO2Auth(const QString &scope) {
@@ -147,7 +144,8 @@ void Spotify::performRequest(QString url, QString verb, QString data, QString to
     request.setRawHeader("Authorization", QString("Bearer %1").arg(token).toUtf8());
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
     
-    manager->sendCustomRequest(request, verb.toUtf8(), data.toUtf8());
+    QNetworkReply * reply = manager->sendCustomRequest(request, verb.toUtf8(), data.toUtf8());
+    QObject::connect(reply, SIGNAL(error(QNetworkReply::NetworkError)),this, SLOT(onRequestError(QNetworkReply::NetworkError)));
 }
 
 void Spotify::onRequestFinished(QNetworkReply *reply) {
