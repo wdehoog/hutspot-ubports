@@ -38,10 +38,7 @@ Page {
         id: pHeader
         width: parent.width
         title: {
-            switch(_itemClass) {
-            case 0: return i18n.tr("Artist's Albums")
-            case 1: return i18n.tr("Artist's Related Artists")
-            }
+            return i18n.tr("Artist")
         }
         leadingActionBar.actions: [
             Action {
@@ -52,14 +49,9 @@ Page {
         ]
         trailingActionBar.actions: [
             Action {
-                iconName: "go-next"
-                text: i18n.tr("next")
-                onTriggered: nextItemClass()
-            },
-            Action {
-                iconName: "go-previous"
-                text: i18n.tr("previous")
-                onTriggered: prevItemClass()
+                text: i18n.tr("Home")
+                iconName: "home"
+                onTriggered: app.goHome()
             },
             Action {
                 iconName: "external-link"
@@ -69,6 +61,24 @@ Page {
             }
         ]
         flickable: listView
+        extension: Sections {
+            id: sections
+            anchors {
+                left: parent.left
+                right: parent.right
+                bottom: parent.bottom
+            }    
+            onSelectedIndexChanged: setItemClass(selectedIndex)
+            model: [
+                i18n.tr("Albums"),
+                i18n.tr("Related Artists")
+            ]
+        }
+        Binding {
+            target: pHeader.extension
+            property: "selectedIndex"
+            value: _itemClass
+        }
     }
 
     SearchResultContextMenu {
@@ -197,23 +207,9 @@ Page {
     property var relatedArtists
     property int _itemClass: app.settings.currentItemClassArtist
 
-    function nextItemClass() {
-        var i = _itemClass
-        i++
-        if(i > 1)
-            i = 0
-        _itemClass = i
-        app.settings.currentItemClassArtist = i
-        refresh()
-    }
-
-    function prevItemClass() {
-        var i = _itemClass
-        i--
-        if(i < 0)
-            i = 1
-        _itemClass = i
-        app.settings.currentItemClassArtist = i
+    function setItemClass(ic) {
+        _itemClass = ic
+        app.settings.currentItemClassArtist = ic
         refresh()
     }
 
