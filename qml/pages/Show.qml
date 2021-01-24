@@ -33,6 +33,13 @@ Page {
         id: header
         title: i18n.tr("Show")
         flickable: listView
+        trailingActionBar.actions: [
+            Action {
+                text: i18n.tr("Home")
+                iconName: "home"
+                onTriggered: app.goHome()
+            }
+        ]
     }
 
     ListModel {

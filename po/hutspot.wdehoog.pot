@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-24 09:47+0000\n"
+"POT-Creation-Date: 2021-01-24 14:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,7 +26,7 @@ msgid "artist"
 msgstr ""
 
 #: ../qml/components/RecommendationData.qml:85 ../qml/Main.qml:1080
-#: ../qml/pages/Playing.qml:585 ../qml/pages/Album.qml:89
+#: ../qml/pages/Playing.qml:585 ../qml/pages/Album.qml:94
 msgid "track"
 msgstr ""
 
@@ -82,7 +82,7 @@ msgid "View Album"
 msgstr ""
 
 #: ../qml/components/AlbumTrackContextMenu.qml:45 ../qml/pages/Playing.qml:123
-#: ../qml/pages/Album.qml:43
+#: ../qml/pages/Album.qml:48
 msgid "View Artist"
 msgstr ""
 
@@ -152,7 +152,7 @@ msgid "followers"
 msgstr ""
 
 #: ../qml/components/SearchResultListItem.qml:248 ../qml/pages/Playing.qml:610
-#: ../qml/pages/Show.qml:78
+#: ../qml/pages/Show.qml:85
 msgid "explicit"
 msgstr ""
 
@@ -236,7 +236,7 @@ msgstr ""
 
 #: ../qml/Main.qml:268
 msgid ""
-"Playing page is already loaded. Go back to it and discard the pages on top?"
+"Playing page is already loaded. Go back to it and discard the pages above it?"
 msgstr ""
 
 #: ../qml/Main.qml:461
@@ -413,12 +413,10 @@ msgid "My Recently Played"
 msgstr ""
 
 #: ../qml/pages/TopStuff.qml:43 ../qml/pages/Library.qml:38
-#: ../qml/pages/Artist.qml:56
 msgid "next"
 msgstr ""
 
 #: ../qml/pages/TopStuff.qml:48 ../qml/pages/Library.qml:43
-#: ../qml/pages/Artist.qml:61
 msgid "previous"
 msgstr ""
 
@@ -520,7 +518,7 @@ msgid "no current device"
 msgstr ""
 
 #: ../qml/pages/Playing.qml:552 ../qml/pages/Playing.qml:572
-#: ../qml/pages/Album.qml:78
+#: ../qml/pages/Album.qml:83
 msgid "no artist known"
 msgstr ""
 
@@ -529,12 +527,12 @@ msgid "no genre known"
 msgstr ""
 
 #: ../qml/pages/Playing.qml:583 ../qml/pages/Playing.qml:596
-#: ../qml/pages/Album.qml:87
+#: ../qml/pages/Album.qml:92
 msgid "tracks"
 msgstr ""
 
 #: ../qml/pages/Playing.qml:597 ../qml/pages/Playing.qml:608
-#: ../qml/pages/Show.qml:76
+#: ../qml/pages/Show.qml:83
 msgid "by"
 msgstr ""
 
@@ -546,7 +544,7 @@ msgstr ""
 msgid "collaborative"
 msgstr ""
 
-#: ../qml/pages/Playing.qml:607 ../qml/pages/Show.qml:75
+#: ../qml/pages/Playing.qml:607 ../qml/pages/Show.qml:82
 msgid "episodes"
 msgstr ""
 
@@ -558,7 +556,12 @@ msgstr ""
 msgid "Playlist"
 msgstr ""
 
-#: ../qml/pages/Playlist.qml:43
+#: ../qml/pages/Playlist.qml:43 ../qml/pages/Album.qml:43
+#: ../qml/pages/Show.qml:38 ../qml/pages/Artist.qml:52
+msgid "Home"
+msgstr ""
+
+#: ../qml/pages/Playlist.qml:48
 msgid "Edit Details"
 msgstr ""
 
@@ -718,7 +721,7 @@ msgstr ""
 msgid "In"
 msgstr ""
 
-#: ../qml/pages/Search.qml:180
+#: ../qml/pages/Search.qml:180 ../qml/pages/Artist.qml:73
 msgid "Albums"
 msgstr ""
 
@@ -762,12 +765,12 @@ msgstr ""
 msgid "Saved Shows"
 msgstr ""
 
-#: ../qml/pages/Artist.qml:42
-msgid "Artist's Albums"
+#: ../qml/pages/Artist.qml:41
+msgid "Artist"
 msgstr ""
 
-#: ../qml/pages/Artist.qml:43
-msgid "Artist's Related Artists"
+#: ../qml/pages/Artist.qml:74
+msgid "Related Artists"
 msgstr ""
 
 #: ../qml/pages/History.qml:28 ../qml/pages/Menu.qml:89

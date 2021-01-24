@@ -40,6 +40,11 @@ Page {
         flickable: listView
         trailingActionBar.actions: [
             Action {
+                text: i18n.tr("Home")
+                iconName: "home"
+                onTriggered: app.goHome()
+            },
+            Action {
                 text: i18n.tr("View Artist")
                 iconName: "stock_contact"
                 onTriggered: app.loadArtist(album.artists)
