@@ -213,7 +213,6 @@ Item {
         var s = ""
         if(playbackState === undefined)
             return s
-        // no context (a single track?)
         if(playbackState.item && playbackState.item.artists)
             s += Util.createItemsString(playbackState.item.artists, i18n.tr("no artist known"))
         else if(playbackState.item && playbackState.item.show)
@@ -221,16 +220,5 @@ Item {
         return s
     }
 
-    /*function getLabelText(l0, l1) {
-      var l = ""
-      if(l0)
-        l += l0
-      if(l1) {
-        if(l)
-          l += " - "
-        l += l1    
-      }
-      return l
-    }*/
 }
 

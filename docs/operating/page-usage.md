@@ -11,31 +11,33 @@ layout: default
 {:toc}
 
 ### Album Page
+ * Page header
+    * Artist button to go to the Artist Page of on of the albums artists
+    * Home button to return to the Home/Menu page
  * Click on Album Image to play this album
  * Click on Artists names to open Artist Page
  * Click on Star to toggle Saved state
  * Click on a Track to play it
  * Click on the star of a Track to toggle Saved state
- * Context Menu of a Track provides: 
+ * Context Menu of a Track provides:
    * Play
    * Add to Playlist
 
 ### Artist Page
- * External link button on page header
-    * Load Artist About Page in Browser
+ * Page header
+    * Home button to return to the Home/Menu page
+    * External link button to load Artist About Page in the browser
+    * Sections for switching between the Artists Albums or Related Artists
  * Click on Artist Image to play this artists tracks
- * Click on the Page Header '<' & '>' buttons to switch between showing
-   * Albums
-   * Related Artists
  * Click on Star to toggle Followed state
  * Click on an Album to view it
  * Click on the star of an Album to toggle Saved state
  * Click on an Artist to view it
  * Click on the star of an Artist to toggle Followed state
- * Context Menu of an Album provides: 
+ * Context Menu of an Album provides:
    * Play
    * View
- * Context Menu of an Artist provides: 
+ * Context Menu of an Artist provides:
    * Play
    * View
 
@@ -45,7 +47,7 @@ layout: default
 ### Genres & Mood Playlists Page
  * Click on a Playlist to play it
  * Click on the star of an Playlist to toggle Followed state
- * Context Menu of a Playlist provides: 
+ * Context Menu of a Playlist provides:
    * Play
    * View
 
@@ -60,16 +62,16 @@ layout: default
  * Click on a Playlist to view it
  * Click on a Track to view it's Album
  * Click on the star of an Item to toggle Followed/Saved state
- * Context Menu of an Album provides: 
+ * Context Menu of an Album provides:
    * Play
    * View
- * Context Menu of an Artist provides: 
+ * Context Menu of an Artist provides:
    * Play
    * View
- * Context Menu of a Playlist provides: 
+ * Context Menu of a Playlist provides:
    * Play
    * View
- * Context Menu of a Track provides: 
+ * Context Menu of a Track provides:
    * Play
    * Add to Playlist
 
@@ -78,16 +80,16 @@ layout: default
    * Top Artists
    * Top Tracks
    * Recently Played Tracks
- * Use the combobox to select the time range used 
+ * Use the combobox to select the time range used
    * Short: approximately last 4 weeks
    * Medium: approximately last 6 months
-   * Long: several years 
+   * Long: several years
  * Click on an Artist to view it
  * Click on a Track to view it's Album
- * Context Menu of an Artist provides: 
+ * Context Menu of an Artist provides:
    * Play
    * View
- * Context Menu of a Track provides: 
+ * Context Menu of a Track provides:
    * Play
    * View Album
    * Add to Playlist
@@ -98,18 +100,20 @@ layout: default
     * Show context information (Album/Artist/Playlist)
  * Click on the star of an Item to toggle Followed/Saved state
  * Click on a Track to play it
- * Context Menu of a Track provides: 
+ * Context Menu of a Track provides:
    * Play
    * View Album
    * View Artist
    * Add to Playlist
 
 ### Playlist Page
+ * Page header
+    * Edit button to edit the Playlists details
+    * Home button to return to the Home/Menu page
  * Click on Playlist Image to play
- * Click on Playlist details to edit them
  * Click on the star of an Item to toggle Followed/Saved state
  * Click on a Track to view it's Album
- * Context Menu of a Track provides: 
+ * Context Menu of a Track provides:
    * Play
    * View Album
    * Remove from Playist
@@ -119,6 +123,14 @@ layout: default
  * Button on header:
    * Create New Playlist
  * Click on Playlist item to select it
+
+### Shows Page
+ * Page header
+    * Home button to return to the Home/Menu page
+ * Click on the star of an Item to toggle Followed/Saved state
+ * Click on the Show details to see the Show Description
+ * Context Menu of a Show provides:
+   * Play
 
 ### Recommendations Page
  * Page header
@@ -156,39 +168,39 @@ layout: default
  * Click on a Playlist to view it
  * Click on a Track to view it's Album
  * Click on the star of an Item to toggle Followed/Saved state
- * Context Menu of an Album provides: 
+ * Context Menu of an Album provides:
    * Play
    * View
    * Unfollow
- * Context Menu of an Artist provides: 
+ * Context Menu of an Artist provides:
    * Play
    * View
    * Unfollow
- * Context Menu of a Playlist provides: 
+ * Context Menu of a Playlist provides:
    * Play
    * View
- * Context Menu of a Track provides: 
+ * Context Menu of a Track provides:
    * Play
    * Add to Playlist
 
 ### Search Query History Maintennce Page
  * Trash bin button on the page header allows to clear the Query History
- * Swipe a Query item to the right to show the delete item button 
+ * Swipe a Query item to the right to show the delete item button
 
 ### History Page
  * Button on header:
-   * Clear History 
+   * Clear History
  * Click on an Album to view it
  * Click on an Artist to view it
  * Click on a Playlist to view it
  * Click on the star of an Item to toggle Followed/Saved state
- * Context Menu of an Album provides: 
+ * Context Menu of an Album provides:
    * Play
    * View
- * Context Menu of an Artist provides: 
+ * Context Menu of an Artist provides:
    * Play
    * View
- * Context Menu of a Playlist provides: 
+ * Context Menu of a Playlist provides:
    * Play
    * View
 
