@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-24 14:35+0000\n"
+"POT-Creation-Date: 2021-01-24 19:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -203,6 +203,11 @@ msgstr ""
 #: ../qml/components/Librespot.qml:404 ../qml/Main.qml:1098
 #: ../qml/Main.qml:1159
 msgid "Ok"
+msgstr ""
+
+#: ../qml/components/PlayerArea.qml:218 ../qml/pages/Playing.qml:552
+#: ../qml/pages/Playing.qml:572 ../qml/pages/Album.qml:83
+msgid "no artist known"
 msgstr ""
 
 #: ../qml/components/SearchResultContextMenu.qml:38
@@ -515,11 +520,6 @@ msgstr ""
 
 #: ../qml/pages/Playing.qml:512
 msgid "no current device"
-msgstr ""
-
-#: ../qml/pages/Playing.qml:552 ../qml/pages/Playing.qml:572
-#: ../qml/pages/Album.qml:83
-msgid "no artist known"
 msgstr ""
 
 #: ../qml/pages/Playing.qml:555

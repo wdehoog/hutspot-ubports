@@ -57,7 +57,7 @@ MainView {
 
     property double iconSizeSmall: units.gu(2)
     property double iconSizeMedium: units.gu(4)
-    property double iconSizeLarge: units.gu(10)
+    property double iconSizeLarge: units.gu(8)
 
     property double itemSizeMedium: units.gu(4)
     property double itemSizeLarge: units.gu(10)

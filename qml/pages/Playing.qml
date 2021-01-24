@@ -519,7 +519,7 @@ Page {
     function getFirstLabelText() {
         var s = ""
         if(playbackState === undefined)
-             return s
+            return s
         if(!playbackState.context || showTrackInfo)
             return playbackState.item ? playbackState.item.name : ""
         if(playbackState.context === null)
@@ -530,7 +530,7 @@ Page {
     function getSecondLabelText() {
         var s = ""
         if(playbackState === undefined)
-             return s
+            return s
         if(!playbackState.context || showTrackInfo) {
             // no context (a single track?)
             if(playbackState.item && playbackState.item.album) {
@@ -565,7 +565,7 @@ Page {
     function getThirdLabelText() {
         var s = ""
         if(playbackState === undefined)
-             return s
+            return s
         if(!playbackState.context || showTrackInfo) {
             // no context (a single track?)
             if(playbackState.item && playbackState.item.artists)

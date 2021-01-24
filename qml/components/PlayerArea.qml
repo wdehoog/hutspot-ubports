@@ -6,10 +6,14 @@ import QtQuick.Layouts 1.3
 
 import "../Util.js" as Util
 
+import "../components" as Hutspot
+
 Item {
     id: playerArea
 
     property string defaultImageSource : "image://theme/stock_music"
+
+    property var playbackState: app.controller.playbackState
 
     property bool allowGoPlayingPage: true
     property bool showHomeButton: true
@@ -35,19 +39,18 @@ Item {
             height: app.paddingSmall
         }
 
-        Item {
-            id: row
+        Row {
+            id: playerUI
+
             width: parent.width
-            height: parent.height - app.paddingSmall
-            property real itemWidth : width / 5
+            height: parent.height
 
             // album art
             Item {
                 id: imageItem
-                width: height //row.itemWidth
+                width: height 
                 height: parent.height
                 anchors {
-                    left: parent.left
                     verticalCenter: parent.verticalCenter
                 }
 
@@ -68,76 +71,166 @@ Item {
                 }
             }
 
-            Item {
+            Hutspot.SwipeArea {
+                id: meta
+                width: parent.width - imageItem.width - playerButton.width
                 height: parent.height
-                width: row.itemWidth * 3
-                anchors {
-                    left: imageItem.right
-                    verticalCenter: parent.verticalCenter
-                }
+                clip: true
 
-                Row {
-                    id: playerButtons
+                property int swipeX: 0
+                property bool backAnimationEnabled: false
+                property var flashButton
+
+                Column {
+                    id: info
+                    x: meta.swipeX 
+                    width: parent.width
                     anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
 
-                    // player controls
-                    Button {
-                        anchors.verticalCenter: parent.verticalCenter
-                        width: row.itemWidth * 0.8
-                        height: width
-                        color: app.bgColor
-                        enabled: app.controller.playbackState.canGoPrevious
-                        action: Action {
-                            iconName: "media-skip-backward"
-                            onTriggered: app.controller.previous()
-                        }
+                    Label {
+                        x: app.paddingSmall
+                        width: parent.width - 2*x
+                        wrapMode: Text.Wrap
+                        color: app.primaryHighlightColor
+                        text: getFirstLabelText()
                     }
-                    Button {
-                        anchors.verticalCenter: parent.verticalCenter
-                        width: row.itemWidth * 0.9
-                        height: width
-                        color: app.bgColor
-                        enabled: app.controller.playbackState.canPause
-                                 || app.controller.playbackState.canPlay
-                        action: Action {
-                            iconName: app.controller.playbackState.is_playing
-                                         ? "media-playback-pause"
-                                         : "media-playback-start"
-                            onTriggered: app.controller.playPause()
-                        }
+                    Label {
+                        x: app.paddingSmall
+                        width: parent.width - 2*x
+                        wrapMode: Text.Wrap
+                        color: app.secondaryHighlightColor
+                        text: getSecondLabelText()
                     }
-                    Button {
-                        anchors.verticalCenter: parent.verticalCenter
-                        width: row.itemWidth * 0.8
-                        height: width
-                        color: app.bgColor
-                        enabled: app.controller.playbackState.canGoNext
-                        action: Action {
-                            iconName: "media-skip-forward"
-                            onTriggered: app.controller.next()
-                        }
+                    Label {
+                        x: app.paddingSmall
+                        width: parent.width - 2*x
+                        wrapMode: Text.Wrap
+                        color: app.tertiaryHighlightColor
+                        text: getThirdLabelText()
                     }
+
+                }
+                onSwipe: {
+                    switch(direction) {
+                        case "left":
+                            if(!app.controller.playbackState.canGoNext)
+                                return
+                            meta.flashButton = nextButton
+                            meta.swipeX = meta.width
+                            app.controller.next()
+                            break
+                        case "right":
+                            if(!app.controller.playbackState.canGoPrevious)
+                                return
+                            meta.flashButton = previousButton
+                            meta.swipeX = -meta.width
+                            app.controller.previous()
+                            break
+                    }
+                    meta.backAnimationEnabled = true
+                }
+                onMove: {
+                    meta.backAnimationEnabled = false
+                    var newX = x
+                    if(x < 0 && app.controller.playbackState.canGoNext)
+                        meta.swipeX = x
+                    if(x > 0 && app.controller.playbackState.canGoPrevious)
+                        meta.swipeX = x
+                }
+                NumberAnimation on swipeX {
+                    id: backToZero
+                    running: meta.backAnimationEnabled
+                    to: 0
                 }
             }
 
-            /*Button {
-                id: playingButton
-                width: row.itemWidth * 0.8
+            Item {
+                width: app.iconSizeLarge
                 height: width
-                visible: showHomeButton
-                color: app.bgColor
                 anchors.verticalCenter: parent.verticalCenter
-                anchors.right: parent.right
-                action: Action {
-                    //iconName: "go-next"
-                    iconName: "home"
-                    onTriggered: app.goHome()
+
+                Icon {
+                    id: playerButton
+                    width: parent.width
+                    height: width
+                    enabled: app.controller.playbackState.canPause
+                             || app.controller.playbackState.canPlay
+                    name: playbackState.is_playing
+                                ? "media-preview-pause"
+                                : "media-preview-start"
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: app.controller.playPause()
+                    }
+                    opacity: 1
                 }
-            }*/
+                Icon {
+                    id: nextButton
+                    width: playerButton.width
+                    height: width
+                    x: playerButton.x
+                    y: playerButton.y
+                    name: "media-skip-forward"
+                    opacity: 0
+                }
+                Icon {
+                    id: previousButton
+                    width: playerButton.width
+                    height: width
+                    x: playerButton.x
+                    y: playerButton.y
+                    name: "media-skip-backward"
+                    opacity: 0
+                }
+            }
 
         }
     }
 
+    function getFirstLabelText() {
+        if(playbackState === undefined)
+            return ""
+        return playbackState.item ? playbackState.item.name : ""
+    }
+
+    function getSecondLabelText() {
+        if(playbackState === undefined)
+            return ""
+        var s = ""
+        if(playbackState.item && playbackState.item.album) {
+            s += playbackState.item.album.name
+            if (playbackState.item.album.release_date)
+                s += ", " + Util.getYearFromReleaseDate(playbackState.item.album.release_date)
+        } else if(playbackState.item && playbackState.item.show) {
+            s += playbackState.item.show.name
+            //if (playbackState.item.show.copyrights)
+            //    s += ", " + playbackState.item.show.copyrights
+        }
+        return s
+    }
+
+    function getThirdLabelText() {
+        var s = ""
+        if(playbackState === undefined)
+            return s
+        // no context (a single track?)
+        if(playbackState.item && playbackState.item.artists)
+            s += Util.createItemsString(playbackState.item.artists, i18n.tr("no artist known"))
+        else if(playbackState.item && playbackState.item.show)
+            s += playbackState.item.show.publisher
+        return s
+    }
+
+    /*function getLabelText(l0, l1) {
+      var l = ""
+      if(l0)
+        l += l0
+      if(l1) {
+        if(l)
+          l += " - "
+        l += l1    
+      }
+      return l
+    }*/
 }
 
