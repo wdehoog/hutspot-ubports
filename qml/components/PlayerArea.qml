@@ -121,7 +121,7 @@ Item {
                 }
             }
 
-            Button {
+            /*Button {
                 id: playingButton
                 width: row.itemWidth * 0.8
                 height: width
@@ -134,7 +134,7 @@ Item {
                     iconName: "home"
                     onTriggered: app.goHome()
                 }
-            }
+            }*/
 
         }
     }
