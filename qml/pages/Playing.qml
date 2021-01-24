@@ -49,16 +49,6 @@ Page {
     header: PageHeader {
         title: pageHeaderText
         subtitle: pageHeaderDescription
-        leadingActionBar.actions: [
-            Action { // copied from PageHeader
-                iconName: Qt.application.layoutDirection == Qt.RightToLeft ? "next": "back"
-                text: i18n.tr("Back")
-                onTriggered: {
-                    app._playingPageOnPageStack = false
-                    pageStack.pop()
-                }
-            }
-        ]
         flickable: listView
     }
 

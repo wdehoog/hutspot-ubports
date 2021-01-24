@@ -80,8 +80,6 @@ MainView {
         return Qt.hsla(color.hslHue, color.hslSaturation, color.hslLightness, alpha)
     }
 
-    onBgColorChanged: console.log("new bgColor: " + bgColor)
-
     property color bgColor: theme.palette.normal.background //app.Suru.backgroundColor
     property color normalBackgroundColor: bgColor
     property color highlightBackgroundColor: "#CDCDCD" // theme.palette.highlited.base
@@ -112,8 +110,13 @@ MainView {
     width: units.gu(45)
     height: units.gu(75)
 
+    property alias _playingPageOnPageStack: pageStack._playingPageOnPageStack
+
     PageStack {
         id: pageStack
+        property bool _playingPageOnPageStack: false
+        property int _playingPageDepth: -1
+
         //anchors.fill: parent
         anchors {
             fill: undefined
@@ -123,6 +126,20 @@ MainView {
             bottom: playerArea.top
         }
         clip: true
+
+        // keep track of Playing page is on the stack
+        onCurrentPageChanged: {
+            if(currentPage.objectName == "PlayingPage") {
+                _playingPageOnPageStack = true
+                _playingPageDepth = depth
+            }
+        }
+        onDepthChanged: {
+            if(_playingPageOnPageStack && depth < _playingPageDepth) {
+                _playingPageOnPageStack = false
+                _playingPageDepth = -1
+            }
+        }
     }
 
 
@@ -240,8 +257,6 @@ MainView {
         }
     }
 
-    property bool _playingPageOnPageStack: false
-
     function showPage(pageName) {
         var page
         switch(pageName) {
@@ -249,13 +264,12 @@ MainView {
             // there can be only one
             if(!_playingPageOnPageStack) {
                 pageStack.push(Qt.resolvedUrl("pages/Playing.qml"))
-                _playingPageOnPageStack = true
             } else {
-                app.showConfirmDialog(i18n.tr("Playing page is already loaded. Go back to it and discard the pages on top?"),
+                app.showConfirmDialog(i18n.tr("Playing page is already loaded. Go back to it and discard the pages above it?"),
                     function() {
-                        while(pageStack.currentPage.objectName !== "PlayingPage")
+                        while(pageStack.depth > 1
+                              && pageStack.currentPage.objectName !== "PlayingPage")
                             pageStack.pop()
-                        _playingPageOnPageStack = false
                     }
                 )
             }
@@ -336,7 +350,6 @@ MainView {
     function goHome() {
         while(pageStack.currentPage.objectName !== "MenuPage")
             pageStack.pop()
-        _playingPageOnPageStack = false
     }
 
     function setDarkMode(mode) {
