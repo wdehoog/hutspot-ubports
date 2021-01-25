@@ -86,7 +86,7 @@ Page {
 
             Item {
                 width: parent.width
-                height: childrenRect.height
+                height: authUsingBrowserSelector.height // childrenRect.height
                 Label {
                     id: authUsingBrowserLabel
                     anchors.left: parent.left
@@ -113,7 +113,7 @@ Page {
 
             Item {
                 width: parent.width
-                height: childrenRect.height
+                height: searchHistoryMaxSize.height //childrenRect.height
                 Label {
                     id: searchHistoryMaxSizeLabel
                     anchors.left: parent.left
@@ -135,7 +135,7 @@ Page {
 
             Item {
                 width: parent.width
-                height: childrenRect.height
+                height: maxNumberOfResults.height // childrenRect.height
                 Label {
                     id: maxNumberOfResultsLabel
                     anchors.left: parent.left

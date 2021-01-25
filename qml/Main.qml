@@ -129,7 +129,7 @@ MainView {
 
         // keep track of Playing page is on the stack
         onCurrentPageChanged: {
-            if(currentPage.objectName == "PlayingPage") {
+            if(currentPage && currentPage.objectName == "PlayingPage") {
                 _playingPageOnPageStack = true
                 _playingPageDepth = depth
             }
@@ -145,7 +145,8 @@ MainView {
 
     PlayerArea {
         id: playerArea
-        visible: pageStack.currentPage.objectName !== "PlayingPage"
+        visible: pageStack.currentPage
+                 && pageStack.currentPage.objectName !== "PlayingPage"
         height: visible ? itemSizeLarge : 0
         anchors {
             bottom: parent.bottom
@@ -153,10 +154,12 @@ MainView {
         }
         width: parent.width - 2*paddingSmall
         x: paddingSmall
-        allowGoPlayingPage: pageStack.currentPage.hasOwnProperty("fromPlaying")
+        allowGoPlayingPage: pageStack.currentPage
+                            && pageStack.currentPage.hasOwnProperty("fromPlaying")
                             ? !pageStack.currentPage.fromPlaying
                             : true
-        showHomeButton: pageStack.currentPage.objectName !== "MenuPage"
+        showHomeButton: pageStack.currentPage
+                        && pageStack.currentPage.objectName !== "MenuPage"
     }
 
     Image {
@@ -1754,7 +1757,7 @@ MainView {
         property bool confirmUnFollowSave: true
         property bool preventSuspendWhilePlaying: true
         property bool useAlbumartAsBackground: true
-        property int theme: 0 // 0: follow system, 1: dark, 2: light 
+        property int theme: 0 // 0: follow system, 1: dark, 2: light
 
         property var history: []
 
