@@ -6,7 +6,6 @@
         "content_exchange_source",
         "content_exchange",
         "networking",
-        "webview",
-        "hold_off_suspend"
+        "webview"
     ]
 }
