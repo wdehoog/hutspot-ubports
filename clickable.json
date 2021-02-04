@@ -1,6 +1,7 @@
 {
   "builder": "cmake",
   "kill": "hutspot",
+  "qt_version": "5.12",
   "libraries": {
      "qtdbusextended": {
         "builder": "qmake"
