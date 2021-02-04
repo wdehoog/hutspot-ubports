@@ -581,9 +581,12 @@ MainView {
                         ev.trackUri = track.uri
                         ev.href = item.href
                         playlistEvent(ev)
+                        showMessageDialog(i18n.tr("Add to Playlist"), i18n.tr("Succeeded"))
                         console.log("addToPlaylist: added \"")
-                    } else
+                    } else {
+                        showErrorMessage(error, i18n.tr("Failed to Add to Playlist"))
                         console.log("addToPlaylist: failed to add \"")
+                    }
                     console.log(track.name + "\" to \"" + item.name + "\"")
                 })
             }

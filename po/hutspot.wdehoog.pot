@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hutspot.wdehoog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-25 19:42+0000\n"
+"POT-Creation-Date: 2021-02-04 21:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,11 +21,11 @@ msgstr ""
 msgid "There is a resume point available for this Epsidode: "
 msgstr ""
 
-#: ../qml/components/RecommendationData.qml:84 ../qml/Main.qml:1081
+#: ../qml/components/RecommendationData.qml:84 ../qml/Main.qml:1084
 msgid "artist"
 msgstr ""
 
-#: ../qml/components/RecommendationData.qml:85 ../qml/Main.qml:1083
+#: ../qml/components/RecommendationData.qml:85 ../qml/Main.qml:1086
 #: ../qml/pages/Playing.qml:585 ../qml/pages/Album.qml:94
 msgid "track"
 msgstr ""
@@ -87,7 +87,7 @@ msgid "View Artist"
 msgstr ""
 
 #: ../qml/components/AlbumTrackContextMenu.qml:66
-#: ../qml/components/SearchResultContextMenu.qml:66
+#: ../qml/components/SearchResultContextMenu.qml:66 ../qml/Main.qml:584
 msgid "Add to Playlist"
 msgstr ""
 
@@ -102,14 +102,14 @@ msgstr ""
 #: ../qml/components/CreatePlaylist.qml:34
 #: ../qml/components/PlaylistPicker.qml:38 ../qml/components/Librespot.qml:414
 #: ../qml/components/GenrePicker.qml:36 ../qml/components/ArtistPicker.qml:35
-#: ../qml/Main.qml:1153 ../qml/Main.qml:1661
+#: ../qml/Main.qml:1156 ../qml/Main.qml:1664
 #: ../qml/pages/Recommendations.qml:316
 msgid "Cancel"
 msgstr ""
 
 #: ../qml/components/CreatePlaylist.qml:41
 #: ../qml/components/PlaylistPicker.qml:45 ../qml/components/GenrePicker.qml:43
-#: ../qml/components/ArtistPicker.qml:42 ../qml/Main.qml:1653
+#: ../qml/components/ArtistPicker.qml:42 ../qml/Main.qml:1656
 msgid "Select"
 msgstr ""
 
@@ -200,8 +200,8 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-#: ../qml/components/Librespot.qml:404 ../qml/Main.qml:1101
-#: ../qml/Main.qml:1162
+#: ../qml/components/Librespot.qml:404 ../qml/Main.qml:1104
+#: ../qml/Main.qml:1165
 msgid "Ok"
 msgstr ""
 
@@ -256,83 +256,91 @@ msgstr ""
 msgid "Select a Playlist"
 msgstr ""
 
-#: ../qml/Main.qml:594
+#: ../qml/Main.qml:584
+msgid "Succeeded"
+msgstr ""
+
+#: ../qml/Main.qml:587
+msgid "Failed to Add to Playlist"
+msgstr ""
+
+#: ../qml/Main.qml:597
 msgid "Please confirm removing<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:760
+#: ../qml/Main.qml:763
 msgid "Please confirm to unfollow playlist:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:786
+#: ../qml/Main.qml:789
 msgid "Please confirm to unfollow artist:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:817
+#: ../qml/Main.qml:820
 msgid "Please confirm to un-save album:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:848
+#: ../qml/Main.qml:851
 msgid "Please confirm to un-save show:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:874
+#: ../qml/Main.qml:877
 msgid "Please confirm to un-save track:<br><br><b>"
 msgstr ""
 
-#: ../qml/Main.qml:988
+#: ../qml/Main.qml:991
 msgid "Failed to fetch Show"
 msgstr ""
 
-#: ../qml/Main.qml:1056
+#: ../qml/Main.qml:1059
 msgid "Failed to fetch full "
 msgstr ""
 
-#: ../qml/Main.qml:1066
+#: ../qml/Main.qml:1069
 msgid "View an Artist"
 msgstr ""
 
-#: ../qml/Main.qml:1080 ../qml/Main.qml:1082
+#: ../qml/Main.qml:1083 ../qml/Main.qml:1085
 msgid "album"
 msgstr ""
 
-#: ../qml/Main.qml:1084
+#: ../qml/Main.qml:1087
 msgid "episode"
 msgstr ""
 
-#: ../qml/Main.qml:1085
+#: ../qml/Main.qml:1088
 msgid "show"
 msgstr ""
 
-#: ../qml/Main.qml:1086
+#: ../qml/Main.qml:1089
 msgid "unknown type"
 msgstr ""
 
-#: ../qml/Main.qml:1117
+#: ../qml/Main.qml:1120
 msgid "Error"
 msgstr ""
 
-#: ../qml/Main.qml:1180
+#: ../qml/Main.qml:1183
 msgid "Confirm"
 msgstr ""
 
-#: ../qml/Main.qml:1190
+#: ../qml/Main.qml:1193
 msgid "Failed to transfer to"
 msgstr ""
 
-#: ../qml/Main.qml:1469
+#: ../qml/Main.qml:1472
 msgid "Failed to update Playlist for %1"
 msgstr ""
 
-#: ../qml/Main.qml:1477
+#: ../qml/Main.qml:1480
 msgid "No Recommended Tracks for "
 msgstr ""
 
-#: ../qml/Main.qml:1630
+#: ../qml/Main.qml:1633
 msgid "Select Recommendation Set"
 msgstr ""
 
-#: ../qml/Main.qml:1637
+#: ../qml/Main.qml:1640
 msgid "Sets"
 msgstr ""
 
